@@ -6,7 +6,7 @@ let timer = setInterval(function () {
 }, INTERVAL);
 
 onmessage = function (e: any) {
-    if (e.data === "stop") {
+    if (e.data === 'stop') {
         clearInterval(timer);
         close();
     }

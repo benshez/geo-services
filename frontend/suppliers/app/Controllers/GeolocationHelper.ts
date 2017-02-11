@@ -1,5 +1,5 @@
-﻿import { IGeolocationHelperFilters } from './Interfaces';
-import { GeolocationHelperHandlers } from './Handlers';
+﻿import { IGeolocationHelperFilters } from '../Interfaces/index';
+import { GeolocationHelperHandlers } from '../Handlers/index';
 
 class GeolocationHelper implements GeolocationHelperHandlers {
 
