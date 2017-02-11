@@ -1,4 +1,4 @@
-import { IStorage, IStorageSetConfig } from './storage';
+import { IStorage, IStorageSetConfig } from '../../Interfaces/index';
 
 const _cache = new Map();
 

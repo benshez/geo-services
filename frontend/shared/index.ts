@@ -1,1 +1,2 @@
-﻿export * from './services/locker/index';
+﻿export * from './Interfaces/index';
+export * from './Services/index';

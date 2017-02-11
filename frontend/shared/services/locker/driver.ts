@@ -1,9 +1,9 @@
 declare const __DEV__: any;
 
-import { IStorage, IStorageSetConfig } from './storage';
-import { convertFromJSON } from './helpers';
-import { MemoryStorage } from './memorystorage';
-import { CookieStorage } from './cookiestorage';
+import { IStorage, IStorageSetConfig } from '../../Interfaces/index';
+import { convertFromJSON } from './Helpers';
+import { MemoryStorage } from './MemoryStorage';
+import { CookieStorage } from './CookieStorage';
 
 const LOCKER_TEST_KEY = 'LOCKER_TEST_KEY';
 

@@ -1,5 +1,5 @@
-import { IStorageSetConfig } from './storage';
-import { COOKIE_SEP, encode, decode, toString, isString } from './helpers';
+import { IStorageSetConfig } from '../../Interfaces/index';
+import { COOKIE_SEP, encode, decode, toString, isString } from './Helpers';
 
 const DEFAULT_CONFIG: IStorageSetConfig = {};
 

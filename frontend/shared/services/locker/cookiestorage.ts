@@ -1,5 +1,5 @@
-import { IStorage, IStorageSetConfig } from './storage';
-import { Cookie } from './cookie';
+import { IStorage, IStorageSetConfig } from '../../Interfaces/index';
+import { Cookie } from './Cookie';
 
 export class CookieStorage implements IStorage {
     public hasOwnProperty(key: string) {

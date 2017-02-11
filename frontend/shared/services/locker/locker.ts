@@ -1,8 +1,8 @@
 declare const sessionStorage: any, localStorage: any
 
-import { IStorageSetConfig } from './storage';
-import { Driver, DRIVERS } from './driver';
-import { isNil } from './helpers';
+import { IStorageSetConfig } from '../../Interfaces/indes';
+import { Driver, DRIVERS } from './Driver';
+import { isNil } from './Helpers';
 
 export class LockerConfig {
     constructor(

@@ -1,5 +1,4 @@
-import { Locker, LockerConfig } from './locker';
+import { Locker, LockerConfig } from './Locker';
 
-export * from './driver';
-export * from './storage';
-export * from './locker';
+export * from './Driver';
+export * from './Locker';

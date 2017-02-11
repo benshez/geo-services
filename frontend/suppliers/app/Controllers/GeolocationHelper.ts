@@ -1,15 +1,10 @@
-﻿import { IGeolocationHelperFilters } from '../Interfaces/index';
+﻿import { IGeolocationHelperFilters, IGeolocationHelperArrays } from '../Interfaces/index';
 import { GeolocationHelperHandlers } from '../Handlers/index';
+import { LogService, Locker, LockerConfig } from '../../../shared/Services/index';
 
 class GeolocationHelper implements GeolocationHelperHandlers {
 
-    accuracyArray: Array<any> = [];
-    timeStampArray: Array<any> = [];
-    speedArray: Array<any> = [];
-    latArray: Array<any> = [];
-    lonArray: Array<any> = [];
-    latLonArray: Array<any> = [];
-    distanceArray: Array<any> = [];
+
     stddev_accuracy: any = 0;
     stddev_lat: any = 0;
     stddev_lon: any = 0;
@@ -22,77 +17,82 @@ class GeolocationHelper implements GeolocationHelperHandlers {
     med_speed: any = 0;
     med_timediff: any = 0;
 
-    FiltersInterface: IGeolocationHelperFilters;
+    helperFilter: IGeolocationHelperFilters;
+    helperArray: IGeolocationHelperArrays;
+    lockerConfig: LockerConfig;
 
-
-    constructor(filters: any) {
+    constructor(private filters: any, private locker?: Locker, private logger?: LogService) {
         filters = filters || {};
+
+        locker = locker || new Locker(this.lockerConfig);
+
+        logger = logger || new LogService();
 
         this.setInterfaceValues(filters);
 
-        if (!window.localStorage) console.error("WARNING: GeolocationHelper.js requires local storage.");
+        if (!locker) this.logger.error('GeolocationHelper.js requires local storage.');
     }
 
     setInterfaceValues(filters: any) {
-        "UNITS" in filters ? this.FiltersInterface.UNITS = filters.UNITS : this.FiltersInterface.UNITS = "M";
-        "MAX_ACCURACY" in filters ? this.FiltersInterface.MAX_ACCURACY = filters.MAX_ACCURACY : this.FiltersInterface.MAX_ACCURACY = 100;
-        "MAX_MEDIAN_ACCURACY" in filters ? this.FiltersInterface.MAX_MEDIAN_ACCURACY = filters.MAX_MEDIAN_ACCURACY : this.FiltersInterface.MAX_MEDIAN_ACCURACY = 20;
-        "MAX_STDDEVIATION_ACCURACY" in filters ? this.FiltersInterface.MAX_STDDEVIATION_ACCURACY = filters.MAX_STDDEVIATION_ACCURACY : this.FiltersInterface.MAX_STDDEVIATION_ACCURACY = 2.5;
-        "MAX_STDDEVIATION_LAT" in filters ? this.FiltersInterface.MAX_STDDEVIATION_LAT = filters.MAX_STDDEVIATION_LAT : this.FiltersInterface.MAX_STDDEVIATION_LAT = 0.0001;
-        "MAX_STDDEVIATION_LON" in filters ? this.FiltersInterface.MAX_STDDEVIATION_LON = filters.MAX_STDDEVIATION_LON : this.FiltersInterface.MAX_STDDEVIATION_LON = 0.0001;
-        "MAX_ARRAY_SIZE" in filters ? this.FiltersInterface.MAX_ARRAY_SIZE = filters.MAX_ARRAY_SIZE : this.FiltersInterface.MAX_ARRAY_SIZE = 25;
+        "UNITS" in filters ? this.helperFilter.UNITS = filters.UNITS : this.helperFilter.UNITS = "M";
+        "MAX_ACCURACY" in filters ? this.helperFilter.MAX_ACCURACY = filters.MAX_ACCURACY : this.helperFilter.MAX_ACCURACY = 100;
+        "MAX_MEDIAN_ACCURACY" in filters ? this.helperFilter.MAX_MEDIAN_ACCURACY = filters.MAX_MEDIAN_ACCURACY : this.helperFilter.MAX_MEDIAN_ACCURACY = 20;
+        "MAX_STDDEVIATION_ACCURACY" in filters ? this.helperFilter.MAX_STDDEVIATION_ACCURACY = filters.MAX_STDDEVIATION_ACCURACY : this.helperFilter.MAX_STDDEVIATION_ACCURACY = 2.5;
+        "MAX_STDDEVIATION_LAT" in filters ? this.helperFilter.MAX_STDDEVIATION_LAT = filters.MAX_STDDEVIATION_LAT : this.helperFilter.MAX_STDDEVIATION_LAT = 0.0001;
+        "MAX_STDDEVIATION_LON" in filters ? this.helperFilter.MAX_STDDEVIATION_LON = filters.MAX_STDDEVIATION_LON : this.helperFilter.MAX_STDDEVIATION_LON = 0.0001;
+        "MAX_ARRAY_SIZE" in filters ? this.helperFilter.MAX_ARRAY_SIZE = filters.MAX_ARRAY_SIZE : this.helperFilter.MAX_ARRAY_SIZE = 25;
     }
 
     reset() {
-        this.timeStampArray = [];
-        this.speedArray = [];
-        this.accuracyArray = [];
-        this.distanceArray = [];
-        this.latArray = [];
-        this.lonArray = [];
-        this.latLonArray = [];
+        this.helperArray.timeStampArray = [];
+        this.helperArray.speedArray = [];
+        this.helperArray.accuracyArray = [];
+        this.helperArray.distanceArray = [];
+        this.helperArray.latArray = [];
+        this.helperArray.lonArray = [];
+        this.helperArray.latLonArray = [];
     }
 
     process(accuracy: any, lat: any, lon: any, timestamp: any, callback: any) {
-        this.accuracyArray.push(accuracy);
+        this.helperArray.accuracyArray.push(accuracy);
 
-        this.avg_accuracy = this.average(this.accuracyArray);
-        this.med_accuracy = this.median(this.accuracyArray);
-        this.stddev_accuracy = this.standardDeviation(this.accuracyArray);
+        this.avg_accuracy = this.average(this.helperArray.accuracyArray);
+        this.med_accuracy = this.median(this.helperArray.accuracyArray);
+        this.stddev_accuracy = this.standardDeviation(this.helperArray.accuracyArray);
 
-        this.latArray.push(lat);
-        this.lonArray.push(lon);
-        this.latLonArray.push({
+        this.helperArray.latArray.push(lat);
+        this.helperArray.lonArray.push(lon);
+        this.helperArray.latLonArray.push({
             latitude: lat,
             longitude: lon
         });
 
-        this.timeStampArray.push(timestamp);
+        this.helperArray.timeStampArray.push(timestamp);
 
-        if (this.latArray.length > 1) {
-            let previous_lat = this.latArray[this.latArray.length - 1];
-            let previous_lon = this.lonArray[this.lonArray.length - 1];
+        if (this.helperArray.latArray.length > 1) {
+            let previous_lat = this.helperArray.latArray[this.helperArray.latArray.length - 1];
+            let previous_lon = this.helperArray.lonArray[this.helperArray.lonArray.length - 1];
 
-            let units = this.FiltersInterface.UNITS;
+            let units = this.helperFilter.UNITS;
             let distance = this.distance(previous_lat, previous_lon, lat, lon, units);
-            this.distanceArray.push(distance);
-            let timeDiff = timestamp - this.timeStampArray[this.timeStampArray.length - 1] / 1000;
+            this.helperArray.distanceArray.push(distance);
+            let timeDiff = timestamp - this.helperArray.timeStampArray[this.helperArray.timeStampArray.length - 1] / 1000;
             let timeDiffInHours = Math.floor((timeDiff %= 86400) / 3600);
             let speed = distance / timeDiffInHours;
-            this.speedArray.push(speed);
+            this.helperArray.speedArray.push(speed);
         };
 
         this.manageArraySize();
 
-        this.med_lat = this.median(this.latArray);
-        this.med_lon = this.median(this.lonArray);
-        this.med_speed = this.median(this.speedArray);
-        this.med_distance = this.median(this.distanceArray);
-        this.avg_distance = this.average(this.distanceArray);
-        this.med_timediff = this.medianTime(this.timeStampArray);
-        this.stddev_lat = this.standardDeviation(this.latArray);
-        this.stddev_lon = this.standardDeviation(this.lonArray);
-        this.stddev_distance = this.standardDeviation(this.distanceArray);
+        this.med_lat = this.median(this.helperArray.latArray);
+        this.med_lon = this.median(this.helperArray.lonArray);
+        this.med_speed = this.median(this.helperArray.speedArray);
+        this.med_distance = this.median(this.helperArray.distanceArray);
+        this.avg_distance = this.average(this.helperArray.distanceArray);
+        this.med_timediff = this.medianTime(this.helperArray.timeStampArray);
+        this.stddev_lat = this.standardDeviation(this.helperArray.latArray);
+        this.stddev_lon = this.standardDeviation(this.helperArray.lonArray);
+        this.stddev_distance = this.standardDeviation(this.helperArray.distanceArray);
 
         this.filter(accuracy, callback);
     }
@@ -102,18 +102,18 @@ class GeolocationHelper implements GeolocationHelperHandlers {
         let reject = false;
         let locationObject: any = {};
 
-        if (accuracy > this.FiltersInterface.MAX_ACCURACY) reject = true;
+        if (accuracy > this.helperFilter.MAX_ACCURACY) reject = true;
 
-        if (this.med_accuracy > this.FiltersInterface.MAX_MEDIAN_ACCURACY) reject = true;
+        if (this.med_accuracy > this.helperFilter.MAX_MEDIAN_ACCURACY) reject = true;
 
-        if (this.stddev_accuracy > this.FiltersInterface.MAX_STDDEVIATION_ACCURACY) reject = true;
+        if (this.stddev_accuracy > this.helperFilter.MAX_STDDEVIATION_ACCURACY) reject = true;
 
-        if (this.stddev_lat > this.FiltersInterface.MAX_STDDEVIATION_LAT) reject = true;
+        if (this.stddev_lat > this.helperFilter.MAX_STDDEVIATION_LAT) reject = true;
 
-        if (this.stddev_lon > this.FiltersInterface.MAX_STDDEVIATION_LON) reject = true;
+        if (this.stddev_lon > this.helperFilter.MAX_STDDEVIATION_LON) reject = true;
 
         locationObject.reject = reject;
-        locationObject.count = this.latArray.length;
+        locationObject.count = this.helperArray.latArray.length;
         locationObject.avg_accuracy = this.avg_accuracy;
         locationObject.avg_distance = this.avg_distance;
         locationObject.med_lat = this.med_lat;                  // Median latitude
@@ -126,27 +126,27 @@ class GeolocationHelper implements GeolocationHelperHandlers {
         locationObject.stddev_lon = this.stddev_lon;            // Standard deviation longitude
         locationObject.stddev_accuracy = this.stddev_accuracy;  // Standard deviation accuracy
         locationObject.stddev_distance = this.stddev_distance;  // Standard deviation distance between values in the array
-        locationObject.center_point = this.getCenter(this.latLonArray);
+        locationObject.center_point = this.getCenter(this.helperArray.latLonArray);
 
-        localStorage.setItem['geolocationObject'] = JSON.stringify(locationObject);
+        this.locker.set('geolocationObject', JSON.stringify(locationObject));
 
         callback(locationObject);
     }
 
     getLocationInfo() {
-        return localStorage.getItem['geolocationObject'];
+        return this.locker.get('geolocationObject');
     }
 
     manageArraySize() {
-        if (this.accuracyArray.length > this.FiltersInterface.MAX_ARRAY_SIZE) this.accuracyArray.shift();
+        if (this.helperArray.accuracyArray.length > this.helperFilter.MAX_ARRAY_SIZE) this.helperArray.accuracyArray.shift();
 
-        if (this.distanceArray.length > this.FiltersInterface.MAX_ARRAY_SIZE) this.distanceArray.shift();
+        if (this.helperArray.distanceArray.length > this.helperFilter.MAX_ARRAY_SIZE) this.helperArray.distanceArray.shift();
 
-        if (this.latLonArray.length > this.FiltersInterface.MAX_ARRAY_SIZE) this.latLonArray.shift();
+        if (this.helperArray.latLonArray.length > this.helperFilter.MAX_ARRAY_SIZE) this.helperArray.latLonArray.shift();
 
-        if (this.latArray.length > this.FiltersInterface.MAX_ARRAY_SIZE) this.latArray.shift();
+        if (this.helperArray.latArray.length > this.helperFilter.MAX_ARRAY_SIZE) this.helperArray.latArray.shift();
 
-        if (this.lonArray.length > this.FiltersInterface.MAX_ARRAY_SIZE) this.lonArray.shift();
+        if (this.helperArray.lonArray.length > this.helperFilter.MAX_ARRAY_SIZE) this.helperArray.lonArray.shift();
     }
 
     distance(lat1: any, lon1: any, lat2: any, lon2: any, unit: string) {
@@ -221,7 +221,7 @@ class GeolocationHelper implements GeolocationHelperHandlers {
     }
 
     getLatLonArray() {
-        return this.latLonArray;
+        return this.helperArray.latLonArray;
     }
 
     getCenter(coordsArray: Array<any>) {
@@ -242,9 +242,9 @@ class GeolocationHelper implements GeolocationHelperHandlers {
         });
 
         // Get our averages
-        let xAvg = x / this.latLonArray.length;
-        let yAvg = y / this.latLonArray.length;
-        let zAvg = z / this.latLonArray.length;
+        let xAvg = x / this.helperArray.latLonArray.length;
+        let yAvg = y / this.helperArray.latLonArray.length;
+        let zAvg = z / this.helperArray.latLonArray.length;
 
         // Convert cartesian back to radians
         let sphericalLatRads = Math.asin(zAvg / radius);
