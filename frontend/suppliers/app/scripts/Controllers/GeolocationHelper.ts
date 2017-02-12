@@ -1,6 +1,6 @@
 ﻿import { IGeolocationHelperFilters, IGeolocationHelperArrays } from '../Interfaces/index';
 import { GeolocationHelperHandlers } from '../Handlers/index';
-import { LogService, Locker, LockerConfig } from '../../../shared/Services/index';
+import { LogService, Locker, LockerConfig } from '../../../../shared/Services/index';
 
 class GeolocationHelper implements GeolocationHelperHandlers {
 
@@ -139,13 +139,9 @@ class GeolocationHelper implements GeolocationHelperHandlers {
 
     manageArraySize() {
         if (this.helperArray.accuracyArray.length > this.helperFilter.MAX_ARRAY_SIZE) this.helperArray.accuracyArray.shift();
-
         if (this.helperArray.distanceArray.length > this.helperFilter.MAX_ARRAY_SIZE) this.helperArray.distanceArray.shift();
-
         if (this.helperArray.latLonArray.length > this.helperFilter.MAX_ARRAY_SIZE) this.helperArray.latLonArray.shift();
-
         if (this.helperArray.latArray.length > this.helperFilter.MAX_ARRAY_SIZE) this.helperArray.latArray.shift();
-
         if (this.helperArray.lonArray.length > this.helperFilter.MAX_ARRAY_SIZE) this.helperArray.lonArray.shift();
     }
 

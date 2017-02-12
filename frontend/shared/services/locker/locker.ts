@@ -1,6 +1,6 @@
 declare const sessionStorage: any, localStorage: any
 
-import { IStorageSetConfig } from '../../Interfaces/indes';
+import { IStorageSetConfig } from '../../Interfaces/index';
 import { Driver, DRIVERS } from './Driver';
 import { isNil } from './Helpers';
 
