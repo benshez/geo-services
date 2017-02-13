@@ -3,6 +3,9 @@ Visual Studio 2015
 node_modules/
 dist
 docs_generated
+*.sln
+*.csproj
+*.config
 src/**/*.js
 src/**/*.map
 src/**/*.ngfactory.js
