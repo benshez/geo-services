@@ -1,0 +1,1873 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'update' ]
+2 info using npm@3.10.8
+3 info using node@v6.8.1
+4 silly mapToRegistry name @angular/common
+5 silly mapToRegistry scope (from package name) @angular
+6 verbose mapToRegistry no registry URL found in name for scope @angular
+7 silly mapToRegistry using default registry
+8 silly mapToRegistry registry https://registry.npmjs.org/
+9 silly mapToRegistry data Result {
+9 silly mapToRegistry   raw: '@angular/common',
+9 silly mapToRegistry   scope: '@angular',
+9 silly mapToRegistry   escapedName: '@angular%2fcommon',
+9 silly mapToRegistry   name: '@angular/common',
+9 silly mapToRegistry   rawSpec: '',
+9 silly mapToRegistry   spec: 'latest',
+9 silly mapToRegistry   type: 'tag' }
+10 silly mapToRegistry uri https://registry.npmjs.org/@angular%2fcommon
+11 silly mapToRegistry name @angular/compiler
+12 silly mapToRegistry scope (from package name) @angular
+13 verbose mapToRegistry no registry URL found in name for scope @angular
+14 silly mapToRegistry using default registry
+15 silly mapToRegistry registry https://registry.npmjs.org/
+16 silly mapToRegistry data Result {
+16 silly mapToRegistry   raw: '@angular/compiler',
+16 silly mapToRegistry   scope: '@angular',
+16 silly mapToRegistry   escapedName: '@angular%2fcompiler',
+16 silly mapToRegistry   name: '@angular/compiler',
+16 silly mapToRegistry   rawSpec: '',
+16 silly mapToRegistry   spec: 'latest',
+16 silly mapToRegistry   type: 'tag' }
+17 silly mapToRegistry uri https://registry.npmjs.org/@angular%2fcompiler
+18 silly mapToRegistry name @angular/compiler-cli
+19 silly mapToRegistry scope (from package name) @angular
+20 verbose mapToRegistry no registry URL found in name for scope @angular
+21 silly mapToRegistry using default registry
+22 silly mapToRegistry registry https://registry.npmjs.org/
+23 silly mapToRegistry data Result {
+23 silly mapToRegistry   raw: '@angular/compiler-cli',
+23 silly mapToRegistry   scope: '@angular',
+23 silly mapToRegistry   escapedName: '@angular%2fcompiler-cli',
+23 silly mapToRegistry   name: '@angular/compiler-cli',
+23 silly mapToRegistry   rawSpec: '',
+23 silly mapToRegistry   spec: 'latest',
+23 silly mapToRegistry   type: 'tag' }
+24 silly mapToRegistry uri https://registry.npmjs.org/@angular%2fcompiler-cli
+25 silly mapToRegistry name @angular/core
+26 silly mapToRegistry scope (from package name) @angular
+27 verbose mapToRegistry no registry URL found in name for scope @angular
+28 silly mapToRegistry using default registry
+29 silly mapToRegistry registry https://registry.npmjs.org/
+30 silly mapToRegistry data Result {
+30 silly mapToRegistry   raw: '@angular/core',
+30 silly mapToRegistry   scope: '@angular',
+30 silly mapToRegistry   escapedName: '@angular%2fcore',
+30 silly mapToRegistry   name: '@angular/core',
+30 silly mapToRegistry   rawSpec: '',
+30 silly mapToRegistry   spec: 'latest',
+30 silly mapToRegistry   type: 'tag' }
+31 silly mapToRegistry uri https://registry.npmjs.org/@angular%2fcore
+32 silly mapToRegistry name @angular/platform-browser
+33 silly mapToRegistry scope (from package name) @angular
+34 verbose mapToRegistry no registry URL found in name for scope @angular
+35 silly mapToRegistry using default registry
+36 silly mapToRegistry registry https://registry.npmjs.org/
+37 silly mapToRegistry data Result {
+37 silly mapToRegistry   raw: '@angular/platform-browser',
+37 silly mapToRegistry   scope: '@angular',
+37 silly mapToRegistry   escapedName: '@angular%2fplatform-browser',
+37 silly mapToRegistry   name: '@angular/platform-browser',
+37 silly mapToRegistry   rawSpec: '',
+37 silly mapToRegistry   spec: 'latest',
+37 silly mapToRegistry   type: 'tag' }
+38 silly mapToRegistry uri https://registry.npmjs.org/@angular%2fplatform-browser
+39 silly mapToRegistry name @angular/platform-browser-dynamic
+40 silly mapToRegistry scope (from package name) @angular
+41 verbose mapToRegistry no registry URL found in name for scope @angular
+42 silly mapToRegistry using default registry
+43 silly mapToRegistry registry https://registry.npmjs.org/
+44 silly mapToRegistry data Result {
+44 silly mapToRegistry   raw: '@angular/platform-browser-dynamic',
+44 silly mapToRegistry   scope: '@angular',
+44 silly mapToRegistry   escapedName: '@angular%2fplatform-browser-dynamic',
+44 silly mapToRegistry   name: '@angular/platform-browser-dynamic',
+44 silly mapToRegistry   rawSpec: '',
+44 silly mapToRegistry   spec: 'latest',
+44 silly mapToRegistry   type: 'tag' }
+45 silly mapToRegistry uri https://registry.npmjs.org/@angular%2fplatform-browser-dynamic
+46 silly mapToRegistry name @angular/platform-server
+47 silly mapToRegistry scope (from package name) @angular
+48 verbose mapToRegistry no registry URL found in name for scope @angular
+49 silly mapToRegistry using default registry
+50 silly mapToRegistry registry https://registry.npmjs.org/
+51 silly mapToRegistry data Result {
+51 silly mapToRegistry   raw: '@angular/platform-server',
+51 silly mapToRegistry   scope: '@angular',
+51 silly mapToRegistry   escapedName: '@angular%2fplatform-server',
+51 silly mapToRegistry   name: '@angular/platform-server',
+51 silly mapToRegistry   rawSpec: '',
+51 silly mapToRegistry   spec: 'latest',
+51 silly mapToRegistry   type: 'tag' }
+52 silly mapToRegistry uri https://registry.npmjs.org/@angular%2fplatform-server
+53 silly mapToRegistry name @angular/tsc-wrapped
+54 silly mapToRegistry scope (from package name) @angular
+55 verbose mapToRegistry no registry URL found in name for scope @angular
+56 silly mapToRegistry using default registry
+57 silly mapToRegistry registry https://registry.npmjs.org/
+58 silly mapToRegistry data Result {
+58 silly mapToRegistry   raw: '@angular/tsc-wrapped',
+58 silly mapToRegistry   scope: '@angular',
+58 silly mapToRegistry   escapedName: '@angular%2ftsc-wrapped',
+58 silly mapToRegistry   name: '@angular/tsc-wrapped',
+58 silly mapToRegistry   rawSpec: '',
+58 silly mapToRegistry   spec: 'latest',
+58 silly mapToRegistry   type: 'tag' }
+59 silly mapToRegistry uri https://registry.npmjs.org/@angular%2ftsc-wrapped
+60 silly mapToRegistry name @angularclass/hmr-loader
+61 silly mapToRegistry scope (from package name) @angularclass
+62 verbose mapToRegistry no registry URL found in name for scope @angularclass
+63 silly mapToRegistry using default registry
+64 silly mapToRegistry registry https://registry.npmjs.org/
+65 silly mapToRegistry data Result {
+65 silly mapToRegistry   raw: '@angularclass/hmr-loader',
+65 silly mapToRegistry   scope: '@angularclass',
+65 silly mapToRegistry   escapedName: '@angularclass%2fhmr-loader',
+65 silly mapToRegistry   name: '@angularclass/hmr-loader',
+65 silly mapToRegistry   rawSpec: '',
+65 silly mapToRegistry   spec: 'latest',
+65 silly mapToRegistry   type: 'tag' }
+66 silly mapToRegistry uri https://registry.npmjs.org/@angularclass%2fhmr-loader
+67 silly mapToRegistry name @ngtools/webpack
+68 silly mapToRegistry scope (from package name) @ngtools
+69 verbose mapToRegistry no registry URL found in name for scope @ngtools
+70 silly mapToRegistry using default registry
+71 silly mapToRegistry registry https://registry.npmjs.org/
+72 silly mapToRegistry data Result {
+72 silly mapToRegistry   raw: '@ngtools/webpack',
+72 silly mapToRegistry   scope: '@ngtools',
+72 silly mapToRegistry   escapedName: '@ngtools%2fwebpack',
+72 silly mapToRegistry   name: '@ngtools/webpack',
+72 silly mapToRegistry   rawSpec: '',
+72 silly mapToRegistry   spec: 'latest',
+72 silly mapToRegistry   type: 'tag' }
+73 silly mapToRegistry uri https://registry.npmjs.org/@ngtools%2fwebpack
+74 silly mapToRegistry name @types/jasmine
+75 silly mapToRegistry scope (from package name) @types
+76 verbose mapToRegistry no registry URL found in name for scope @types
+77 silly mapToRegistry using default registry
+78 silly mapToRegistry registry https://registry.npmjs.org/
+79 silly mapToRegistry data Result {
+79 silly mapToRegistry   raw: '@types/jasmine',
+79 silly mapToRegistry   scope: '@types',
+79 silly mapToRegistry   escapedName: '@types%2fjasmine',
+79 silly mapToRegistry   name: '@types/jasmine',
+79 silly mapToRegistry   rawSpec: '',
+79 silly mapToRegistry   spec: 'latest',
+79 silly mapToRegistry   type: 'tag' }
+80 silly mapToRegistry uri https://registry.npmjs.org/@types%2fjasmine
+81 silly mapToRegistry name angular2-template-loader
+82 silly mapToRegistry using default registry
+83 silly mapToRegistry registry https://registry.npmjs.org/
+84 silly mapToRegistry data Result {
+84 silly mapToRegistry   raw: 'angular2-template-loader',
+84 silly mapToRegistry   scope: null,
+84 silly mapToRegistry   escapedName: 'angular2-template-loader',
+84 silly mapToRegistry   name: 'angular2-template-loader',
+84 silly mapToRegistry   rawSpec: '',
+84 silly mapToRegistry   spec: 'latest',
+84 silly mapToRegistry   type: 'tag' }
+85 silly mapToRegistry uri https://registry.npmjs.org/angular2-template-loader
+86 silly mapToRegistry name awesome-typescript-loader
+87 silly mapToRegistry using default registry
+88 silly mapToRegistry registry https://registry.npmjs.org/
+89 silly mapToRegistry data Result {
+89 silly mapToRegistry   raw: 'awesome-typescript-loader',
+89 silly mapToRegistry   scope: null,
+89 silly mapToRegistry   escapedName: 'awesome-typescript-loader',
+89 silly mapToRegistry   name: 'awesome-typescript-loader',
+89 silly mapToRegistry   rawSpec: '',
+89 silly mapToRegistry   spec: 'latest',
+89 silly mapToRegistry   type: 'tag' }
+90 silly mapToRegistry uri https://registry.npmjs.org/awesome-typescript-loader
+91 silly mapToRegistry name clang-format
+92 silly mapToRegistry using default registry
+93 silly mapToRegistry registry https://registry.npmjs.org/
+94 silly mapToRegistry data Result {
+94 silly mapToRegistry   raw: 'clang-format',
+94 silly mapToRegistry   scope: null,
+94 silly mapToRegistry   escapedName: 'clang-format',
+94 silly mapToRegistry   name: 'clang-format',
+94 silly mapToRegistry   rawSpec: '',
+94 silly mapToRegistry   spec: 'latest',
+94 silly mapToRegistry   type: 'tag' }
+95 silly mapToRegistry uri https://registry.npmjs.org/clang-format
+96 silly mapToRegistry name codelyzer
+97 silly mapToRegistry using default registry
+98 silly mapToRegistry registry https://registry.npmjs.org/
+99 silly mapToRegistry data Result {
+99 silly mapToRegistry   raw: 'codelyzer',
+99 silly mapToRegistry   scope: null,
+99 silly mapToRegistry   escapedName: 'codelyzer',
+99 silly mapToRegistry   name: 'codelyzer',
+99 silly mapToRegistry   rawSpec: '',
+99 silly mapToRegistry   spec: 'latest',
+99 silly mapToRegistry   type: 'tag' }
+100 silly mapToRegistry uri https://registry.npmjs.org/codelyzer
+101 silly mapToRegistry name conventional-changelog
+102 silly mapToRegistry using default registry
+103 silly mapToRegistry registry https://registry.npmjs.org/
+104 silly mapToRegistry data Result {
+104 silly mapToRegistry   raw: 'conventional-changelog',
+104 silly mapToRegistry   scope: null,
+104 silly mapToRegistry   escapedName: 'conventional-changelog',
+104 silly mapToRegistry   name: 'conventional-changelog',
+104 silly mapToRegistry   rawSpec: '',
+104 silly mapToRegistry   spec: 'latest',
+104 silly mapToRegistry   type: 'tag' }
+105 silly mapToRegistry uri https://registry.npmjs.org/conventional-changelog
+106 silly mapToRegistry name copy-webpack-plugin
+107 silly mapToRegistry using default registry
+108 silly mapToRegistry registry https://registry.npmjs.org/
+109 silly mapToRegistry data Result {
+109 silly mapToRegistry   raw: 'copy-webpack-plugin',
+109 silly mapToRegistry   scope: null,
+109 silly mapToRegistry   escapedName: 'copy-webpack-plugin',
+109 silly mapToRegistry   name: 'copy-webpack-plugin',
+109 silly mapToRegistry   rawSpec: '',
+109 silly mapToRegistry   spec: 'latest',
+109 silly mapToRegistry   type: 'tag' }
+110 silly mapToRegistry uri https://registry.npmjs.org/copy-webpack-plugin
+111 silly mapToRegistry name copyfiles
+112 silly mapToRegistry using default registry
+113 silly mapToRegistry registry https://registry.npmjs.org/
+114 silly mapToRegistry data Result {
+114 silly mapToRegistry   raw: 'copyfiles',
+114 silly mapToRegistry   scope: null,
+114 silly mapToRegistry   escapedName: 'copyfiles',
+114 silly mapToRegistry   name: 'copyfiles',
+114 silly mapToRegistry   rawSpec: '',
+114 silly mapToRegistry   spec: 'latest',
+114 silly mapToRegistry   type: 'tag' }
+115 silly mapToRegistry uri https://registry.npmjs.org/copyfiles
+116 silly mapToRegistry name extract-text-webpack-plugin
+117 silly mapToRegistry using default registry
+118 silly mapToRegistry registry https://registry.npmjs.org/
+119 silly mapToRegistry data Result {
+119 silly mapToRegistry   raw: 'extract-text-webpack-plugin',
+119 silly mapToRegistry   scope: null,
+119 silly mapToRegistry   escapedName: 'extract-text-webpack-plugin',
+119 silly mapToRegistry   name: 'extract-text-webpack-plugin',
+119 silly mapToRegistry   rawSpec: '',
+119 silly mapToRegistry   spec: 'latest',
+119 silly mapToRegistry   type: 'tag' }
+120 silly mapToRegistry uri https://registry.npmjs.org/extract-text-webpack-plugin
+121 silly mapToRegistry name html-webpack-plugin
+122 silly mapToRegistry using default registry
+123 silly mapToRegistry registry https://registry.npmjs.org/
+124 silly mapToRegistry data Result {
+124 silly mapToRegistry   raw: 'html-webpack-plugin',
+124 silly mapToRegistry   scope: null,
+124 silly mapToRegistry   escapedName: 'html-webpack-plugin',
+124 silly mapToRegistry   name: 'html-webpack-plugin',
+124 silly mapToRegistry   rawSpec: '',
+124 silly mapToRegistry   spec: 'latest',
+124 silly mapToRegistry   type: 'tag' }
+125 silly mapToRegistry uri https://registry.npmjs.org/html-webpack-plugin
+126 silly mapToRegistry name istanbul-instrumenter-loader
+127 silly mapToRegistry using default registry
+128 silly mapToRegistry registry https://registry.npmjs.org/
+129 silly mapToRegistry data Result {
+129 silly mapToRegistry   raw: 'istanbul-instrumenter-loader',
+129 silly mapToRegistry   scope: null,
+129 silly mapToRegistry   escapedName: 'istanbul-instrumenter-loader',
+129 silly mapToRegistry   name: 'istanbul-instrumenter-loader',
+129 silly mapToRegistry   rawSpec: '',
+129 silly mapToRegistry   spec: 'latest',
+129 silly mapToRegistry   type: 'tag' }
+130 silly mapToRegistry uri https://registry.npmjs.org/istanbul-instrumenter-loader
+131 silly mapToRegistry name jasmine-core
+132 silly mapToRegistry using default registry
+133 silly mapToRegistry registry https://registry.npmjs.org/
+134 silly mapToRegistry data Result {
+134 silly mapToRegistry   raw: 'jasmine-core',
+134 silly mapToRegistry   scope: null,
+134 silly mapToRegistry   escapedName: 'jasmine-core',
+134 silly mapToRegistry   name: 'jasmine-core',
+134 silly mapToRegistry   rawSpec: '',
+134 silly mapToRegistry   spec: 'latest',
+134 silly mapToRegistry   type: 'tag' }
+135 silly mapToRegistry uri https://registry.npmjs.org/jasmine-core
+136 silly mapToRegistry name karma
+137 silly mapToRegistry using default registry
+138 silly mapToRegistry registry https://registry.npmjs.org/
+139 silly mapToRegistry data Result {
+139 silly mapToRegistry   raw: 'karma',
+139 silly mapToRegistry   scope: null,
+139 silly mapToRegistry   escapedName: 'karma',
+139 silly mapToRegistry   name: 'karma',
+139 silly mapToRegistry   rawSpec: '',
+139 silly mapToRegistry   spec: 'latest',
+139 silly mapToRegistry   type: 'tag' }
+140 silly mapToRegistry uri https://registry.npmjs.org/karma
+141 silly mapToRegistry name karma-chrome-launcher
+142 silly mapToRegistry using default registry
+143 silly mapToRegistry registry https://registry.npmjs.org/
+144 silly mapToRegistry data Result {
+144 silly mapToRegistry   raw: 'karma-chrome-launcher',
+144 silly mapToRegistry   scope: null,
+144 silly mapToRegistry   escapedName: 'karma-chrome-launcher',
+144 silly mapToRegistry   name: 'karma-chrome-launcher',
+144 silly mapToRegistry   rawSpec: '',
+144 silly mapToRegistry   spec: 'latest',
+144 silly mapToRegistry   type: 'tag' }
+145 silly mapToRegistry uri https://registry.npmjs.org/karma-chrome-launcher
+146 silly mapToRegistry name karma-coverage
+147 silly mapToRegistry using default registry
+148 silly mapToRegistry registry https://registry.npmjs.org/
+149 silly mapToRegistry data Result {
+149 silly mapToRegistry   raw: 'karma-coverage',
+149 silly mapToRegistry   scope: null,
+149 silly mapToRegistry   escapedName: 'karma-coverage',
+149 silly mapToRegistry   name: 'karma-coverage',
+149 silly mapToRegistry   rawSpec: '',
+149 silly mapToRegistry   spec: 'latest',
+149 silly mapToRegistry   type: 'tag' }
+150 silly mapToRegistry uri https://registry.npmjs.org/karma-coverage
+151 silly mapToRegistry name karma-jasmine
+152 silly mapToRegistry using default registry
+153 silly mapToRegistry registry https://registry.npmjs.org/
+154 silly mapToRegistry data Result {
+154 silly mapToRegistry   raw: 'karma-jasmine',
+154 silly mapToRegistry   scope: null,
+154 silly mapToRegistry   escapedName: 'karma-jasmine',
+154 silly mapToRegistry   name: 'karma-jasmine',
+154 silly mapToRegistry   rawSpec: '',
+154 silly mapToRegistry   spec: 'latest',
+154 silly mapToRegistry   type: 'tag' }
+155 silly mapToRegistry uri https://registry.npmjs.org/karma-jasmine
+156 silly mapToRegistry name karma-mocha-reporter
+157 silly mapToRegistry using default registry
+158 silly mapToRegistry registry https://registry.npmjs.org/
+159 silly mapToRegistry data Result {
+159 silly mapToRegistry   raw: 'karma-mocha-reporter',
+159 silly mapToRegistry   scope: null,
+159 silly mapToRegistry   escapedName: 'karma-mocha-reporter',
+159 silly mapToRegistry   name: 'karma-mocha-reporter',
+159 silly mapToRegistry   rawSpec: '',
+159 silly mapToRegistry   spec: 'latest',
+159 silly mapToRegistry   type: 'tag' }
+160 silly mapToRegistry uri https://registry.npmjs.org/karma-mocha-reporter
+161 silly mapToRegistry name karma-remap-istanbul
+162 silly mapToRegistry using default registry
+163 silly mapToRegistry registry https://registry.npmjs.org/
+164 silly mapToRegistry data Result {
+164 silly mapToRegistry   raw: 'karma-remap-istanbul',
+164 silly mapToRegistry   scope: null,
+164 silly mapToRegistry   escapedName: 'karma-remap-istanbul',
+164 silly mapToRegistry   name: 'karma-remap-istanbul',
+164 silly mapToRegistry   rawSpec: '',
+164 silly mapToRegistry   spec: 'latest',
+164 silly mapToRegistry   type: 'tag' }
+165 silly mapToRegistry uri https://registry.npmjs.org/karma-remap-istanbul
+166 silly mapToRegistry name karma-sourcemap-loader
+167 silly mapToRegistry using default registry
+168 silly mapToRegistry registry https://registry.npmjs.org/
+169 silly mapToRegistry data Result {
+169 silly mapToRegistry   raw: 'karma-sourcemap-loader',
+169 silly mapToRegistry   scope: null,
+169 silly mapToRegistry   escapedName: 'karma-sourcemap-loader',
+169 silly mapToRegistry   name: 'karma-sourcemap-loader',
+169 silly mapToRegistry   rawSpec: '',
+169 silly mapToRegistry   spec: 'latest',
+169 silly mapToRegistry   type: 'tag' }
+170 silly mapToRegistry uri https://registry.npmjs.org/karma-sourcemap-loader
+171 silly mapToRegistry name karma-webpack
+172 silly mapToRegistry using default registry
+173 silly mapToRegistry registry https://registry.npmjs.org/
+174 silly mapToRegistry data Result {
+174 silly mapToRegistry   raw: 'karma-webpack',
+174 silly mapToRegistry   scope: null,
+174 silly mapToRegistry   escapedName: 'karma-webpack',
+174 silly mapToRegistry   name: 'karma-webpack',
+174 silly mapToRegistry   rawSpec: '',
+174 silly mapToRegistry   spec: 'latest',
+174 silly mapToRegistry   type: 'tag' }
+175 silly mapToRegistry uri https://registry.npmjs.org/karma-webpack
+176 silly mapToRegistry name reflect-metadata
+177 silly mapToRegistry using default registry
+178 silly mapToRegistry registry https://registry.npmjs.org/
+179 silly mapToRegistry data Result {
+179 silly mapToRegistry   raw: 'reflect-metadata',
+179 silly mapToRegistry   scope: null,
+179 silly mapToRegistry   escapedName: 'reflect-metadata',
+179 silly mapToRegistry   name: 'reflect-metadata',
+179 silly mapToRegistry   rawSpec: '',
+179 silly mapToRegistry   spec: 'latest',
+179 silly mapToRegistry   type: 'tag' }
+180 silly mapToRegistry uri https://registry.npmjs.org/reflect-metadata
+181 silly mapToRegistry name remap-istanbul
+182 silly mapToRegistry using default registry
+183 silly mapToRegistry registry https://registry.npmjs.org/
+184 silly mapToRegistry data Result {
+184 silly mapToRegistry   raw: 'remap-istanbul',
+184 silly mapToRegistry   scope: null,
+184 silly mapToRegistry   escapedName: 'remap-istanbul',
+184 silly mapToRegistry   name: 'remap-istanbul',
+184 silly mapToRegistry   rawSpec: '',
+184 silly mapToRegistry   spec: 'latest',
+184 silly mapToRegistry   type: 'tag' }
+185 silly mapToRegistry uri https://registry.npmjs.org/remap-istanbul
+186 silly mapToRegistry name rimraf
+187 silly mapToRegistry using default registry
+188 silly mapToRegistry registry https://registry.npmjs.org/
+189 silly mapToRegistry data Result {
+189 silly mapToRegistry   raw: 'rimraf',
+189 silly mapToRegistry   scope: null,
+189 silly mapToRegistry   escapedName: 'rimraf',
+189 silly mapToRegistry   name: 'rimraf',
+189 silly mapToRegistry   rawSpec: '',
+189 silly mapToRegistry   spec: 'latest',
+189 silly mapToRegistry   type: 'tag' }
+190 silly mapToRegistry uri https://registry.npmjs.org/rimraf
+191 silly mapToRegistry name rollup
+192 silly mapToRegistry using default registry
+193 silly mapToRegistry registry https://registry.npmjs.org/
+194 silly mapToRegistry data Result {
+194 silly mapToRegistry   raw: 'rollup',
+194 silly mapToRegistry   scope: null,
+194 silly mapToRegistry   escapedName: 'rollup',
+194 silly mapToRegistry   name: 'rollup',
+194 silly mapToRegistry   rawSpec: '',
+194 silly mapToRegistry   spec: 'latest',
+194 silly mapToRegistry   type: 'tag' }
+195 silly mapToRegistry uri https://registry.npmjs.org/rollup
+196 silly mapToRegistry name ts-helpers
+197 silly mapToRegistry using default registry
+198 silly mapToRegistry registry https://registry.npmjs.org/
+199 silly mapToRegistry data Result {
+199 silly mapToRegistry   raw: 'ts-helpers',
+199 silly mapToRegistry   scope: null,
+199 silly mapToRegistry   escapedName: 'ts-helpers',
+199 silly mapToRegistry   name: 'ts-helpers',
+199 silly mapToRegistry   rawSpec: '',
+199 silly mapToRegistry   spec: 'latest',
+199 silly mapToRegistry   type: 'tag' }
+200 silly mapToRegistry uri https://registry.npmjs.org/ts-helpers
+201 silly mapToRegistry name tslint
+202 silly mapToRegistry using default registry
+203 silly mapToRegistry registry https://registry.npmjs.org/
+204 silly mapToRegistry data Result {
+204 silly mapToRegistry   raw: 'tslint',
+204 silly mapToRegistry   scope: null,
+204 silly mapToRegistry   escapedName: 'tslint',
+204 silly mapToRegistry   name: 'tslint',
+204 silly mapToRegistry   rawSpec: '',
+204 silly mapToRegistry   spec: 'latest',
+204 silly mapToRegistry   type: 'tag' }
+205 silly mapToRegistry uri https://registry.npmjs.org/tslint
+206 silly mapToRegistry name typescript
+207 silly mapToRegistry using default registry
+208 silly mapToRegistry registry https://registry.npmjs.org/
+209 silly mapToRegistry data Result {
+209 silly mapToRegistry   raw: 'typescript',
+209 silly mapToRegistry   scope: null,
+209 silly mapToRegistry   escapedName: 'typescript',
+209 silly mapToRegistry   name: 'typescript',
+209 silly mapToRegistry   rawSpec: '',
+209 silly mapToRegistry   spec: 'latest',
+209 silly mapToRegistry   type: 'tag' }
+210 silly mapToRegistry uri https://registry.npmjs.org/typescript
+211 silly mapToRegistry name webpack
+212 silly mapToRegistry using default registry
+213 silly mapToRegistry registry https://registry.npmjs.org/
+214 silly mapToRegistry data Result {
+214 silly mapToRegistry   raw: 'webpack',
+214 silly mapToRegistry   scope: null,
+214 silly mapToRegistry   escapedName: 'webpack',
+214 silly mapToRegistry   name: 'webpack',
+214 silly mapToRegistry   rawSpec: '',
+214 silly mapToRegistry   spec: 'latest',
+214 silly mapToRegistry   type: 'tag' }
+215 silly mapToRegistry uri https://registry.npmjs.org/webpack
+216 silly mapToRegistry name zone.js
+217 silly mapToRegistry using default registry
+218 silly mapToRegistry registry https://registry.npmjs.org/
+219 silly mapToRegistry data Result {
+219 silly mapToRegistry   raw: 'zone.js',
+219 silly mapToRegistry   scope: null,
+219 silly mapToRegistry   escapedName: 'zone.js',
+219 silly mapToRegistry   name: 'zone.js',
+219 silly mapToRegistry   rawSpec: '',
+219 silly mapToRegistry   spec: 'latest',
+219 silly mapToRegistry   type: 'tag' }
+220 silly mapToRegistry uri https://registry.npmjs.org/zone.js
+221 silly mapToRegistry name rxjs
+222 silly mapToRegistry using default registry
+223 silly mapToRegistry registry https://registry.npmjs.org/
+224 silly mapToRegistry data Result {
+224 silly mapToRegistry   raw: 'rxjs',
+224 silly mapToRegistry   scope: null,
+224 silly mapToRegistry   escapedName: 'rxjs',
+224 silly mapToRegistry   name: 'rxjs',
+224 silly mapToRegistry   rawSpec: '',
+224 silly mapToRegistry   spec: 'latest',
+224 silly mapToRegistry   type: 'tag' }
+225 silly mapToRegistry uri https://registry.npmjs.org/rxjs
+226 verbose request uri https://registry.npmjs.org/@angular%2fcommon
+227 verbose request no auth needed
+228 info attempt registry request try #1 at 5:59:39 AM
+229 verbose request id 31cf26942bd4f3ce
+230 verbose etag "589cabc4-eda1"
+231 http request GET https://registry.npmjs.org/@angular%2fcommon
+232 verbose request uri https://registry.npmjs.org/@angular%2fcompiler-cli
+233 verbose request no auth needed
+234 info attempt registry request try #1 at 5:59:39 AM
+235 verbose etag "589cabca-11b94"
+236 http request GET https://registry.npmjs.org/@angular%2fcompiler-cli
+237 verbose request uri https://registry.npmjs.org/@angular%2fcompiler
+238 verbose request no auth needed
+239 info attempt registry request try #1 at 5:59:39 AM
+240 verbose etag "589cabc7-ee16"
+241 http request GET https://registry.npmjs.org/@angular%2fcompiler
+242 verbose request uri https://registry.npmjs.org/@angular%2fplatform-browser
+243 verbose request no auth needed
+244 info attempt registry request try #1 at 5:59:39 AM
+245 verbose etag "589cabd9-10653"
+246 http request GET https://registry.npmjs.org/@angular%2fplatform-browser
+247 verbose request uri https://registry.npmjs.org/@angular%2fcore
+248 verbose request no auth needed
+249 info attempt registry request try #1 at 5:59:39 AM
+250 verbose etag "58a0e87f-eaff"
+251 http request GET https://registry.npmjs.org/@angular%2fcore
+252 verbose request uri https://registry.npmjs.org/@angular%2fplatform-browser-dynamic
+253 verbose request no auth needed
+254 info attempt registry request try #1 at 5:59:39 AM
+255 verbose etag "589cabda-122bd"
+256 http request GET https://registry.npmjs.org/@angular%2fplatform-browser-dynamic
+257 verbose request uri https://registry.npmjs.org/@angular%2fplatform-server
+258 verbose request no auth needed
+259 info attempt registry request try #1 at 5:59:39 AM
+260 verbose etag "589cabdc-11671"
+261 http request GET https://registry.npmjs.org/@angular%2fplatform-server
+262 verbose request uri https://registry.npmjs.org/@angular%2ftsc-wrapped
+263 verbose request no auth needed
+264 info attempt registry request try #1 at 5:59:39 AM
+265 verbose etag "589cabf3-505a"
+266 http request GET https://registry.npmjs.org/@angular%2ftsc-wrapped
+267 verbose request uri https://registry.npmjs.org/@angularclass%2fhmr-loader
+268 verbose request no auth needed
+269 info attempt registry request try #1 at 5:59:39 AM
+270 verbose etag "57d44420-2e23"
+271 http request GET https://registry.npmjs.org/@angularclass%2fhmr-loader
+272 verbose request uri https://registry.npmjs.org/@ngtools%2fwebpack
+273 verbose request no auth needed
+274 info attempt registry request try #1 at 5:59:39 AM
+275 verbose etag "589d0f99-81be"
+276 http request GET https://registry.npmjs.org/@ngtools%2fwebpack
+277 verbose request uri https://registry.npmjs.org/@types%2fjasmine
+278 verbose request no auth needed
+279 info attempt registry request try #1 at 5:59:39 AM
+280 verbose etag "589e3da7-6931"
+281 http request GET https://registry.npmjs.org/@types%2fjasmine
+282 verbose request uri https://registry.npmjs.org/angular2-template-loader
+283 verbose request no auth needed
+284 info attempt registry request try #1 at 5:59:39 AM
+285 verbose etag W/"589b430e-4673"
+286 verbose lastModified Wed, 08 Feb 2017 16:10:54 GMT
+287 http request GET https://registry.npmjs.org/angular2-template-loader
+288 verbose request uri https://registry.npmjs.org/clang-format
+289 verbose request no auth needed
+290 info attempt registry request try #1 at 5:59:39 AM
+291 verbose etag W/"58830459-e76a"
+292 verbose lastModified Sat, 21 Jan 2017 06:48:57 GMT
+293 http request GET https://registry.npmjs.org/clang-format
+294 verbose request uri https://registry.npmjs.org/codelyzer
+295 verbose request no auth needed
+296 info attempt registry request try #1 at 5:59:39 AM
+297 verbose etag W/"589a5435-ddd7"
+298 verbose lastModified Tue, 07 Feb 2017 23:11:49 GMT
+299 http request GET https://registry.npmjs.org/codelyzer
+300 verbose request uri https://registry.npmjs.org/copyfiles
+301 verbose request no auth needed
+302 info attempt registry request try #1 at 5:59:39 AM
+303 verbose etag W/"58932489-3cb1"
+304 verbose lastModified Thu, 02 Feb 2017 12:22:33 GMT
+305 http request GET https://registry.npmjs.org/copyfiles
+306 verbose request uri https://registry.npmjs.org/copy-webpack-plugin
+307 verbose request no auth needed
+308 info attempt registry request try #1 at 5:59:39 AM
+309 verbose etag W/"588d2299-a012"
+310 verbose lastModified Sat, 28 Jan 2017 23:00:41 GMT
+311 http request GET https://registry.npmjs.org/copy-webpack-plugin
+312 verbose request uri https://registry.npmjs.org/conventional-changelog
+313 verbose request no auth needed
+314 info attempt registry request try #1 at 5:59:39 AM
+315 verbose etag W/"5836e266-13670"
+316 verbose lastModified Thu, 24 Nov 2016 12:51:50 GMT
+317 http request GET https://registry.npmjs.org/conventional-changelog
+318 verbose request uri https://registry.npmjs.org/awesome-typescript-loader
+319 verbose request no auth needed
+320 info attempt registry request try #1 at 5:59:39 AM
+321 verbose etag W/"589ef76f-4c530"
+322 verbose lastModified Sat, 11 Feb 2017 11:37:19 GMT
+323 http request GET https://registry.npmjs.org/awesome-typescript-loader
+324 verbose request uri https://registry.npmjs.org/extract-text-webpack-plugin
+325 verbose request no auth needed
+326 info attempt registry request try #1 at 5:59:39 AM
+327 verbose etag W/"5898f2a2-f016"
+328 verbose lastModified Mon, 06 Feb 2017 22:03:14 GMT
+329 http request GET https://registry.npmjs.org/extract-text-webpack-plugin
+330 verbose request uri https://registry.npmjs.org/istanbul-instrumenter-loader
+331 verbose request no auth needed
+332 info attempt registry request try #1 at 5:59:39 AM
+333 verbose etag W/"589c6e46-4019"
+334 verbose lastModified Thu, 09 Feb 2017 13:27:34 GMT
+335 http request GET https://registry.npmjs.org/istanbul-instrumenter-loader
+336 verbose request uri https://registry.npmjs.org/jasmine-core
+337 verbose request no auth needed
+338 info attempt registry request try #1 at 5:59:39 AM
+339 verbose etag W/"58933ec2-6991"
+340 verbose lastModified Thu, 02 Feb 2017 14:14:26 GMT
+341 http request GET https://registry.npmjs.org/jasmine-core
+342 verbose request uri https://registry.npmjs.org/html-webpack-plugin
+343 verbose request no auth needed
+344 info attempt registry request try #1 at 5:59:39 AM
+345 verbose etag W/"58989143-1f652"
+346 verbose lastModified Mon, 06 Feb 2017 15:07:47 GMT
+347 http request GET https://registry.npmjs.org/html-webpack-plugin
+348 verbose request uri https://registry.npmjs.org/karma-chrome-launcher
+349 verbose request no auth needed
+350 info attempt registry request try #1 at 5:59:39 AM
+351 verbose etag W/"582def10-b3c4"
+352 verbose lastModified Thu, 17 Nov 2016 17:55:28 GMT
+353 http request GET https://registry.npmjs.org/karma-chrome-launcher
+354 verbose request uri https://registry.npmjs.org/karma-coverage
+355 verbose request no auth needed
+356 info attempt registry request try #1 at 5:59:39 AM
+357 verbose etag W/"5853c3b8-15da3"
+358 verbose lastModified Fri, 16 Dec 2016 10:36:40 GMT
+359 http request GET https://registry.npmjs.org/karma-coverage
+360 verbose request uri https://registry.npmjs.org/karma-jasmine
+361 verbose request no auth needed
+362 info attempt registry request try #1 at 5:59:39 AM
+363 verbose etag W/"58590779-d2bc"
+364 verbose lastModified Tue, 20 Dec 2016 10:27:05 GMT
+365 http request GET https://registry.npmjs.org/karma-jasmine
+366 verbose request uri https://registry.npmjs.org/karma-mocha-reporter
+367 verbose request no auth needed
+368 info attempt registry request try #1 at 5:59:39 AM
+369 verbose etag W/"5881bdd5-14e91"
+370 verbose lastModified Fri, 20 Jan 2017 07:35:49 GMT
+371 http request GET https://registry.npmjs.org/karma-mocha-reporter
+372 verbose request uri https://registry.npmjs.org/karma-sourcemap-loader
+373 verbose request no auth needed
+374 info attempt registry request try #1 at 5:59:39 AM
+375 verbose etag W/"5696ce56-370f"
+376 verbose lastModified Wed, 13 Jan 2016 22:23:18 GMT
+377 http request GET https://registry.npmjs.org/karma-sourcemap-loader
+378 verbose request uri https://registry.npmjs.org/karma-remap-istanbul
+379 verbose request no auth needed
+380 info attempt registry request try #1 at 5:59:39 AM
+381 verbose etag W/"589dbb55-7aec"
+382 verbose lastModified Fri, 10 Feb 2017 13:08:37 GMT
+383 http request GET https://registry.npmjs.org/karma-remap-istanbul
+384 verbose request uri https://registry.npmjs.org/reflect-metadata
+385 verbose request no auth needed
+386 info attempt registry request try #1 at 5:59:39 AM
+387 verbose etag W/"588db0d1-69ce"
+388 verbose lastModified Sun, 29 Jan 2017 09:07:29 GMT
+389 http request GET https://registry.npmjs.org/reflect-metadata
+390 verbose request uri https://registry.npmjs.org/remap-istanbul
+391 verbose request no auth needed
+392 info attempt registry request try #1 at 5:59:39 AM
+393 verbose etag W/"589cce78-ae9b"
+394 verbose lastModified Thu, 09 Feb 2017 20:18:00 GMT
+395 http request GET https://registry.npmjs.org/remap-istanbul
+396 verbose request uri https://registry.npmjs.org/karma-webpack
+397 verbose request no auth needed
+398 info attempt registry request try #1 at 5:59:39 AM
+399 verbose etag W/"5889b84e-8b50"
+400 verbose lastModified Thu, 26 Jan 2017 08:50:22 GMT
+401 http request GET https://registry.npmjs.org/karma-webpack
+402 verbose request uri https://registry.npmjs.org/rimraf
+403 verbose request no auth needed
+404 info attempt registry request try #1 at 5:59:39 AM
+405 verbose etag W/"589fe475-d81f"
+406 verbose lastModified Sun, 12 Feb 2017 04:28:37 GMT
+407 http request GET https://registry.npmjs.org/rimraf
+408 verbose request uri https://registry.npmjs.org/ts-helpers
+409 verbose request no auth needed
+410 info attempt registry request try #1 at 5:59:39 AM
+411 verbose etag W/"58009a9c-2873"
+412 verbose lastModified Fri, 14 Oct 2016 08:43:08 GMT
+413 http request GET https://registry.npmjs.org/ts-helpers
+414 verbose request uri https://registry.npmjs.org/tslint
+415 verbose request no auth needed
+416 info attempt registry request try #1 at 5:59:39 AM
+417 verbose etag W/"588a0a52-3af9c"
+418 verbose lastModified Thu, 26 Jan 2017 14:40:18 GMT
+419 http request GET https://registry.npmjs.org/tslint
+420 verbose request uri https://registry.npmjs.org/rollup
+421 verbose request no auth needed
+422 info attempt registry request try #1 at 5:59:39 AM
+423 verbose etag W/"58828e2e-685f3"
+424 verbose lastModified Fri, 20 Jan 2017 22:24:46 GMT
+425 http request GET https://registry.npmjs.org/rollup
+426 verbose request uri https://registry.npmjs.org/zone.js
+427 verbose request no auth needed
+428 info attempt registry request try #1 at 5:59:39 AM
+429 verbose etag W/"5884ea3c-1b2e8"
+430 verbose lastModified Sun, 22 Jan 2017 17:22:04 GMT
+431 http request GET https://registry.npmjs.org/zone.js
+432 verbose request uri https://registry.npmjs.org/rxjs
+433 verbose request no auth needed
+434 info attempt registry request try #1 at 5:59:39 AM
+435 verbose etag W/"58a14433-204d3"
+436 verbose lastModified Mon, 13 Feb 2017 05:29:23 GMT
+437 http request GET https://registry.npmjs.org/rxjs
+438 verbose request uri https://registry.npmjs.org/karma
+439 verbose request no auth needed
+440 info attempt registry request try #1 at 5:59:39 AM
+441 verbose etag W/"58a18606-150e16"
+442 verbose lastModified Mon, 13 Feb 2017 10:10:14 GMT
+443 http request GET https://registry.npmjs.org/karma
+444 verbose request uri https://registry.npmjs.org/webpack
+445 verbose request no auth needed
+446 info attempt registry request try #1 at 5:59:39 AM
+447 verbose etag W/"58a1d05f-e4ac5"
+448 verbose lastModified Mon, 13 Feb 2017 15:27:27 GMT
+449 http request GET https://registry.npmjs.org/webpack
+450 verbose request uri https://registry.npmjs.org/typescript
+451 verbose request no auth needed
+452 info attempt registry request try #1 at 5:59:39 AM
+453 verbose etag W/"58a15c9c-146fd5"
+454 verbose lastModified Mon, 13 Feb 2017 07:13:32 GMT
+455 http request GET https://registry.npmjs.org/typescript
+456 http 304 https://registry.npmjs.org/angular2-template-loader
+457 verbose headers { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+457 verbose headers   via: '1.1 varnish',
+457 verbose headers   'cache-control': 'max-age=300',
+457 verbose headers   etag: 'W/"589b430e-4673"',
+457 verbose headers   age: '185',
+457 verbose headers   connection: 'keep-alive',
+457 verbose headers   'x-served-by': 'cache-syd1626-SYD',
+457 verbose headers   'x-cache': 'HIT',
+457 verbose headers   'x-cache-hits': '1',
+457 verbose headers   'x-timer': 'S1487015948.755385,VS0,VE0',
+457 verbose headers   vary: 'Accept-Encoding' }
+458 silly get cb [ 304,
+458 silly get   { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+458 silly get     via: '1.1 varnish',
+458 silly get     'cache-control': 'max-age=300',
+458 silly get     etag: 'W/"589b430e-4673"',
+458 silly get     age: '185',
+458 silly get     connection: 'keep-alive',
+458 silly get     'x-served-by': 'cache-syd1626-SYD',
+458 silly get     'x-cache': 'HIT',
+458 silly get     'x-cache-hits': '1',
+458 silly get     'x-timer': 'S1487015948.755385,VS0,VE0',
+458 silly get     vary: 'Accept-Encoding' } ]
+459 verbose etag https://registry.npmjs.org/angular2-template-loader from cache
+460 verbose get saving angular2-template-loader to C:\Users\bensh\AppData\Roaming\npm-cache\registry.npmjs.org\angular2-template-loader\.cache.json
+461 verbose correctMkdir C:\Users\bensh\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+462 http 304 https://registry.npmjs.org/clang-format
+463 verbose headers { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+463 verbose headers   via: '1.1 varnish',
+463 verbose headers   'cache-control': 'max-age=300',
+463 verbose headers   etag: 'W/"58830459-e76a"',
+463 verbose headers   age: '185',
+463 verbose headers   connection: 'keep-alive',
+463 verbose headers   'x-served-by': 'cache-syd1622-SYD',
+463 verbose headers   'x-cache': 'HIT',
+463 verbose headers   'x-cache-hits': '1',
+463 verbose headers   'x-timer': 'S1487015948.770124,VS0,VE0',
+463 verbose headers   vary: 'Accept-Encoding' }
+464 silly get cb [ 304,
+464 silly get   { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+464 silly get     via: '1.1 varnish',
+464 silly get     'cache-control': 'max-age=300',
+464 silly get     etag: 'W/"58830459-e76a"',
+464 silly get     age: '185',
+464 silly get     connection: 'keep-alive',
+464 silly get     'x-served-by': 'cache-syd1622-SYD',
+464 silly get     'x-cache': 'HIT',
+464 silly get     'x-cache-hits': '1',
+464 silly get     'x-timer': 'S1487015948.770124,VS0,VE0',
+464 silly get     vary: 'Accept-Encoding' } ]
+465 verbose etag https://registry.npmjs.org/clang-format from cache
+466 verbose get saving clang-format to C:\Users\bensh\AppData\Roaming\npm-cache\registry.npmjs.org\clang-format\.cache.json
+467 verbose correctMkdir C:\Users\bensh\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+468 http 304 https://registry.npmjs.org/codelyzer
+469 verbose headers { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+469 verbose headers   via: '1.1 varnish',
+469 verbose headers   'cache-control': 'max-age=300',
+469 verbose headers   etag: 'W/"589a5435-ddd7"',
+469 verbose headers   age: '185',
+469 verbose headers   connection: 'keep-alive',
+469 verbose headers   'x-served-by': 'cache-syd1627-SYD',
+469 verbose headers   'x-cache': 'HIT',
+469 verbose headers   'x-cache-hits': '1',
+469 verbose headers   'x-timer': 'S1487015948.781854,VS0,VE0',
+469 verbose headers   vary: 'Accept-Encoding' }
+470 silly get cb [ 304,
+470 silly get   { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+470 silly get     via: '1.1 varnish',
+470 silly get     'cache-control': 'max-age=300',
+470 silly get     etag: 'W/"589a5435-ddd7"',
+470 silly get     age: '185',
+470 silly get     connection: 'keep-alive',
+470 silly get     'x-served-by': 'cache-syd1627-SYD',
+470 silly get     'x-cache': 'HIT',
+470 silly get     'x-cache-hits': '1',
+470 silly get     'x-timer': 'S1487015948.781854,VS0,VE0',
+470 silly get     vary: 'Accept-Encoding' } ]
+471 verbose etag https://registry.npmjs.org/codelyzer from cache
+472 verbose get saving codelyzer to C:\Users\bensh\AppData\Roaming\npm-cache\registry.npmjs.org\codelyzer\.cache.json
+473 verbose correctMkdir C:\Users\bensh\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+474 http 304 https://registry.npmjs.org/copyfiles
+475 verbose headers { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+475 verbose headers   via: '1.1 varnish',
+475 verbose headers   'cache-control': 'max-age=300',
+475 verbose headers   etag: 'W/"58932489-3cb1"',
+475 verbose headers   age: '184',
+475 verbose headers   connection: 'keep-alive',
+475 verbose headers   'x-served-by': 'cache-syd1625-SYD',
+475 verbose headers   'x-cache': 'HIT',
+475 verbose headers   'x-cache-hits': '1',
+475 verbose headers   'x-timer': 'S1487015948.797385,VS0,VE0',
+475 verbose headers   vary: 'Accept-Encoding' }
+476 silly get cb [ 304,
+476 silly get   { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+476 silly get     via: '1.1 varnish',
+476 silly get     'cache-control': 'max-age=300',
+476 silly get     etag: 'W/"58932489-3cb1"',
+476 silly get     age: '184',
+476 silly get     connection: 'keep-alive',
+476 silly get     'x-served-by': 'cache-syd1625-SYD',
+476 silly get     'x-cache': 'HIT',
+476 silly get     'x-cache-hits': '1',
+476 silly get     'x-timer': 'S1487015948.797385,VS0,VE0',
+476 silly get     vary: 'Accept-Encoding' } ]
+477 verbose etag https://registry.npmjs.org/copyfiles from cache
+478 verbose get saving copyfiles to C:\Users\bensh\AppData\Roaming\npm-cache\registry.npmjs.org\copyfiles\.cache.json
+479 verbose correctMkdir C:\Users\bensh\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+480 http 304 https://registry.npmjs.org/copy-webpack-plugin
+481 verbose headers { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+481 verbose headers   via: '1.1 varnish',
+481 verbose headers   'cache-control': 'max-age=300',
+481 verbose headers   etag: 'W/"588d2299-a012"',
+481 verbose headers   age: '0',
+481 verbose headers   connection: 'keep-alive',
+481 verbose headers   'x-served-by': 'cache-syd1622-SYD',
+481 verbose headers   'x-cache': 'HIT',
+481 verbose headers   'x-cache-hits': '1',
+481 verbose headers   'x-timer': 'S1487015948.806237,VS0,VE1',
+481 verbose headers   vary: 'Accept-Encoding' }
+482 silly get cb [ 304,
+482 silly get   { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+482 silly get     via: '1.1 varnish',
+482 silly get     'cache-control': 'max-age=300',
+482 silly get     etag: 'W/"588d2299-a012"',
+482 silly get     age: '0',
+482 silly get     connection: 'keep-alive',
+482 silly get     'x-served-by': 'cache-syd1622-SYD',
+482 silly get     'x-cache': 'HIT',
+482 silly get     'x-cache-hits': '1',
+482 silly get     'x-timer': 'S1487015948.806237,VS0,VE1',
+482 silly get     vary: 'Accept-Encoding' } ]
+483 verbose etag https://registry.npmjs.org/copy-webpack-plugin from cache
+484 verbose get saving copy-webpack-plugin to C:\Users\bensh\AppData\Roaming\npm-cache\registry.npmjs.org\copy-webpack-plugin\.cache.json
+485 verbose correctMkdir C:\Users\bensh\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+486 http 304 https://registry.npmjs.org/conventional-changelog
+487 verbose headers { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+487 verbose headers   via: '1.1 varnish',
+487 verbose headers   'cache-control': 'max-age=300',
+487 verbose headers   etag: 'W/"5836e266-13670"',
+487 verbose headers   age: '183',
+487 verbose headers   connection: 'keep-alive',
+487 verbose headers   'x-served-by': 'cache-syd1624-SYD',
+487 verbose headers   'x-cache': 'HIT',
+487 verbose headers   'x-cache-hits': '1',
+487 verbose headers   'x-timer': 'S1487015948.829629,VS0,VE0',
+487 verbose headers   vary: 'Accept-Encoding' }
+488 silly get cb [ 304,
+488 silly get   { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+488 silly get     via: '1.1 varnish',
+488 silly get     'cache-control': 'max-age=300',
+488 silly get     etag: 'W/"5836e266-13670"',
+488 silly get     age: '183',
+488 silly get     connection: 'keep-alive',
+488 silly get     'x-served-by': 'cache-syd1624-SYD',
+488 silly get     'x-cache': 'HIT',
+488 silly get     'x-cache-hits': '1',
+488 silly get     'x-timer': 'S1487015948.829629,VS0,VE0',
+488 silly get     vary: 'Accept-Encoding' } ]
+489 verbose etag https://registry.npmjs.org/conventional-changelog from cache
+490 verbose get saving conventional-changelog to C:\Users\bensh\AppData\Roaming\npm-cache\registry.npmjs.org\conventional-changelog\.cache.json
+491 verbose correctMkdir C:\Users\bensh\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+492 http 304 https://registry.npmjs.org/awesome-typescript-loader
+493 verbose headers { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+493 verbose headers   via: '1.1 varnish',
+493 verbose headers   'cache-control': 'max-age=300',
+493 verbose headers   etag: 'W/"589ef76f-4c530"',
+493 verbose headers   age: '184',
+493 verbose headers   connection: 'keep-alive',
+493 verbose headers   'x-served-by': 'cache-syd1625-SYD',
+493 verbose headers   'x-cache': 'HIT',
+493 verbose headers   'x-cache-hits': '1',
+493 verbose headers   'x-timer': 'S1487015948.836062,VS0,VE0',
+493 verbose headers   vary: 'Accept-Encoding' }
+494 silly get cb [ 304,
+494 silly get   { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+494 silly get     via: '1.1 varnish',
+494 silly get     'cache-control': 'max-age=300',
+494 silly get     etag: 'W/"589ef76f-4c530"',
+494 silly get     age: '184',
+494 silly get     connection: 'keep-alive',
+494 silly get     'x-served-by': 'cache-syd1625-SYD',
+494 silly get     'x-cache': 'HIT',
+494 silly get     'x-cache-hits': '1',
+494 silly get     'x-timer': 'S1487015948.836062,VS0,VE0',
+494 silly get     vary: 'Accept-Encoding' } ]
+495 verbose etag https://registry.npmjs.org/awesome-typescript-loader from cache
+496 verbose get saving awesome-typescript-loader to C:\Users\bensh\AppData\Roaming\npm-cache\registry.npmjs.org\awesome-typescript-loader\.cache.json
+497 verbose correctMkdir C:\Users\bensh\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+498 http 304 https://registry.npmjs.org/istanbul-instrumenter-loader
+499 verbose headers { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+499 verbose headers   via: '1.1 varnish',
+499 verbose headers   'cache-control': 'max-age=300',
+499 verbose headers   etag: 'W/"589c6e46-4019"',
+499 verbose headers   age: '185',
+499 verbose headers   connection: 'keep-alive',
+499 verbose headers   'x-served-by': 'cache-syd1623-SYD',
+499 verbose headers   'x-cache': 'HIT',
+499 verbose headers   'x-cache-hits': '1',
+499 verbose headers   'x-timer': 'S1487015948.884853,VS0,VE0',
+499 verbose headers   vary: 'Accept-Encoding' }
+500 silly get cb [ 304,
+500 silly get   { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+500 silly get     via: '1.1 varnish',
+500 silly get     'cache-control': 'max-age=300',
+500 silly get     etag: 'W/"589c6e46-4019"',
+500 silly get     age: '185',
+500 silly get     connection: 'keep-alive',
+500 silly get     'x-served-by': 'cache-syd1623-SYD',
+500 silly get     'x-cache': 'HIT',
+500 silly get     'x-cache-hits': '1',
+500 silly get     'x-timer': 'S1487015948.884853,VS0,VE0',
+500 silly get     vary: 'Accept-Encoding' } ]
+501 verbose etag https://registry.npmjs.org/istanbul-instrumenter-loader from cache
+502 verbose get saving istanbul-instrumenter-loader to C:\Users\bensh\AppData\Roaming\npm-cache\registry.npmjs.org\istanbul-instrumenter-loader\.cache.json
+503 verbose correctMkdir C:\Users\bensh\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+504 http 304 https://registry.npmjs.org/jasmine-core
+505 verbose headers { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+505 verbose headers   via: '1.1 varnish',
+505 verbose headers   'cache-control': 'max-age=300',
+505 verbose headers   etag: 'W/"58933ec2-6991"',
+505 verbose headers   age: '184',
+505 verbose headers   connection: 'keep-alive',
+505 verbose headers   'x-served-by': 'cache-syd1624-SYD',
+505 verbose headers   'x-cache': 'HIT',
+505 verbose headers   'x-cache-hits': '1',
+505 verbose headers   'x-timer': 'S1487015948.896037,VS0,VE0',
+505 verbose headers   vary: 'Accept-Encoding' }
+506 silly get cb [ 304,
+506 silly get   { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+506 silly get     via: '1.1 varnish',
+506 silly get     'cache-control': 'max-age=300',
+506 silly get     etag: 'W/"58933ec2-6991"',
+506 silly get     age: '184',
+506 silly get     connection: 'keep-alive',
+506 silly get     'x-served-by': 'cache-syd1624-SYD',
+506 silly get     'x-cache': 'HIT',
+506 silly get     'x-cache-hits': '1',
+506 silly get     'x-timer': 'S1487015948.896037,VS0,VE0',
+506 silly get     vary: 'Accept-Encoding' } ]
+507 verbose etag https://registry.npmjs.org/jasmine-core from cache
+508 verbose get saving jasmine-core to C:\Users\bensh\AppData\Roaming\npm-cache\registry.npmjs.org\jasmine-core\.cache.json
+509 verbose correctMkdir C:\Users\bensh\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+510 http 304 https://registry.npmjs.org/extract-text-webpack-plugin
+511 verbose headers { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+511 verbose headers   via: '1.1 varnish',
+511 verbose headers   'cache-control': 'max-age=300',
+511 verbose headers   etag: 'W/"5898f2a2-f016"',
+511 verbose headers   age: '0',
+511 verbose headers   connection: 'keep-alive',
+511 verbose headers   'x-served-by': 'cache-syd1621-SYD',
+511 verbose headers   'x-cache': 'HIT',
+511 verbose headers   'x-cache-hits': '1',
+511 verbose headers   'x-timer': 'S1487015948.863644,VS0,VE43',
+511 verbose headers   vary: 'Accept-Encoding' }
+512 silly get cb [ 304,
+512 silly get   { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+512 silly get     via: '1.1 varnish',
+512 silly get     'cache-control': 'max-age=300',
+512 silly get     etag: 'W/"5898f2a2-f016"',
+512 silly get     age: '0',
+512 silly get     connection: 'keep-alive',
+512 silly get     'x-served-by': 'cache-syd1621-SYD',
+512 silly get     'x-cache': 'HIT',
+512 silly get     'x-cache-hits': '1',
+512 silly get     'x-timer': 'S1487015948.863644,VS0,VE43',
+512 silly get     vary: 'Accept-Encoding' } ]
+513 verbose etag https://registry.npmjs.org/extract-text-webpack-plugin from cache
+514 verbose get saving extract-text-webpack-plugin to C:\Users\bensh\AppData\Roaming\npm-cache\registry.npmjs.org\extract-text-webpack-plugin\.cache.json
+515 verbose correctMkdir C:\Users\bensh\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+516 http 304 https://registry.npmjs.org/html-webpack-plugin
+517 verbose headers { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+517 verbose headers   via: '1.1 varnish',
+517 verbose headers   'cache-control': 'max-age=300',
+517 verbose headers   etag: 'W/"58989143-1f652"',
+517 verbose headers   age: '0',
+517 verbose headers   connection: 'keep-alive',
+517 verbose headers   'x-served-by': 'cache-syd1622-SYD',
+517 verbose headers   'x-cache': 'HIT',
+517 verbose headers   'x-cache-hits': '1',
+517 verbose headers   'x-timer': 'S1487015948.911308,VS0,VE1',
+517 verbose headers   vary: 'Accept-Encoding' }
+518 silly get cb [ 304,
+518 silly get   { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+518 silly get     via: '1.1 varnish',
+518 silly get     'cache-control': 'max-age=300',
+518 silly get     etag: 'W/"58989143-1f652"',
+518 silly get     age: '0',
+518 silly get     connection: 'keep-alive',
+518 silly get     'x-served-by': 'cache-syd1622-SYD',
+518 silly get     'x-cache': 'HIT',
+518 silly get     'x-cache-hits': '1',
+518 silly get     'x-timer': 'S1487015948.911308,VS0,VE1',
+518 silly get     vary: 'Accept-Encoding' } ]
+519 verbose etag https://registry.npmjs.org/html-webpack-plugin from cache
+520 verbose get saving html-webpack-plugin to C:\Users\bensh\AppData\Roaming\npm-cache\registry.npmjs.org\html-webpack-plugin\.cache.json
+521 verbose correctMkdir C:\Users\bensh\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+522 http 304 https://registry.npmjs.org/karma-chrome-launcher
+523 verbose headers { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+523 verbose headers   via: '1.1 varnish',
+523 verbose headers   'cache-control': 'max-age=300',
+523 verbose headers   etag: 'W/"582def10-b3c4"',
+523 verbose headers   age: '184',
+523 verbose headers   connection: 'keep-alive',
+523 verbose headers   'x-served-by': 'cache-syd1620-SYD',
+523 verbose headers   'x-cache': 'HIT',
+523 verbose headers   'x-cache-hits': '6',
+523 verbose headers   'x-timer': 'S1487015948.926376,VS0,VE0',
+523 verbose headers   vary: 'Accept-Encoding' }
+524 silly get cb [ 304,
+524 silly get   { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+524 silly get     via: '1.1 varnish',
+524 silly get     'cache-control': 'max-age=300',
+524 silly get     etag: 'W/"582def10-b3c4"',
+524 silly get     age: '184',
+524 silly get     connection: 'keep-alive',
+524 silly get     'x-served-by': 'cache-syd1620-SYD',
+524 silly get     'x-cache': 'HIT',
+524 silly get     'x-cache-hits': '6',
+524 silly get     'x-timer': 'S1487015948.926376,VS0,VE0',
+524 silly get     vary: 'Accept-Encoding' } ]
+525 verbose etag https://registry.npmjs.org/karma-chrome-launcher from cache
+526 verbose get saving karma-chrome-launcher to C:\Users\bensh\AppData\Roaming\npm-cache\registry.npmjs.org\karma-chrome-launcher\.cache.json
+527 verbose correctMkdir C:\Users\bensh\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+528 http 304 https://registry.npmjs.org/karma-coverage
+529 verbose headers { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+529 verbose headers   via: '1.1 varnish',
+529 verbose headers   'cache-control': 'max-age=300',
+529 verbose headers   etag: 'W/"5853c3b8-15da3"',
+529 verbose headers   age: '185',
+529 verbose headers   connection: 'keep-alive',
+529 verbose headers   'x-served-by': 'cache-syd1625-SYD',
+529 verbose headers   'x-cache': 'HIT',
+529 verbose headers   'x-cache-hits': '1',
+529 verbose headers   'x-timer': 'S1487015948.952003,VS0,VE0',
+529 verbose headers   vary: 'Accept-Encoding' }
+530 silly get cb [ 304,
+530 silly get   { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+530 silly get     via: '1.1 varnish',
+530 silly get     'cache-control': 'max-age=300',
+530 silly get     etag: 'W/"5853c3b8-15da3"',
+530 silly get     age: '185',
+530 silly get     connection: 'keep-alive',
+530 silly get     'x-served-by': 'cache-syd1625-SYD',
+530 silly get     'x-cache': 'HIT',
+530 silly get     'x-cache-hits': '1',
+530 silly get     'x-timer': 'S1487015948.952003,VS0,VE0',
+530 silly get     vary: 'Accept-Encoding' } ]
+531 verbose etag https://registry.npmjs.org/karma-coverage from cache
+532 verbose get saving karma-coverage to C:\Users\bensh\AppData\Roaming\npm-cache\registry.npmjs.org\karma-coverage\.cache.json
+533 verbose correctMkdir C:\Users\bensh\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+534 http 304 https://registry.npmjs.org/karma-jasmine
+535 verbose headers { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+535 verbose headers   via: '1.1 varnish',
+535 verbose headers   'cache-control': 'max-age=300',
+535 verbose headers   etag: 'W/"58590779-d2bc"',
+535 verbose headers   age: '185',
+535 verbose headers   connection: 'keep-alive',
+535 verbose headers   'x-served-by': 'cache-syd1625-SYD',
+535 verbose headers   'x-cache': 'HIT',
+535 verbose headers   'x-cache-hits': '2',
+535 verbose headers   'x-timer': 'S1487015948.985001,VS0,VE0',
+535 verbose headers   vary: 'Accept-Encoding' }
+536 silly get cb [ 304,
+536 silly get   { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+536 silly get     via: '1.1 varnish',
+536 silly get     'cache-control': 'max-age=300',
+536 silly get     etag: 'W/"58590779-d2bc"',
+536 silly get     age: '185',
+536 silly get     connection: 'keep-alive',
+536 silly get     'x-served-by': 'cache-syd1625-SYD',
+536 silly get     'x-cache': 'HIT',
+536 silly get     'x-cache-hits': '2',
+536 silly get     'x-timer': 'S1487015948.985001,VS0,VE0',
+536 silly get     vary: 'Accept-Encoding' } ]
+537 verbose etag https://registry.npmjs.org/karma-jasmine from cache
+538 verbose get saving karma-jasmine to C:\Users\bensh\AppData\Roaming\npm-cache\registry.npmjs.org\karma-jasmine\.cache.json
+539 verbose correctMkdir C:\Users\bensh\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+540 http 304 https://registry.npmjs.org/karma-mocha-reporter
+541 verbose headers { date: 'Mon, 13 Feb 2017 19:59:09 GMT',
+541 verbose headers   via: '1.1 varnish',
+541 verbose headers   'cache-control': 'max-age=300',
+541 verbose headers   etag: 'W/"5881bdd5-14e91"',
+541 verbose headers   age: '185',
+541 verbose headers   connection: 'keep-alive',
+541 verbose headers   'x-served-by': 'cache-syd1626-SYD',
+541 verbose headers   'x-cache': 'HIT',
+541 verbose headers   'x-cache-hits': '1',
+541 verbose headers   'x-timer': 'S1487015949.069261,VS0,VE0',
+541 verbose headers   vary: 'Accept-Encoding' }
+542 silly get cb [ 304,
+542 silly get   { date: 'Mon, 13 Feb 2017 19:59:09 GMT',
+542 silly get     via: '1.1 varnish',
+542 silly get     'cache-control': 'max-age=300',
+542 silly get     etag: 'W/"5881bdd5-14e91"',
+542 silly get     age: '185',
+542 silly get     connection: 'keep-alive',
+542 silly get     'x-served-by': 'cache-syd1626-SYD',
+542 silly get     'x-cache': 'HIT',
+542 silly get     'x-cache-hits': '1',
+542 silly get     'x-timer': 'S1487015949.069261,VS0,VE0',
+542 silly get     vary: 'Accept-Encoding' } ]
+543 verbose etag https://registry.npmjs.org/karma-mocha-reporter from cache
+544 verbose get saving karma-mocha-reporter to C:\Users\bensh\AppData\Roaming\npm-cache\registry.npmjs.org\karma-mocha-reporter\.cache.json
+545 verbose correctMkdir C:\Users\bensh\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+546 http 304 https://registry.npmjs.org/karma-sourcemap-loader
+547 verbose headers { date: 'Mon, 13 Feb 2017 19:59:09 GMT',
+547 verbose headers   via: '1.1 varnish',
+547 verbose headers   'cache-control': 'max-age=300',
+547 verbose headers   etag: 'W/"5696ce56-370f"',
+547 verbose headers   age: '184',
+547 verbose headers   connection: 'keep-alive',
+547 verbose headers   'x-served-by': 'cache-syd1626-SYD',
+547 verbose headers   'x-cache': 'HIT',
+547 verbose headers   'x-cache-hits': '1',
+547 verbose headers   'x-timer': 'S1487015949.126466,VS0,VE0',
+547 verbose headers   vary: 'Accept-Encoding' }
+548 silly get cb [ 304,
+548 silly get   { date: 'Mon, 13 Feb 2017 19:59:09 GMT',
+548 silly get     via: '1.1 varnish',
+548 silly get     'cache-control': 'max-age=300',
+548 silly get     etag: 'W/"5696ce56-370f"',
+548 silly get     age: '184',
+548 silly get     connection: 'keep-alive',
+548 silly get     'x-served-by': 'cache-syd1626-SYD',
+548 silly get     'x-cache': 'HIT',
+548 silly get     'x-cache-hits': '1',
+548 silly get     'x-timer': 'S1487015949.126466,VS0,VE0',
+548 silly get     vary: 'Accept-Encoding' } ]
+549 verbose etag https://registry.npmjs.org/karma-sourcemap-loader from cache
+550 verbose get saving karma-sourcemap-loader to C:\Users\bensh\AppData\Roaming\npm-cache\registry.npmjs.org\karma-sourcemap-loader\.cache.json
+551 verbose correctMkdir C:\Users\bensh\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+552 http 304 https://registry.npmjs.org/karma-remap-istanbul
+553 verbose headers { date: 'Mon, 13 Feb 2017 19:59:09 GMT',
+553 verbose headers   via: '1.1 varnish',
+553 verbose headers   'cache-control': 'max-age=300',
+553 verbose headers   etag: 'W/"589dbb55-7aec"',
+553 verbose headers   age: '185',
+553 verbose headers   connection: 'keep-alive',
+553 verbose headers   'x-served-by': 'cache-syd1623-SYD',
+553 verbose headers   'x-cache': 'HIT',
+553 verbose headers   'x-cache-hits': '1',
+553 verbose headers   'x-timer': 'S1487015949.142269,VS0,VE0',
+553 verbose headers   vary: 'Accept-Encoding' }
+554 silly get cb [ 304,
+554 silly get   { date: 'Mon, 13 Feb 2017 19:59:09 GMT',
+554 silly get     via: '1.1 varnish',
+554 silly get     'cache-control': 'max-age=300',
+554 silly get     etag: 'W/"589dbb55-7aec"',
+554 silly get     age: '185',
+554 silly get     connection: 'keep-alive',
+554 silly get     'x-served-by': 'cache-syd1623-SYD',
+554 silly get     'x-cache': 'HIT',
+554 silly get     'x-cache-hits': '1',
+554 silly get     'x-timer': 'S1487015949.142269,VS0,VE0',
+554 silly get     vary: 'Accept-Encoding' } ]
+555 verbose etag https://registry.npmjs.org/karma-remap-istanbul from cache
+556 verbose get saving karma-remap-istanbul to C:\Users\bensh\AppData\Roaming\npm-cache\registry.npmjs.org\karma-remap-istanbul\.cache.json
+557 verbose correctMkdir C:\Users\bensh\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+558 http 304 https://registry.npmjs.org/reflect-metadata
+559 verbose headers { date: 'Mon, 13 Feb 2017 19:59:09 GMT',
+559 verbose headers   via: '1.1 varnish',
+559 verbose headers   'cache-control': 'max-age=300',
+559 verbose headers   etag: 'W/"588db0d1-69ce"',
+559 verbose headers   age: '185',
+559 verbose headers   connection: 'keep-alive',
+559 verbose headers   'x-served-by': 'cache-syd1622-SYD',
+559 verbose headers   'x-cache': 'HIT',
+559 verbose headers   'x-cache-hits': '1',
+559 verbose headers   'x-timer': 'S1487015949.178673,VS0,VE0',
+559 verbose headers   vary: 'Accept-Encoding' }
+560 silly get cb [ 304,
+560 silly get   { date: 'Mon, 13 Feb 2017 19:59:09 GMT',
+560 silly get     via: '1.1 varnish',
+560 silly get     'cache-control': 'max-age=300',
+560 silly get     etag: 'W/"588db0d1-69ce"',
+560 silly get     age: '185',
+560 silly get     connection: 'keep-alive',
+560 silly get     'x-served-by': 'cache-syd1622-SYD',
+560 silly get     'x-cache': 'HIT',
+560 silly get     'x-cache-hits': '1',
+560 silly get     'x-timer': 'S1487015949.178673,VS0,VE0',
+560 silly get     vary: 'Accept-Encoding' } ]
+561 verbose etag https://registry.npmjs.org/reflect-metadata from cache
+562 verbose get saving reflect-metadata to C:\Users\bensh\AppData\Roaming\npm-cache\registry.npmjs.org\reflect-metadata\.cache.json
+563 verbose correctMkdir C:\Users\bensh\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+564 http 304 https://registry.npmjs.org/remap-istanbul
+565 verbose headers { date: 'Mon, 13 Feb 2017 19:59:09 GMT',
+565 verbose headers   via: '1.1 varnish',
+565 verbose headers   'cache-control': 'max-age=300',
+565 verbose headers   etag: 'W/"589cce78-ae9b"',
+565 verbose headers   age: '185',
+565 verbose headers   connection: 'keep-alive',
+565 verbose headers   'x-served-by': 'cache-syd1621-SYD',
+565 verbose headers   'x-cache': 'HIT',
+565 verbose headers   'x-cache-hits': '3',
+565 verbose headers   'x-timer': 'S1487015949.218241,VS0,VE0',
+565 verbose headers   vary: 'Accept-Encoding' }
+566 silly get cb [ 304,
+566 silly get   { date: 'Mon, 13 Feb 2017 19:59:09 GMT',
+566 silly get     via: '1.1 varnish',
+566 silly get     'cache-control': 'max-age=300',
+566 silly get     etag: 'W/"589cce78-ae9b"',
+566 silly get     age: '185',
+566 silly get     connection: 'keep-alive',
+566 silly get     'x-served-by': 'cache-syd1621-SYD',
+566 silly get     'x-cache': 'HIT',
+566 silly get     'x-cache-hits': '3',
+566 silly get     'x-timer': 'S1487015949.218241,VS0,VE0',
+566 silly get     vary: 'Accept-Encoding' } ]
+567 verbose etag https://registry.npmjs.org/remap-istanbul from cache
+568 verbose get saving remap-istanbul to C:\Users\bensh\AppData\Roaming\npm-cache\registry.npmjs.org\remap-istanbul\.cache.json
+569 verbose correctMkdir C:\Users\bensh\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+570 http 304 https://registry.npmjs.org/karma-webpack
+571 verbose headers { date: 'Mon, 13 Feb 2017 19:59:09 GMT',
+571 verbose headers   via: '1.1 varnish',
+571 verbose headers   'cache-control': 'max-age=300',
+571 verbose headers   etag: 'W/"5889b84e-8b50"',
+571 verbose headers   age: '185',
+571 verbose headers   connection: 'keep-alive',
+571 verbose headers   'x-served-by': 'cache-syd1621-SYD',
+571 verbose headers   'x-cache': 'HIT',
+571 verbose headers   'x-cache-hits': '1',
+571 verbose headers   'x-timer': 'S1487015949.229459,VS0,VE0',
+571 verbose headers   vary: 'Accept-Encoding' }
+572 silly get cb [ 304,
+572 silly get   { date: 'Mon, 13 Feb 2017 19:59:09 GMT',
+572 silly get     via: '1.1 varnish',
+572 silly get     'cache-control': 'max-age=300',
+572 silly get     etag: 'W/"5889b84e-8b50"',
+572 silly get     age: '185',
+572 silly get     connection: 'keep-alive',
+572 silly get     'x-served-by': 'cache-syd1621-SYD',
+572 silly get     'x-cache': 'HIT',
+572 silly get     'x-cache-hits': '1',
+572 silly get     'x-timer': 'S1487015949.229459,VS0,VE0',
+572 silly get     vary: 'Accept-Encoding' } ]
+573 verbose etag https://registry.npmjs.org/karma-webpack from cache
+574 verbose get saving karma-webpack to C:\Users\bensh\AppData\Roaming\npm-cache\registry.npmjs.org\karma-webpack\.cache.json
+575 verbose correctMkdir C:\Users\bensh\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+576 http 304 https://registry.npmjs.org/rimraf
+577 verbose headers { date: 'Mon, 13 Feb 2017 19:59:09 GMT',
+577 verbose headers   via: '1.1 varnish',
+577 verbose headers   'cache-control': 'max-age=300',
+577 verbose headers   etag: 'W/"589fe475-d81f"',
+577 verbose headers   age: '38',
+577 verbose headers   connection: 'keep-alive',
+577 verbose headers   'x-served-by': 'cache-syd1624-SYD',
+577 verbose headers   'x-cache': 'HIT',
+577 verbose headers   'x-cache-hits': '2',
+577 verbose headers   'x-timer': 'S1487015949.239227,VS0,VE0',
+577 verbose headers   vary: 'Accept-Encoding' }
+578 silly get cb [ 304,
+578 silly get   { date: 'Mon, 13 Feb 2017 19:59:09 GMT',
+578 silly get     via: '1.1 varnish',
+578 silly get     'cache-control': 'max-age=300',
+578 silly get     etag: 'W/"589fe475-d81f"',
+578 silly get     age: '38',
+578 silly get     connection: 'keep-alive',
+578 silly get     'x-served-by': 'cache-syd1624-SYD',
+578 silly get     'x-cache': 'HIT',
+578 silly get     'x-cache-hits': '2',
+578 silly get     'x-timer': 'S1487015949.239227,VS0,VE0',
+578 silly get     vary: 'Accept-Encoding' } ]
+579 verbose etag https://registry.npmjs.org/rimraf from cache
+580 verbose get saving rimraf to C:\Users\bensh\AppData\Roaming\npm-cache\registry.npmjs.org\rimraf\.cache.json
+581 verbose correctMkdir C:\Users\bensh\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+582 http 304 https://registry.npmjs.org/ts-helpers
+583 verbose headers { date: 'Mon, 13 Feb 2017 19:59:09 GMT',
+583 verbose headers   via: '1.1 varnish',
+583 verbose headers   'cache-control': 'max-age=300',
+583 verbose headers   etag: 'W/"58009a9c-2873"',
+583 verbose headers   age: '185',
+583 verbose headers   connection: 'keep-alive',
+583 verbose headers   'x-served-by': 'cache-syd1627-SYD',
+583 verbose headers   'x-cache': 'HIT',
+583 verbose headers   'x-cache-hits': '1',
+583 verbose headers   'x-timer': 'S1487015949.264402,VS0,VE0',
+583 verbose headers   vary: 'Accept-Encoding' }
+584 silly get cb [ 304,
+584 silly get   { date: 'Mon, 13 Feb 2017 19:59:09 GMT',
+584 silly get     via: '1.1 varnish',
+584 silly get     'cache-control': 'max-age=300',
+584 silly get     etag: 'W/"58009a9c-2873"',
+584 silly get     age: '185',
+584 silly get     connection: 'keep-alive',
+584 silly get     'x-served-by': 'cache-syd1627-SYD',
+584 silly get     'x-cache': 'HIT',
+584 silly get     'x-cache-hits': '1',
+584 silly get     'x-timer': 'S1487015949.264402,VS0,VE0',
+584 silly get     vary: 'Accept-Encoding' } ]
+585 verbose etag https://registry.npmjs.org/ts-helpers from cache
+586 verbose get saving ts-helpers to C:\Users\bensh\AppData\Roaming\npm-cache\registry.npmjs.org\ts-helpers\.cache.json
+587 verbose correctMkdir C:\Users\bensh\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+588 http 304 https://registry.npmjs.org/tslint
+589 verbose headers { date: 'Mon, 13 Feb 2017 19:59:09 GMT',
+589 verbose headers   via: '1.1 varnish',
+589 verbose headers   'cache-control': 'max-age=300',
+589 verbose headers   etag: 'W/"588a0a52-3af9c"',
+589 verbose headers   age: '185',
+589 verbose headers   connection: 'keep-alive',
+589 verbose headers   'x-served-by': 'cache-syd1620-SYD',
+589 verbose headers   'x-cache': 'HIT',
+589 verbose headers   'x-cache-hits': '1',
+589 verbose headers   'x-timer': 'S1487015949.285068,VS0,VE0',
+589 verbose headers   vary: 'Accept-Encoding' }
+590 silly get cb [ 304,
+590 silly get   { date: 'Mon, 13 Feb 2017 19:59:09 GMT',
+590 silly get     via: '1.1 varnish',
+590 silly get     'cache-control': 'max-age=300',
+590 silly get     etag: 'W/"588a0a52-3af9c"',
+590 silly get     age: '185',
+590 silly get     connection: 'keep-alive',
+590 silly get     'x-served-by': 'cache-syd1620-SYD',
+590 silly get     'x-cache': 'HIT',
+590 silly get     'x-cache-hits': '1',
+590 silly get     'x-timer': 'S1487015949.285068,VS0,VE0',
+590 silly get     vary: 'Accept-Encoding' } ]
+591 verbose etag https://registry.npmjs.org/tslint from cache
+592 verbose get saving tslint to C:\Users\bensh\AppData\Roaming\npm-cache\registry.npmjs.org\tslint\.cache.json
+593 verbose correctMkdir C:\Users\bensh\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+594 http 304 https://registry.npmjs.org/rollup
+595 verbose headers { date: 'Mon, 13 Feb 2017 19:59:09 GMT',
+595 verbose headers   via: '1.1 varnish',
+595 verbose headers   'cache-control': 'max-age=300',
+595 verbose headers   etag: 'W/"58828e2e-685f3"',
+595 verbose headers   age: '185',
+595 verbose headers   connection: 'keep-alive',
+595 verbose headers   'x-served-by': 'cache-syd1624-SYD',
+595 verbose headers   'x-cache': 'HIT',
+595 verbose headers   'x-cache-hits': '1',
+595 verbose headers   'x-timer': 'S1487015949.311018,VS0,VE0',
+595 verbose headers   vary: 'Accept-Encoding' }
+596 silly get cb [ 304,
+596 silly get   { date: 'Mon, 13 Feb 2017 19:59:09 GMT',
+596 silly get     via: '1.1 varnish',
+596 silly get     'cache-control': 'max-age=300',
+596 silly get     etag: 'W/"58828e2e-685f3"',
+596 silly get     age: '185',
+596 silly get     connection: 'keep-alive',
+596 silly get     'x-served-by': 'cache-syd1624-SYD',
+596 silly get     'x-cache': 'HIT',
+596 silly get     'x-cache-hits': '1',
+596 silly get     'x-timer': 'S1487015949.311018,VS0,VE0',
+596 silly get     vary: 'Accept-Encoding' } ]
+597 verbose etag https://registry.npmjs.org/rollup from cache
+598 verbose get saving rollup to C:\Users\bensh\AppData\Roaming\npm-cache\registry.npmjs.org\rollup\.cache.json
+599 verbose correctMkdir C:\Users\bensh\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+600 http 304 https://registry.npmjs.org/zone.js
+601 verbose headers { date: 'Mon, 13 Feb 2017 19:59:09 GMT',
+601 verbose headers   via: '1.1 varnish',
+601 verbose headers   'cache-control': 'max-age=300',
+601 verbose headers   etag: 'W/"5884ea3c-1b2e8"',
+601 verbose headers   age: '185',
+601 verbose headers   connection: 'keep-alive',
+601 verbose headers   'x-served-by': 'cache-syd1627-SYD',
+601 verbose headers   'x-cache': 'HIT',
+601 verbose headers   'x-cache-hits': '1',
+601 verbose headers   'x-timer': 'S1487015949.327407,VS0,VE0',
+601 verbose headers   vary: 'Accept-Encoding' }
+602 silly get cb [ 304,
+602 silly get   { date: 'Mon, 13 Feb 2017 19:59:09 GMT',
+602 silly get     via: '1.1 varnish',
+602 silly get     'cache-control': 'max-age=300',
+602 silly get     etag: 'W/"5884ea3c-1b2e8"',
+602 silly get     age: '185',
+602 silly get     connection: 'keep-alive',
+602 silly get     'x-served-by': 'cache-syd1627-SYD',
+602 silly get     'x-cache': 'HIT',
+602 silly get     'x-cache-hits': '1',
+602 silly get     'x-timer': 'S1487015949.327407,VS0,VE0',
+602 silly get     vary: 'Accept-Encoding' } ]
+603 verbose etag https://registry.npmjs.org/zone.js from cache
+604 verbose get saving zone.js to C:\Users\bensh\AppData\Roaming\npm-cache\registry.npmjs.org\zone.js\.cache.json
+605 verbose correctMkdir C:\Users\bensh\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+606 http 304 https://registry.npmjs.org/rxjs
+607 verbose headers { date: 'Mon, 13 Feb 2017 19:59:09 GMT',
+607 verbose headers   via: '1.1 varnish',
+607 verbose headers   'cache-control': 'max-age=300',
+607 verbose headers   etag: 'W/"58a14433-204d3"',
+607 verbose headers   age: '185',
+607 verbose headers   connection: 'keep-alive',
+607 verbose headers   'x-served-by': 'cache-syd1624-SYD',
+607 verbose headers   'x-cache': 'HIT',
+607 verbose headers   'x-cache-hits': '11',
+607 verbose headers   'x-timer': 'S1487015949.342325,VS0,VE0',
+607 verbose headers   vary: 'Accept-Encoding' }
+608 silly get cb [ 304,
+608 silly get   { date: 'Mon, 13 Feb 2017 19:59:09 GMT',
+608 silly get     via: '1.1 varnish',
+608 silly get     'cache-control': 'max-age=300',
+608 silly get     etag: 'W/"58a14433-204d3"',
+608 silly get     age: '185',
+608 silly get     connection: 'keep-alive',
+608 silly get     'x-served-by': 'cache-syd1624-SYD',
+608 silly get     'x-cache': 'HIT',
+608 silly get     'x-cache-hits': '11',
+608 silly get     'x-timer': 'S1487015949.342325,VS0,VE0',
+608 silly get     vary: 'Accept-Encoding' } ]
+609 verbose etag https://registry.npmjs.org/rxjs from cache
+610 verbose get saving rxjs to C:\Users\bensh\AppData\Roaming\npm-cache\registry.npmjs.org\rxjs\.cache.json
+611 verbose correctMkdir C:\Users\bensh\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+612 http 304 https://registry.npmjs.org/karma
+613 verbose headers { date: 'Mon, 13 Feb 2017 19:59:09 GMT',
+613 verbose headers   via: '1.1 varnish',
+613 verbose headers   'cache-control': 'max-age=300',
+613 verbose headers   etag: 'W/"58a18606-150e16"',
+613 verbose headers   age: '185',
+613 verbose headers   connection: 'keep-alive',
+613 verbose headers   'x-served-by': 'cache-syd1621-SYD',
+613 verbose headers   'x-cache': 'HIT',
+613 verbose headers   'x-cache-hits': '1',
+613 verbose headers   'x-timer': 'S1487015949.373869,VS0,VE0',
+613 verbose headers   vary: 'Accept-Encoding' }
+614 silly get cb [ 304,
+614 silly get   { date: 'Mon, 13 Feb 2017 19:59:09 GMT',
+614 silly get     via: '1.1 varnish',
+614 silly get     'cache-control': 'max-age=300',
+614 silly get     etag: 'W/"58a18606-150e16"',
+614 silly get     age: '185',
+614 silly get     connection: 'keep-alive',
+614 silly get     'x-served-by': 'cache-syd1621-SYD',
+614 silly get     'x-cache': 'HIT',
+614 silly get     'x-cache-hits': '1',
+614 silly get     'x-timer': 'S1487015949.373869,VS0,VE0',
+614 silly get     vary: 'Accept-Encoding' } ]
+615 verbose etag https://registry.npmjs.org/karma from cache
+616 verbose get saving karma to C:\Users\bensh\AppData\Roaming\npm-cache\registry.npmjs.org\karma\.cache.json
+617 verbose correctMkdir C:\Users\bensh\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+618 silly cache add args [ 'rxjs', 'rxjs@^5.0.1' ]
+619 verbose cache add spec rxjs@rxjs@^5.0.1
+620 silly cache add parsed spec Result {
+620 silly cache add   raw: 'rxjs@rxjs@^5.0.1',
+620 silly cache add   scope: null,
+620 silly cache add   escapedName: 'rxjs',
+620 silly cache add   name: 'rxjs',
+620 silly cache add   rawSpec: 'rxjs@^5.0.1',
+620 silly cache add   spec: 'rxjs@^5.0.1',
+620 silly cache add   type: 'tag' }
+621 silly addNamed rxjs@rxjs@^5.0.1
+622 verbose addNamed "rxjs@^5.0.1" is being treated as a dist-tag for rxjs
+623 info addNameTag [ 'rxjs', 'rxjs@^5.0.1' ]
+624 silly mapToRegistry name rxjs
+625 silly mapToRegistry using default registry
+626 silly mapToRegistry registry https://registry.npmjs.org/
+627 silly mapToRegistry data Result {
+627 silly mapToRegistry   raw: 'rxjs',
+627 silly mapToRegistry   scope: null,
+627 silly mapToRegistry   escapedName: 'rxjs',
+627 silly mapToRegistry   name: 'rxjs',
+627 silly mapToRegistry   rawSpec: '',
+627 silly mapToRegistry   spec: 'latest',
+627 silly mapToRegistry   type: 'tag' }
+628 silly mapToRegistry uri https://registry.npmjs.org/rxjs
+629 verbose addNameTag registry:https://registry.npmjs.org/rxjs not in flight; fetching
+630 http 304 https://registry.npmjs.org/webpack
+631 verbose headers { date: 'Mon, 13 Feb 2017 19:59:09 GMT',
+631 verbose headers   via: '1.1 varnish',
+631 verbose headers   'cache-control': 'max-age=300',
+631 verbose headers   etag: 'W/"58a1d05f-e4ac5"',
+631 verbose headers   age: '0',
+631 verbose headers   connection: 'keep-alive',
+631 verbose headers   'x-served-by': 'cache-syd1620-SYD',
+631 verbose headers   'x-cache': 'HIT',
+631 verbose headers   'x-cache-hits': '1',
+631 verbose headers   'x-timer': 'S1487015949.390192,VS0,VE1',
+631 verbose headers   vary: 'Accept-Encoding' }
+632 silly get cb [ 304,
+632 silly get   { date: 'Mon, 13 Feb 2017 19:59:09 GMT',
+632 silly get     via: '1.1 varnish',
+632 silly get     'cache-control': 'max-age=300',
+632 silly get     etag: 'W/"58a1d05f-e4ac5"',
+632 silly get     age: '0',
+632 silly get     connection: 'keep-alive',
+632 silly get     'x-served-by': 'cache-syd1620-SYD',
+632 silly get     'x-cache': 'HIT',
+632 silly get     'x-cache-hits': '1',
+632 silly get     'x-timer': 'S1487015949.390192,VS0,VE1',
+632 silly get     vary: 'Accept-Encoding' } ]
+633 verbose etag https://registry.npmjs.org/webpack from cache
+634 verbose get saving webpack to C:\Users\bensh\AppData\Roaming\npm-cache\registry.npmjs.org\webpack\.cache.json
+635 verbose correctMkdir C:\Users\bensh\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+636 http 304 https://registry.npmjs.org/@angular%2fcompiler-cli
+637 verbose headers { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+637 verbose headers   via: '1.1 varnish',
+637 verbose headers   'cache-control': 'max-age=0',
+637 verbose headers   etag: '"589cabca-11b94"',
+637 verbose headers   age: '0',
+637 verbose headers   connection: 'keep-alive',
+637 verbose headers   'x-served-by': 'cache-syd1626-SYD',
+637 verbose headers   'x-cache': 'MISS',
+637 verbose headers   'x-cache-hits': '0',
+637 verbose headers   'x-timer': 'S1487015948.618533,VS0,VE789',
+637 verbose headers   vary: 'Accept-Encoding' }
+638 silly get cb [ 304,
+638 silly get   { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+638 silly get     via: '1.1 varnish',
+638 silly get     'cache-control': 'max-age=0',
+638 silly get     etag: '"589cabca-11b94"',
+638 silly get     age: '0',
+638 silly get     connection: 'keep-alive',
+638 silly get     'x-served-by': 'cache-syd1626-SYD',
+638 silly get     'x-cache': 'MISS',
+638 silly get     'x-cache-hits': '0',
+638 silly get     'x-timer': 'S1487015948.618533,VS0,VE789',
+638 silly get     vary: 'Accept-Encoding' } ]
+639 verbose etag https://registry.npmjs.org/@angular%2fcompiler-cli from cache
+640 verbose get saving @angular/compiler-cli to C:\Users\bensh\AppData\Roaming\npm-cache\registry.npmjs.org\_40angular_252fcompiler-cli\.cache.json
+641 verbose correctMkdir C:\Users\bensh\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+642 http 304 https://registry.npmjs.org/typescript
+643 verbose headers { date: 'Mon, 13 Feb 2017 19:59:09 GMT',
+643 verbose headers   via: '1.1 varnish',
+643 verbose headers   'cache-control': 'max-age=300',
+643 verbose headers   etag: 'W/"58a15c9c-146fd5"',
+643 verbose headers   age: '184',
+643 verbose headers   connection: 'keep-alive',
+643 verbose headers   'x-served-by': 'cache-syd1624-SYD',
+643 verbose headers   'x-cache': 'HIT',
+643 verbose headers   'x-cache-hits': '1',
+643 verbose headers   'x-timer': 'S1487015949.417002,VS0,VE0',
+643 verbose headers   vary: 'Accept-Encoding' }
+644 silly get cb [ 304,
+644 silly get   { date: 'Mon, 13 Feb 2017 19:59:09 GMT',
+644 silly get     via: '1.1 varnish',
+644 silly get     'cache-control': 'max-age=300',
+644 silly get     etag: 'W/"58a15c9c-146fd5"',
+644 silly get     age: '184',
+644 silly get     connection: 'keep-alive',
+644 silly get     'x-served-by': 'cache-syd1624-SYD',
+644 silly get     'x-cache': 'HIT',
+644 silly get     'x-cache-hits': '1',
+644 silly get     'x-timer': 'S1487015949.417002,VS0,VE0',
+644 silly get     vary: 'Accept-Encoding' } ]
+645 verbose etag https://registry.npmjs.org/typescript from cache
+646 verbose get saving typescript to C:\Users\bensh\AppData\Roaming\npm-cache\registry.npmjs.org\typescript\.cache.json
+647 verbose correctMkdir C:\Users\bensh\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+648 verbose get https://registry.npmjs.org/rxjs not expired, no request
+649 silly addNameTag next cb for rxjs with tag rxjs@^5.0.1
+650 http 304 https://registry.npmjs.org/@angular%2fcompiler
+651 verbose headers { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+651 verbose headers   via: '1.1 varnish',
+651 verbose headers   'cache-control': 'max-age=0',
+651 verbose headers   etag: '"589cabc7-ee16"',
+651 verbose headers   age: '0',
+651 verbose headers   connection: 'keep-alive',
+651 verbose headers   'x-served-by': 'cache-syd1624-SYD',
+651 verbose headers   'x-cache': 'MISS',
+651 verbose headers   'x-cache-hits': '0',
+651 verbose headers   'x-timer': 'S1487015948.644105,VS0,VE785',
+651 verbose headers   vary: 'Accept-Encoding' }
+652 silly get cb [ 304,
+652 silly get   { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+652 silly get     via: '1.1 varnish',
+652 silly get     'cache-control': 'max-age=0',
+652 silly get     etag: '"589cabc7-ee16"',
+652 silly get     age: '0',
+652 silly get     connection: 'keep-alive',
+652 silly get     'x-served-by': 'cache-syd1624-SYD',
+652 silly get     'x-cache': 'MISS',
+652 silly get     'x-cache-hits': '0',
+652 silly get     'x-timer': 'S1487015948.644105,VS0,VE785',
+652 silly get     vary: 'Accept-Encoding' } ]
+653 verbose etag https://registry.npmjs.org/@angular%2fcompiler from cache
+654 verbose get saving @angular/compiler to C:\Users\bensh\AppData\Roaming\npm-cache\registry.npmjs.org\_40angular_252fcompiler\.cache.json
+655 verbose correctMkdir C:\Users\bensh\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+656 http 304 https://registry.npmjs.org/@angular%2fplatform-browser
+657 verbose headers { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+657 verbose headers   via: '1.1 varnish',
+657 verbose headers   'cache-control': 'max-age=0',
+657 verbose headers   etag: '"589cabd9-10653"',
+657 verbose headers   age: '0',
+657 verbose headers   connection: 'keep-alive',
+657 verbose headers   'x-served-by': 'cache-syd1624-SYD',
+657 verbose headers   'x-cache': 'MISS',
+657 verbose headers   'x-cache-hits': '0',
+657 verbose headers   'x-timer': 'S1487015948.656214,VS0,VE788',
+657 verbose headers   vary: 'Accept-Encoding' }
+658 silly get cb [ 304,
+658 silly get   { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+658 silly get     via: '1.1 varnish',
+658 silly get     'cache-control': 'max-age=0',
+658 silly get     etag: '"589cabd9-10653"',
+658 silly get     age: '0',
+658 silly get     connection: 'keep-alive',
+658 silly get     'x-served-by': 'cache-syd1624-SYD',
+658 silly get     'x-cache': 'MISS',
+658 silly get     'x-cache-hits': '0',
+658 silly get     'x-timer': 'S1487015948.656214,VS0,VE788',
+658 silly get     vary: 'Accept-Encoding' } ]
+659 verbose etag https://registry.npmjs.org/@angular%2fplatform-browser from cache
+660 verbose get saving @angular/platform-browser to C:\Users\bensh\AppData\Roaming\npm-cache\registry.npmjs.org\_40angular_252fplatform-browser\.cache.json
+661 verbose correctMkdir C:\Users\bensh\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+662 http 304 https://registry.npmjs.org/@angular%2fcore
+663 verbose headers { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+663 verbose headers   via: '1.1 varnish',
+663 verbose headers   'cache-control': 'max-age=0',
+663 verbose headers   etag: '"58a0e87f-eaff"',
+663 verbose headers   age: '0',
+663 verbose headers   connection: 'keep-alive',
+663 verbose headers   'x-served-by': 'cache-syd1625-SYD',
+663 verbose headers   'x-cache': 'MISS',
+663 verbose headers   'x-cache-hits': '0',
+663 verbose headers   'x-timer': 'S1487015948.660525,VS0,VE805',
+663 verbose headers   vary: 'Accept-Encoding' }
+664 silly get cb [ 304,
+664 silly get   { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+664 silly get     via: '1.1 varnish',
+664 silly get     'cache-control': 'max-age=0',
+664 silly get     etag: '"58a0e87f-eaff"',
+664 silly get     age: '0',
+664 silly get     connection: 'keep-alive',
+664 silly get     'x-served-by': 'cache-syd1625-SYD',
+664 silly get     'x-cache': 'MISS',
+664 silly get     'x-cache-hits': '0',
+664 silly get     'x-timer': 'S1487015948.660525,VS0,VE805',
+664 silly get     vary: 'Accept-Encoding' } ]
+665 verbose etag https://registry.npmjs.org/@angular%2fcore from cache
+666 verbose get saving @angular/core to C:\Users\bensh\AppData\Roaming\npm-cache\registry.npmjs.org\_40angular_252fcore\.cache.json
+667 verbose correctMkdir C:\Users\bensh\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+668 http 304 https://registry.npmjs.org/@types%2fjasmine
+669 verbose headers { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+669 verbose headers   via: '1.1 varnish',
+669 verbose headers   'cache-control': 'max-age=0',
+669 verbose headers   etag: '"589e3da7-6931"',
+669 verbose headers   age: '0',
+669 verbose headers   connection: 'keep-alive',
+669 verbose headers   'x-served-by': 'cache-syd1620-SYD',
+669 verbose headers   'x-cache': 'MISS',
+669 verbose headers   'x-cache-hits': '0',
+669 verbose headers   'x-timer': 'S1487015948.743943,VS0,VE722',
+669 verbose headers   vary: 'Accept-Encoding' }
+670 silly get cb [ 304,
+670 silly get   { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+670 silly get     via: '1.1 varnish',
+670 silly get     'cache-control': 'max-age=0',
+670 silly get     etag: '"589e3da7-6931"',
+670 silly get     age: '0',
+670 silly get     connection: 'keep-alive',
+670 silly get     'x-served-by': 'cache-syd1620-SYD',
+670 silly get     'x-cache': 'MISS',
+670 silly get     'x-cache-hits': '0',
+670 silly get     'x-timer': 'S1487015948.743943,VS0,VE722',
+670 silly get     vary: 'Accept-Encoding' } ]
+671 verbose etag https://registry.npmjs.org/@types%2fjasmine from cache
+672 verbose get saving @types/jasmine to C:\Users\bensh\AppData\Roaming\npm-cache\registry.npmjs.org\_40types_252fjasmine\.cache.json
+673 verbose correctMkdir C:\Users\bensh\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+674 http 304 https://registry.npmjs.org/@angular%2fplatform-browser-dynamic
+675 verbose headers { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+675 verbose headers   via: '1.1 varnish',
+675 verbose headers   'cache-control': 'max-age=0',
+675 verbose headers   etag: '"589cabda-122bd"',
+675 verbose headers   age: '0',
+675 verbose headers   connection: 'keep-alive',
+675 verbose headers   'x-served-by': 'cache-syd1620-SYD',
+675 verbose headers   'x-cache': 'MISS',
+675 verbose headers   'x-cache-hits': '0',
+675 verbose headers   'x-timer': 'S1487015948.670164,VS0,VE798',
+675 verbose headers   vary: 'Accept-Encoding' }
+676 silly get cb [ 304,
+676 silly get   { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+676 silly get     via: '1.1 varnish',
+676 silly get     'cache-control': 'max-age=0',
+676 silly get     etag: '"589cabda-122bd"',
+676 silly get     age: '0',
+676 silly get     connection: 'keep-alive',
+676 silly get     'x-served-by': 'cache-syd1620-SYD',
+676 silly get     'x-cache': 'MISS',
+676 silly get     'x-cache-hits': '0',
+676 silly get     'x-timer': 'S1487015948.670164,VS0,VE798',
+676 silly get     vary: 'Accept-Encoding' } ]
+677 verbose etag https://registry.npmjs.org/@angular%2fplatform-browser-dynamic from cache
+678 verbose get saving @angular/platform-browser-dynamic to C:\Users\bensh\AppData\Roaming\npm-cache\registry.npmjs.org\_40angular_252fplatform-browser-dynamic\.cache.json
+679 verbose correctMkdir C:\Users\bensh\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+680 http 304 https://registry.npmjs.org/@ngtools%2fwebpack
+681 verbose headers { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+681 verbose headers   via: '1.1 varnish',
+681 verbose headers   'cache-control': 'max-age=0',
+681 verbose headers   etag: '"589d0f99-81be"',
+681 verbose headers   age: '0',
+681 verbose headers   connection: 'keep-alive',
+681 verbose headers   'x-served-by': 'cache-syd1620-SYD',
+681 verbose headers   'x-cache': 'MISS',
+681 verbose headers   'x-cache-hits': '0',
+681 verbose headers   'x-timer': 'S1487015948.728964,VS0,VE755',
+681 verbose headers   vary: 'Accept-Encoding' }
+682 silly get cb [ 304,
+682 silly get   { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+682 silly get     via: '1.1 varnish',
+682 silly get     'cache-control': 'max-age=0',
+682 silly get     etag: '"589d0f99-81be"',
+682 silly get     age: '0',
+682 silly get     connection: 'keep-alive',
+682 silly get     'x-served-by': 'cache-syd1620-SYD',
+682 silly get     'x-cache': 'MISS',
+682 silly get     'x-cache-hits': '0',
+682 silly get     'x-timer': 'S1487015948.728964,VS0,VE755',
+682 silly get     vary: 'Accept-Encoding' } ]
+683 verbose etag https://registry.npmjs.org/@ngtools%2fwebpack from cache
+684 verbose get saving @ngtools/webpack to C:\Users\bensh\AppData\Roaming\npm-cache\registry.npmjs.org\_40ngtools_252fwebpack\.cache.json
+685 verbose correctMkdir C:\Users\bensh\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+686 http 304 https://registry.npmjs.org/@angular%2ftsc-wrapped
+687 verbose headers { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+687 verbose headers   via: '1.1 varnish',
+687 verbose headers   'cache-control': 'max-age=0',
+687 verbose headers   etag: '"589cabf3-505a"',
+687 verbose headers   age: '0',
+687 verbose headers   connection: 'keep-alive',
+687 verbose headers   'x-served-by': 'cache-syd1620-SYD',
+687 verbose headers   'x-cache': 'MISS',
+687 verbose headers   'x-cache-hits': '0',
+687 verbose headers   'x-timer': 'S1487015948.703396,VS0,VE784',
+687 verbose headers   vary: 'Accept-Encoding' }
+688 silly get cb [ 304,
+688 silly get   { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+688 silly get     via: '1.1 varnish',
+688 silly get     'cache-control': 'max-age=0',
+688 silly get     etag: '"589cabf3-505a"',
+688 silly get     age: '0',
+688 silly get     connection: 'keep-alive',
+688 silly get     'x-served-by': 'cache-syd1620-SYD',
+688 silly get     'x-cache': 'MISS',
+688 silly get     'x-cache-hits': '0',
+688 silly get     'x-timer': 'S1487015948.703396,VS0,VE784',
+688 silly get     vary: 'Accept-Encoding' } ]
+689 verbose etag https://registry.npmjs.org/@angular%2ftsc-wrapped from cache
+690 verbose get saving @angular/tsc-wrapped to C:\Users\bensh\AppData\Roaming\npm-cache\registry.npmjs.org\_40angular_252ftsc-wrapped\.cache.json
+691 verbose correctMkdir C:\Users\bensh\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+692 http 304 https://registry.npmjs.org/@angular%2fplatform-server
+693 verbose headers { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+693 verbose headers   via: '1.1 varnish',
+693 verbose headers   'cache-control': 'max-age=0',
+693 verbose headers   etag: '"589cabdc-11671"',
+693 verbose headers   age: '0',
+693 verbose headers   connection: 'keep-alive',
+693 verbose headers   'x-served-by': 'cache-syd1626-SYD',
+693 verbose headers   'x-cache': 'MISS',
+693 verbose headers   'x-cache-hits': '0',
+693 verbose headers   'x-timer': 'S1487015948.691347,VS0,VE819',
+693 verbose headers   vary: 'Accept-Encoding' }
+694 silly get cb [ 304,
+694 silly get   { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+694 silly get     via: '1.1 varnish',
+694 silly get     'cache-control': 'max-age=0',
+694 silly get     etag: '"589cabdc-11671"',
+694 silly get     age: '0',
+694 silly get     connection: 'keep-alive',
+694 silly get     'x-served-by': 'cache-syd1626-SYD',
+694 silly get     'x-cache': 'MISS',
+694 silly get     'x-cache-hits': '0',
+694 silly get     'x-timer': 'S1487015948.691347,VS0,VE819',
+694 silly get     vary: 'Accept-Encoding' } ]
+695 verbose etag https://registry.npmjs.org/@angular%2fplatform-server from cache
+696 verbose get saving @angular/platform-server to C:\Users\bensh\AppData\Roaming\npm-cache\registry.npmjs.org\_40angular_252fplatform-server\.cache.json
+697 verbose correctMkdir C:\Users\bensh\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+698 http 304 https://registry.npmjs.org/@angularclass%2fhmr-loader
+699 verbose headers { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+699 verbose headers   via: '1.1 varnish',
+699 verbose headers   'cache-control': 'max-age=0',
+699 verbose headers   etag: '"57d44420-2e23"',
+699 verbose headers   age: '0',
+699 verbose headers   connection: 'keep-alive',
+699 verbose headers   'x-served-by': 'cache-syd1622-SYD',
+699 verbose headers   'x-cache': 'MISS',
+699 verbose headers   'x-cache-hits': '0',
+699 verbose headers   'x-timer': 'S1487015948.717158,VS0,VE817',
+699 verbose headers   vary: 'Accept-Encoding' }
+700 silly get cb [ 304,
+700 silly get   { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+700 silly get     via: '1.1 varnish',
+700 silly get     'cache-control': 'max-age=0',
+700 silly get     etag: '"57d44420-2e23"',
+700 silly get     age: '0',
+700 silly get     connection: 'keep-alive',
+700 silly get     'x-served-by': 'cache-syd1622-SYD',
+700 silly get     'x-cache': 'MISS',
+700 silly get     'x-cache-hits': '0',
+700 silly get     'x-timer': 'S1487015948.717158,VS0,VE817',
+700 silly get     vary: 'Accept-Encoding' } ]
+701 verbose etag https://registry.npmjs.org/@angularclass%2fhmr-loader from cache
+702 verbose get saving @angularclass/hmr-loader to C:\Users\bensh\AppData\Roaming\npm-cache\registry.npmjs.org\_40angularclass_252fhmr-loader\.cache.json
+703 verbose correctMkdir C:\Users\bensh\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+704 http 304 https://registry.npmjs.org/@angular%2fcommon
+705 verbose headers { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+705 verbose headers   via: '1.1 varnish',
+705 verbose headers   'cache-control': 'max-age=0',
+705 verbose headers   etag: '"589cabc4-eda1"',
+705 verbose headers   age: '0',
+705 verbose headers   connection: 'keep-alive',
+705 verbose headers   'x-served-by': 'cache-syd1626-SYD',
+705 verbose headers   'x-cache': 'MISS',
+705 verbose headers   'x-cache-hits': '0',
+705 verbose headers   'x-timer': 'S1487015948.608563,VS0,VE1142',
+705 verbose headers   vary: 'Accept-Encoding' }
+706 silly get cb [ 304,
+706 silly get   { date: 'Mon, 13 Feb 2017 19:59:08 GMT',
+706 silly get     via: '1.1 varnish',
+706 silly get     'cache-control': 'max-age=0',
+706 silly get     etag: '"589cabc4-eda1"',
+706 silly get     age: '0',
+706 silly get     connection: 'keep-alive',
+706 silly get     'x-served-by': 'cache-syd1626-SYD',
+706 silly get     'x-cache': 'MISS',
+706 silly get     'x-cache-hits': '0',
+706 silly get     'x-timer': 'S1487015948.608563,VS0,VE1142',
+706 silly get     vary: 'Accept-Encoding' } ]
+707 verbose etag https://registry.npmjs.org/@angular%2fcommon from cache
+708 verbose get saving @angular/common to C:\Users\bensh\AppData\Roaming\npm-cache\registry.npmjs.org\_40angular_252fcommon\.cache.json
+709 verbose correctMkdir C:\Users\bensh\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+710 verbose stack Error: No compatible version found: rxjs@'rxjs@^5.0.1'
+710 verbose stack Valid install targets:
+710 verbose stack 5.0.0-alpha.10, 5.0.0-alpha.11, 5.0.0-alpha.12, 5.0.0-alpha.13, 5.0.0-alpha.14, 5.0.0-beta.0, 5.0.0-beta.1, 5.0.0-beta.2, 5.0.0-beta.3, 5.0.0-beta.4, 5.0.0-beta.5, 5.0.0-beta.6, 5.0.0-beta.7, 5.0.0-beta.8, 5.0.0-beta.9, 5.0.0-beta.10, 5.0.0-beta.11, 5.0.0-beta.12, 5.0.0-rc.1, 5.0.0-rc.2, 5.0.0-rc.3, 5.0.0-rc.4, 5.0.0-rc.5, 5.0.0, 5.0.1, 5.0.2, 5.0.3, 5.1.0, 5.1.1
+710 verbose stack
+710 verbose stack     at installTargetsError (C:\Program Files\nodejs\node_modules\npm\lib\cache\add-named.js:292:12)
+710 verbose stack     at next (C:\Program Files\nodejs\node_modules\npm\lib\cache\add-named.js:95:10)
+710 verbose stack     at RES (C:\Program Files\nodejs\node_modules\npm\node_modules\inflight\inflight.js:23:14)
+710 verbose stack     at f (C:\Program Files\nodejs\node_modules\npm\node_modules\once\once.js:25:25)
+710 verbose stack     at fixName (C:\Program Files\nodejs\node_modules\npm\lib\cache\add-named.js:30:5)
+710 verbose stack     at C:\Program Files\nodejs\node_modules\npm\lib\utils\pulse-till-done.js:20:8
+710 verbose stack     at CachingRegistryClient.get_ (C:\Program Files\nodejs\node_modules\npm\lib\cache\caching-client.js:126:16)
+710 verbose stack     at C:\Program Files\nodejs\node_modules\npm\lib\cache\caching-client.js:91:14
+710 verbose stack     at C:\Program Files\nodejs\node_modules\npm\node_modules\graceful-fs\graceful-fs.js:78:16
+710 verbose stack     at FSReqWrap.readFileAfterClose [as oncomplete] (fs.js:445:3)
+711 verbose cwd C:\Projects\geo-services\frontend
+712 error Windows_NT 10.0.14393
+713 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "update"
+714 error node v6.8.1
+715 error npm  v3.10.8
+716 error code ETARGET
+717 error notarget No compatible version found: rxjs@'rxjs@^5.0.1'
+717 error notarget Valid install targets:
+717 error notarget 5.0.0-alpha.10, 5.0.0-alpha.11, 5.0.0-alpha.12, 5.0.0-alpha.13, 5.0.0-alpha.14, 5.0.0-beta.0, 5.0.0-beta.1, 5.0.0-beta.2, 5.0.0-beta.3, 5.0.0-beta.4, 5.0.0-beta.5, 5.0.0-beta.6, 5.0.0-beta.7, 5.0.0-beta.8, 5.0.0-beta.9, 5.0.0-beta.10, 5.0.0-beta.11, 5.0.0-beta.12, 5.0.0-rc.1, 5.0.0-rc.2, 5.0.0-rc.3, 5.0.0-rc.4, 5.0.0-rc.5, 5.0.0, 5.0.1, 5.0.2, 5.0.3, 5.1.0, 5.1.1
+718 error notarget This is most likely not a problem with npm itself.
+718 error notarget In most cases you or one of your dependencies are requesting
+718 error notarget a package version that doesn't exist.
+719 verbose exit [ 1, true ]
