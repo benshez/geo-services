@@ -1,1 +1,0 @@
-C:\Projects\geo-services\frontend\obj\Debug\frontend.csprojResolveAssemblyReference.cache
