@@ -10,7 +10,7 @@ System.config({
     },
     //map tells the System loader where to look for things
     map: {
-        'app': './src',
+        'app': './app',
         '@angular/core': 'npm:@angular/core@2.4.1/bundles/core.umd.js',
         '@angular/common': 'npm:@angular/common@2.4.1/bundles/common.umd.js',
         '@angular/compiler': 'npm:@angular/compiler@2.4.1/bundles/compiler.umd.js',
@@ -32,7 +32,7 @@ System.config({
     //packages defines our app package
     packages: {
         app: {
-            main: './main.ts',
+            main: './app/main.ts',
             defaultExtension: 'ts'
         },
         rxjs: {
