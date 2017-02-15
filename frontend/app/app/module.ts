@@ -6,7 +6,9 @@ import { AppComponent } from './component';
 import { SharedModule } from '../shared/module';
 
 @NgModule({
-    imports: [BrowserModule, AgmCoreModule.forRoot()],
+    imports: [BrowserModule, AgmCoreModule.forRoot({
+        apiKey: 'AIzaSyCJza05WEEuoK8XmTrg524pnnDokrtT5fc'
+    })],
     declarations: [AppComponent],
     bootstrap: [AppComponent]
 })
