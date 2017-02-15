@@ -1,5 +1,7 @@
 ﻿import { Routes } from '@angular/router';
 
-export const UserRoutes: Routes = [
+import { MapRoutes } from  './index';
 
+export const UserRoutes: Routes = [
+    ...MapRoutes
 ];

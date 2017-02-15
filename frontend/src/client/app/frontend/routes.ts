@@ -1,5 +1,8 @@
 ﻿import { Routes } from '@angular/router';
 
-export const FrontendRoutes: Routes = [
+import { SupplierRoutes, UserRoutes } from './index';
 
+export const FrontendRoutes: Routes = [
+    ...SupplierRoutes,
+    ...UserRoutes
 ];

@@ -367,7 +367,7 @@ export class SeedConfig {
       '@angular/platform-browser-dynamic/testing':
         'node_modules/@angular/platform-browser-dynamic/bundles/platform-browser-dynamic-testing.umd.js',
       '@angular/router/testing': 'node_modules/@angular/router/bundles/router-testing.umd.js',
-      'angular2-google-maps/core': 'npm:angular2-google-maps/core/core.umd.js',
+      'angular2-google-maps/core': 'node_modules/angular2-google-maps/core/core.umd.js',
 
       'app/*': '/app/*',
       // For test config
@@ -440,6 +440,10 @@ export class SeedConfig {
       'rxjs': {
         main: 'Rx.js',
         defaultExtension: 'js'
+      },
+      'angular2-google-maps/core': {
+          main: 'index.js',
+          defaultExtension: 'js'
       }
     }
   }, join(this.PROJECT_ROOT, this.APP_SRC), this.TMP_DIR);
