@@ -12,18 +12,20 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class MapComponent implements OnInit {
-    // google maps zoom level
+    constructor() {debugger }
+    ngOnInit() {
+        
+    }
+    /*// google maps zoom level
     zoom: number = 8;
 
     // initial center position for the map
     lat: number = 51.673858;
     lng: number = 7.815982;
 
-    constructor() { }
+    constructor() {debugger }
 
-    ngOnInit() {
 
-    }
 
 
     clickedMarker(label: string, index: number) {
@@ -60,13 +62,13 @@ export class MapComponent implements OnInit {
             label: 'C',
             draggable: true
         }
-    ];
+    ];*/
 
 }
 
-interface marker {
+/*interface marker {
     lat: number;
     lng: number;
     label?: string;
     draggable: boolean;
-}
+}*/
