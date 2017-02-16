@@ -1,45 +1,45 @@
-import { IStorageSetConfig } from './storage';
-import { COOKIE_SEP, encode, decode, toString, isString } from './helpers';
+import {IStorageSetConfig} from './metadata'
+import {COOKIE_SEP, encode, decode, toString, isString, isNumber} from './helpers'
 
-const DEFAULT_CONFIG: IStorageSetConfig = {};
+export const DEFAULT_CONFIG: IStorageSetConfig = {}
 
 export class Cookie {
-    public static getAll(): Object {
-        return document.cookie
-            .split(COOKIE_SEP)
-            .filter(value => !!value)
-            .map(items => items.split('='))
-            .reduce((res, [key, value]) => (res[decode(key)] = decode(value), res), {});
-    }
+  public static getAll(): Object {
+    return document.cookie
+      .split(COOKIE_SEP)
+      .filter(value => !!value)
+      .map(items => items.split('='))
+      .reduce((res, [key, value]) => (res[decode(key)] = decode(value), res), {})
+  }
 
-    public static get(key: string): any {
-        return this.getAll()[key];
-    }
+  public static get(key): any {
+    return this.getAll()[key]
+  }
 
-    public static set(key: string, value: any, config: IStorageSetConfig = DEFAULT_CONFIG): void {
-        const {secure, maxAge, domain, path, expires} = config
+  public static set(key, value, config = DEFAULT_CONFIG): void {
+    const {secure, maxAge, domain, path, expires} = config
 
-        var cookie = `${encode(key)}=${encode(value)}`;
+    var cookie = `${encode(key)}=${encode(value)}`
 
-        if (secure)
-            cookie += ';secure';
+    if (secure)
+      cookie += ';secure'
 
-        if (!isNaN(maxAge))
-            cookie += `;max-age=${maxAge}`;
+    if (isNumber(maxAge) && !isNaN(maxAge))
+      cookie += `;max-age=${maxAge}`
 
-        if (domain)
-            cookie += `;domain=${domain}`;
+    if (domain)
+      cookie += `;domain=${domain}`
 
-        if (path)
-            cookie += `;path=${path}`;
+    if (path)
+      cookie += `;path=${path}`
 
-        if (expires)
-            cookie += `;expires=${isString(expires) ? expires : toString(expires)}`;
+    if (expires)
+      cookie += `;expires=${isString(expires) ? expires : toString(expires)}`
 
-        document.cookie = cookie;
-    }
+    document.cookie = cookie
+  }
 
-    public static remove(key: string) {
-        this.set(key, this.get(key), { maxAge: 0 });
-    }
+  public static remove(key) {
+    this.set(key, this.get(key), {maxAge: 0})
+  }
 }

@@ -5,3 +5,4 @@ export * from './broadcast';
 export * from './user';
 export * from './logger';
 export * from './api';
+export * from './marker';

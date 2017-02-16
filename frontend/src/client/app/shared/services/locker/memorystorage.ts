@@ -1,35 +1,35 @@
-import { IStorage, IStorageSetConfig } from './storage';
+import { ICustomStorage } from './metadata'
 
-const _cache = new Map();
+const _cache = new Map()
 
-const getKeys = () => Array.from(_cache.keys());
+const getKeys = () => Array.from(_cache.keys())
 
-export class MemoryStorage implements IStorage {
-    public hasOwnProperty(key: string) {
-        return _cache.has(key);
+export class MemoryStorage implements ICustomStorage {
+    public hasItem(key) {
+        return _cache.has(key)
     }
 
-    public getItem(key: string) {
-        return _cache.get(key);
+    public getItem(key) {
+        return _cache.get(key)
     }
 
-    public setItem(key: string, value: any, config?: IStorageSetConfig) {
-        _cache.set(key, value);
+    public setItem(key, value, config) {
+        _cache.set(key, value)
     }
 
-    public removeItem(key: string) {
-        _cache.delete(key);
+    public removeItem(key) {
+        _cache.delete(key)
     }
 
     public clear() {
-        _cache.clear();
+        _cache.clear()
     }
 
-    public key(index: number) {
-        return getKeys()[index];
+    public key(index) {
+        return <string>getKeys()[index]
     }
 
     public get length() {
-        return getKeys().length;
+        return getKeys().length
     }
 }

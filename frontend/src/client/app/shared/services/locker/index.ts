@@ -1,11 +1,15 @@
-import { Locker, LockerConfig } from './locker';
+import {Locker, LockerConfig, LOCKER_DEFAULT_CONFIG_PROVIDER} from './Locker'
+import {LockerModule} from './Locker.module'
+
+export * from './Driver'
+export * from './PolyfillDriver'
+export * from './Locker.module'
+export * from './Locker'
+export * from './DriverTypes'
+export * from './metadata'
 
 // angular-cli
 export default {
-    providers: [LockerConfig, Locker]
+  ngModule: LockerModule,
+  providers: [LockerConfig, Locker]
 }
-
-export * from './driver';
-export * from './storage';
-export * from './module';
-export * from './locker';

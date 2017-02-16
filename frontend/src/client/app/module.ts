@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { APP_BASE_HREF } from '@angular/common';
@@ -12,6 +12,7 @@ import { BackendModule } from './backend/module';
 import { SharedModule } from './shared/module';
 import { Cache } from './shared/services/cache/index';
 import { LockerModule, Locker, LockerConfig } from './shared/services/locker/index'
+import { MapComponent } from './frontend/user/map/component';
 
 @NgModule({
     imports: [FormsModule, BrowserModule, HttpModule, SharedModule.forRoot(), FrontendModule.forRoot(),
@@ -21,7 +22,8 @@ import { LockerModule, Locker, LockerConfig } from './shared/services/locker/ind
         provide: APP_BASE_HREF,
         useValue: '<%= APP_BASE %>'
     }],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
+    schemas: [NO_ERRORS_SCHEMA],
 })
 
 export class AppModule {

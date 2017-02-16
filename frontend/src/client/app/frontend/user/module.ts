@@ -1,20 +1,14 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
-import { UserRoutes } from './index';
-import { MapModule } from './map/index';
+import { UserRoutes } from './routes';
+import { MapModule } from './map/module';
 
 @NgModule({
-    imports: [BrowserModule, RouterModule.forRoot(UserRoutes), FormsModule, MapModule.forRoot()],
+    imports: [RouterModule.forRoot(UserRoutes), FormsModule],
     exports: [MapModule]
 })
 export class UserModule {
-    static forRoot(): ModuleWithProviders {
-        return {
-            ngModule: UserModule
-        };
-    }
+
 }

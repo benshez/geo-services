@@ -1,4 +1,4 @@
-import { ReflectiveInjector } from '@angular/core';
+/*import { ReflectiveInjector } from '@angular/core';
 import { BaseRequestOptions, ConnectionBackend, Http, Response, ResponseOptions } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 import { Observable } from 'rxjs/Observable';
@@ -44,4 +44,4 @@ export function main() {
             expect(names).toEqual(['Dijkstra', 'Hopper']);
         });
     });
-}
+}*/

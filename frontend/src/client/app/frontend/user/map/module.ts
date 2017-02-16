@@ -1,4 +1,4 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AgmCoreModule } from 'angular2-google-maps/core';
 import { RouterModule } from '@angular/router';
@@ -10,13 +10,8 @@ import { MapComponent } from './component';
     imports: [BrowserModule, RouterModule.forRoot(MapRoutes), AgmCoreModule.forRoot({
         apiKey: 'AIzaSyCJza05WEEuoK8XmTrg524pnnDokrtT5fc'
     })],
-    declarations: [MapComponent]
+    declarations: [MapComponent],
+    bootstrap: [MapComponent]
 })
 
-export class MapModule {
-    static forRoot(): ModuleWithProviders {
-        return {
-            ngModule: MapModule
-        };
-    }
-}
+export class MapModule { }
