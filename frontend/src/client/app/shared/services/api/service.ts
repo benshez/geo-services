@@ -11,7 +11,6 @@ import { IApiServiceOptions, IApiServiceParametersOptions } from '../../models/i
 
 @Injectable()
 export class ApiService {
-    _url: string = '';
 
     constructor(private http: Http, private logger: LogService, private message: MessageEvent,
         private locker: Locker, private apiServiceOptions: IApiServiceOptions) { }
@@ -21,19 +20,19 @@ export class ApiService {
 
         if (this.locker.has(parameters.url)) {
             this.message.fire(false);
-            return Observable.of(this.locker.get(parameters.url));
+            return (Observable.of(this.locker.get(parameters.url))) as any;
         }
 
         this.apiServiceOptions.method = RequestMethod.Get;
         this.apiServiceOptions.parameters = parameters;
-        this.apiServiceOptions.parameters.url = Config.API.concat(parameters.url);
+        this.apiServiceOptions.parameters.url = (parameters.concatApi) ? Config.API.concat(parameters.url) : parameters.url;
         this.apiServiceOptions.parameters.parameters = parameters.parameters;
         this.apiServiceOptions.parameters.cacheKey = parameters.cacheKey;
         this.apiServiceOptions.pendingCommandCount = 0;
         this.apiServiceOptions.pendingCommandsSubject = new Subject<number>();
         this.apiServiceOptions.pendingCommands$ = this.apiServiceOptions.pendingCommandsSubject.asObservable();
 
-        return this.request(this.apiServiceOptions);
+        return (this.request(this.apiServiceOptions)) as any;
     }
 
     put(parameters: IApiServiceParametersOptions): Observable<Response> {
@@ -59,7 +58,7 @@ export class ApiService {
         this.apiServiceOptions.pendingCommandsSubject = new Subject<number>();
         this.apiServiceOptions.pendingCommands$ = this.apiServiceOptions.pendingCommandsSubject.asObservable();
         
-        return this.request(this.apiServiceOptions);
+        return (this.request(this.apiServiceOptions)) as any;
     }
 
     private request(options: IApiServiceOptions): Observable<any> {
@@ -71,7 +70,7 @@ export class ApiService {
         requestOptions.method = options.method;
         requestOptions.url = options.parameters.url;
         requestOptions.headers = options.headers;
-        requestOptions.search = this.buildUrlSearchParams(options.parameters.parameters);
+        requestOptions.search = ((this.buildUrlSearchParams(options.parameters.parameters)) as any);
         requestOptions.body = JSON.stringify(options.data);
 
         let isCommand = (options.method !== RequestMethod.Get);
@@ -79,8 +78,7 @@ export class ApiService {
         if (isCommand) {
             options.pendingCommandsSubject.next(++options.pendingCommandCount);
         }
-
-        return this.http.request(options.parameters.url, requestOptions)
+        return (this.http.request(options.parameters.url, requestOptions)
             .map((res: Response) => res.json())
             .do((res: Response) => {
                 this.logger.info(res);
@@ -93,13 +91,13 @@ export class ApiService {
             .finally(() => {
                 this.message.fire(false);
                 if (isCommand) options.pendingCommandsSubject.next(--options.pendingCommandCount);
-            });
+            })) as any;
     }
 
     private buildUrlSearchParams(params: any): URLSearchParams {
-        var searchParams = new URLSearchParams();
+        let searchParams = new URLSearchParams();
         for (var key in params) {
-            searchParams.append(key, params[key])
+            searchParams.append(key, params[key]);
         }
         return searchParams;
     }

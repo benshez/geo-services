@@ -8,7 +8,9 @@ import { MapComponent } from './component';
 
 @NgModule({
     imports: [BrowserModule, RouterModule.forRoot(MapRoutes), AgmCoreModule.forRoot({
-        apiKey: 'AIzaSyCJza05WEEuoK8XmTrg524pnnDokrtT5fc'
+        region: 'au',
+        apiKey: 'AIzaSyCJza05WEEuoK8XmTrg524pnnDokrtT5fc',
+        libraries: ['places']
     })],
     declarations: [MapComponent],
     bootstrap: [MapComponent]

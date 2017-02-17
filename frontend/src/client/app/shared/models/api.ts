@@ -5,6 +5,7 @@ export class IApiServiceParametersOptions {
     url: string = '';
     parameters: any = {};
     cacheKey: string = '';
+    concatApi: boolean = false;
 }
 
 export class IApiServiceOptions {

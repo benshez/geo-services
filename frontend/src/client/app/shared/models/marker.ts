@@ -1,6 +1,6 @@
-﻿export interface IMarker {
-    lat: number;
-    lng: number;
-    label?: string;
+﻿export interface IMarker{
+    latitude: number;
+    longitude: number;
+    company?: string;
     draggable: boolean;
 }
