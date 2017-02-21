@@ -3,4 +3,5 @@
     longitude: number;
     company?: string;
     draggable: boolean;
+    isOpen: boolean;
 }

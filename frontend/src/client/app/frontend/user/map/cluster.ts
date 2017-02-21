@@ -14,30 +14,27 @@ export class MarkerCluster implements OnInit {
     @Input()
     points: any[];
 
-    constructor(private gmapsApi: GoogleMapsAPIWrapper) {
-    }
+    constructor(private gmapsApi: GoogleMapsAPIWrapper) { }
 
     ngOnInit() {
-
         this.gmapsApi.getNativeMap().then(map => {
 
             let markerIcon = {
-                url: "assets/marker.png", // url
+                url: 'assets/marker.png',
                 scaledSize: new google.maps.Size(35, 35)
             }
 
-
             let style = {
-                url: "assets/cluster.png",
+                url: 'assets/cluster.png',
                 height: 40,
                 width: 40,
                 textColor: '#FFF',
                 textSize: 11,
-                backgroundPosition: "center center"
+                backgroundPosition: 'center center'
             };
 
             let options = {
-                imagePath: "/assets/cluster",
+                imagePath: '/assets/cluster',
                 gridSize: 70,
                 styles: [style, style, style]
             };

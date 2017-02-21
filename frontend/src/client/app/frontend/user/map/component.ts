@@ -1,144 +1,104 @@
-import { Component, OnInit } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Http, HttpModule } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
 import { IMarker, IApiServiceParametersOptions, IFreeGeoIPLocation } from '../../../shared/models/index';
 import { ApiService } from '../../../shared/services/api/index';
-import { DomService } from '../../../shared/services/dom/index';
-import { Observable } from 'rxjs/Observable';
-import { MapsAPILoader, GoogleMapsAPIWrapper } from 'angular2-google-maps/core';
-import { GoogleMap, Marker } from 'angular2-google-maps/core/services/google-maps-types';
-
-declare var google: any;
+import { ICoordinates } from '../../../shared/models/coordinates';
 
 @Component({
     moduleId: module.id,
     selector: 'sd-app-map',
-    styles: [`
-    .sebm-google-map-container {
-        height: 300px;
-     }
-  `],
-    template: `
-    <sebm-google-map 
-      [latitude]="latitude"
-      [longitude]="longitude"
-      [zoom]="zoom"
-      [disableDefaultUI]="false"
-      [zoomControl]="false"
-      (mapClick)="mapClicked($event)">
-    
-      <sebm-google-map-marker 
-          *ngFor="let m of markers; let i = index"
-          (markerClick)="clickedMarker(m.company, i)"
-          [latitude]="m.latitude"
-          [longitude]="m.longitude"
-          [label]="m.company"
-          [markerDraggable]="m.draggable"
-          (dragEnd)="markerDragEnd(m, $event)">
-          
-        <sebm-google-map-info-window>
-          <strong>InfoWindow content</strong>
-        </sebm-google-map-info-window>
-        
-      </sebm-google-map-marker>
-      
-      <sebm-google-map-circle [latitude]="latitude + 0.3" [longitude]="longitude" 
-          [radius]="5000"
-          [fillColor]="'red'"
-          [circleDraggable]="true"
-          [editable]="true">
-      </sebm-google-map-circle>
-
-    </sebm-google-map>
-`
+    styleUrls: ['styles.css'],
+    templateUrl: 'tmpl.html'
 })
 
-export class MapComponent implements OnInit {
+export class MapComponent implements OnInit, AfterViewInit {
+    lat: number = 51;
+    lng: number = 10;
+    zoom: number = 15;
 
     private errorMessage: string;
-    public latitude: number;
-    public longitude: number;
-    public markers: IMarker[] = [];
-    public zoom: number;
+    private points: IMarker[] = [];
+    private markers: IMarker[] = [];
     private currentLocation: any;
 
-    constructor(private apiService: ApiService, private apiOptions: IApiServiceParametersOptions,
-        private mapsApiLoader: MapsAPILoader, private mapsApiWrapper: GoogleMapsAPIWrapper,
-        private domService: DomService) { }
+    constructor(private http: Http, private apiService: ApiService, private apiOptions: IApiServiceParametersOptions) { }
 
     ngOnInit() {
-        this.zoom = 18;
-        this.latitude = 39.8282;
-        this.longitude = -98.5795;
-        this.initCurrentLocation();
+
+        //Observable
+        //    .interval(500)
+        //    this.http.get('assets/points.json').subscribe(data => {
+        //        this.points = data.json();
+        //});
+
     }
 
-    private initCurrentLocation() {
-        this.apiOptions.url = 'http://freegeoip.net/json/';
-        this.apiOptions.parameters = {};
-        this.apiService.get(this.apiOptions)
+    ngAfterViewInit() {
+        this.setCurrentLocation();
+    }
+
+    private setCurrentLocation() {
+        const options = {
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumAge: 0
+        };
+
+        navigator.geolocation.getCurrentPosition((position) => {
+            this.onSuccess(position);
+        }, (error) => {
+            this.onError(error, this)
+        }, options);
+    }
+
+    private onSuccess(pos: Position) {
+        this.lat = pos.coords.latitude;
+        this.lng = pos.coords.longitude;
+        this.setMarkers();
+    }
+
+    private onError(error, context) {
+        context.apiOptions.url = 'http://freegeoip.net/json/';
+        context.apiOptions.parameters = {};
+
+        context.apiService.get(context.apiOptions)
             .subscribe(
-            (json: any) => this.currentLocation = <IFreeGeoIPLocation>json,
-            (error: any) => this.errorMessage = <any>error,
+            (json: any) => context.currentLocation = <IFreeGeoIPLocation>json,
+            (error: any) => context.errorMessage = <any>error,
             () => {
-                this.latitude = this.currentLocation.latitude;
-                this.longitude = this.currentLocation.longitude;
-                this.zoom = 11;
-                this.initMarkers();
+                context.lat = context.currentLocation.latitude;
+                context.lng = context.currentLocation.longitude;
+                context.setMarkers();
             });
     }
 
-    private initMarkers() {
-        this.apiOptions.url = 'data/markers.json';
-        this.apiOptions.concatApi = true;
+    private setMarkers() {
+        this.apiOptions.url = 'assets/points.json';
         this.apiOptions.parameters = {};
+        this.apiOptions.concatApi = true;
+
         this.apiService.get(this.apiOptions)
             .subscribe(
-            (json: any) => this.markers.push(<any>json),
+            (json: any) => this.points = <any>json,
             (error: any) => this.errorMessage = <any>error,
-            () => {
-                this.gmapsApi.getNativeMap().then(map => {
+            () => { });
+    }
 
-                    let markerIcon = {
-                        url: "assets/marker.png", // url
-                        scaledSize: new google.maps.Size(35, 35)
-                    }
+    clickedMarker(label: string, index: number) {
+        for (let i = 0; i < this.points.length; i++) {
+            this.points[i].isOpen = (i === index)
+        }
+    }
 
+    mapClicked($event: MouseEvent) {
+        //this.markers.push({
+        //    lat: $event.coords.lat,
+        //    lng: $event.coords.lng
+        //});
+    }
 
-                    let style = {
-                        url: "assets/cluster.png",
-                        height: 40,
-                        width: 40,
-                        textColor: '#FFF',
-                        textSize: 11,
-                        backgroundPosition: "center center"
-                    };
-
-                    let options = {
-                        imagePath: "/assets/cluster",
-                        gridSize: 70,
-                        styles: [style, style, style]
-                    };
-
-                    let markers = [];
-
-
-                    Observable
-                        .interval(500)
-                        .skipWhile((s) => this.points == null || this.points.length <= 0)
-                        .take(1)
-                        .subscribe(() => {
-                            for (let point of this.points) {
-                                let marker = new google.maps.Marker({
-                                    position: new google.maps.LatLng(point.Latitude, point.Longitude),
-                                    icon: markerIcon
-                                });
-                                markers.push(marker);
-                            }
-
-                            var markerCluster = new MarkerClusterer(map, markers, options);
-
-                        })
-                });
-                });
+    markerDragEnd(m: IMarker, $event: MouseEvent) {
+        console.log('dragEnd', m, $event);
     }
 }
