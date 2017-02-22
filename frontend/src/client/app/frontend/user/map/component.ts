@@ -1,5 +1,4 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { Http, HttpModule } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { IMarker, IApiServiceParametersOptions, IFreeGeoIPLocation } from '../../../shared/models/index';
 import { ApiService } from '../../../shared/services/api/index';
@@ -19,10 +18,9 @@ export class MapComponent implements OnInit, AfterViewInit {
 
     private errorMessage: string;
     private points: IMarker[] = [];
-    private markers: IMarker[] = [];
     private currentLocation: any;
 
-    constructor(private http: Http, private apiService: ApiService, private apiOptions: IApiServiceParametersOptions) { }
+    constructor(private apiService: ApiService, private apiOptions: IApiServiceParametersOptions) { }
 
     ngOnInit() {
 
@@ -74,6 +72,9 @@ export class MapComponent implements OnInit, AfterViewInit {
     }
 
     private setMarkers() {
+        Observable
+            .interval(500)
+  
         this.apiOptions.url = 'assets/points.json';
         this.apiOptions.parameters = {};
         this.apiOptions.concatApi = true;
