@@ -15,3 +15,5 @@ export * from './services/log/index';
 export * from './services/message/index';
 
 export * from './config/env.config';
+
+export * from './components/index';

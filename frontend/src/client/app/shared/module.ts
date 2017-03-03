@@ -14,6 +14,8 @@ import { LockerModule, Locker, LockerConfig } from './services/locker/index'
 import { AuthGuard } from './services/auth/index';
 import { MessageEvent } from './services/message/index';
 
+import { NavigationComponent } from './components/index';
+
 import { IUser, IApiServiceOptions, IApiServiceParametersOptions} from './models/index';
 /**
  * Do not specify providers for modules that might be imported by a lazy loaded module.
@@ -21,8 +23,8 @@ import { IUser, IApiServiceOptions, IApiServiceParametersOptions} from './models
 
 @NgModule({
     imports: [CommonModule, RouterModule, LockerModule],
-    declarations: [],
-    exports: [CommonModule, FormsModule, RouterModule]
+    declarations: [NavigationComponent],
+    exports: [CommonModule, FormsModule, RouterModule, NavigationComponent]
 })
 export class SharedModule {
     static forRoot(): ModuleWithProviders {

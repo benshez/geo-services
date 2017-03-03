@@ -1,11 +1,12 @@
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { APP_BASE_HREF } from '@angular/common';
 import { HttpModule } from '@angular/http';
-import { AppComponent } from './component';
-import { FormsModule } from '@angular/forms';
 
+import { MdlModule } from 'angular2-mdl';
+
+import { AppComponent } from './component';
 
 import { FrontendModule } from './frontend/module';
 import { BackendModule } from './backend/module';
@@ -15,8 +16,8 @@ import { LockerModule, Locker, LockerConfig } from './shared/services/locker/ind
 import { MapComponent } from './frontend/user/map/component';
 
 @NgModule({
-    imports: [FormsModule, BrowserModule, HttpModule, SharedModule.forRoot(), FrontendModule.forRoot(),
-        BackendModule.forRoot(), LockerModule],
+    imports: [FormsModule, BrowserModule, HttpModule, MdlModule, SharedModule.forRoot(), FrontendModule.forRoot(),
+        BackendModule.forRoot(), LockerModule, ReactiveFormsModule],
     declarations: [AppComponent],
     providers: [{
         provide: APP_BASE_HREF,

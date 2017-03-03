@@ -368,6 +368,7 @@ export class SeedConfig {
         'node_modules/@angular/platform-browser-dynamic/bundles/platform-browser-dynamic-testing.umd.js',
       '@angular/router/testing': 'node_modules/@angular/router/bundles/router-testing.umd.js',
       'angular2-google-maps/core': 'node_modules/angular2-google-maps/core/core.umd.js',
+      'angular2-mdl': 'node_modules/angular2-mdl/bundle/angular2-mdl.js',
 
       'app/*': '/app/*',
       // For test config
@@ -443,6 +444,9 @@ export class SeedConfig {
       },
       'angular2-google-maps/core': {
           main: 'index.js',
+          defaultExtension: 'js'
+      },
+      'angular2-mdl': {
           defaultExtension: 'js'
       }
     }
