@@ -7,7 +7,6 @@ import { NavigationComponent } from './component';
 
 @NgModule({
     imports: [CommonModule, ReactiveFormsModule,  FormsModule],
-    //imports: [CommonModule, MdlModule, FormsModule],
     declarations: [NavigationComponent],
     exports: [NavigationComponent]
 })

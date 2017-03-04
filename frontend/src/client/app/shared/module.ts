@@ -14,7 +14,7 @@ import { LockerModule, Locker, LockerConfig } from './services/locker/index'
 import { AuthGuard } from './services/auth/index';
 import { MessageEvent } from './services/message/index';
 
-import { NavigationComponent } from './components/index';
+import { NavigationComponent, FooterComponent } from './components/index';
 
 import { IUser, IApiServiceOptions, IApiServiceParametersOptions} from './models/index';
 /**
@@ -23,8 +23,8 @@ import { IUser, IApiServiceOptions, IApiServiceParametersOptions} from './models
 
 @NgModule({
     imports: [CommonModule, RouterModule, LockerModule],
-    declarations: [NavigationComponent],
-    exports: [CommonModule, FormsModule, RouterModule, NavigationComponent]
+    declarations: [NavigationComponent, FooterComponent],
+    exports: [CommonModule, FormsModule, RouterModule, NavigationComponent, FooterComponent]
 })
 export class SharedModule {
     static forRoot(): ModuleWithProviders {

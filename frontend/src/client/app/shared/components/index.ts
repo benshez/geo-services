@@ -3,5 +3,7 @@
  */
 
 export * from './navigation/index';
+export * from './footer/index';
 
 export * from './navigation/component';
+export * from './footer/component';
