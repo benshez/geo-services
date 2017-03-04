@@ -1,0 +1,20 @@
+node_modules/
+dist
+docs_generated
+app/**/*.js
+app/**/*.map
+app/**/*.ngfactory.js
+.tmp
+test-built
+npm-debug.log
+*.ngfactory.ts
+coverage/
+.idea/
+bin
+obj/
+*.user
+.vs/
+Visual Studio 2015
+*.sln
+*.csproj
+*.config
