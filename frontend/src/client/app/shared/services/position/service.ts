@@ -1,5 +1,5 @@
 //import { IPositionTracker } from '../models/positionTracker';
-import { ICoordinates } from '../models/coordinates';
+import { ICoordinates } from '../../models/coordinates';
 
 export default class GeoLocationPositionTracker {
     constructor(private enableHighAccuracy: boolean = true) { }

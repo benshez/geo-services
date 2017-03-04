@@ -1,6 +1,6 @@
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Rx';
-import { IBroadcastEvent }  from '../models/index';
+import { IBroadcastEvent }  from '../../models/index';
 
 
 export class Broadcaster {
