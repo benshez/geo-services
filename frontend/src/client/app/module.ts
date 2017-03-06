@@ -13,7 +13,6 @@ import { BackendModule } from './backend/module';
 import { SharedModule } from './shared/module';
 import { Cache } from './shared/services/cache/index';
 import { LockerModule, Locker, LockerConfig } from './shared/services/locker/index'
-import { MapComponent } from './frontend/user/map/component';
 
 @NgModule({
     imports: [FormsModule, BrowserModule, HttpModule, MdlNonRootModule.forRoot(),

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ILogger } from '../../models/index';
+import { ILogger } from '../../interfaces/index';
 declare var console: any;
 
 @Injectable()

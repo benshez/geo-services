@@ -16,7 +16,7 @@ import { MessageEvent } from './services/message/index';
 
 import { NavigationComponent, FooterComponent } from './components/index';
 
-import { IUser, IApiServiceOptions, IApiServiceParametersOptions} from './models/index';
+import { User, ApiServiceOptions, ApiServiceParametersOptions} from './models/index';
 /**
  * Do not specify providers for modules that might be imported by a lazy loaded module.
  */
@@ -30,7 +30,7 @@ export class SharedModule {
     static forRoot(): ModuleWithProviders {
         return {
             ngModule: SharedModule,
-            providers: [Broadcaster, MessageEvent, Cache, AuthGuard, ApiService, DomService, SeoService, IUser, LogService, IApiServiceOptions, IApiServiceParametersOptions]
+            providers: [Broadcaster, MessageEvent, Cache, AuthGuard, ApiService, DomService, SeoService, User, LogService, ApiServiceOptions, ApiServiceParametersOptions]
         };
     }
 }

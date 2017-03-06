@@ -1,4 +1,4 @@
-﻿export interface IMarker{
+﻿export interface IMarker {
     latitude: number;
     longitude: number;
     company?: string;

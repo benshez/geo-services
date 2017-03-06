@@ -4,18 +4,18 @@ import { AgmCoreModule } from 'angular2-google-maps/core';
 import { RouterModule } from '@angular/router';
 import { Http, HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
-import { MapRoutes } from './routes';
-import { MapComponent } from './component';
+import { SupplierMapRoutes } from './routes';
+import { SupplierMapComponent } from './component';
 
 @NgModule({
-    declarations: [MapComponent],
+    declarations: [SupplierMapComponent],
     imports: [BrowserModule, FormsModule, HttpModule,
-        RouterModule.forRoot(MapRoutes), AgmCoreModule.forRoot({
+        RouterModule.forRoot(SupplierMapRoutes), AgmCoreModule.forRoot({
         region: 'au',
         apiKey: 'AIzaSyCJza05WEEuoK8XmTrg524pnnDokrtT5fc',
         libraries: ['places']
     })],
-    bootstrap: [MapComponent]
+    bootstrap: [SupplierMapComponent]
 })
 
-export class MapModule { }
+export class SupplierMapModule { }

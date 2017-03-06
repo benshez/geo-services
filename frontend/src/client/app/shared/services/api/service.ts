@@ -2,20 +2,19 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions, RequestMethod, URLSearchParams } from '@angular/http';
 import { Observable, Subject } from 'rxjs/Rx';
 
-import { Config } from '../../index';
+import { Config, ApiServiceOptions, ApiServiceParametersOptions } from '../../index';
 
 import { Locker } from '../locker/index';
 import { MessageEvent } from '../message/service';
 import { LogService } from '../log/index';
-import { IApiServiceOptions, IApiServiceParametersOptions } from '../../models/index';
 
 @Injectable()
 export class ApiService {
 
     constructor(private http: Http, private logger: LogService, private message: MessageEvent,
-        private locker: Locker, private apiServiceOptions: IApiServiceOptions) { }
+        private locker: Locker, private apiServiceOptions: ApiServiceOptions) { }
 
-    get(parameters: IApiServiceParametersOptions): Observable<Response> {
+    get(parameters: ApiServiceParametersOptions): Observable<Response> {
         this.message.fire(true);
 
         if (this.locker.has(parameters.url)) {
@@ -35,7 +34,7 @@ export class ApiService {
         return (this.request(this.apiServiceOptions)) as any;
     }
 
-    put(parameters: IApiServiceParametersOptions): Observable<Response> {
+    put(parameters: ApiServiceParametersOptions): Observable<Response> {
         this.message.fire(true);
 
         let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -61,7 +60,7 @@ export class ApiService {
         return (this.request(this.apiServiceOptions)) as any;
     }
 
-    private request(options: IApiServiceOptions): Observable<any> {
+    private request(options: ApiServiceOptions): Observable<any> {
         //this.interpolateUrl(options);
         //this.addXsrfToken(options);
         //this.addContentType(options);

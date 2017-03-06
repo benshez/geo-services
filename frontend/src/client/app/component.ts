@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Config, LogService, ApiService, SeoService, MessageEvent, IApiServiceParametersOptions } from './shared/index';
+import { Config, LogService, ApiService, SeoService, MessageEvent, ApiServiceParametersOptions } from './shared/index';
 
 import { MdlLayoutComponent, MdlIconComponent } from 'angular2-mdl';
 
@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
 
     constructor(private _logger: LogService, private _apiService: ApiService,
         private message: MessageEvent, private seoService: SeoService,
-        private apiParameters: IApiServiceParametersOptions, private mainLayout: MdlLayoutComponent) {
+        private apiParameters: ApiServiceParametersOptions, private mainLayout: MdlLayoutComponent) {
         mainLayout.closeDrawerOnSmallScreens();
     }
 

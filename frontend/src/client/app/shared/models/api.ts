@@ -1,17 +1,17 @@
 ﻿import { RequestMethod } from '@angular/http';
 import { Observable, Subject } from 'rxjs/Rx';
 
-export class IApiServiceParametersOptions {
+export class ApiServiceParametersOptions {
     url: string = '';
     parameters: any = {};
     cacheKey: string = '';
     concatApi: boolean = false;
 }
 
-export class IApiServiceOptions {
+export class ApiServiceOptions {
     method: RequestMethod;
     headers: any = {};
-    parameters: IApiServiceParametersOptions;
+    parameters: ApiServiceParametersOptions;
     data: any = {};
     pendingCommands$: Observable<number>;
     pendingCommandsSubject: Subject<number>;

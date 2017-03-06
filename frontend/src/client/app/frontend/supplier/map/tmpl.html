@@ -1,0 +1,42 @@
+﻿<div class="mdl-card-full-with mdl-card mdl-shadow--2dp">
+    <sebm-google-map [latitude]="lat"
+                     [longitude]="lng"
+                     [zoom]="zoom"
+                     [disableDefaultUI]="false"
+                     [zoomControl]="false"
+                     (mapClick)="mapClicked($event)">
+
+        <sebm-google-map-marker *ngFor="let m of points; let i = index"
+                                (markerClick)="clickedMarker(m.label, i)"
+                                [latitude]="m.latitude"
+                                [longitude]="m.longitude"
+                                [label]="m.label"
+                                [markerDraggable]="m.draggable"
+                                (dragEnd)="markerDragEnd(m, $event)">
+
+            <sebm-google-map-info-window [isOpen]="m.isOpen">
+                <div class="card">
+                    <div class="card-image">
+                        <img src="../../../../assets/logo.png">
+                        <span class="card-title" [innerHTML]="m.label"></span>
+                    </div>
+                    <div class="card-content">
+                        <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
+                    </div>
+                    <div class="card-action">
+                        <a href="#">This is a link</a>
+                    </div>
+                </div>
+            </sebm-google-map-info-window>
+
+        </sebm-google-map-marker>
+
+
+        <sebm-google-map-circle [latitude]="lat + 0.3" [longitude]="lng"
+                                [radius]="5000"
+                                [fillColor]="'red'"
+                                [circleDraggable]="true"
+                                [editable]="true">
+        </sebm-google-map-circle>
+    </sebm-google-map>
+</div>

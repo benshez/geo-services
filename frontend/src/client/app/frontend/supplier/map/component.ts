@@ -4,12 +4,12 @@ import { IMarker, IFreeGeoIPLocation, ICoordinates, ApiServiceParametersOptions,
 
 @Component({
     moduleId: module.id,
-    selector: 'sd-app-map',
+    selector: 'sd-app-supplier-map',
     styleUrls: ['styles.css'],
     templateUrl: 'tmpl.html'
 })
 
-export class MapComponent implements OnInit, AfterViewInit {
+export class SupplierMapComponent implements OnInit, AfterViewInit {
     lat: number = 51;
     lng: number = 10;
     zoom: number = 15;

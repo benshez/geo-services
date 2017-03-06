@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate } from '@angular/router';
-import { IUser, Locker } from '../../index';
+import { User, Locker } from '../../index';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-    user: IUser;
+    user: User;
 
     constructor(private router: Router, private locker: Locker) {
         this.user = this.locker.get('USER_DETAIL');

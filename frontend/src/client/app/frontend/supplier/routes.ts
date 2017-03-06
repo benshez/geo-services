@@ -1,5 +1,7 @@
 ﻿import { Routes } from '@angular/router';
 
-export const SupplierRoutes: Routes = [
+import { SupplierMapRoutes } from './map/index';
 
+export const SupplierRoutes: Routes = [
+    ...SupplierMapRoutes
 ];

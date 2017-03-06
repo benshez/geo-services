@@ -6,6 +6,8 @@ export * from './services/broadcaster/index';
 
 export * from './models/index';
 
+export * from './interfaces/index';
+
 export * from './services/api/index';
 export * from './services/dom/index';
 export * from './services/seo/index';
