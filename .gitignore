@@ -1,5 +1,7 @@
 vendor/
 settings.php
+*.phpproj
+*.api.phpproj.user
 node_modules/
 dist
 docs_generated
