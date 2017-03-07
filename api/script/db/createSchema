@@ -1,0 +1,5 @@
+mysql -u root -p << 'SQL'
+
+CREATE DATABASE IF NOT EXISTS doctrim;
+
+SQL

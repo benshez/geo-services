@@ -1,0 +1,34 @@
+{
+  "name": "valeriocomo/doctrim",
+  "description": "Slim 3 with Doctrine Migrations",
+  "version": "0.0.0",
+  "license": "BSD-3-Clause",
+  "keywords": [ "slim-framework", "doctrine", "doctrine-migrations", "migrations" ],
+  "authors": [
+    {
+      "name": "Valerio Como",
+      "email": "valeriocomo@gmail.com",
+      "homepage": "http://valeriocomo.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "GeoService\\": "app/src",
+      "GeoService\\ComposerScript\\": "script/composer"
+    }
+  },
+  "require": {
+    "doctrine/orm": "~2.5",
+    "slim/slim": "^3.0",
+    "monolog/monolog": "^1.13",
+    "slim/http-cache": "^0.3.0",
+    "lcobucci/jwt": "^3.1"
+  },
+  "require-dev": {
+    "doctrine/migrations": "^1.4",
+    "phpunit/phpunit": "^5.4"
+  },
+  "scripts": {
+    "generate-service": "GeoService\\ComposerScript\\Generator::generateService"
+  }
+}

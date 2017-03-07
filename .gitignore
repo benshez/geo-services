@@ -1,3 +1,5 @@
+vendor/
+settings.php
 node_modules/
 dist
 docs_generated
