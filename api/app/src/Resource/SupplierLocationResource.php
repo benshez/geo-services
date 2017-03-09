@@ -7,11 +7,15 @@ use GeoService\Entity\SupplierLocation as SupplierLocation;
 {
 	class SupplierLocationResource extends AbstractResource
 	{
-
-    public function get($slug = null)
+    /**
+     * @param string|null $id
+     *
+     * @return array
+     */
+    public function get($id = null)
     {
-      
-      if ($slug === null) {
+
+      if ($id === null) {
         $configs = $this->entityManager->getRepository('GeoService\Entity\SupplierLocation')->findAll();
         $configs = array_map(
           function ($config) {
@@ -23,7 +27,7 @@ use GeoService\Entity\SupplierLocation as SupplierLocation;
         return $configs;
       } else {
         $config = $this->entityManager->getRepository('GeoService\Entity\SupplierLocation')->findOneBy(
-          array('slug' => $slug)
+          array('id' => $id)
         );
         if ($config) {
           return $config->getArrayCopy();

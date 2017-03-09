@@ -17,14 +17,12 @@ use GeoService\Resource\SupplierLocationResource;
     public function fetch($request, $response, $args)
     {
       $configs = $this->resource->get(); 
-      //print_r($configs[0]['value']);
-      //print_r(json_decode($configs[0]['value']));
       return $response->withJSON($configs);
     }
 
     public function fetchOne($request, $response, $args)
     {
-      $config = $this->resource->get($args['slug']);
+      $config = $this->resource->get($args['id']);
       if ($config) {
         return $response->withJSON($config);
       }

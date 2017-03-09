@@ -57,6 +57,7 @@ export class SupplierMapComponent implements OnInit, AfterViewInit {
     private onError(error, context) {
         context.apiOptions.url = 'http://freegeoip.net/json/';
         context.apiOptions.parameters = {};
+        context.apiOptions.concatApi = false;
 
         context.apiService.get(context.apiOptions)
             .subscribe(
@@ -73,7 +74,7 @@ export class SupplierMapComponent implements OnInit, AfterViewInit {
         Observable
             .interval(500)
   
-        this.apiOptions.url = 'assets/points.json';
+        this.apiOptions.url = 'supplier/location';
         this.apiOptions.parameters = {};
         this.apiOptions.concatApi = true;
 

@@ -2,6 +2,6 @@
     latitude: number;
     longitude: number;
     company?: string;
-    draggable: boolean;
-    isOpen: boolean;
+    draggable?: boolean;
+    isOpen?: boolean;
 }
