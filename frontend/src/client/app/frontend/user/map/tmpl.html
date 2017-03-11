@@ -17,7 +17,7 @@
             <sebm-google-map-info-window [isOpen]="false">
                 <div class="card">
                     <div class="card-image">
-                        <img src="../../../../assets/logo.png">
+                        <img [attr.src]="m.supplier.supplierLogo">
                         <span class="card-title" [innerHTML]="m.supplier.supplierName"></span>
                     </div>
                     <div class="card-content">
