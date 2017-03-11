@@ -1,11 +1,12 @@
 <?php
 
-namespace GeoService\Resource; 
+namespace GeoService\Locations\Manager;
+
 use GeoService\AbstractResource,
-GeoService\Entity\Locations as Locations;
+GeoService\Locations\Entity\Locations as Locations;
 
 {
-	class LocationsResource extends AbstractResource
+	class Manager extends AbstractResource
 	{
     /**
      * @param string|null $id
@@ -16,10 +17,10 @@ GeoService\Entity\Locations as Locations;
     {
       
       if ($id === null) {
-        $configs = $this->entityManager->getRepository('GeoService\Entity\Locations')->findAll();
+        $configs = $this->entityManager->getRepository('GeoService\Locations\Entity\Locations')->findAll();
         $configs = array_map(
           function ($config) {
-            $config->setSupplier($this->entityManager->getRepository('GeoService\Entity\Suppliers')->findOneBy(array('id' => $config->getSupplierId())));
+            $config->setSupplier($this->entityManager->getRepository('GeoService\Suppliers\Entity\Suppliers')->findOneBy(array('id' => $config->getSupplierId())));
             return $config->getArrayCopy();
           },
           $configs
@@ -27,7 +28,7 @@ GeoService\Entity\Locations as Locations;
 
         return $configs;
       } else {
-        $config = $this->entityManager->getRepository('GeoService\Entity\Locations')->findOneBy(
+        $config = $this->entityManager->getRepository('GeoService\Locations\Entity\Locations')->findOneBy(
           array('id' => $id)
         );
         if ($config) {

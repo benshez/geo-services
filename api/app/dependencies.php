@@ -32,7 +32,7 @@ $container['em'] = function ($c) {
 // -----------------------------------------------------------------------------
 // Action factories
 // -----------------------------------------------------------------------------
-$container['GeoService\Controller\LocationsController'] = function ($c) {
-    $resource = new \GeoService\Resource\LocationsResource($c->get('em'));
-    return new GeoService\Controller\LocationsController($resource);
+$container['GeoService\Locations\Controller\Controller'] = function ($c) {
+    $resource = new \GeoService\Locations\Manager\Manager($c->get('em'));
+    return new GeoService\Locations\Controller\Controller($resource);
 };

@@ -1,11 +1,11 @@
 <?php
 
-namespace GeoService\Entity;
+namespace GeoService\Suppliers\Entity;
 
 use Doctrine\ORM\Mapping as ORM,
 Doctrine\Common\Collections\Collection,
 Doctrine\Common\Collections\ArrayCollection,
-GeoService\Entity\Locations;
+GeoService\Locations\Entity\Locations;
 /**
  * Suppliers
  *

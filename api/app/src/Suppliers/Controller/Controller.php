@@ -1,15 +1,15 @@
 <?php
 
-namespace GeoService\Controller;
+namespace GeoService\Suppliers\Controller;
 
-use GeoService\Resource\LocationsResource;
+use GeoService\Suppliers\Manager\Manager;
 
 {
-	final class LocationsController
+	final class Controller
 	{
     private $resource;
 
-    public function __construct(LocationsResource $resource)
+    public function __construct(Manager $resource)
     {
       $this->resource = $resource;
     }
