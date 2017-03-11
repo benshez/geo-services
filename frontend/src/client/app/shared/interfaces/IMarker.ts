@@ -1,7 +1,7 @@
 ﻿export interface IMarker {
     latitude: number;
     longitude: number;
-    company?: string;
+    countryName?: string;
     draggable?: boolean;
     isOpen?: boolean;
 }

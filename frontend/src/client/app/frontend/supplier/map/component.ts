@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { IMarker, IFreeGeoIPLocation, ICoordinates, ApiServiceParametersOptions, ApiService } from '../../../shared/index';
+import { Config, IMarker, IFreeGeoIPLocation, ICoordinates, ApiServiceParametersOptions, ApiService } from '../../../shared/index';
 
 @Component({
     moduleId: module.id,
@@ -55,7 +55,7 @@ export class SupplierMapComponent implements OnInit, AfterViewInit {
     }
 
     private onError(error, context) {
-        context.apiOptions.url = 'http://freegeoip.net/json/';
+        context.apiOptions.url = Config.GEO_API;
         context.apiOptions.parameters = {};
         context.apiOptions.concatApi = false;
 

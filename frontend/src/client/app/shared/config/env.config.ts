@@ -3,6 +3,7 @@
 export interface EnvConfig {
     API?: string;
     ENV?: string;
+    GEO_API?: string;
 }
 
 export const Config: EnvConfig = JSON.parse('<%= ENV_CONFIG %>');

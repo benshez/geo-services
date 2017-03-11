@@ -5,12 +5,12 @@ namespace GeoService\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * SupplierLocation
+ * Locations
  *
- * @ORM\Table(name="supplier_location", indexes={@ORM\Index(name="idx_ip_from", columns={"ip_from"}), @ORM\Index(name="idx_ip_to", columns={"ip_to"}), @ORM\Index(name="idx_ip_from_to", columns={"ip_from", "ip_to"})})
+ * @ORM\Table(name="locations", indexes={@ORM\Index(name="idx_ip_from", columns={"ip_from"}), @ORM\Index(name="idx_ip_to", columns={"ip_to"}), @ORM\Index(name="idx_ip_from_to", columns={"ip_from", "ip_to"}), @ORM\Index(name="supplier_id", columns={"supplier_id"})})
  * @ORM\Entity
  */
-class SupplierLocation
+class Locations
 {
     /**
      * @var integer
@@ -99,13 +99,9 @@ class SupplierLocation
     private $timeZone;
 
     /**
-     * Get array copy of object
      *
-     * @return array
+     * @ORM\OneToOne(targetEntity="Suppliers", inversedBy="supplier")
      */
-    public function getArrayCopy()
-    {
-      return get_object_vars($this);
-    }
+    private $supplier;
 }
 

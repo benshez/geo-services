@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { IMarker, IFreeGeoIPLocation, ICoordinates, ApiServiceParametersOptions, ApiService } from '../../../shared/index';
+import { Config, IMarker, IFreeGeoIPLocation, ICoordinates, ApiServiceParametersOptions, ApiService } from '../../../shared/index';
 
 @Component({
     moduleId: module.id,
@@ -51,11 +51,11 @@ export class MapComponent implements OnInit, AfterViewInit {
     private onSuccess(pos: Position) {
         this.lat = pos.coords.latitude;
         this.lng = pos.coords.longitude;
-        this.setMarkers();
+        this.initializePolling();
     }
 
     private onError(error, context) {
-        context.apiOptions.url = 'http://freegeoip.net/json/';
+        context.apiOptions.url = Config.GEO_API;
         context.apiOptions.parameters = {};
         context.apiOptions.concatApi = false;
 
@@ -71,18 +71,20 @@ export class MapComponent implements OnInit, AfterViewInit {
     }
 
     private setMarkers() {
-        Observable
-            .interval(500)
-  
         this.apiOptions.url = 'supplier/location';
         this.apiOptions.parameters = {};
         this.apiOptions.concatApi = true;
 
         this.apiService.get(this.apiOptions)
             .subscribe(
-            (json: any) => this.points = [<any>json],
+            (json: any) => this.points = <any>json,
             (error: any) => this.errorMessage = <any>error,
             () => { });
+    }
+
+    private initializePolling() {
+        let timer = Observable.timer(0, 1);
+        timer.subscribe(this.setMarkers());
     }
 
     clickedMarker(label: string, index: number) {

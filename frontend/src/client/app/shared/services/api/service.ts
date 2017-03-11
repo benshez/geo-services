@@ -84,7 +84,6 @@ export class ApiService {
                 if (options.parameters.cacheKey != '') this.locker.set(options.parameters.cacheKey, res);
             })
             .catch((error: any) => {
-                debugger
                 return Observable.throw(this.unwrapHttpError(error));
             })
             .share()

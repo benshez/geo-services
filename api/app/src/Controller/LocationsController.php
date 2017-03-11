@@ -2,14 +2,14 @@
 
 namespace GeoService\Controller;
 
-use GeoService\Resource\SupplierLocationResource;
+use GeoService\Resource\LocationsResource;
 
 {
-	final class SupplierLocationController
+	final class LocationsController
 	{
     private $resource;
 
-    public function __construct(SupplierLocationResource $resource)
+    public function __construct(LocationsResource $resource)
     {
       $this->resource = $resource;
     }
