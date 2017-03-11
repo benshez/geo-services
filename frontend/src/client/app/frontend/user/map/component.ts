@@ -17,6 +17,7 @@ export class MapComponent implements OnInit, AfterViewInit {
     private errorMessage: string;
     private points: IMarker[] = [];
     private currentLocation: any;
+    private timer: any = null;
 
     constructor(private apiService: ApiService, private apiOptions: ApiServiceParametersOptions) { }
 
@@ -83,8 +84,8 @@ export class MapComponent implements OnInit, AfterViewInit {
     }
 
     private initializePolling() {
-        let timer = Observable.timer(0, 1);
-        timer.subscribe(this.setMarkers());
+        this.setMarkers();
+        //this.timer = window.setInterval((...args: any[]) => this.setMarkers(), 60000);
     }
 
     clickedMarker(label: string, index: number) {

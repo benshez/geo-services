@@ -1,16 +1,16 @@
 <?php
 
-namespace GeoService\Suppliers\Entity;
+namespace GeoService\Entity;
 
-use Doctrine\ORM\Mapping as ORM,
-GeoService\Suppliers\Entity\Base;
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * Suppliers
  *
- * @ORM\Table(name="suppliers")
+ * @ORM\Table(name="suppliers", indexes={@ORM\Index(name="idx_industry_id", columns={"industry_id"}), @ORM\Index(name="idx_supplier_name", columns={"supplier_name"})})
  * @ORM\Entity
  */
-class Suppliers extends Base
+class Suppliers
 {
     /**
      * @var integer
@@ -19,49 +19,49 @@ class Suppliers extends Base
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    protected $id;
+    private $id;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="industry_id", type="integer", nullable=false)
      */
-    protected $industryId;
+    private $industryId;
 
     /**
      * @var string
      *
      * @ORM\Column(name="supplier_name", type="string", length=45, nullable=false)
      */
-    protected $supplierName;
+    private $supplierName;
 
     /**
      * @var string
      *
      * @ORM\Column(name="supplier_description", type="text", length=255, nullable=false)
      */
-    protected $supplierDescription;
+    private $supplierDescription;
 
     /**
      * @var string
      *
      * @ORM\Column(name="supplier_url", type="string", length=512, nullable=false)
      */
-    protected $supplierUrl;
+    private $supplierUrl;
 
     /**
      * @var string
      *
      * @ORM\Column(name="supplier_email", type="string", length=255, nullable=false)
      */
-    protected $supplierEmail;
+    private $supplierEmail;
 
     /**
      * @var string
      *
      * @ORM\Column(name="supplier_logo", type="string", length=255, nullable=false)
      */
-    protected $supplierLogo;
+    private $supplierLogo;
 
 
 }

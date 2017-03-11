@@ -21,10 +21,10 @@
                         <span class="card-title" [innerHTML]="m.supplier.supplierName"></span>
                     </div>
                     <div class="card-content">
-                        <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
+                        <p [innerHTML]="m.supplier.supplierDescription"></p>
                     </div>
                     <div class="card-action">
-                        <a href="#">This is a link</a>
+                        <a target="_blank" [attr.href]="m.supplier.supplierUrl" [innerHTML]="m.supplier.supplierName"></a>
                     </div>
                 </div>
             </sebm-google-map-info-window>
