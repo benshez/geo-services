@@ -1,6 +1,6 @@
 <?php
 
-namespace GeoService\Locations\Entity;
+namespace GeoService\Address\Entity;
 
 use Doctrine\ORM\Mapping as ORM,
 Doctrine\Common\Collections\Collection,
@@ -22,12 +22,12 @@ class Base
       return get_object_vars($this);
     }
 
-    public function getUserId() 
+    public function getSupplierId() 
     {
-      return $this->userId;
+      return $this->supplierId;
     }
 
-    public function setUser(Users $user = null)
+    public function setSupplier(Users $user = null)
     {
         $this->user = $user->getArrayCopy();
     }

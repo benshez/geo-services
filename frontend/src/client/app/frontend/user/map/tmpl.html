@@ -10,21 +10,21 @@
                                 (markerClick)="clickedMarker(m.countryName, i)"
                                 [latitude]="m.latitude"
                                 [longitude]="m.longitude"
-                                [label]="m.supplier.supplierName"
+                                [label]="m.user.username"
                                 [markerDraggable]="false"
                                 (dragEnd)="markerDragEnd(m, $event)">
 
             <sebm-google-map-info-window [isOpen]="false">
                 <div class="card">
                     <div class="card-image">
-                        <img *ngIf="m.supplier.supplierLogo && m.supplier.supplierLogo!=''" [attr.src]="m.supplier.supplierLogo">
-                        <span class="card-title" [innerHTML]="m.supplier.supplierName"></span>
+                        <img *ngIf="m.user.logo && m.user.logo!=null" [attr.src]="m.user.logo">
+                        <span class="card-title" [innerHTML]="m.user.username"></span>
                     </div>
                     <div class="card-content">
-                        <p [innerHTML]="m.supplier.supplierDescription"></p>
+                        <p [innerHTML]="m.user.about"></p>
                     </div>
                     <div class="card-action">
-                        <a *ngIf="m.supplier.supplierUrl && m.supplier.supplierUrl!=''" target="_blank" [attr.href]="m.supplier.supplierUrl" [innerHTML]="m.supplier.supplierName"></a>
+                        <a *ngIf="m.user.website && m.user.website!=null" target="_blank" [attr.href]="m.user.website" [innerHTML]="m.user.username"></a>
                     </div>
                 </div>
             </sebm-google-map-info-window>

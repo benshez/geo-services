@@ -1,8 +1,8 @@
 <?php
 
-namespace GeoService\Suppliers\Controller;
+namespace GeoService\Users\Controller;
 
-use GeoService\Suppliers\Manager\Manager;
+use GeoService\Users\Manager\Manager;
 
 {
 	final class Controller

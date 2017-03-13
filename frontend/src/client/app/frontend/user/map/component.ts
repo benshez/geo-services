@@ -72,7 +72,7 @@ export class MapComponent implements OnInit, AfterViewInit {
     }
 
     private setMarkers() {
-        this.apiOptions.url = 'supplier/location';
+        this.apiOptions.url = 'location/users';
         this.apiOptions.parameters = {};
         this.apiOptions.concatApi = true;
 

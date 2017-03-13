@@ -1,6 +1,6 @@
 <?php
 
-namespace GeoService\Suppliers\Entity;
+namespace GeoService\Users\Entity;
 
 use Doctrine\ORM\Mapping as ORM,
 Doctrine\Common\Collections\Collection,

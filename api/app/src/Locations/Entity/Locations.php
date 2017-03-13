@@ -4,10 +4,11 @@ namespace GeoService\Locations\Entity;
 
 use Doctrine\ORM\Mapping as ORM,
 GeoService\Locations\Entity\Base;
+
 /**
  * Locations
  *
- * @ORM\Table(name="locations", indexes={@ORM\Index(name="idx_ip_from", columns={"ip_from"}), @ORM\Index(name="idx_ip_to", columns={"ip_to"}), @ORM\Index(name="idx_ip_from_to", columns={"ip_from", "ip_to"}), @ORM\Index(name="supplier_id", columns={"supplier_id"})})
+ * @ORM\Table(name="locations", indexes={@ORM\Index(name="idx_ip_from", columns={"ip_from"}), @ORM\Index(name="idx_ip_to", columns={"ip_to"}), @ORM\Index(name="idx_ip_from_to", columns={"ip_from", "ip_to"}), @ORM\Index(name="fk_locations_user_id_users_id", columns={"user_id"})})
  * @ORM\Entity
  */
 class Locations extends Base
@@ -38,9 +39,9 @@ class Locations extends Base
     /**
      * @var integer
      *
-     * @ORM\Column(name="supplier_id", type="integer", nullable=false)
+     * @ORM\Column(name="user_id", type="integer", nullable=false)
      */
-    protected $supplierId;
+    protected $userId;
 
     /**
      * @var string
@@ -97,6 +98,21 @@ class Locations extends Base
      * @ORM\Column(name="time_zone", type="string", length=8, nullable=true)
      */
     protected $timeZone;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
+     */
+    protected $createdAt = 'CURRENT_TIMESTAMP';
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=false)
+     */
+    protected $updatedAt = 'CURRENT_TIMESTAMP';
+
 
 }
 

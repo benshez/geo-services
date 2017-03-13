@@ -1,9 +1,8 @@
 <?php
 
-namespace GeoService\Suppliers\Manager;
+namespace GeoService\Roles\Manager;
 
-use GeoService\AbstractResource,
-GeoService\Suppliers\Entity\Suppliers as Suppliers;
+use GeoService\AbstractResource;
 
 {
 	class Manager extends AbstractResource
@@ -17,7 +16,7 @@ GeoService\Suppliers\Entity\Suppliers as Suppliers;
     {
       
       if ($id === null) {
-        $configs = $this->entityManager->getRepository('GeoService\Suppliers\Entity\Suppliers')->findAll();
+        $configs = $this->entityManager->getRepository('GeoService\Roles\Entity\Roles')->findAll();
         $configs = array_map(
           function ($config) {
             return $config->getArrayCopy();
@@ -27,7 +26,7 @@ GeoService\Suppliers\Entity\Suppliers as Suppliers;
 
         return $configs;
       } else {
-        $config = $this->entityManager->getRepository('GeoService\Suppliers\Entity\Suppliers')->findOneBy(
+        $config = $this->entityManager->getRepository('GeoService\Roles\Entity\Roles')->findOneBy(
           array('id' => $id)
         );
         if ($config) {

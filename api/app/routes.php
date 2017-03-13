@@ -1,8 +1,8 @@
 <?php
 // Routes
 
-$app->get('/api/supplier/location', 'GeoService\Locations\Controller\Controller:fetch');
-$app->get('/api/supplier/location/{id}', 'GeoService\Locations\Controller\Controller:fetchOne');
+$app->get('/api/location/users', 'GeoService\Locations\Controller\Controller:fetch');
+$app->get('/api/location/user/{id}', 'GeoService\Locations\Controller\Controller:fetchOne');
 
 //$app->post('/api/photos', 'Eos\Controller\PhotoController:create');
 //$app->get('/api/photos', 'Eos\Controller\PhotoController:fetch');
