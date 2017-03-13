@@ -1,0 +1,12 @@
+<h2>Login</h2>
+<form [formGroup]="form">
+    <mdl-textfield label="Username" type="text" formControlName="email" floating-label></mdl-textfield>
+
+    <mdl-textfield label="Password" type="text" formControlName="password" floating-label type="password"></mdl-textfield>
+
+    <p>
+        <button mdl-button (click)="login()" [disabled]="!form.valid" mdl-button-type="raised" mdl-ripple mdl-colored="primary">Submit</button>
+    </p>
+
+    <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+</form>

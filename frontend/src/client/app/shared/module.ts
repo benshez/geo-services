@@ -3,8 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
-import { Broadcaster } from './services/broadcaster/index';
+import { SharedRoutes } from './components/index';
 
+import { Broadcaster } from './services/broadcaster/index';
 import { ApiService } from './services/api/index';
 import { DomService } from './services/dom/index';
 import { SeoService } from './services/seo/index';
@@ -14,7 +15,7 @@ import { LockerModule, Locker, LockerConfig } from './services/locker/index'
 import { AuthGuard } from './services/auth/index';
 import { MessageEvent } from './services/message/index';
 
-import { NavigationComponent, FooterComponent } from './components/index';
+import { NavigationComponent, FooterComponent, LoginModule } from './components/index';
 
 import { User, ApiServiceOptions, ApiServiceParametersOptions} from './models/index';
 /**
@@ -22,7 +23,7 @@ import { User, ApiServiceOptions, ApiServiceParametersOptions} from './models/in
  */
 
 @NgModule({
-    imports: [CommonModule, RouterModule, LockerModule],
+    imports: [CommonModule, RouterModule.forRoot(SharedRoutes), LockerModule, LoginModule],
     declarations: [NavigationComponent, FooterComponent],
     exports: [CommonModule, FormsModule, RouterModule, NavigationComponent, FooterComponent]
 })

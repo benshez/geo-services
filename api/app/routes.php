@@ -4,6 +4,9 @@
 $app->get('/api/location/users', 'GeoService\Locations\Controller\Controller:fetch');
 $app->get('/api/location/user/{id}', 'GeoService\Locations\Controller\Controller:fetchOne');
 
+$app->get('/api/user/login/{email}{password}', 'GeoService\Locations\Controller\Controller:loginUser');
+
+
 //$app->post('/api/photos', 'Eos\Controller\PhotoController:create');
 //$app->get('/api/photos', 'Eos\Controller\PhotoController:fetch');
 //$app->get('/api/photos/{slug}', 'Eos\Controller\PhotoController:fetchOne');

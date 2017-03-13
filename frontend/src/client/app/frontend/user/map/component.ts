@@ -21,15 +21,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 
     constructor(private apiService: ApiService, private apiOptions: ApiServiceParametersOptions) { }
 
-    ngOnInit() {
-
-        //Observable
-        //    .interval(500)
-        //    this.http.get('assets/points.json').subscribe(data => {
-        //        this.points = data.json();
-        //});
-
-    }
+    ngOnInit() { }
 
     ngAfterViewInit() {
         this.setCurrentLocation();

@@ -15,6 +15,7 @@ export * from './services/cache/index';
 export * from './services/locker/index';
 export * from './services/log/index';
 export * from './services/message/index';
+export * from './services/auth/index';
 
 export * from './config/env.config';
 
