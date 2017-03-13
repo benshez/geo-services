@@ -74,7 +74,7 @@ export class SupplierMapComponent implements OnInit, AfterViewInit {
         Observable
             .interval(500)
   
-        this.apiOptions.url = 'supplier/location';
+        this.apiOptions.url = 'location/users';
         this.apiOptions.parameters = {};
         this.apiOptions.concatApi = true;
 
