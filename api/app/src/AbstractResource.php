@@ -1,9 +1,10 @@
 <?php
 namespace GeoService;
 
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManager,
+GeoService\AbstractConstants;
 
-abstract class AbstractResource
+abstract class AbstractResource extends AbstractConstants
 {
     /**
      * @var \Doctrine\ORM\EntityManager

@@ -29,9 +29,25 @@ $container['em'] = function ($c) {
     return \Doctrine\ORM\EntityManager::create($settings['doctrine']['connection'], $config);
 };
 
+//Authentication
+$container['auth'] = function ($c) {
+    return [
+      'factories' => [
+        'Zend\Authentication\AuthenticationService' => function ($c) {
+            return $c->get('doctrine.authenticationservice.orm_default');
+        },
+      ],
+    ];
+};
+
 // -----------------------------------------------------------------------------
 // Action factories
 // -----------------------------------------------------------------------------
+$container['GeoService\Users\Controller\Controller'] = function ($c) {
+    $resource = new \GeoService\Users\Manager\Manager($c->get('em'));
+    return new GeoService\Users\Controller\Controller($resource);
+};
+
 $container['GeoService\Locations\Controller\Controller'] = function ($c) {
     $resource = new \GeoService\Locations\Manager\Manager($c->get('em'));
     return new GeoService\Locations\Controller\Controller($resource);

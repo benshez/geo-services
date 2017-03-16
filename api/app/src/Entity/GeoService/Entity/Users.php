@@ -1,10 +1,8 @@
 <?php
 
-namespace GeoService\Users\Entity;
+namespace GeoService\Entity;
 
-use Doctrine\ORM\Mapping as ORM,
-Zend\Crypt\Password\Bcrypt,
-GeoService\AbstractEntity;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Users
@@ -12,7 +10,7 @@ GeoService\AbstractEntity;
  * @ORM\Table(name="users", indexes={@ORM\Index(name="idx_username", columns={"username"}), @ORM\Index(name="idx_email", columns={"email"}), @ORM\Index(name="idx_about", columns={"about"}), @ORM\Index(name="idx_website", columns={"website"}), @ORM\Index(name="fk_users_address_id_address_id", columns={"address_id"}), @ORM\Index(name="fk_users_industry_id_industries_id", columns={"industry_id"})})
  * @ORM\Entity
  */
-class Users extends AbstractEntity
+class Users
 {
     /**
      * @var integer
@@ -21,140 +19,134 @@ class Users extends AbstractEntity
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    protected $id;
+    private $id;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="address_id", type="integer", nullable=false)
      */
-    protected $addressId;
+    private $addressId;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="industry_id", type="integer", nullable=true)
      */
-    protected $industryId;
+    private $industryId;
 
     /**
      * @var string
      *
      * @ORM\Column(name="username", type="string", length=255, nullable=false)
      */
-    protected $username;
+    private $username;
 
     /**
      * @var string
      *
      * @ORM\Column(name="usersurname", type="string", length=255, nullable=false)
      */
-    protected $usersurname;
+    private $usersurname;
 
     /**
      * @var string
      *
      * @ORM\Column(name="logo", type="string", length=255, nullable=true)
      */
-    protected $logo;
+    private $logo;
 
     /**
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255, nullable=false)
      */
-    protected $password;
+    private $password;
 
     /**
      * @var string
      *
      * @ORM\Column(name="salt", type="string", length=255, nullable=false)
      */
-    protected $salt;
+    private $salt;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="enabled", type="boolean", nullable=false)
      */
-    protected $enabled;
+    private $enabled;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="locked", type="boolean", nullable=false)
      */
-    protected $locked;
+    private $locked;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="last_login", type="datetime", nullable=false)
      */
-    protected $lastLogin;
+    private $lastLogin;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="expires_at", type="datetime", nullable=false)
      */
-    protected $expiresAt;
+    private $expiresAt;
 
     /**
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255, nullable=false)
      */
-    protected $email;
+    private $email;
 
     /**
      * @var string
      *
      * @ORM\Column(name="about", type="string", length=255, nullable=true)
      */
-    protected $about;
+    private $about;
 
     /**
      * @var string
      *
      * @ORM\Column(name="website", type="string", length=255, nullable=true)
      */
-    protected $website;
+    private $website;
 
     /**
      * @var string
      *
      * @ORM\Column(name="facebook", type="string", length=255, nullable=true)
      */
-    protected $facebook;
+    private $facebook;
 
     /**
      * @var string
      *
      * @ORM\Column(name="twitter", type="string", length=255, nullable=true)
      */
-    protected $twitter;
+    private $twitter;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
-    protected $createdAt = 'CURRENT_TIMESTAMP';
+    private $createdAt = 'CURRENT_TIMESTAMP';
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="updated_at", type="datetime", nullable=false)
      */
-    protected $updatedAt = 'CURRENT_TIMESTAMP';
+    private $updatedAt = 'CURRENT_TIMESTAMP';
 
-    public function getArrayCopyAuthenticatedUser() 
-    {
-      if ($this == null) return $this::INVALID_CREDENTIALS;
-
-      return false;
-    }
 
 }
 

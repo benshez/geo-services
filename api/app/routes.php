@@ -2,9 +2,8 @@
 // Routes
 
 $app->get('/api/location/users', 'GeoService\Locations\Controller\Controller:fetch');
-$app->get('/api/location/user/{id}', 'GeoService\Locations\Controller\Controller:fetchOne');
-
-$app->get('/api/user/login/{email}{password}', 'GeoService\Locations\Controller\Controller:loginUser');
+$app->get('/api/user/login/{email}', 'GeoService\Locations\Controller\Controller:fetchOne');
+$app->post('/api/user/login', 'GeoService\Users\Controller\Controller:authenticateOne');
 
 
 //$app->post('/api/photos', 'Eos\Controller\PhotoController:create');

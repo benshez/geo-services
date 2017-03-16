@@ -9,28 +9,30 @@ use GeoService\Users\Manager\Manager;
 	{
     private $resource;
 
-    protected function __construct(Manager $resource)
+    public function __construct(Manager $resource)
     {
       $this->resource = $resource;
     }
 
-    protected function fetch($request, $response, $args)
+    public function fetch($request, $response, $args)
     {
       $configs = $this->resource->get(); 
       return $response->withJSON($configs);
     }
 
-    protected function fetchOne($request, $response, $args)
+    public function fetchOne($request, $response, $args)
     {
       $config = $this->resource->get($args['id']);
-      if ($config) {
-        return $response->withJSON($config);
-      }
-      return $response->withStatus(404, 'No suppliers found with that slug.');
+      if ($config) return $response->withJSON($config);
+      return $response->withStatus(404, 'No user found with that id.');
     }
 
-    protected function loginUser($request, $response, $args)
+    public function authenticateOne($request, $response, $args)
     {
+      $body = $request->getParsedBody();
+      $config = $this->resource->authenticate($body['email']);
+      if ($config) return $response->withJSON($config);
+      return $response->withStatus(404, 'No user found with that id.');
     }
   }
 }

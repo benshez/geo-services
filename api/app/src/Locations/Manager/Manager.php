@@ -2,7 +2,9 @@
 
 namespace GeoService\Locations\Manager;
 
-use GeoService\AbstractResource;
+use GeoService\AbstractResource,
+GeoService\Locations\Entity\Locations,
+GeoService\Users\Entity\Users;
 
 {
 	class Manager extends AbstractResource
@@ -16,10 +18,10 @@ use GeoService\AbstractResource;
     {
 
       if ($id === null) {
-        $configs = $this->entityManager->getRepository('GeoService\Locations\Entity\Locations')->findAll();
+        $configs = $this->entityManager->getRepository(Locations::class)->findAll();
         $configs = array_map(
           function ($config) {
-            $config->setUser($this->entityManager->getRepository('GeoService\Users\Entity\Users')->findOneBy(array('id' => $config->getUserId())));
+            $config->setUser($this->entityManager->getRepository(Users::class)->findOneBy(array('id' => $config->getUserId())));
             return $config->getArrayCopy();
           },
           $configs
@@ -27,7 +29,7 @@ use GeoService\AbstractResource;
 
         return $configs;
       } else {
-        $config = $this->entityManager->getRepository('GeoService\Locations\Entity\Locations')->findOneBy(
+        $config = $this->entityManager->getRepository(Locations::class)->findOneBy(
           array('id' => $id)
         );
         if ($config) {
