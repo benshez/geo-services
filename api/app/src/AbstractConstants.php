@@ -17,20 +17,12 @@ GeoService\Cache;
     public static function getAllConsts() 
     {
       $cache = new Cache();
-      //$data = $cache->getCache('GeoService_AbstractConstants');
-      //if (!$data) {
+      $data = $cache->getCache('GeoService_AbstractConstants');
+      if (!$data) {
         $data = (new \ReflectionClass(AbstractConstants::class))->getConstants();
         $cache->setCache("GeoService_AbstractConstants", $data);
-        echo 'sdasda';
-      //}
-      //$cache = new ArrayCache();
-      //$data = $cache->fetch('GeoService_AbstractConstants');
-      //print_r($data);
-      //if ($data === false) {
-      //  $data = (new \ReflectionClass(AbstractConstants::class))->getConstants();
-      //  $cache->save("GeoService_AbstractConstants", $data);
-      //  echo 'sdasda';
-      //}
+        
+      }
       return $data;
     }
 	}
