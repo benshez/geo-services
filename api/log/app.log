@@ -1,0 +1,36 @@
+[2017-03-23 11:41:51] app.DEBUG: CORS analysis for request started. [] {"uid":"426687f"}
+[2017-03-23 11:41:51] app.DEBUG: Request is identified as a pre-flight CORS request. [] {"uid":"426687f"}
+[2017-03-23 11:41:51] app.INFO: Request header is not allowed. Check config settings for Allowed Headers. {"header":"content-type"} {"uid":"426687f"}
+[2017-03-23 11:41:51] app.DEBUG: CORS analysis for request completed. [] {"uid":"426687f"}
+[2017-03-23 11:42:54] app.DEBUG: CORS analysis for request started. [] {"uid":"453f05d"}
+[2017-03-23 11:42:54] app.DEBUG: Request is identified as a pre-flight CORS request. [] {"uid":"453f05d"}
+[2017-03-23 11:42:54] app.INFO: Request header is not allowed. Check config settings for Allowed Headers. {"header":"content-type"} {"uid":"453f05d"}
+[2017-03-23 11:42:54] app.DEBUG: CORS analysis for request completed. [] {"uid":"453f05d"}
+[2017-03-23 11:43:12] app.DEBUG: CORS analysis for request started. [] {"uid":"d0a55b1"}
+[2017-03-23 11:43:12] app.DEBUG: Request is identified as a pre-flight CORS request. [] {"uid":"d0a55b1"}
+[2017-03-23 11:43:12] app.INFO: Request header is not allowed. Check config settings for Allowed Headers. {"header":"content-type"} {"uid":"d0a55b1"}
+[2017-03-23 11:43:12] app.DEBUG: CORS analysis for request completed. [] {"uid":"d0a55b1"}
+[2017-03-23 20:08:47] app.DEBUG: CORS analysis for request started. [] {"uid":"1d8d7cf"}
+[2017-03-23 20:08:47] app.DEBUG: Request is identified as an actual CORS request. [] {"uid":"1d8d7cf"}
+[2017-03-23 20:08:47] app.DEBUG: CORS analysis for request completed. [] {"uid":"1d8d7cf"}
+[2017-03-23 20:09:03] app.DEBUG: CORS analysis for request started. [] {"uid":"b30c702"}
+[2017-03-23 20:09:03] app.DEBUG: Request is identified as an actual CORS request. [] {"uid":"b30c702"}
+[2017-03-23 20:09:03] app.DEBUG: CORS analysis for request completed. [] {"uid":"b30c702"}
+[2017-03-23 20:09:09] app.DEBUG: CORS analysis for request started. [] {"uid":"f30f935"}
+[2017-03-23 20:09:09] app.DEBUG: Request is identified as an actual CORS request. [] {"uid":"f30f935"}
+[2017-03-23 20:09:09] app.DEBUG: CORS analysis for request completed. [] {"uid":"f30f935"}
+[2017-03-23 20:09:15] app.DEBUG: CORS analysis for request started. [] {"uid":"411c882"}
+[2017-03-23 20:09:15] app.INFO: Request origin is not allowed. Check config settings for Allowed Origins. {"origin":"[object] (Neomerx\\Cors\\Http\\ParsedUrl: chrome-extension://fhbjgbiflinjbdggehcddcbncdddomop)"} {"uid":"411c882"}
+[2017-03-23 20:09:15] app.DEBUG: CORS analysis for request completed. [] {"uid":"411c882"}
+[2017-03-23 20:10:31] app.DEBUG: CORS analysis for request started. [] {"uid":"9914b11"}
+[2017-03-23 20:10:31] app.DEBUG: Request is identified as an actual CORS request. [] {"uid":"9914b11"}
+[2017-03-23 20:10:31] app.DEBUG: CORS analysis for request completed. [] {"uid":"9914b11"}
+[2017-03-23 20:10:49] app.DEBUG: CORS analysis for request started. [] {"uid":"400232c"}
+[2017-03-23 20:10:49] app.INFO: Request origin is not allowed. Check config settings for Allowed Origins. {"origin":"[object] (Neomerx\\Cors\\Http\\ParsedUrl: chrome-extension://fhbjgbiflinjbdggehcddcbncdddomop)"} {"uid":"400232c"}
+[2017-03-23 20:10:49] app.DEBUG: CORS analysis for request completed. [] {"uid":"400232c"}
+[2017-03-23 20:11:04] app.DEBUG: CORS analysis for request started. [] {"uid":"6c16350"}
+[2017-03-23 20:11:04] app.DEBUG: Request is identified as an actual CORS request. [] {"uid":"6c16350"}
+[2017-03-23 20:11:04] app.DEBUG: CORS analysis for request completed. [] {"uid":"6c16350"}
+[2017-03-23 20:11:12] app.DEBUG: CORS analysis for request started. [] {"uid":"357313c"}
+[2017-03-23 20:11:12] app.DEBUG: Request is identified as an actual CORS request. [] {"uid":"357313c"}
+[2017-03-23 20:11:12] app.DEBUG: CORS analysis for request completed. [] {"uid":"357313c"}

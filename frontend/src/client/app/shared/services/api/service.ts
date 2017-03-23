@@ -34,19 +34,16 @@ export class ApiService {
         return (this.request(this.apiServiceOptions)) as any;
     }
 
-    put(parameters: ApiServiceParametersOptions): Observable<Response> {
+    post(parameters: ApiServiceParametersOptions): Observable<Response> {
         this.message.fire(true);
 
-        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
 
-        let options = new RequestOptions({ headers: headers });
+        if (!(parameters.parameters instanceof String) && typeof (parameters.parameters) !== 'String') {
+            parameters.parameters = JSON.stringify(parameters.parameters);
+        }
 
-
-        //if (!(parameters.parameters instanceof String) && typeof (parameters.parameters) !== 'String') {
-        //    parameters.parameters = JSON.stringify(parameters.parameters);
-        //}
-
-        this.apiServiceOptions.headers = { 'Content-Type': 'application/json' };
+        this.apiServiceOptions.headers = headers;
         this.apiServiceOptions.method = RequestMethod.Post;
         this.apiServiceOptions.parameters = parameters;
         this.apiServiceOptions.parameters.url = Config.API.concat(parameters.url);
@@ -56,8 +53,30 @@ export class ApiService {
         this.apiServiceOptions.pendingCommandCount = 0;
         this.apiServiceOptions.pendingCommandsSubject = new Subject<number>();
         this.apiServiceOptions.pendingCommands$ = this.apiServiceOptions.pendingCommandsSubject.asObservable();
-        
-        return (this.request(this.apiServiceOptions)) as any;
+
+        let body = this.apiServiceOptions.data;
+
+        let isCommand = (this.apiServiceOptions.method !== RequestMethod.Post);
+
+        if (isCommand) {
+            this.apiServiceOptions.pendingCommandsSubject.next(++this.apiServiceOptions.pendingCommandCount);
+        }
+
+        return (this.http.post(this.apiServiceOptions.parameters.url, body)
+            .map((res: Response) => res.json())
+            .do((res: Response) => {
+                this.logger.info(res);
+                if (this.apiServiceOptions.parameters.cacheKey != '') this.locker.set(this.apiServiceOptions.parameters.cacheKey, res);
+            })
+            .catch((error: any) => {
+                return Observable.throw(this.unwrapHttpError(error));
+            })
+            .share()
+            .finally(() => {
+                this.message.fire(false);
+                if (isCommand) this.apiServiceOptions.pendingCommandsSubject.next(--this.apiServiceOptions.pendingCommandCount);
+            })) as any;
+        //return (this.request(this.apiServiceOptions)) as any;
     }
 
     private request(options: ApiServiceOptions): Observable<any> {

@@ -1,0 +1,15 @@
+﻿abstract_factories: 
+  - Zend\Cache\Service\StorageCacheAbstractServiceFactory
+caches: 
+    GeoSevice:
+        adapter: 
+            name: "memcache"
+            options:
+                servers:
+                      -
+                          - localhost
+                          - 11211
+                namespace: "GeoSevice"
+                ttl: 300
+
+   

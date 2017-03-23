@@ -32,11 +32,11 @@ export class LoginComponent implements OnInit {
 
     login() {
         this.apiOptions.cacheKey = 'user';
-        this.apiOptions.url = 'user/login/';
+        this.apiOptions.url = 'user/login';
         this.apiOptions.parameters = this.form.value;
         this.apiOptions.concatApi = true;
 
-        this.apiService.put(this.apiOptions)
+        this.apiService.post(this.apiOptions)
             .subscribe(
             (json: any) => this.user = json.user,
             (error: any) => this.errorMessage = <any>error,

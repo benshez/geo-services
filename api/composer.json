@@ -25,7 +25,8 @@
     "lcobucci/jwt": "^3.1",
     "jeremykendall/password-validator": "^3.0.4",
     "doctrine/doctrine-module": "^2.0",
-    "zendframework/zend-crypt": "^3.2.0"
+    "zendframework/zend-crypt": "^3.2.0",
+    "tuupola/cors-middleware":  "^0.5.2"
   },
   "require-dev": {
     "doctrine/migrations": "^1.4",

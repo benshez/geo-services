@@ -28,7 +28,7 @@ GeoService\AbstractResource;
 
         return $configs;
       } else {
-        $config = $this->entityManager->getRepository(Users::class)->findOneBy(array(\GeoService\AbstractConstants::getAllConsts()['FIND_BY_ONE_KEY_EMAIL'] => $id));
+        $config = $this->entityManager->getRepository(Users::class)->findOneBy(array(\GeoService\AbstractConstants::$USER_CREDENTIALS_INVALID => $id));
         if ($config) return $config->getArrayCopy();
       }
 
@@ -37,14 +37,16 @@ GeoService\AbstractResource;
 
     public function authenticate($email = null, $password = null) 
     {
-      if ($email == null || $password = null) return \GeoService\AbstractConstants::getAllConsts()['USER_CREDENTIALS_INVALID'];
+      //$i =  \GeoService\AbstractConstants::getAllConsts();
+
+      if ($email == null || $password = null) return [\GeoService\AbstractConstants::$USER_CREDENTIALS_INVALID];
         
       $config = $this->entityManager->getRepository(Users::class)
-        ->findOneBy(array(\GeoService\AbstractConstants::getAllConsts()['FIND_BY_ONE_KEY_EMAIL'] => $email));
+        ->findOneBy(array(\GeoService\AbstractConstants::$FIND_BY_ONE_KEY_EMAIL => $email));
 
       if ($config) return $config->getArrayCopyAuthenticatedUser();
 
-      return \GeoService\AbstractConstants::getAllConsts()['USER_CREDENTIALS_INVALID'];
+      return array('error' => \GeoService\AbstractConstants::$USER_CREDENTIALS_INVALID);
     }
 
 	}

@@ -1,16 +1,16 @@
 <?php 
 return [
     'settings' => [
+        'determineRouteBeforeAppMiddleware' => true,
         'displayErrorDetails' => true,
-        // Doctrine
         'doctrine' => [
             'meta' => [
                 'entity_path' => [
                     'app/src/Entity'
                 ],
                 'auto_generate_proxies' => true,
-                'proxy_dir' =>  __DIR__.'/../cache/proxies',
-                'cache' => null,
+                'proxy_dir'             =>  __DIR__.'/../cache/proxies',
+                'cache'                 => null,
             ],
             'connection' => [
                 'driver'   => 'pdo_mysql',
@@ -21,32 +21,49 @@ return [
             ],
             'authentication' => [
                 'orm_default' => [
-                'object_manager' => 'Doctrine\ORM\EntityManager',
-                'identity_class' => 'GeoService\Users\Users',
-                'identity_property' => 'email',
+                'object_manager'      => 'Doctrine\ORM\EntityManager',
+                'identity_class'      => 'GeoService\Users\Users',
+                'identity_property'   => 'email',
                 'credential_property' => 'password',
             ],
+          ],
         ],
-        ],
-        // monolog settings
         'logger' => [
             'name' => 'app',
             'path' => __DIR__ . '/../log/app.log',
         ],
-        'allowed_origin' => 'http://localhost:5555'
-    ],
-    'abstract_factories' => [
-        StorageCacheAbstractServiceFactory::class,
-    ],
-    'caches' => [
-        'mycache' => [
-            'adapter' => Redis::class,
-            'options' => [
-                'server' => [
-                    'host' => 'localhost',
-                ],
-                'password' => 'foobared',
+        'allowed_origin' => 'http://localhost:5555',
+        'caching' => [
+            'abstract_factories' => [
+                Zend\Cache\Service\StorageCacheAbstractServiceFactory::class,
             ],
+            'caches' => [
+              'GeoSevice' => [
+                  'adapter' => [
+                      'name'     => 'memcache',
+                      'options'  => [
+                          'servers' => [
+                              [
+                                  'localhost', 
+                                  11211
+                              ]
+                          ],
+                          'namespace' => 'GeoSevice',
+                          'ttl'       => 5 * 60,
+                      ]
+                  ],
+              ]
+            ]
         ],
+        'cors' => [
+          'origin'          => 'http://mysite',
+          'methods'         => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+          'headers.allow'   => [],
+          'headers.expose'  => [],
+          'credentials'     => true,
+          'cache'           => 0,
+          'error'           => null,
+          'logger'          => null
+        ]
     ]
 ];

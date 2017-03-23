@@ -16,6 +16,7 @@ Zend\Cache\Storage\Adapter\Memcache;
 
     public function __construct()
     {
+    Array ( [?abstract_factories] => Array ( [0] => StorageCacheAbstractServiceFactory::class ) [caches] => Array ( [GeoSevice] => Array ( [adapter] => Array ( [name] => memcache [options] => Array ( [servers] => localhost, 11211 [namespace] => GeoSevice [ttl] => 5 * 60 ) ) ) ) )
       $this->config = [
         'abstract_factories' => [
             StorageCacheAbstractServiceFactory::class,
@@ -27,11 +28,11 @@ Zend\Cache\Storage\Adapter\Memcache;
                 'options'  => [
                     'servers' => [
                         [
-                            '127.0.0.1', 
+                            'localhost', 
                             11211      // Hostname and port
                         ]
                     ],
-                    'namespace' => 'Skeleton',      // Put your app name here
+                    'namespace' => 'GeoSevice',      // Put your app name here
                     'ttl'       => 5 * 60,          // Seconds before cached items expire
                 ]
             ],
@@ -49,11 +50,16 @@ Zend\Cache\Storage\Adapter\Memcache;
 
     public function setCache($key, $value) 
     {
-      $this->cache = $this->getCacheObject();
-      $this->cache->addItem($key, $value);
+$memcache = new Memcache();
+$memcache->connect('127.0.0.1', 11211);
+
+$cacheDriver = new \Doctrine\Common\Cache\MemcacheCache();
+$cacheDriver->setMemcache($memcache);
+$cacheDriver->save('cache_id', 'my_data');
     }
 
     public function getCache($key) {   
+    //cache->fetch($cacheKey)
       $this->cache = $this->getCacheObject(); 
       return $this->cache->getItem($key);
     }

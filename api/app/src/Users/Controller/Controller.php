@@ -30,7 +30,7 @@ use GeoService\Users\Manager\Manager;
     public function authenticateOne($request, $response, $args)
     {
       $body = $request->getParsedBody();
-      $config = $this->resource->authenticate($body['email']);
+      $config = $this->resource->authenticate($body['email'], $body['password']);
       if ($config) return $response->withJSON($config);
       return $response->withStatus(404, 'No user found with that id.');
     }
