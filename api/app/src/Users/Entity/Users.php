@@ -149,11 +149,20 @@ class Users extends AbstractEntity
      */
     protected $updatedAt = 'CURRENT_TIMESTAMP';
 
-    public function getArrayCopyAuthenticatedUser() 
+    public function getArrayCopyAuthenticatedUser($password = null) 
     {
-      if ($this == null) return $this::INVALID_CREDENTIALS;
+      if ($this == null) return array('error' => \GeoService\AbstractConstants::$USER_CREDENTIALS_INVALID);
+          
+      $bcrypt = ($this->salt) ? new Bcrypt( array(
+          'salt' => $this->salt,
+          'cost' => 10
+      )) : new Bcrypt();
 
-      return false;
+      $passwordHash = $this->password;
+
+      if ($bcrypt->verify($password, $passwordHash)) return parent::getArrayCopy();
+
+      return array('error' => \GeoService\AbstractConstants::$USER_CREDENTIALS_INVALID);
     }
 
 }

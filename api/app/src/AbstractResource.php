@@ -2,17 +2,23 @@
 namespace GeoService;
 
 use Doctrine\ORM\EntityManager,
-GeoService\AbstractConstants;
+Interop\Container\ContainerInterface;
 
-abstract class AbstractResource extends AbstractConstants
+abstract class AbstractResource
 {
     /**
      * @var \Doctrine\ORM\EntityManager
      */
     protected $entityManager = null;
 
-    public function __construct(EntityManager $entityManager)
+    /**
+     * @var \Interop\Container\ContainerInterface
+     */
+    protected $container = null;
+
+    public function __construct(ContainerInterface $container)
     {
-        $this->entityManager = $entityManager;
+        $this->container = $container;
+        $this->entityManager = $this->container->get('em');
     }
 }

@@ -2,7 +2,9 @@
 
 namespace GeoService\Users\Manager;
 
-use GeoService\Users\Entity\Users,
+use Zend\ServiceManager\ServiceManager,
+Zend\Crypt\Password\Bcrypt,
+GeoService\Users\Entity\Users,
 GeoService\AbstractResource;
 
 {
@@ -37,14 +39,13 @@ GeoService\AbstractResource;
 
     public function authenticate($email = null, $password = null) 
     {
-      //$i =  \GeoService\AbstractConstants::getAllConsts();
+      
+      if ($email == null || $password == null) return array('error' => \GeoService\AbstractConstants::$USER_CREDENTIALS_INVALID);
 
-      if ($email == null || $password = null) return [\GeoService\AbstractConstants::$USER_CREDENTIALS_INVALID];
-        
       $config = $this->entityManager->getRepository(Users::class)
         ->findOneBy(array(\GeoService\AbstractConstants::$FIND_BY_ONE_KEY_EMAIL => $email));
-
-      if ($config) return $config->getArrayCopyAuthenticatedUser();
+        
+      if ($config) return $config->getArrayCopyAuthenticatedUser($password);
 
       return array('error' => \GeoService\AbstractConstants::$USER_CREDENTIALS_INVALID);
     }

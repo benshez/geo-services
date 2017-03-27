@@ -34,36 +34,32 @@ export class ApiService {
         return (this.request(this.apiServiceOptions)) as any;
     }
 
-    post(parameters: ApiServiceParametersOptions): Observable<Response> {
+    //post(parameters: ApiServiceParametersOptions): Observable<Response> {
+    post(parameters: ApiServiceParametersOptions): Observable < Response > {
         this.message.fire(true);
 
-        let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
-
-        if (!(parameters.parameters instanceof String) && typeof (parameters.parameters) !== 'String') {
-            parameters.parameters = JSON.stringify(parameters.parameters);
-        }
-
-        this.apiServiceOptions.headers = headers;
         this.apiServiceOptions.method = RequestMethod.Post;
         this.apiServiceOptions.parameters = parameters;
         this.apiServiceOptions.parameters.url = Config.API.concat(parameters.url);
-        this.apiServiceOptions.parameters.parameters = parameters.parameters;
-        this.apiServiceOptions.parameters.cacheKey = parameters.cacheKey;
-        this.apiServiceOptions.data = parameters.parameters;
         this.apiServiceOptions.pendingCommandCount = 0;
         this.apiServiceOptions.pendingCommandsSubject = new Subject<number>();
         this.apiServiceOptions.pendingCommands$ = this.apiServiceOptions.pendingCommandsSubject.asObservable();
 
-        let body = this.apiServiceOptions.data;
-
+        let requestOptions = new RequestOptions();
+        requestOptions.method = RequestMethod.Post;
+        requestOptions.url = parameters.url;
+        requestOptions.headers = new Headers({ 'Content-Type': 'application/json' });
+        requestOptions.search = ((this.buildUrlSearchParams(parameters.parameters)) as any);
+        requestOptions.body = parameters.parameters;
+        
         let isCommand = (this.apiServiceOptions.method !== RequestMethod.Post);
 
         if (isCommand) {
             this.apiServiceOptions.pendingCommandsSubject.next(++this.apiServiceOptions.pendingCommandCount);
         }
 
-        return (this.http.post(this.apiServiceOptions.parameters.url, body)
-            .map((res: Response) => res.json())
+        return (this.http.post(this.apiServiceOptions.parameters.url, requestOptions.body, requestOptions)
+            .map((res: Response) => res)
             .do((res: Response) => {
                 this.logger.info(res);
                 if (this.apiServiceOptions.parameters.cacheKey != '') this.locker.set(this.apiServiceOptions.parameters.cacheKey, res);
@@ -76,7 +72,6 @@ export class ApiService {
                 this.message.fire(false);
                 if (isCommand) this.apiServiceOptions.pendingCommandsSubject.next(--this.apiServiceOptions.pendingCommandCount);
             })) as any;
-        //return (this.request(this.apiServiceOptions)) as any;
     }
 
     private request(options: ApiServiceOptions): Observable<any> {

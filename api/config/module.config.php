@@ -26,6 +26,12 @@ return [
                 'identity_property'   => 'email',
                 'credential_property' => 'password',
             ],
+            'service_manager' => [
+                'factories' => [
+                    \Zend\Authentication\AuthenticationService::class 
+                        => GeoService\Users\Service\Factory\AuthenticationServiceFactory::class,
+                ],
+            ]
           ],
         ],
         'logger' => [

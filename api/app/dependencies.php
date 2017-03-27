@@ -15,6 +15,16 @@ $container['logger'] = function ($c) {
     return $logger;
 };
 
+//Slim CSRF
+$container['csrf'] = function ($c) {
+    $guard = new \Slim\Csrf\Guard();
+    $guard->setFailureCallable(function ($request, $response, $next) {
+        $request = $request->withAttribute("csrf_status", false);
+        return $next($request, $response);
+    });
+    return $guard;
+};
+
 // Doctrine
 $container['em'] = function ($c) {
     $settings = $c->get('settings');
@@ -34,7 +44,7 @@ $container['auth'] = function ($c) {
     return [
       'factories' => [
         'Zend\Authentication\AuthenticationService' => function ($c) {
-            return $c->get('doctrine.authenticationservice.orm_default');
+            return $c->get('settings')['doctrine']['authentication']['orm_default'];
         },
       ],
     ];
@@ -44,11 +54,11 @@ $container['auth'] = function ($c) {
 // Action factories
 // -----------------------------------------------------------------------------
 $container['GeoService\Users\Controller\Controller'] = function ($c) {
-    $resource = new \GeoService\Users\Manager\Manager($c->get('em'));
+    $resource = new \GeoService\Users\Manager\Manager($c);
     return new GeoService\Users\Controller\Controller($resource);
 };
 
 $container['GeoService\Locations\Controller\Controller'] = function ($c) {
-    $resource = new \GeoService\Locations\Manager\Manager($c->get('em'));
+    $resource = new \GeoService\Locations\Manager\Manager($c);
     return new GeoService\Locations\Controller\Controller($resource);
 };

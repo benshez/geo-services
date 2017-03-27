@@ -3,6 +3,12 @@
 
 $app->get('/api/location/users', 'GeoService\Locations\Controller\Controller:fetch');
 $app->get('/api/user/login/{email}', 'GeoService\Locations\Controller\Controller:fetchOne');
+//$app->post('/api/user/login[/{email:.*}]', function ($request, $response, $args) {
+  
+//  $user = $_POST['email'];
+//  print_r($user);
+//    // Find user identified by $args['id']
+//});
 $app->post('/api/user/login', 'GeoService\Users\Controller\Controller:authenticateOne');
 
 

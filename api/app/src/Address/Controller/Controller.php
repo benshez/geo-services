@@ -2,7 +2,9 @@
 
 namespace GeoService\Address\Controller;
 
-use GeoService\Address\Manager\Manager;
+use Psr\Http\Message\ResponseInterface,
+Psr\Http\Message\RequestInterface,
+GeoService\Users\Manager\Manager;
 
 {
 	final class Controller
@@ -14,13 +16,13 @@ use GeoService\Address\Manager\Manager;
       $this->resource = $resource;
     }
 
-    public function fetch($request, $response, $args)
+    public function fetch(RequestInterface $request, ResponseInterface $response, $args)
     {
       $configs = $this->resource->get(); 
       return $response->withJSON($configs);
     }
 
-    public function fetchOne($request, $response, $args)
+    public function fetchOne(RequestInterface $request, ResponseInterface $response, $args)
     {
       $config = $this->resource->get($args['id']);
       if ($config) {
