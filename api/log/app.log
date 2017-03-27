@@ -1,3 +1,0 @@
-[2017-03-27 10:54:49] app.DEBUG: CORS analysis for request started. [] {"uid":"d079836"}
-[2017-03-27 10:54:49] app.DEBUG: Request is identified as an actual CORS request. [] {"uid":"d079836"}
-[2017-03-27 10:54:49] app.DEBUG: CORS analysis for request completed. [] {"uid":"d079836"}

@@ -1,5 +1,6 @@
 vendor/
 cache/
+log/
 settings.php
 *.phpproj
 *.api.phpproj.user
