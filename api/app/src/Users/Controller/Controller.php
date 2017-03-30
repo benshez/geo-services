@@ -31,12 +31,7 @@ GeoService\Users\Manager\Manager;
 
     public function authenticateOne(RequestInterface $request, ResponseInterface $response, $args)
     {
-      $body = ($request->getParsedBody());
-      //$body = json_decode(file_get_contents('php://input'), true);
-      //$body = (json_decode(file_get_contents("php://input")));
-      //print_r($body);
-      //return $response->withJSON(array('body'=> $body, 'email' => $body['email'], 'password' => $body['password']));
-      $config = $this->resource->authenticate($body['email'], $body['password']);
+      $config = $this->resource->authenticate($request->getParam('email'), $request->getParam('password'));
       if ($config) return $response->withJSON($config);
       return $response->withStatus(404, 'No user found with that id.');
     }

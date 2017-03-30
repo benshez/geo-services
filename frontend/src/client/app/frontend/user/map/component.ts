@@ -51,6 +51,7 @@ export class MapComponent implements OnInit, AfterViewInit {
         context.apiOptions.url = Config.GEO_API;
         context.apiOptions.parameters = {};
         context.apiOptions.concatApi = false;
+        context.apiOptions.allowRequestOption = false;
 
         context.apiService.get(context.apiOptions)
             .subscribe(

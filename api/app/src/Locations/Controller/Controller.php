@@ -4,7 +4,7 @@ namespace GeoService\Locations\Controller;
 
 use Psr\Http\Message\ResponseInterface,
 Psr\Http\Message\RequestInterface,
-GeoService\Users\Manager\Manager;
+GeoService\Locations\Manager\Manager;
 
 {
 	final class Controller

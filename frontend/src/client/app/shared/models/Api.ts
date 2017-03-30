@@ -6,6 +6,7 @@ export class ApiServiceParametersOptions {
     parameters: any = {};
     cacheKey: string = '';
     concatApi: boolean = false;
+    allowRequestOption: boolean = true;
 }
 
 export class ApiServiceOptions {

@@ -44,9 +44,18 @@ GeoService\AbstractResource;
 
       $config = $this->entityManager->getRepository(Users::class)
         ->findOneBy(array(\GeoService\AbstractConstants::$FIND_BY_ONE_KEY_EMAIL => $email));
-        
-      if ($config) return $config->getArrayCopyAuthenticatedUser($password);
 
+        $query = $this->entityManager->createQueryBuilder()->select('u.email, u.username')
+       ->from(Users::class, 'u')
+       ->where('u.email = :identifier')
+       ->orderBy('u.username', 'ASC')
+       ->setParameter('identifier', $email);
+      //return $query->getQuery()->getResult();
+      if ($config) return $config->getArrayCopyAuthenticatedUser($password);
+      //if ($config) return $query->getQuery()->getResult();
+      //$d = $this->entityManager->getRepository(Users::class)->findByEmail($email);
+      //print_r($d);
+//return $this->entityManager->getRepository(Users::class)->findByEmail($email);
       return array('error' => \GeoService\AbstractConstants::$USER_CREDENTIALS_INVALID);
     }
 

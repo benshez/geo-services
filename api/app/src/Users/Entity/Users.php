@@ -149,6 +149,24 @@ class Users extends AbstractEntity
      */
     protected $updatedAt = 'CURRENT_TIMESTAMP';
 
+    public function findByEmail($email = null)
+    {
+    echo "hfghf";
+    $query = $this->entityManager->createQueryBuilder()->select('partial u.{id,email,username}')
+       ->from(Users::class, 'u')
+       ->where('u.email = :identifier')
+       ->orderBy('u.username', 'ASC')
+       ->setParameter('identifier', $email);
+
+      //$query = $this->createQueryBuilder()->select('u.username')
+      // ->from(Users::class, 'u')
+      // ->where('u.email = :identifier')
+      // ->orderBy('u.name', 'ASC')
+      // ->setParameter('identifier', $email);
+       
+      return $query->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+    }
+
     public function getArrayCopyAuthenticatedUser($password = null) 
     {
       if ($this == null) return array('error' => \GeoService\AbstractConstants::$USER_CREDENTIALS_INVALID);

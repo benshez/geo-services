@@ -16,7 +16,7 @@ Zend\Cache\Storage\Adapter\Memcache;
 
     public function __construct()
     {
-    Array ( [?abstract_factories] => Array ( [0] => StorageCacheAbstractServiceFactory::class ) [caches] => Array ( [GeoSevice] => Array ( [adapter] => Array ( [name] => memcache [options] => Array ( [servers] => localhost, 11211 [namespace] => GeoSevice [ttl] => 5 * 60 ) ) ) ) )
+    Array ( [abstract_factories] => Array ( [0] => StorageCacheAbstractServiceFactory::class ) [caches] => Array ( [GeoSevice] => Array ( [adapter] => Array ( [name] => memcache [options] => Array ( [servers] => localhost, 11211 [namespace] => GeoSevice [ttl] => 5 * 60 ) ) ) ) )
       $this->config = [
         'abstract_factories' => [
             StorageCacheAbstractServiceFactory::class,

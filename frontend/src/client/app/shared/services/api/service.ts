@@ -27,6 +27,7 @@ export class ApiService {
         this.apiServiceOptions.parameters.url = (parameters.concatApi) ? Config.API.concat(parameters.url) : parameters.url;
         this.apiServiceOptions.parameters.parameters = parameters.parameters;
         this.apiServiceOptions.parameters.cacheKey = parameters.cacheKey;
+        this.apiServiceOptions.headers = new Headers({ 'Content-Type': 'application/json' });
         this.apiServiceOptions.pendingCommandCount = 0;
         this.apiServiceOptions.pendingCommandsSubject = new Subject<number>();
         this.apiServiceOptions.pendingCommands$ = this.apiServiceOptions.pendingCommandsSubject.asObservable();
@@ -34,7 +35,6 @@ export class ApiService {
         return (this.request(this.apiServiceOptions)) as any;
     }
 
-    //post(parameters: ApiServiceParametersOptions): Observable<Response> {
     post(parameters: ApiServiceParametersOptions): Observable < Response > {
         this.message.fire(true);
 
@@ -45,46 +45,47 @@ export class ApiService {
         this.apiServiceOptions.pendingCommandsSubject = new Subject<number>();
         this.apiServiceOptions.pendingCommands$ = this.apiServiceOptions.pendingCommandsSubject.asObservable();
 
-        let requestOptions = new RequestOptions();
-        requestOptions.method = RequestMethod.Post;
-        requestOptions.url = parameters.url;
-        requestOptions.headers = new Headers({ 'Content-Type': 'application/json' });
-        requestOptions.search = ((this.buildUrlSearchParams(parameters.parameters)) as any);
-        requestOptions.body = parameters.parameters;
+        //let requestOptions = new RequestOptions();
+        //requestOptions.method = RequestMethod.Post;
+        //requestOptions.url = parameters.url;
+        //requestOptions.headers = new Headers({ 'Content-Type': 'application/json' });
+        //requestOptions.search = ((this.buildUrlSearchParams(parameters.parameters)) as any);
+        //requestOptions.body = parameters.parameters;
         
         let isCommand = (this.apiServiceOptions.method !== RequestMethod.Post);
 
         if (isCommand) {
             this.apiServiceOptions.pendingCommandsSubject.next(++this.apiServiceOptions.pendingCommandCount);
         }
-
-        return (this.http.post(this.apiServiceOptions.parameters.url, requestOptions.body, requestOptions)
-            .map((res: Response) => res)
-            .do((res: Response) => {
-                this.logger.info(res);
-                if (this.apiServiceOptions.parameters.cacheKey != '') this.locker.set(this.apiServiceOptions.parameters.cacheKey, res);
-            })
-            .catch((error: any) => {
-                return Observable.throw(this.unwrapHttpError(error));
-            })
-            .share()
-            .finally(() => {
-                this.message.fire(false);
-                if (isCommand) this.apiServiceOptions.pendingCommandsSubject.next(--this.apiServiceOptions.pendingCommandCount);
-            })) as any;
+        return this.request(this.apiServiceOptions);
+        //return (this.http.post(this.apiServiceOptions.parameters.url, requestOptions.body, requestOptions)
+        //    .map((res: Response) => res)
+        //    .do((res: Response) => {
+        //        this.logger.info(res);
+        //        if (this.apiServiceOptions.parameters.cacheKey != '') this.locker.set(this.apiServiceOptions.parameters.cacheKey, res);
+        //    })
+        //    .catch((error: any) => {
+        //        return Observable.throw(this.unwrapHttpError(error));
+        //    })
+        //    .share()
+        //    .finally(() => {
+        //        this.message.fire(false);
+        //        if (isCommand) this.apiServiceOptions.pendingCommandsSubject.next(--this.apiServiceOptions.pendingCommandCount);
+        //    })) as any;
     }
 
     private request(options: ApiServiceOptions): Observable<any> {
-        //this.interpolateUrl(options);
-        //this.addXsrfToken(options);
-        //this.addContentType(options);
+        let requestOptions = null;
 
-        let requestOptions = new RequestOptions();
-        requestOptions.method = options.method;
-        requestOptions.url = options.parameters.url;
-        requestOptions.headers = options.headers;
-        requestOptions.search = ((this.buildUrlSearchParams(options.parameters.parameters)) as any);
-        requestOptions.body = JSON.stringify(options.data);
+        if (options.parameters.allowRequestOption) {
+            requestOptions = new RequestOptions();
+            requestOptions.method = options.method;
+            requestOptions.url = options.parameters.url;
+            requestOptions.headers = options.headers;
+            requestOptions.search = ((this.buildUrlSearchParams(options.parameters.parameters)) as any);
+            requestOptions.body = options.parameters.parameters;
+        }
+        //requestOptions.body = options.data;
 
         let isCommand = (options.method !== RequestMethod.Get);
 
@@ -125,7 +126,7 @@ export class ApiService {
             this.logger.error(jsonError);
             return ({
                 code: -1,
-                message: "An unexpected error occurred."
+                message: 'An unexpected error occurred.'
             });
         }
     }

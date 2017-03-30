@@ -7,7 +7,7 @@
 
 $app->add(new \Tuupola\Middleware\Cors([    
     'origin' => ['chrome-extension://fhbjgbiflinjbdggehcddcbncdddomop', 'http://localhost:5555'],
-    'methods' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+    'methods' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'REQUEST'],
     //'headers.allow' => ['Authorization', 'If-Match', 'If-Unmodified-Since'],
     'headers.allow' => ['X-Requested-With', 'Content-Type', 'Accept', 'Origin', 'Authorization'],
     'headers.expose' => [],

@@ -1,7 +1,7 @@
 import { Route } from '@angular/router';
 import { MapComponent } from './component';
-import { AuthGuard } from '../../../shared/index';
+import { AuthenticatedUserGuard } from '../../../shared/index';
 
 export const MapRoutes: Route[] = [
-    { path: 'map', component: MapComponent, canActivate: [AuthGuard] }
+    { path: 'map', component: MapComponent, canActivate: [AuthenticatedUserGuard] }
 ];
