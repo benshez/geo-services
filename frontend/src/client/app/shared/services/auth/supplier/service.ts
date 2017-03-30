@@ -7,11 +7,11 @@ export class AuthenticatedSupplierGuard implements CanActivate {
     user: User;
 
     constructor(private router: Router, private locker: Locker) {
-        this.user = this.locker.get('USER_DETAIL');
+        this.setUser();
     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        this.user = this.locker.get('USER_DETAIL');
+        this.setUser();
 
         if (this.user && this.user.id !== '') {
             if (this.user.enabled) {
@@ -25,4 +25,9 @@ export class AuthenticatedSupplierGuard implements CanActivate {
         this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
         return false;
     }
+
+    setUser() {
+        this.user = this.locker.get('USER_DETAIL');
+    }
+
 }
