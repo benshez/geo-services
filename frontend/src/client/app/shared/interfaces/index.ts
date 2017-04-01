@@ -6,3 +6,4 @@ export * from './IBroadcast';
 export * from './ILogger';
 export * from './IMarker';
 export * from './ICoordinates';
+export * from './IUser';

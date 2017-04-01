@@ -12,7 +12,7 @@ import { SeoService } from './services/seo/index';
 import { LogService } from './services/log/index';
 import { Cache } from './services/cache/index';
 import { LockerModule, Locker, LockerConfig } from './services/locker/index'
-import { AuthenticatedUserGuard, AuthenticatedSupplierGuard, AuthenticatedAdminGuard } from './services/auth/index';
+import { AuthenticatedAdminGuard } from './services/auth/index';
 import { MessageEvent } from './services/message/index';
 
 import { NavigationComponent, FooterComponent, LoginModule, ExpiredModule } from './components/index';
@@ -31,8 +31,8 @@ export class SharedModule {
     static forRoot(): ModuleWithProviders {
         return {
             ngModule: SharedModule,
-            providers: [Broadcaster, MessageEvent, Cache, AuthenticatedUserGuard, AuthenticatedSupplierGuard,
-                AuthenticatedAdminGuard, ApiService, DomService, SeoService, User, LogService,
+            providers: [Broadcaster, MessageEvent, Cache, AuthenticatedAdminGuard,
+                ApiService, DomService, SeoService, User, LogService,
                 ApiServiceOptions, ApiServiceParametersOptions]
         };
     }

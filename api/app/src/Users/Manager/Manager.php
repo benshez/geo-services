@@ -52,10 +52,7 @@ GeoService\AbstractResource;
        ->setParameter('identifier', $email);
       //return $query->getQuery()->getResult();
       if ($config) return $config->getArrayCopyAuthenticatedUser($password);
-      //if ($config) return $query->getQuery()->getResult();
-      //$d = $this->entityManager->getRepository(Users::class)->findByEmail($email);
-      //print_r($d);
-//return $this->entityManager->getRepository(Users::class)->findByEmail($email);
+
       return array('error' => \GeoService\AbstractConstants::$USER_CREDENTIALS_INVALID);
     }
 

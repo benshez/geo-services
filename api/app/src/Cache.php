@@ -16,7 +16,7 @@ Zend\Cache\Storage\Adapter\Memcache;
 
     public function __construct()
     {
-    Array ( [abstract_factories] => Array ( [0] => StorageCacheAbstractServiceFactory::class ) [caches] => Array ( [GeoSevice] => Array ( [adapter] => Array ( [name] => memcache [options] => Array ( [servers] => localhost, 11211 [namespace] => GeoSevice [ttl] => 5 * 60 ) ) ) ) )
+    //Array ( [abstract_factories] => Array ( [0] => StorageCacheAbstractServiceFactory::class ), [caches] => Array ( [GeoSevice] => Array ( [adapter] => Array ( [name] => memcache, [options] => Array ( [servers] => [localhost, 11211], ['namespace'] => GeoSevice, [ttl] => 5 * 60 ) ) ) ) );
       $this->config = [
         'abstract_factories' => [
             StorageCacheAbstractServiceFactory::class,
@@ -50,12 +50,12 @@ Zend\Cache\Storage\Adapter\Memcache;
 
     public function setCache($key, $value) 
     {
-$memcache = new Memcache();
-$memcache->connect('127.0.0.1', 11211);
+//$memcache = new Memcache();
+//$memcache->connect('127.0.0.1', 11211);
 
-$cacheDriver = new \Doctrine\Common\Cache\MemcacheCache();
-$cacheDriver->setMemcache($memcache);
-$cacheDriver->save('cache_id', 'my_data');
+//$cacheDriver = new \Doctrine\Common\Cache\MemcacheCache();
+//$cacheDriver->setMemcache($memcache);
+//$cacheDriver->save('cache_id', 'my_data');
     }
 
     public function getCache($key) {   

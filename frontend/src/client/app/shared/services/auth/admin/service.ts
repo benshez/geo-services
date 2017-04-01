@@ -13,7 +13,7 @@ export class AuthenticatedAdminGuard implements CanActivate {
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         this.setUser();
 
-        if (this.user && this.user.id !== '') {
+        if (this.user && this.user.id !== null) {
             if (this.user.enabled && (this.user.roles.indexOf('ROLE_ADMIN') > -1)) {
                 return true;
             } else if (!this.user.enabled) {
@@ -27,6 +27,6 @@ export class AuthenticatedAdminGuard implements CanActivate {
     }
 
     setUser() {
-        this.user = this.locker.get('USER_DETAIL');
+        this.user = JSON.parse(this.locker.get('USER_DETAIL'));
     }
 }

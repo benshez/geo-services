@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { User, Locker } from '../../../index';
+import { User, Locker } from '../../../../shared/index';
 
 @Injectable()
 export class AuthenticatedUserGuard implements CanActivate {
@@ -13,12 +13,15 @@ export class AuthenticatedUserGuard implements CanActivate {
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         this.setUser();
 
-        if (this.user && this.user.id !== '') {
-            if (this.user.enabled) {
-                return true;
-            } else {
+        if (this.user && this.user.id !== null) {
+            if (this.user.locked) {
+                this.router.navigate(['/locked']);
+                return false;
+            } else if (!this.user.enabled) {
                 this.router.navigate(['/expired']);
                 return false;
+            } else {
+                return true;
             }
         }
 
@@ -27,6 +30,6 @@ export class AuthenticatedUserGuard implements CanActivate {
     }
 
     setUser() {
-        this.user = this.locker.get('USER_DETAIL');
+        this.user = JSON.parse(this.locker.get('USER_DETAIL'));
     }
 }

@@ -1,6 +1,4 @@
-﻿import { IUser, Locker } from '../index';
-
-export class User implements IUser {
+﻿export interface IUser {
     id: number;
     addressId: number;
     industryId: number;
@@ -19,10 +17,4 @@ export class User implements IUser {
     error: boolean;
     message: string;
     roles: any;
-
-    constructor(private locker: Locker) { }
-
-    getStoredUser() {
-        return JSON.parse(this.locker.get('USER_DETAIL'));
-    }
 }
