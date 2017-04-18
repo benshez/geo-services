@@ -1795,8 +1795,6 @@
     <Folder Include="src\client\app\shared\" />
     <Folder Include="src\client\app\shared\analytics\" />
     <Folder Include="src\client\app\shared\analytics\services\" />
-    <Folder Include="src\client\app\shared\components\navbar\" />
-    <Folder Include="src\client\app\shared\components\toolbar\" />
     <Folder Include="src\client\app\shared\core\" />
     <Folder Include="src\client\app\shared\core\directives\" />
     <Folder Include="src\client\app\shared\core\interfaces\" />
@@ -1824,15 +1822,11 @@
     <Folder Include="src\client\app\shared\i18n\states\" />
     <Folder Include="src\client\app\shared\i18n\testing\" />
     <Folder Include="src\client\app\shared\i18n\testing\mocks\" />
-    <Folder Include="src\client\app\shared\components\" />
     <Folder Include="src\client\app\shared\ngrx\" />
     <Folder Include="src\client\app\shared\ngrx\state\" />
     <Folder Include="src\client\app\shared\sample\" />
     <Folder Include="src\client\app\shared\sample\actions\" />
     <Folder Include="src\client\app\shared\sample\common\" />
-    <Folder Include="src\client\app\shared\components\user\" />
-    <Folder Include="src\client\app\shared\components\user\login\" />
-    <Folder Include="src\client\app\shared\components\user\register\" />
     <Folder Include="src\client\app\shared\sample\components\" />
     <Folder Include="src\client\app\shared\sample\components\navbar\" />
     <Folder Include="src\client\app\shared\sample\components\toolbar\" />
@@ -6262,23 +6256,11 @@
     <Content Include="src\client\app\components\home\home.component.scss" />
     <Content Include="src\client\app\components\home\home.component.tns.html" />
     <Content Include="src\client\app\components\home\home.component.tns.scss" />
-    <Content Include="src\client\app\shared\components\navbar\navbar.component.css" />
-    <Content Include="src\client\app\shared\components\navbar\navbar.component.html" />
-    <Content Include="src\client\app\shared\components\navbar\navbar.component.tns.css" />
-    <Content Include="src\client\app\shared\components\navbar\navbar.component.tns.html" />
-    <Content Include="src\client\app\shared\components\toolbar\toolbar.component.css" />
-    <Content Include="src\client\app\shared\components\toolbar\toolbar.component.html" />
-    <Content Include="src\client\app\shared\components\toolbar\toolbar.component.tns.css" />
-    <Content Include="src\client\app\shared\components\toolbar\toolbar.component.tns.html" />
     <Content Include="src\client\app\shared\i18n\components\lang-switcher.component.html" />
     <Content Include="src\client\app\shared\i18n\components\lang-switcher.component.scss" />
     <Content Include="src\client\app\shared\i18n\components\lang-switcher.component.tns.html" />
     <Content Include="src\client\app\shared\i18n\components\lang-switcher.component.tns.ios.scss" />
     <Content Include="src\client\app\shared\i18n\components\lang-switcher.component.tns.scss" />
-    <Content Include="src\client\app\shared\components\user\login\login.component.html" />
-    <Content Include="src\client\app\shared\components\user\login\login.component.scss" />
-    <Content Include="src\client\app\shared\components\user\login\login.component.tns.html" />
-    <Content Include="src\client\app\shared\components\user\login\login.component.tns.scss" />
     <Content Include="src\client\app\shared\sample\components\navbar\navbar.component.css" />
     <Content Include="src\client\app\shared\sample\components\navbar\navbar.component.html" />
     <Content Include="src\client\app\shared\sample\components\navbar\navbar.component.tns.css" />
@@ -10180,17 +10162,6 @@
     <TypeScriptCompile Include="src\client\app\components\home\home.component.ts" />
     <TypeScriptCompile Include="src\client\app\components\home\home.routes.ts" />
     <TypeScriptCompile Include="src\client\app\components\index.ts" />
-    <TypeScriptCompile Include="src\client\app\shared\components\index.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="src\client\app\shared\components\navbar\navbar.component.ts" />
-    <TypeScriptCompile Include="src\client\app\shared\components\shared.components.module.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="src\client\app\shared\components\toolbar\toolbar.component.ts" />
-    <TypeScriptCompile Include="src\client\app\shared\components\user\login\index.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
     <TypeScriptCompile Include="src\client\app\shared\core\interfaces\ibroadcast.ts" />
     <TypeScriptCompile Include="src\client\app\shared\core\interfaces\iuser.ts" />
     <TypeScriptCompile Include="src\client\app\shared\core\services\auth\admin\service.ts" />
@@ -10210,9 +10181,6 @@
     <TypeScriptCompile Include="src\client\app\shared\core\services\locker\PolyfillDriver.ts" />
     <TypeScriptCompile Include="src\client\app\shared\core\services\message\index.ts" />
     <TypeScriptCompile Include="src\client\app\shared\core\services\message\service.ts" />
-    <TypeScriptCompile Include="src\client\app\shared\components\shared.component.routes.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
     <TypeScriptCompile Include="src\client\app\components\operators.ts" />
     <TypeScriptCompile Include="src\client\app\shared\analytics\analytics.module.ts" />
     <TypeScriptCompile Include="src\client\app\shared\analytics\index.ts" />
@@ -10284,9 +10252,6 @@
     <TypeScriptCompile Include="src\client\app\shared\sample\actions\name-list.action.ts" />
     <TypeScriptCompile Include="src\client\app\shared\sample\common\category.common.ts" />
     <TypeScriptCompile Include="src\client\app\shared\sample\common\index.ts" />
-    <TypeScriptCompile Include="src\client\app\shared\components\user\login\login.component.spec.ts" />
-    <TypeScriptCompile Include="src\client\app\shared\components\user\login\login.component.ts" />
-    <TypeScriptCompile Include="src\client\app\shared\components\user\login\login.routes.ts" />
     <TypeScriptCompile Include="src\client\app\shared\sample\components\index.ts" />
     <TypeScriptCompile Include="src\client\app\shared\sample\components\navbar\navbar.component.ts" />
     <TypeScriptCompile Include="src\client\app\shared\sample\components\shared.routes.ts">
