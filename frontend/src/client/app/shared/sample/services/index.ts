@@ -1,7 +1,7 @@
-import { NameListService } from './name-list.service';
+﻿import { NameListService } from './name-list.service';
 
 export const SAMPLE_PROVIDERS: any[] = [
-  NameListService
+    NameListService
 ];
 
 export * from './name-list.service';

@@ -1,10 +1,13 @@
-import { NavbarComponent } from './navbar.component';
-import { ToolbarComponent } from './toolbar.component';
+﻿import { NavbarComponent } from './navbar/navbar.component';
+import { ToolbarComponent } from './toolbar/toolbar.component';
+import { LoginComponent } from './user/login/login.component';
 
 export const SAMPLE_COMPONENTS: any[] = [
-  NavbarComponent,
-  ToolbarComponent
+    NavbarComponent,
+    ToolbarComponent,
+    LoginComponent
 ];
 
-export * from './navbar.component';
-export * from './toolbar.component';
+export * from './navbar/navbar.component';
+export * from './toolbar/toolbar.component';
+export * from './user/login/login.component';

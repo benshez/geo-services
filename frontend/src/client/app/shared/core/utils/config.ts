@@ -18,6 +18,22 @@ export interface IRouteUrls {
     LOGIN_RETURN_URL: string;
 }
 
+export interface IRouteValues {
+    LOGIN_VALUE: string;
+}
+
+export interface ICacheKeys {
+    USER_KEY: string;
+}
+
+export interface IApiEndPoints {
+    USER_LOGIN: string;
+}
+
+export interface ILockerKeys {
+    USER_DETAIL: string;
+}
+
 export class Config {
 
     public static PageClass: any;
@@ -39,6 +55,22 @@ export class Config {
 
     public static ROUTE_URLS: IRouteUrls = {
         LOGIN_RETURN_URL: 'loginReturnUrl'
+    };
+
+    public static ROUTE_VALUES: IRouteValues = {
+        LOGIN_VALUE: 'login'
+    };
+
+    public static CACHE_KEYS: ICacheKeys = {
+        USER_KEY: 'user'
+    };
+
+    public static API_END_POINTS: IApiEndPoints = {
+        USER_LOGIN: 'user/login'
+    };
+
+    public static LOCKER_KEYS: ILockerKeys = {
+        USER_DETAIL: 'user_detail'
     };
 
     // current target (defaults to web)

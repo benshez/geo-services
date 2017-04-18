@@ -1,7 +1,7 @@
-// angular
+﻿// angular
 import { NgModule, Optional, SkipSelf, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
@@ -15,33 +15,34 @@ import { MultilingualModule } from '../i18n/multilingual.module';
  */
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    HttpModule,
-    RouterModule,
-    MultilingualModule,
-  ],
-  declarations: [
-    SAMPLE_COMPONENTS
-  ],
-  providers: [
-    SAMPLE_PROVIDERS
-  ],
-  schemas: [
-    NO_ERRORS_SCHEMA,
-    CUSTOM_ELEMENTS_SCHEMA
-  ],
-  exports: [
-    SAMPLE_COMPONENTS,
-    MultilingualModule
-  ]
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpModule,
+        RouterModule,
+        MultilingualModule,
+    ],
+    declarations: [
+        SAMPLE_COMPONENTS
+    ],
+    providers: [
+        SAMPLE_PROVIDERS
+    ],
+    schemas: [
+        NO_ERRORS_SCHEMA,
+        CUSTOM_ELEMENTS_SCHEMA
+    ],
+    exports: [
+        SAMPLE_COMPONENTS,
+        MultilingualModule
+    ]
 })
 export class SampleModule {
 
-  constructor(@Optional() @SkipSelf() parentModule: SampleModule) {
-    if (parentModule) {
-      throw new Error('SampleModule already loaded; Import in root module only.');
+    constructor( @Optional() @SkipSelf() parentModule: SampleModule) {
+        if (parentModule) {
+            throw new Error('SampleModule already loaded; Import in root module only.');
+        }
     }
-  }
 }
