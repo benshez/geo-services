@@ -62,7 +62,7 @@ return [
             ]
         ],
         'cors' => [
-          'origin'          => 'http://mysite',
+          'origin'          => 'http://localhost:5555',
           'methods'         => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
           'headers.allow'   => [],
           'headers.expose'  => [],

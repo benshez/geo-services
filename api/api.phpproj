@@ -7,6 +7,10 @@
     </RootNamespace>
     <OutputType>Library</OutputType>
     <ProjectTypeGuids>{A0786B88-2ADB-4C21-ABE8-AA2D79766269}</ProjectTypeGuids>
+    <SpecificPageValue>public/index.php</SpecificPageValue>
+    <StartAction>SpecificPage</StartAction>
+    <Runtime>PHP</Runtime>
+    <RuntimeVersion>5.6</RuntimeVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <IncludeDebugInformation>true</IncludeDebugInformation>
@@ -86,5 +90,8 @@
     <Folder Include="script\composer" />
     <Folder Include="script\db" />
     <Folder Include="script" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="public\.htaccess" />
   </ItemGroup>
 </Project>

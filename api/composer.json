@@ -33,6 +33,8 @@
     "phpunit/phpunit": "^5.4"
   },
   "scripts": {
-    "generate-service": "GeoService\\ComposerScript\\Generator::generateService"
+    "generate-service": "GeoService\\ComposerScript\\Generator::generateService",
+    "start": "php -S 0.0.0.0:8080 -t public public/index.php",
+    "test": "phpunit"
   }
 }
