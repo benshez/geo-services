@@ -1,4 +1,6 @@
-﻿// Feel free to extend this interface
+﻿import { ILang } from '../index';
+
+// Feel free to extend this interface
 // depending on your app specific config.
 
 export interface EnvConfig {
@@ -44,6 +46,10 @@ export class Config {
         LEVEL_3: false, // .error only
         LEVEL_4: false  // .log + all the above
     };
+
+    public static SUPPORTED_LANGUAGES: Array<ILang> = [
+        { code: 'en', title: 'English' }
+    ];
 
     // supported platforms
     public static PLATFORMS: IPlatforms = {

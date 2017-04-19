@@ -19,10 +19,8 @@ import { routes } from './app/components/app.routes';
 import { CoreModule } from './app/shared/core/core.module';
 import { AppReducer } from './app/shared/ngrx/index';
 import { AnalyticsModule } from './app/shared/analytics/analytics.module';
-//import { MultilingualModule, translateLoaderFactory } from './app/shared/i18n/multilingual.module';
-//import { MultilingualEffects } from './app/shared/i18n/index';
-//import { SampleModule } from './app/shared/sample/sample.module';
-//import { NameListEffects } from './app/shared/sample/index';
+import { MultilingualModule, translateLoaderFactory } from './app/shared/i18n/multilingual.module';
+import { MultilingualEffects } from './app/shared/i18n/index';
 
 import { SharedGeoModule } from './app/shared/geo/geo.module';
 
@@ -30,78 +28,75 @@ import { SharedGeoModule } from './app/shared/geo/geo.module';
 import { Config, WindowService, ConsoleService, createConsoleTarget, provideConsoleTarget, LogTarget, LogLevel, ConsoleTarget } from './app/shared/core/index';
 Config.PLATFORM_TARGET = Config.PLATFORMS.WEB;
 if (String('<%= BUILD_TYPE %>') === 'dev') {
-  // only output console logging in dev mode
-  Config.DEBUG.LEVEL_4 = true;
+    // only output console logging in dev mode
+    Config.DEBUG.LEVEL_4 = true;
 }
 
-//// sample config (extra)
-//import { AppConfig } from './app/shared/sample/services/app-config';
-//import { MultilingualService } from './app/shared/i18n/services/multilingual.service';
-//// custom i18n language support
-//MultilingualService.SUPPORTED_LANGUAGES = AppConfig.SUPPORTED_LANGUAGES;
+// sample config (extra)
+import { MultilingualService } from './app/shared/i18n/services/multilingual.service';
+// custom i18n language support
+MultilingualService.SUPPORTED_LANGUAGES = Config.SUPPORTED_LANGUAGES;
 
 let routerModule = RouterModule.forRoot(routes);
 
 if (String('<%= TARGET_DESKTOP %>') === 'true') {
-  Config.PLATFORM_TARGET = Config.PLATFORMS.DESKTOP;
-  // desktop (electron) must use hash
-  routerModule = RouterModule.forRoot(routes, { useHash: true });
+    Config.PLATFORM_TARGET = Config.PLATFORMS.DESKTOP;
+    // desktop (electron) must use hash
+    routerModule = RouterModule.forRoot(routes, { useHash: true });
 }
 
 declare var window, console;
 
 // For AoT compilation to work:
 export function win() {
-  return window;
+    return window;
 }
 export function cons() {
-  return console;
+    return console;
 }
 export function consoleLogTarget(consoleService: ConsoleService) {
-  return new ConsoleTarget(consoleService, { minLogLevel: LogLevel.Debug });
+    return new ConsoleTarget(consoleService, { minLogLevel: LogLevel.Debug });
 }
 
 let DEV_IMPORTS: any[] = [];
 
 if (String('<%= BUILD_TYPE %>') === 'dev') {
-  DEV_IMPORTS = [
-    ...DEV_IMPORTS,
-    StoreDevtoolsModule.instrumentOnlyWithExtension()
-  ];
+    DEV_IMPORTS = [
+        ...DEV_IMPORTS,
+        StoreDevtoolsModule.instrumentOnlyWithExtension()
+    ];
 }
 
 @NgModule({
-  imports: [
-    BrowserModule,
-    CoreModule.forRoot([
-      { provide: WindowService, useFactory: (win) },
-      { provide: ConsoleService, useFactory: (cons) },
-      { provide: LogTarget, useFactory: (consoleLogTarget), deps: [ConsoleService], multi: true }
-    ]),
-    routerModule,
-      AnalyticsModule,
-      SharedGeoModule,
-    //MultilingualModule.forRoot([{
-    //  provide: TranslateLoader,
-    //  deps: [Http],
-    //  useFactory: (translateLoaderFactory)
-    //}]),
-    //SampleModule,
-    StoreModule.provideStore(AppReducer),
-    DEV_IMPORTS,
-    //EffectsModule.run(MultilingualEffects),
-    //EffectsModule.run(NameListEffects)
-  ],
-  declarations: [
-    APP_COMPONENTS
-  ],
-  providers: [
-    {
-      provide: APP_BASE_HREF,
-      useValue: '<%= APP_BASE %>'
-    }
-  ],
-  bootstrap: [AppComponent]
+    imports: [
+        BrowserModule,
+        CoreModule.forRoot([
+            { provide: WindowService, useFactory: (win) },
+            { provide: ConsoleService, useFactory: (cons) },
+            { provide: LogTarget, useFactory: (consoleLogTarget), deps: [ConsoleService], multi: true }
+        ]),
+        routerModule,
+        AnalyticsModule,
+        SharedGeoModule,
+        MultilingualModule.forRoot([{
+            provide: TranslateLoader,
+            deps: [Http],
+            useFactory: (translateLoaderFactory)
+        }]),
+        StoreModule.provideStore(AppReducer),
+        DEV_IMPORTS,
+        EffectsModule.run(MultilingualEffects)
+    ],
+    declarations: [
+        APP_COMPONENTS
+    ],
+    providers: [
+        {
+            provide: APP_BASE_HREF,
+            useValue: '<%= APP_BASE %>'
+        }
+    ],
+    bootstrap: [AppComponent]
 })
 
 export class WebModule { }

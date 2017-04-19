@@ -1,4 +1,4 @@
-// libs
+﻿// libs
 import { Observable } from 'rxjs/Observable';
 // import { combineLatest } from 'rxjs/observable/combineLatest';
 import { ActionReducer } from '@ngrx/store';
@@ -47,8 +47,8 @@ import { ISampleState } from '../../sample/index';
  * our top level state interface is just a map of keys to inner state types.
  */
 export interface IAppState {
-  i18n: fromMultilingual.IMultilingualState;
-  sample: fromSample.ISampleState;
+    i18n: fromMultilingual.IMultilingualState;
+    sample: fromSample.ISampleState;
 };
 
 /**
@@ -59,26 +59,26 @@ export interface IAppState {
  * the result from right to left.
  */
 const reducers = {
-  i18n: fromMultilingual.reducer,
-  sample: fromSample.reducer
+    i18n: fromMultilingual.reducer,
+    sample: fromSample.reducer
 };
 
 const developmentReducer: ActionReducer<IAppState> = compose(storeFreeze, combineReducers)(reducers);
 const productionReducer: ActionReducer<IAppState> = combineReducers(reducers);
 
 export function AppReducer(state: any, action: any) {
-  if (String('<%= BUILD_TYPE %>') === 'dev') {
-    return developmentReducer(state, action);
-  } else {
-    return productionReducer(state, action);
-  }
+    if (String('<%= BUILD_TYPE %>') === 'dev') {
+        return developmentReducer(state, action);
+    } else {
+        return productionReducer(state, action);
+    }
 }
 
 export function getMultilingualState(state$: Observable<IAppState>): Observable<IMultilingualState> {
-  return state$.select(s => s.i18n);
+    return state$.select(s => s.i18n);
 }
 export function getNameListState(state$: Observable<IAppState>): Observable<ISampleState> {
-  return state$.select(s => s.sample);
+    return state$.select(s => s.sample);
 }
 
 export const getLang: any = compose(fromMultilingual.getLang, getMultilingualState);

@@ -1,5 +1,5 @@
-// standard language interface
+﻿// standard language interface
 export interface ILang {
-  code: string;
-  title: string;
+    code: string;
+    title: string;
 }

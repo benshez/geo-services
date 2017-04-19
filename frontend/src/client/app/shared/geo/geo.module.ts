@@ -7,18 +7,20 @@ import { RouterModule } from '@angular/router';
 
 // app
 import { SHARED_COMPONENTS } from './components/index';
+import { MultilingualModule } from '../i18n/multilingual.module';
+
 
 /**
  * Do not specify providers for modules that might be imported by a lazy loaded module.
  */
-
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
         HttpModule,
-        RouterModule
+        RouterModule,
+        MultilingualModule
     ],
     declarations: [
         SHARED_COMPONENTS
@@ -32,7 +34,7 @@ import { SHARED_COMPONENTS } from './components/index';
     ],
     exports: [
         SHARED_COMPONENTS,
-        //MultilingualModule
+        MultilingualModule
     ]
 })
 export class SharedGeoModule {

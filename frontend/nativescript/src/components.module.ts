@@ -1,4 +1,4 @@
-// nativescript
+﻿// nativescript
 import { NativeScriptModule } from 'nativescript-angular/nativescript.module';
 import { NativeScriptFormsModule } from 'nativescript-angular/forms';
 import { NativeScriptHttpModule } from 'nativescript-angular/http';
@@ -22,7 +22,6 @@ import { routes } from './app/components/app.routes';
 import { CoreModule } from './app/shared/core/core.module';
 import { AnalyticsModule } from './app/shared/analytics/analytics.module';
 import { MultilingualModule, translateLoaderFactory } from './app/shared/i18n/multilingual.module';
-import { SampleModule } from './app/shared/sample/sample.module';
 import { SharedGeoModule } from './app/shared/geo/geo.module';
 import { ConsoleService, ConsoleTarget, LogLevel } from "./app/shared/core/index";
 
@@ -30,50 +29,48 @@ import { ConsoleService, ConsoleTarget, LogLevel } from "./app/shared/core/index
 // helps encapsulate custom native modules in with the components
 // note: couple ways this could be done, just one option presented here...
 @NgModule({
-  imports: [
-    NativeScriptModule,
-    NativeScriptFormsModule,
-    NativeScriptHttpModule,
-    NativeScriptRouterModule,
-    AnalyticsModule,
-    CoreModule,
-    MultilingualModule.forRoot([{
-      provide: TranslateLoader,
-      deps: [Http],
-      useFactory: (translateLoaderFactory)
-    }]),
-	SharedGeoModule,
-    SampleModule
-  ],
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    AboutComponent
-  ],
-  schemas: [
-    NO_ERRORS_SCHEMA,
-    CUSTOM_ELEMENTS_SCHEMA
-  ],
-  exports: [
-    NativeScriptModule,
-    NativeScriptFormsModule,
-    NativeScriptHttpModule,
-    NativeScriptRouterModule,
-    MultilingualModule,
-    AppComponent,
-    AnalyticsModule,
-    CoreModule,
-	SharedGeoModule,
-    SampleModule
-  ]
+    imports: [
+        NativeScriptModule,
+        NativeScriptFormsModule,
+        NativeScriptHttpModule,
+        NativeScriptRouterModule,
+        AnalyticsModule,
+        CoreModule,
+        MultilingualModule.forRoot([{
+            provide: TranslateLoader,
+            deps: [Http],
+            useFactory: (translateLoaderFactory)
+        }]),
+        SharedGeoModule
+    ],
+    declarations: [
+        AppComponent,
+        HomeComponent,
+        AboutComponent
+    ],
+    schemas: [
+        NO_ERRORS_SCHEMA,
+        CUSTOM_ELEMENTS_SCHEMA
+    ],
+    exports: [
+        NativeScriptModule,
+        NativeScriptFormsModule,
+        NativeScriptHttpModule,
+        NativeScriptRouterModule,
+        MultilingualModule,
+        AppComponent,
+        AnalyticsModule,
+        CoreModule,
+        SharedGeoModule
+    ]
 })
 export class ComponentsModule { }
 
 // For AoT compilation to work:
 export function cons() {
-  return console;
+    return console;
 }
 
 export function consoleLogTarget(service: ConsoleService) {
-  return new ConsoleTarget(service, { minLogLevel: LogLevel.Debug });
+    return new ConsoleTarget(service, { minLogLevel: LogLevel.Debug });
 }
