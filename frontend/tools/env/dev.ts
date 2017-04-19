@@ -2,7 +2,7 @@
 
 const DevConfig: EnvConfig = {
     ENV: 'DEV',
-    API: 'http://localhost:8000/'
+    API: 'http://localhost:8000/api/'
 };
 
 export = DevConfig;

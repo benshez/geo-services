@@ -2,7 +2,7 @@
 
 const BaseConfig: EnvConfig = {
     // Sample API url
-    API: 'http://localhost:8000/'
+    API: 'http://localhost:8000/api/'
 };
 
 export = BaseConfig;

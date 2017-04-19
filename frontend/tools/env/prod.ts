@@ -2,7 +2,7 @@
 
 const ProdConfig: EnvConfig = {
     ENV: 'PROD',
-    API: 'http://localhost:8000/'
+    API: 'http://localhost:8000/api/'
 };
 
 export = ProdConfig;
