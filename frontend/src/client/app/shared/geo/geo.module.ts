@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 // app
 import { SHARED_COMPONENTS } from './components/index';
 import { MultilingualModule } from '../i18n/multilingual.module';
+import { MapBoxModule } from 'angular2-mapbox/core';
 
 
 /**
@@ -20,7 +21,8 @@ import { MultilingualModule } from '../i18n/multilingual.module';
         ReactiveFormsModule,
         HttpModule,
         RouterModule,
-        MultilingualModule
+        MultilingualModule,
+        MapBoxModule.forRoot('pk.eyJ1IjoiYmVuc2hleiIsImEiOiJjajFmZ2ludHMwMGx0MzJ0NDJzbW14MWc5In0.3W8kUIEbiliNAEl85DqD-A')
     ],
     declarations: [
         SHARED_COMPONENTS

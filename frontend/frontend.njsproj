@@ -1817,6 +1817,7 @@
     <Folder Include="src\client\app\shared\geo\common\" />
     <Folder Include="src\client\app\shared\geo\components\" />
     <Folder Include="src\client\app\shared\geo\components\navbar\" />
+    <Folder Include="src\client\app\shared\geo\components\map\" />
     <Folder Include="src\client\app\shared\geo\components\toolbar\" />
     <Folder Include="src\client\app\shared\geo\components\user\" />
     <Folder Include="src\client\app\shared\geo\components\user\login\" />
@@ -6266,6 +6267,10 @@
     <Content Include="src\client\app\components\home\home.component.scss" />
     <Content Include="src\client\app\components\home\home.component.tns.html" />
     <Content Include="src\client\app\components\home\home.component.tns.scss" />
+    <Content Include="src\client\app\shared\geo\components\map\map.component.html" />
+    <Content Include="src\client\app\shared\geo\components\map\map.component.scss" />
+    <Content Include="src\client\app\shared\geo\components\map\map.component.tns.html" />
+    <Content Include="src\client\app\shared\geo\components\map\map.component.tns.scss" />
     <Content Include="src\client\app\shared\geo\components\navbar\navbar.component.css" />
     <Content Include="src\client\app\shared\geo\components\navbar\navbar.component.html" />
     <Content Include="src\client\app\shared\geo\components\navbar\navbar.component.tns.css" />
@@ -10251,10 +10256,12 @@
     <TypeScriptCompile Include="src\client\app\shared\geo\common\category.common.ts" />
     <TypeScriptCompile Include="src\client\app\shared\geo\common\index.ts" />
     <TypeScriptCompile Include="src\client\app\shared\geo\components\index.ts" />
+    <TypeScriptCompile Include="src\client\app\shared\geo\components\map\map.component.spec.ts" />
+    <TypeScriptCompile Include="src\client\app\shared\geo\components\map\map.component.ts" />
+    <TypeScriptCompile Include="src\client\app\shared\geo\components\map\map.routes.ts" />
     <TypeScriptCompile Include="src\client\app\shared\geo\components\navbar\navbar.component.ts" />
     <TypeScriptCompile Include="src\client\app\shared\geo\components\shared.routes.ts" />
     <TypeScriptCompile Include="src\client\app\shared\geo\components\toolbar\toolbar.component.ts" />
-    <TypeScriptCompile Include="src\client\app\shared\geo\components\user\login\index.ts" />
     <TypeScriptCompile Include="src\client\app\shared\geo\components\user\login\login.component.spec.ts" />
     <TypeScriptCompile Include="src\client\app\shared\geo\components\user\login\login.component.ts" />
     <TypeScriptCompile Include="src\client\app\shared\geo\components\user\login\login.routes.ts" />

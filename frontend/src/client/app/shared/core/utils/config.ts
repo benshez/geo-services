@@ -22,6 +22,7 @@ export interface IRouteUrls {
 
 export interface IRouteValues {
     LOGIN_VALUE: string;
+    MAP_VALUE: string;
 }
 
 export interface ICacheKeys {
@@ -64,7 +65,8 @@ export class Config {
     };
 
     public static ROUTE_VALUES: IRouteValues = {
-        LOGIN_VALUE: 'login'
+        LOGIN_VALUE: 'login',
+        MAP_VALUE: 'map'
     };
 
     public static CACHE_KEYS: ICacheKeys = {
