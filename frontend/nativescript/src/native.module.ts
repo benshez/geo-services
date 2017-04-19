@@ -1,4 +1,4 @@
-// nativescript
+﻿// nativescript
 import {
   NativeScriptRouterModule,
   RouterExtensions as TNSRouterExtensions
@@ -25,7 +25,6 @@ import { routes } from './app/components/app.routes';
 import { CoreModule } from './app/shared/core/core.module';
 import { AppReducer } from './app/shared/ngrx/index';
 import { MultilingualEffects } from './app/shared/i18n/index';
-import { NameListEffects } from './app/shared/sample/index';
 import { ComponentsModule, cons, consoleLogTarget } from './components.module';
 
 // {N} custom app specific
@@ -49,9 +48,8 @@ Config.DEBUG.LEVEL_4 = true;
 // (optional) custom i18n language support
 // example of how you can configure your own language sets
 // you can use the AppConfig class or build something similar into your own framework
-import { AppConfig } from './app/shared/sample/services/app-config';
 import { MultilingualService } from './app/shared/i18n/services/multilingual.service';
-MultilingualService.SUPPORTED_LANGUAGES = AppConfig.SUPPORTED_LANGUAGES;
+MultilingualService.SUPPORTED_LANGUAGES = Config.SUPPORTED_LANGUAGES;
 
 @NgModule({
   imports: [
@@ -64,7 +62,6 @@ MultilingualService.SUPPORTED_LANGUAGES = AppConfig.SUPPORTED_LANGUAGES;
     NativeScriptRouterModule.forRoot(<any>routes),
     StoreModule.provideStore(AppReducer),
     EffectsModule.run(MultilingualEffects),
-    EffectsModule.run(NameListEffects)
   ],
   providers: [
     NS_ANALYTICS_PROVIDERS,
