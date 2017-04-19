@@ -1,7 +1,8 @@
-import { EnvConfig } from './env-config.interface';
+﻿import { EnvConfig } from './env-config.interface';
 
 const ProdConfig: EnvConfig = {
-  ENV: 'PROD'
+    ENV: 'PROD',
+    API: 'http://localhost:8000/'
 };
 
 export = ProdConfig;
