@@ -1,16 +1,16 @@
-<StackLayout>
+﻿<StackLayout>
   <StackLayout class="p-10">
-    <Label [text]="'LOVE_TECH' | translate" textWrap="true" class="love-tech"></Label>
-    <Label [text]="'SUCCESS_MSG' | translate" textWrap="true"></Label>
-    <Label [text]="'ABOUT_REWARD' | translate" textWrap="true"></Label>
+    <Label [text]="'LOVE_TECH'" textWrap="true" class="love-tech"></Label>
+    <Label [text]="'SUCCESS_MSG'" textWrap="true"></Label>
+    <Label [text]="'ABOUT_REWARD'" textWrap="true"></Label>
   </StackLayout>
 
   <StackLayout class="form">
     <StackLayout class="input-field">
-      <TextField [(ngModel)]="newName" [hint]="'INPUT_HINT' | translate" autocorrect="false" autocapitalizationType="none" class="input"></TextField>
+      <TextField [(ngModel)]="newName" [hint]="'INPUT_HINT'" autocorrect="false" autocapitalizationType="none" class="input"></TextField>
     </StackLayout>
   </StackLayout>
-  <Button [text]="'ADD_BTN_TEXT' | translate" (tap)="addName()" class="btn btn-primary"></Button>
+  <Button [text]="'ADD_BTN_TEXT'" (tap)="addName()" class="btn btn-primary"></Button>
 
   <ListView [items]="names$ | async" row="1" colSpan="2" height="250" class="list-group">
     <ng-template let-name="item" let-odd="odd" let-even="even">
