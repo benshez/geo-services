@@ -6,23 +6,48 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
 // app
+
+import { Config } from '../core/index';
+
 import { SHARED_COMPONENTS } from './components/index';
 import { MultilingualModule } from '../i18n/multilingual.module';
-import { MapBoxModule } from 'angular2-mapbox/core';
 
+let SHARED_IMPORTS: any[] = [];
+//declare function require(moduleName: string): any;
 
-/**
- * Do not specify providers for modules that might be imported by a lazy loaded module.
- */
-@NgModule({
-    imports: [
+//import { MapBoxModule as Map } from 'angular2-mapbox/core';
+
+if (Config.PLATFORMS.WEB) {
+
+    //let MapBoxModule: typeof Map = require("angular2-mapbox/core");
+    
+    //let zzz = MapBoxModule.MapBoxModule;
+    SHARED_IMPORTS = [
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
         HttpModule,
         RouterModule,
         MultilingualModule,
-        MapBoxModule.forRoot('pk.eyJ1IjoiYmVuc2hleiIsImEiOiJjajFmZ2ludHMwMGx0MzJ0NDJzbW14MWc5In0.3W8kUIEbiliNAEl85DqD-A')
+        //zzz.forRoot('pk.eyJ1IjoiYmVuc2hleiIsImEiOiJjajFmZ2ludHMwMGx0MzJ0NDJzbW14MWc5In0.3W8kUIEbiliNAEl85DqD-A')
+    ];
+    //var mapbox = require("nativescript-mapbox");
+} else {
+    SHARED_IMPORTS = [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpModule,
+        RouterModule,
+        MultilingualModule
+    ];
+}
+/**
+ * Do not specify providers for modules that might be imported by a lazy loaded module.
+ */
+@NgModule({
+    imports: [
+        SHARED_IMPORTS
     ],
     declarations: [
         SHARED_COMPONENTS

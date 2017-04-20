@@ -14,6 +14,7 @@ import { TranslateLoader } from '@ngx-translate/core';
 // app
 import { APP_COMPONENTS, AppComponent } from './app/components/index';
 import { routes } from './app/components/app.routes';
+import { WebSharedRoutes } from './app/shared/geo-web/components/geo.web.shared.routes';
 
 // feature modules
 import { CoreModule } from './app/shared/core/core.module';
@@ -23,7 +24,16 @@ import { MultilingualModule, translateLoaderFactory } from './app/shared/i18n/mu
 import { MultilingualEffects } from './app/shared/i18n/index';
 
 import { SharedGeoModule } from './app/shared/geo/geo.module';
+import { WebGeoModule } from './app/shared/geo-web/geo.web.module';
 
+import { MAPBOX } from './app/shared/geo/index';
+
+var mapBoxPlugin = require('mapbox-gl');
+
+
+export function mapBoxFactory() {
+    return mapBoxPlugin;
+}
 // config
 import { Config, WindowService, ConsoleService, createConsoleTarget, provideConsoleTarget, LogTarget, LogLevel, ConsoleTarget } from './app/shared/core/index';
 Config.PLATFORM_TARGET = Config.PLATFORMS.WEB;
@@ -32,17 +42,23 @@ if (String('<%= BUILD_TYPE %>') === 'dev') {
     Config.DEBUG.LEVEL_4 = true;
 }
 
+
+const webRoutes: Array<any> = [
+    ...routes,
+    ...WebSharedRoutes
+];
+
 // sample config (extra)
 import { MultilingualService } from './app/shared/i18n/services/multilingual.service';
 // custom i18n language support
 MultilingualService.SUPPORTED_LANGUAGES = Config.SUPPORTED_LANGUAGES;
 
-let routerModule = RouterModule.forRoot(routes);
+let routerModule = RouterModule.forRoot(webRoutes);
 
 if (String('<%= TARGET_DESKTOP %>') === 'true') {
     Config.PLATFORM_TARGET = Config.PLATFORMS.DESKTOP;
     // desktop (electron) must use hash
-    routerModule = RouterModule.forRoot(routes, { useHash: true });
+    routerModule = RouterModule.forRoot(webRoutes, { useHash: true });
 }
 
 declare var window, console;
@@ -78,6 +94,7 @@ if (String('<%= BUILD_TYPE %>') === 'dev') {
         routerModule,
         AnalyticsModule,
         SharedGeoModule,
+        WebGeoModule,
         MultilingualModule.forRoot([{
             provide: TranslateLoader,
             deps: [Http],
@@ -94,6 +111,9 @@ if (String('<%= BUILD_TYPE %>') === 'dev') {
         {
             provide: APP_BASE_HREF,
             useValue: '<%= APP_BASE %>'
+        },
+        {
+            provide: MAPBOX, useFactory: (mapBoxFactory)
         }
     ],
     bootstrap: [AppComponent]

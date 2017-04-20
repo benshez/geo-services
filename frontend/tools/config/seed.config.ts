@@ -435,8 +435,6 @@ export class SeedConfig {
       '@angular/platform-browser-dynamic/testing':
       'node_modules/@angular/platform-browser-dynamic/bundles/platform-browser-dynamic-testing.umd.js',
       '@angular/router/testing': 'node_modules/@angular/router/bundles/router-testing.umd.js',
-      'mapbox-gl': 'node_modules/mapbox-gl/dist/mapbox-gl.js',
-      'angular2-mapbox/core': 'node_modules/angular2-mapbox/core/core.umd.js',
 
       'app/*': '/app/*',
       // For test config

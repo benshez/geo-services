@@ -1,7 +1,7 @@
 ﻿// nativescript
 import {
-  NativeScriptRouterModule,
-  RouterExtensions as TNSRouterExtensions
+    NativeScriptRouterModule,
+    RouterExtensions as TNSRouterExtensions
 } from 'nativescript-angular';
 
 // angular
@@ -13,16 +13,21 @@ import { EffectsModule } from '@ngrx/effects';
 
 // app
 import {
-  WindowService,
-  ConsoleService,
-  RouterExtensions,
-  AppService
+    WindowService,
+    ConsoleService,
+    RouterExtensions,
+    AppService
 } from './app/shared/core/index';
 import { AppComponent } from './app/components/app.component';
 import { routes } from './app/components/app.routes';
-
+import { NSharedRoutes } from './mobile/geo-tns/components/geo.tns.routes';
+const webRoutes: Array<any> = [
+    ...routes,
+    ...NSharedRoutes
+];
 // feature modules
 import { CoreModule } from './app/shared/core/core.module';
+import { TnsGeoModule } from './mobile/geo-tns/geo.tns.module';
 import { AppReducer } from './app/shared/ngrx/index';
 import { MultilingualEffects } from './app/shared/i18n/index';
 import { ComponentsModule, cons, consoleLogTarget } from './components.module';
@@ -30,6 +35,7 @@ import { ComponentsModule, cons, consoleLogTarget } from './components.module';
 // {N} custom app specific
 import { WindowNative, NSAppService } from './mobile/core/index';
 import { NS_ANALYTICS_PROVIDERS } from './mobile/analytics/index';
+import { NS_COMPONENTS, NSMapComponent } from './mobile/geo-tns/components/index';
 
 /**
  * Config
@@ -52,26 +58,28 @@ import { MultilingualService } from './app/shared/i18n/services/multilingual.ser
 MultilingualService.SUPPORTED_LANGUAGES = Config.SUPPORTED_LANGUAGES;
 
 @NgModule({
-  imports: [
-    CoreModule.forRoot([
-      { provide: WindowService, useClass: WindowNative },
-      { provide: ConsoleService, useFactory: (cons) },
-      { provide: LogTarget, multi: true, deps: [ConsoleService], useFactory: (consoleLogTarget) }
-    ]),
-    ComponentsModule,
-    NativeScriptRouterModule.forRoot(<any>routes),
-    StoreModule.provideStore(AppReducer),
-    EffectsModule.run(MultilingualEffects),
-  ],
-  providers: [
-    NS_ANALYTICS_PROVIDERS,
-    { provide: RouterExtensions, useClass: TNSRouterExtensions },
-    { provide: AppService, useClass: NSAppService },
-  ],
-  schemas: [
-    NO_ERRORS_SCHEMA,
-    CUSTOM_ELEMENTS_SCHEMA
-  ],
-  bootstrap: [AppComponent]
+    imports: [
+        CoreModule.forRoot([
+            { provide: WindowService, useClass: WindowNative },
+            { provide: ConsoleService, useFactory: (cons) },
+            { provide: LogTarget, multi: true, deps: [ConsoleService], useFactory: (consoleLogTarget) }
+        ]),
+        ComponentsModule,
+        TnsGeoModule,
+        NativeScriptRouterModule.forRoot(<any>webRoutes),
+        StoreModule.provideStore(AppReducer),
+        EffectsModule.run(MultilingualEffects),
+    ],
+    providers: [
+        NS_ANALYTICS_PROVIDERS,
+        { provide: RouterExtensions, useClass: TNSRouterExtensions },
+        { provide: AppService, useClass: NSAppService },
+        NS_COMPONENTS
+    ],
+    schemas: [
+        NO_ERRORS_SCHEMA,
+        CUSTOM_ELEMENTS_SCHEMA
+    ],
+    bootstrap: [AppComponent]
 })
 export class NativeModule { }
