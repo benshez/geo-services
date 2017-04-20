@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
+import { isAndroid, isIOS } from 'platform';
+
 var mapbox = require("nativescript-mapbox");
 //// app
 //import { ApiService, Locker } from '../../../core/services/index';
@@ -43,10 +45,10 @@ export class NSMapComponent implements OnInit {
             accessToken: 'pk.eyJ1IjoiYmVuc2hleiIsImEiOiJjajFmZ2ludHMwMGx0MzJ0NDJzbW14MWc5In0.3W8kUIEbiliNAEl85DqD-A', // see 'Prerequisites' above 
             style: mapbox.MapStyle.DARK, // see the mapbox.MapStyle enum for other options, default mapbox.MapStyle.STREETS 
             margins: {
-                left: 40, // default 0 
-                right: 40, // default 0 
-                top: 450, // default 0 
-                //bottom: isIOS ? 50 : 0 // default 0, this shows how to override the style for iOS 
+                left: 10, // default 0 
+                right: 10, // default 0 
+                top: 10, // default 0 
+                bottom: isIOS ? 10 : 10 // default 0, this shows how to override the style for iOS 
             },
             center: { // optional without a default 
                 lat: 52.3702160,

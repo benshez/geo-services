@@ -1,19 +1,13 @@
-﻿<ActionBar [title]="'MAP'" class="action-bar">
+﻿<ActionBar [title]="'ABOUT'" class="action-bar">
   <NavigationButton [text]="'HOME'"></NavigationButton>
 </ActionBar>
 
 <ScrollView>
   <StackLayout class="p-20">
+    <lang-switcher></lang-switcher>
     <Label text="Angular Seed Advanced is a starter project that implements best practices in coding, building and testing Angular 2 apps. Additionally it adds various enhancements and integrations for large global projects." textWrap="true" class="h4"></Label>
-    <ContentView height="240" width="240">
-      <map:Mapbox accessToken="your_token"
-                  mapStyle="light"
-                  latitude="52.3702160"
-                  longitude="4.8951680"
-                  zoomLevel="3"
-                  showUserLocation="true"
-                  mapReady="onMapReady">
-      </map:Mapbox>
+    <ContentView >
+      <map:Mapbox></map:Mapbox>
     </ContentView>
   </StackLayout>
 </ScrollView>

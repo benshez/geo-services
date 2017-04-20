@@ -26,14 +26,6 @@ import { MultilingualEffects } from './app/shared/i18n/index';
 import { SharedGeoModule } from './app/shared/geo/geo.module';
 import { WebGeoModule } from './app/shared/geo-web/geo.web.module';
 
-import { MAPBOX } from './app/shared/geo/index';
-
-var mapBoxPlugin = require('mapbox-gl');
-
-
-export function mapBoxFactory() {
-    return mapBoxPlugin;
-}
 // config
 import { Config, WindowService, ConsoleService, createConsoleTarget, provideConsoleTarget, LogTarget, LogLevel, ConsoleTarget } from './app/shared/core/index';
 Config.PLATFORM_TARGET = Config.PLATFORMS.WEB;
@@ -111,9 +103,6 @@ if (String('<%= BUILD_TYPE %>') === 'dev') {
         {
             provide: APP_BASE_HREF,
             useValue: '<%= APP_BASE %>'
-        },
-        {
-            provide: MAPBOX, useFactory: (mapBoxFactory)
         }
     ],
     bootstrap: [AppComponent]

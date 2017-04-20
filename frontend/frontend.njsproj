@@ -6257,8 +6257,6 @@
     <Content Include="nativescript\src\App_Resources\iOS\build.xcconfig" />
     <Content Include="nativescript\src\App_Resources\iOS\Info.plist" />
     <Content Include="nativescript\src\App_Resources\iOS\LaunchScreen.storyboard" />
-    <Content Include="nativescript\src\mobile\geo-tns\components\map\map.component.html" />
-    <Content Include="nativescript\src\mobile\geo-tns\components\map\map.component.scss" />
     <Content Include="nativescript\src\mobile\geo-tns\components\map\map.component.tns.html" />
     <Content Include="nativescript\src\mobile\geo-tns\components\map\map.component.tns.scss" />
     <Content Include="nativescript\src\package.json" />
