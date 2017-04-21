@@ -1,4 +1,5 @@
-﻿declare const __DEV__: boolean, __TEST__: boolean;
+﻿export const __DEV__: boolean = false;
+export const __TEST__: boolean = false;
 
 import { IStorageSetConfig, IWebStorage, ICustomStorage } from './metadata';
 import { convertFromJSON, serializeDataToString } from './helpers';

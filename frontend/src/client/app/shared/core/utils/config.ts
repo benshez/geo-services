@@ -1,4 +1,4 @@
-﻿import { ILang } from '../index';
+﻿import { ILang, IMapMarkers } from '../index';
 
 // Feel free to extend this interface
 // depending on your app specific config.
@@ -6,7 +6,7 @@
 export interface EnvConfig {
     API?: string;
     ENV?: string;
-    MAP_BOX_API?: string;
+    MAP_BOX_API_KEY?: string;
 }
 
 export interface IPlatforms {
@@ -36,6 +36,8 @@ export interface IApiEndPoints {
 export interface ILockerKeys {
     USER_DETAIL: string;
 }
+
+
 
 export class Config {
 
@@ -132,4 +134,5 @@ export class Config {
             Config.DEBUG[key] = false;
         }
     }
+
 }

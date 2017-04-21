@@ -19,15 +19,11 @@ import {
     AppService
 } from './app/shared/core/index';
 import { AppComponent } from './app/components/app.component';
-import { routes } from './app/components/app.routes';
-import { NSharedRoutes } from './mobile/geo-tns/components/geo.tns.routes';
-const webRoutes: Array<any> = [
-    ...routes,
-    ...NSharedRoutes
-];
+import { NSharedRoutes } from './mobile/geo-tns/components/routes';
+
 // feature modules
 import { CoreModule } from './app/shared/core/core.module';
-import { TnsGeoModule } from './mobile/geo-tns/geo.tns.module';
+import { NSGeoModule } from './mobile/geo-tns/module';
 import { AppReducer } from './app/shared/ngrx/index';
 import { MultilingualEffects } from './app/shared/i18n/index';
 import { ComponentsModule, cons, consoleLogTarget } from './components.module';
@@ -65,8 +61,8 @@ MultilingualService.SUPPORTED_LANGUAGES = Config.SUPPORTED_LANGUAGES;
             { provide: LogTarget, multi: true, deps: [ConsoleService], useFactory: (consoleLogTarget) }
         ]),
         ComponentsModule,
-        TnsGeoModule,
-        NativeScriptRouterModule.forRoot(<any>webRoutes),
+        NSGeoModule,
+        NativeScriptRouterModule.forRoot(<any>NSharedRoutes),
         StoreModule.provideStore(AppReducer),
         EffectsModule.run(MultilingualEffects),
     ],

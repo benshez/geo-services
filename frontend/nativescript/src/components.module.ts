@@ -13,10 +13,9 @@ import { TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 // app
-import { AppComponent } from './app/components/app.component';
+import { AppComponent } from './app/components';
 import { AboutComponent } from './app/components/about/about.component';
 import { HomeComponent } from './app/components/home/home.component';
-import { routes } from './app/components/app.routes';
 
 // feature modules
 import { CoreModule } from './app/shared/core/core.module';
