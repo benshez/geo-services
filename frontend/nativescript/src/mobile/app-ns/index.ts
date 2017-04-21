@@ -8,8 +8,8 @@ export const NS_COMPONENTS: any[] = [
 export * from './components/map/component';
 
 //routes
-import { APP_ROUTES } from '../../app/components';
-import { SHARED_ROUTES } from '../../app/shared/app';
+import { APP_ROUTES } from '../../app/components/index';
+import { SHARED_ROUTES } from '../../app/shared/app/index';
 import { NS_MAP_ROUTES } from './components/map/routes';
 
 export const NS_SHARED_ROUTES: Array<any> = [

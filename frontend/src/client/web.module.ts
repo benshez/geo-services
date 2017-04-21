@@ -21,7 +21,7 @@ import { AnalyticsModule } from './app/shared/analytics/analytics.module';
 import { MultilingualModule, translateLoaderFactory } from './app/shared/i18n/multilingual.module';
 import { MultilingualEffects } from './app/shared/i18n/index';
 
-import { SharedAppModule } from './app/shared/app';
+import { SharedAppModule } from './app/shared/app/index';
 import { WebOnlyModule, WEB_ROUTES } from './app/shared/app-web/index';
 
 // config

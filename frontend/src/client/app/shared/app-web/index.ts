@@ -1,6 +1,6 @@
 ﻿import { WebMapComponent } from './components/map/component';
-import { APP_ROUTES } from '../../components';
-import { SHARED_ROUTES } from '../app';
+import { APP_ROUTES } from '../../components/index';
+import { SHARED_ROUTES } from '../app/index';
 import { MAP_ROUTES } from './components/map/routes';
 
 // components

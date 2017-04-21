@@ -18,7 +18,7 @@ import {
     RouterExtensions,
     AppService
 } from './app/shared/core/index';
-import { AppComponent } from './app/components';
+import { AppComponent } from './app/components/index';
 
 // feature modules
 import { CoreModule } from './app/shared/core/core.module';

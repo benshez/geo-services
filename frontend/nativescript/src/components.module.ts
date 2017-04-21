@@ -13,14 +13,14 @@ import { TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 // app
-import { AppComponent } from './app/components';
-import { AboutComponent, HomeComponent } from './app/components';
+import { AppComponent } from './app/components/index';
+import { AboutComponent, HomeComponent } from './app/components/index';
 
 // feature modules
 import { CoreModule } from './app/shared/core/core.module';
 import { AnalyticsModule } from './app/shared/analytics/analytics.module';
 import { MultilingualModule, translateLoaderFactory } from './app/shared/i18n/multilingual.module';
-import { SharedAppModule } from './app/shared/app';
+import { SharedAppModule } from './app/shared/app/index';
 import { ConsoleService, ConsoleTarget, LogLevel } from "./app/shared/core/index";
 
 // intermediate component module
