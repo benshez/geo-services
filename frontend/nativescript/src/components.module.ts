@@ -14,14 +14,13 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 // app
 import { AppComponent } from './app/components';
-import { AboutComponent } from './app/components/about/about.component';
-import { HomeComponent } from './app/components/home/home.component';
+import { AboutComponent, HomeComponent } from './app/components';
 
 // feature modules
 import { CoreModule } from './app/shared/core/core.module';
 import { AnalyticsModule } from './app/shared/analytics/analytics.module';
 import { MultilingualModule, translateLoaderFactory } from './app/shared/i18n/multilingual.module';
-import { SharedGeoModule } from './app/shared/geo/geo.module';
+import { SharedAppModule } from './app/shared/app';
 import { ConsoleService, ConsoleTarget, LogLevel } from "./app/shared/core/index";
 
 // intermediate component module
@@ -40,7 +39,7 @@ import { ConsoleService, ConsoleTarget, LogLevel } from "./app/shared/core/index
             deps: [Http],
             useFactory: (translateLoaderFactory)
         }]),
-        SharedGeoModule
+        SharedAppModule
     ],
     declarations: [
         AppComponent,
@@ -60,7 +59,7 @@ import { ConsoleService, ConsoleTarget, LogLevel } from "./app/shared/core/index
         AppComponent,
         AnalyticsModule,
         CoreModule,
-        SharedGeoModule
+        SharedAppModule
     ]
 })
 export class ComponentsModule { }

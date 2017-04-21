@@ -18,12 +18,11 @@ import {
     RouterExtensions,
     AppService
 } from './app/shared/core/index';
-import { AppComponent } from './app/components/app.component';
-import { NSharedRoutes } from './mobile/geo-tns/components/routes';
+import { AppComponent } from './app/components';
 
 // feature modules
 import { CoreModule } from './app/shared/core/core.module';
-import { NSGeoModule } from './mobile/geo-tns/module';
+import { NSAppModule, NS_SHARED_ROUTES, NS_COMPONENTS } from './mobile/app-ns';
 import { AppReducer } from './app/shared/ngrx/index';
 import { MultilingualEffects } from './app/shared/i18n/index';
 import { ComponentsModule, cons, consoleLogTarget } from './components.module';
@@ -31,7 +30,6 @@ import { ComponentsModule, cons, consoleLogTarget } from './components.module';
 // {N} custom app specific
 import { WindowNative, NSAppService } from './mobile/core/index';
 import { NS_ANALYTICS_PROVIDERS } from './mobile/analytics/index';
-import { NS_COMPONENTS, NSMapComponent } from './mobile/geo-tns/components/index';
 
 /**
  * Config
@@ -61,8 +59,8 @@ MultilingualService.SUPPORTED_LANGUAGES = Config.SUPPORTED_LANGUAGES;
             { provide: LogTarget, multi: true, deps: [ConsoleService], useFactory: (consoleLogTarget) }
         ]),
         ComponentsModule,
-        NSGeoModule,
-        NativeScriptRouterModule.forRoot(<any>NSharedRoutes),
+        NSAppModule,
+        NativeScriptRouterModule.forRoot(<any>NS_SHARED_ROUTES),
         StoreModule.provideStore(AppReducer),
         EffectsModule.run(MultilingualEffects),
     ],
