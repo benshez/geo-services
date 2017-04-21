@@ -118,6 +118,7 @@
     <Folder Include="nativescript\src\mobile\app-ns\" />
     <Folder Include="nativescript\src\mobile\app-ns\components\" />
     <Folder Include="nativescript\src\mobile\app-ns\components\map\" />
+    <Folder Include="nativescript\src\mobile\app-ns\services\" />
     <Folder Include="nativescript\src\mobile\core\" />
     <Folder Include="nativescript\src\mobile\core\services\" />
     <Folder Include="nativescript\src\mobile\core\utils\" />
@@ -151,7 +152,6 @@
     <Folder Include="src\client\app\shared\electron\services\" />
     <Folder Include="src\client\app\shared\electron\utils\" />
     <Folder Include="src\client\app\shared\app-web\components\" />
-    <Folder Include="src\client\app\shared\app\common\" />
     <Folder Include="src\client\app\shared\app\components\" />
     <Folder Include="src\client\app\shared\app\components\navbar\" />
     <Folder Include="src\client\app\shared\app-web\components\map\" />
@@ -584,6 +584,9 @@
     <TypeScriptCompile Include="src\client\app\shared\core\services\locker\memorystorage.ts" />
     <TypeScriptCompile Include="src\client\app\shared\core\services\locker\metadata.ts" />
     <TypeScriptCompile Include="src\client\app\shared\core\services\locker\PolyfillDriver.ts" />
+    <TypeScriptCompile Include="src\client\app\shared\core\services\map\location.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="src\client\app\shared\core\services\message\index.ts" />
     <TypeScriptCompile Include="src\client\app\shared\core\services\message\service.ts" />
     <TypeScriptCompile Include="src\client\app\components\operators.ts" />
@@ -631,8 +634,6 @@
     <TypeScriptCompile Include="src\client\app\shared\app\index.ts" />
     <TypeScriptCompile Include="src\client\app\shared\app-web\module.ts" />
     <TypeScriptCompile Include="src\client\app\shared\app-web\index.ts" />
-    <TypeScriptCompile Include="src\client\app\shared\app\common\category.common.ts" />
-    <TypeScriptCompile Include="src\client\app\shared\app\common\index.ts" />
     <TypeScriptCompile Include="src\client\app\shared\app-web\components\map\component.spec.ts" />
     <TypeScriptCompile Include="src\client\app\shared\app-web\components\map\component.ts" />
     <TypeScriptCompile Include="src\client\app\shared\app-web\components\map\routes.ts" />
