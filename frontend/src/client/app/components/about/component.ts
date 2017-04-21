@@ -4,9 +4,9 @@ import { Config } from '../../shared/core/index';
 @Component({
     moduleId: module.id,
     selector: 'sd-about',
-    templateUrl: 'about.component.html',
+    templateUrl: 'component.html',
     styleUrls: [
-        'about.component.css',
+        'component.css',
     ],
 })
 export class AboutComponent {

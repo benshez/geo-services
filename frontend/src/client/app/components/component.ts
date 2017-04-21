@@ -14,7 +14,7 @@ import { Config, LogService, AppService } from '../shared/core/index';
 @Component({
     moduleId: module.id,
     selector: 'sd-app',
-    templateUrl: 'app.component.html'
+    templateUrl: 'component.html'
 })
 export class AppComponent {
     constructor(

@@ -6,9 +6,9 @@ import { LogService } from '../../../core/index';
 @Component({
     moduleId: module.id,
     selector: 'sd-toolbar',
-    templateUrl: 'toolbar.component.html',
+    templateUrl: 'component.html',
     styleUrls: [
-        'toolbar.component.css',
+        'component.css',
     ],
 })
 export class ToolbarComponent {

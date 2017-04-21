@@ -11,8 +11,8 @@ import { Config } from '../../../../core/index';
 @Component({
     moduleId: module.id,
     selector: 'sd-login',
-    templateUrl: 'login.component.html',
-    styleUrls: ['login.component.css']
+    templateUrl: 'component.html',
+    styleUrls: ['component.css']
 })
 export class LoginComponent implements OnInit {
     public loginUser: FormGroup;

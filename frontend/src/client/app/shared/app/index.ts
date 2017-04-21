@@ -1,6 +1,6 @@
-﻿import { NavbarComponent } from './components/navbar/navbar.component';
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
-import { LoginComponent } from './components/user/login/login.component';
+﻿import { NavbarComponent } from './components/navbar/component';
+import { ToolbarComponent } from './components/toolbar/component';
+import { LoginComponent } from './components/user/login/component';
 
 //components
 export const SHARED_COMPONENTS: any[] = [
@@ -9,9 +9,9 @@ export const SHARED_COMPONENTS: any[] = [
     LoginComponent,
 ];
 
-export * from './components/navbar/navbar.component';
-export * from './components/toolbar/toolbar.component';
-export * from './components/user/login/login.component';
+export * from './components/navbar/component';
+export * from './components/toolbar/component';
+export * from './components/user/login/component';
 
 //routes
 import { LOGIN_ROUTES } from './components/user/login/routes';
