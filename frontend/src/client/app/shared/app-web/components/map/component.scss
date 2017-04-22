@@ -1,1 +1,8 @@
-﻿@import "node_modules/mapbox-gl/dist/mapbox-gl";
+﻿:host {
+  #map {
+    height: 100vh;
+    width: 100%;
+  }
+
+
+}

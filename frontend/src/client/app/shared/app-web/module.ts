@@ -8,7 +8,6 @@ import { RouterModule } from '@angular/router';
 // app
 import { SHARED_COMPONENTS } from './index';
 import { MultilingualModule } from '../i18n/multilingual.module';
-import { MapBoxModule } from 'angular2-mapbox/core';
 import { Config } from '../core/index';
 
 /**
@@ -21,8 +20,7 @@ import { Config } from '../core/index';
         ReactiveFormsModule,
         HttpModule,
         RouterModule,
-        MultilingualModule,
-        MapBoxModule.forRoot(Config.ENVIRONMENT().MAP_BOX_API_KEY)
+        MultilingualModule
     ],
     declarations: [
         SHARED_COMPONENTS

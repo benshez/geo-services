@@ -34,11 +34,10 @@ export class ProjectConfig extends SeedAdvancedConfig {
         // ng2-translate is already added with the advanced seed - here for example only
         let additionalPackages: ExtendPackages[] = [
             {
-                name: 'mapbox-gl', path: 'node_modules/mapbox-gl/dist/mapbox-gl.js'
+                name: '@mapbox/mapbox-gl-geocoder', path: 'node_modules/@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.min.js'
             },
             {
-                name: 'angular2-mapbox/core',
-                path: 'node_modules/angular2-mapbox/core/core.umd.js'
+                name: 'mapbox-gl', path: 'node_modules/mapbox-gl/dist/mapbox-gl.js'
             }
         ];
         ////
