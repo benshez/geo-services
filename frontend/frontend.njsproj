@@ -596,8 +596,8 @@
     <TypeScriptCompile Include="src\client\app\shared\analytics\services\analytics.service.ts" />
     <TypeScriptCompile Include="src\client\app\shared\core\core.module.ts" />
     <TypeScriptCompile Include="src\client\app\shared\core\directives\index.ts" />
-    <TypeScriptCompile Include="src\client\app\shared\core\directives\platform.directive.spec.ts" />
-    <TypeScriptCompile Include="src\client\app\shared\core\directives\platform.directive.ts" />
+    <TypeScriptCompile Include="src\client\app\shared\core\directives\platform.spec.ts" />
+    <TypeScriptCompile Include="src\client\app\shared\core\directives\platform.ts" />
     <TypeScriptCompile Include="src\client\app\shared\core\index.ts" />
     <TypeScriptCompile Include="src\client\app\shared\core\interfaces\iconsole.ts" />
     <TypeScriptCompile Include="src\client\app\shared\core\interfaces\ilang.ts" />
