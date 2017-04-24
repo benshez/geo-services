@@ -8,6 +8,11 @@ import { ApiService, Locker } from '../../../core/services/index';
 import { User, ApiServiceParametersOptions } from '../../../core/models/index';
 import { Config } from '../../../core/index';
 
+
+import { Observable } from 'rxjs/Observable';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import 'rxjs/add/observable/of';
+import { Mapper } from '../../../core/index';
 // map
 import * as MapBox from 'mapbox-gl';
 import * as MapBoxGeocoder from '@mapbox/mapbox-gl-geocoder';
@@ -36,7 +41,9 @@ export class WebMapComponent implements OnInit {
 
     constructor(public apiService: ApiService, private locker: Locker, private fb: FormBuilder,
         private apiOptions: ApiServiceParametersOptions, private route: ActivatedRoute,
-        private router: Router) { }
+        private router: Router,
+        public http: Http,
+        private mapper: Mapper) { }
 
     ngOnInit() {
         this.returnUrl = this.route.snapshot.queryParams[Config.ROUTE_URLS.LOGIN_RETURN_URL] || '/';
@@ -62,6 +69,10 @@ export class WebMapComponent implements OnInit {
             .setLngLat([-79.4512, 43.6568])
             .setPopup(popup) // sets a popup on this marker
             .addTo(this.map);
+    }
+
+    observableSource = (keyword: any): Observable<any[]> => {
+        return this.mapper.onQuery(keyword);
     }
 
     private assign(obj: any, prop: any, value: any) {

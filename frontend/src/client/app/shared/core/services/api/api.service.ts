@@ -57,6 +57,23 @@ export class ApiService {
 
     }
 
+    map(parameters: ApiServiceParametersOptions): Observable<any> {
+
+        if (this.locker.has(parameters.cacheKey)) {
+            this.message.fire(false);
+            return (Observable.of(this.locker.get(parameters.cacheKey))) as any;
+        }
+
+        return this.http.get(parameters.url)
+            .debounceTime(1000)
+            .distinctUntilChanged()
+            .map((res: Response) => res.json())
+            .do((res: Response) => {
+                debugger;
+                if (parameters.cacheKey !== '') this.locker.set(parameters.cacheKey, res)
+            }) as any;
+    }
+
     private request(options: ApiServiceOptions): Observable<any> {
         let requestOptions = null;
 

@@ -38,6 +38,9 @@ export class ProjectConfig extends SeedAdvancedConfig {
             },
             {
                 name: 'mapbox-gl', path: 'node_modules/mapbox-gl/dist/mapbox-gl.js'
+            },
+            {
+                name: '@ngui/auto-complete', path: 'node_modules/@ngui/auto-complete/dist/auto-complete.umd.js',
             }
         ];
         ////

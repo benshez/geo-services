@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
+import { NguiAutoCompleteModule } from '@ngui/auto-complete';
 // app
 import { SHARED_COMPONENTS } from './index';
 import { MultilingualModule } from '../i18n/multilingual.module';
@@ -20,7 +21,8 @@ import { Config } from '../core/index';
         ReactiveFormsModule,
         HttpModule,
         RouterModule,
-        MultilingualModule
+        MultilingualModule,
+        NguiAutoCompleteModule
     ],
     declarations: [
         SHARED_COMPONENTS

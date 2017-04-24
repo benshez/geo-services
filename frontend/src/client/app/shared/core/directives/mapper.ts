@@ -10,10 +10,10 @@ import {
     Config,
     IListener,
     IMapQuery,
-    ApiService,
     ApiServiceParametersOptions
 } from '../index';
 
+import { ApiService } from '../services/api/api.service';
 @Directive({
     selector: '[mapper]'
 })
@@ -26,7 +26,7 @@ export class Mapper {
         private apiService: ApiService,
         private ngZone: NgZone) { }
 
-    onListen(listener: IListener) {
+    onListenToKeys(listener: IListener) {
         return this.ngZone.runOutsideAngular(() => {
             Observable.fromEvent<KeyboardEvent>(listener.element, 'keyup')
                 .debounceTime(1000)
@@ -37,6 +37,12 @@ export class Mapper {
         });
     }
 
+    //onListen = (listener: IListener): Observable<IMapQuery[]> =>  {
+    //    return this.ngZone.runOutsideAngular(() => {
+    //        this.onSuggest(listener.value).
+    //    });
+    //}
+
     onSuggest(query: string) {
 
         this.apiOptions = new ApiServiceParametersOptions();
@@ -46,9 +52,29 @@ export class Mapper {
         this.apiOptions.concatApi = false;
 
         return this.apiService.get(this.apiOptions)
+            .debounceTime(500)
+            .distinctUntilChanged()
             .subscribe(
             (json: any) => { this.model = json; debugger },
             (error: any) => this.errorMessage = <any>error,
             () => { });
+    }
+
+    onQuery = (query: string): Observable<any[]> => {
+
+        if (query && query.length > 3) {
+            this.apiOptions = new ApiServiceParametersOptions();
+            this.apiOptions.cacheKey = 'mapper_' + query;
+            this.apiOptions.url = Config.ENVIRONMENT().MAP_BOX_API + query + '.json?access_token=' + Config.ENVIRONMENT().MAP_BOX_API_KEY;
+            this.apiOptions.parameters = '';
+            this.apiOptions.concatApi = false;
+
+            return this.apiService.map(this.apiOptions)
+                .debounceTime(500)
+                .distinctUntilChanged();
+        } else {
+            return Observable.of([]);
+        }
+
     }
 }

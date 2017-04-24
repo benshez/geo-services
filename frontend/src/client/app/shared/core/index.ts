@@ -1,8 +1,9 @@
 ﻿// directives
-import { PlatformDirective } from './directives/index';
+import { PlatformDirective, Mapper } from './directives/index';
 
 export const CORE_DIRECTIVES: any[] = [
-    PlatformDirective
+    PlatformDirective,
+    Mapper
 ];
 
 import {
@@ -31,12 +32,13 @@ export const CORE_PROVIDERS: any[] = [
     MessageEvent,
     Broadcaster,
     ApiServiceOptions,
-    ApiServiceParametersOptions
+    ApiServiceParametersOptions,
+    Mapper
 ];
 
 // imports
 export const CORE_IMPORTS: any[] = [
-    LockerModule,
+    LockerModule
 ];
 
 export * from './utils/index';
