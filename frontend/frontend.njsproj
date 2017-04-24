@@ -564,7 +564,13 @@
     <TypeScriptCompile Include="src\client\app\components\home\component.ts" />
     <TypeScriptCompile Include="src\client\app\components\home\routes.ts" />
     <TypeScriptCompile Include="src\client\app\components\index.ts" />
+    <TypeScriptCompile Include="src\client\app\shared\core\directives\mapper.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="src\client\app\shared\core\interfaces\ibroadcast.ts" />
+    <TypeScriptCompile Include="src\client\app\shared\core\interfaces\ilistener.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="src\client\app\shared\core\interfaces\imap.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>

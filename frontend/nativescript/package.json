@@ -38,6 +38,7 @@
     "angulartics2": "^1.6.4",
     "lodash": "^4.17.4",
     "nativescript-angular": "1.5.0",
+    "nativescript-autocomplete": "^1.0.0",
     "nativescript-dev-webpack": "^0.3.1",
     "nativescript-geolocation": "0.0.19",
     "nativescript-mapbox": "^2.6.1",

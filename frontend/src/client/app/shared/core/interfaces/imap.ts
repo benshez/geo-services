@@ -9,3 +9,7 @@ export interface IMapMarkers {
     popup: any;
     data: any;
 }
+
+export interface IMapQuery {
+
+}
