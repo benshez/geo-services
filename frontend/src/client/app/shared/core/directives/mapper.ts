@@ -9,11 +9,15 @@ import { Observable } from 'rxjs/Observable';
 import {
     Config,
     IListener,
-    IMapQuery,
-    ApiServiceParametersOptions
+    IMapQuery
 } from '../index';
 
+import { Locker } from '../services/locker/index';
+
 import { ApiService } from '../services/api/api.service';
+
+import { ApiServiceParametersOptions } from '../models/Api';
+
 @Directive({
     selector: '[mapper]'
 })
@@ -22,9 +26,12 @@ export class Mapper {
     public model: IMapQuery;
     private errorMessage: string;
     private apiOptions: ApiServiceParametersOptions;
+
     constructor(
         private apiService: ApiService,
-        private ngZone: NgZone) { }
+        private ngZone: NgZone,
+        private apiOptions: ApiServiceParametersOptions,
+        private locker: Locker) { }
 
     onListenToKeys(listener: IListener) {
         return this.ngZone.runOutsideAngular(() => {
@@ -45,7 +52,6 @@ export class Mapper {
 
     onSuggest(query: string) {
 
-        this.apiOptions = new ApiServiceParametersOptions();
         this.apiOptions.cacheKey = '';
         this.apiOptions.url = Config.ENVIRONMENT().MAP_BOX_API + query + '.json?access_token=' + Config.ENVIRONMENT().MAP_BOX_API_KEY;
         this.apiOptions.parameters = '';
@@ -68,31 +74,16 @@ export class Mapper {
             this.apiOptions.url = Config.ENVIRONMENT().MAP_BOX_API + query + '.json?access_token=' + Config.ENVIRONMENT().MAP_BOX_API_KEY;
             this.apiOptions.parameters = '';
             this.apiOptions.concatApi = false;
-
-            let x: IMapQuery[] = [];
-
+            if (this.locker.has(this.apiOptions.cacheKey)) {
+                debugger
+                return (Observable.of(this.locker.get(this.apiOptions.cacheKey))) as any;
+            };
             return this.apiService.mapper(this.apiOptions)
                 .map((res) => {
-                    //let json = res.json();
-                    debugger
-                    //return json.results;
                     let c = <IMapQuery[]>res.json();
+                    if (this.apiOptions.parameters.cacheKey !== '') this.locker.set(this.apiOptions.parameters.cacheKey, c);
                     return c.features;
-                })
-                .do((res) => {
-                    
-                    //return [res.features];
-                    //res.features.forEach(feature => {
-                    //    x.push(feature.place_name);
-                    //});
-                    ////x.concat(res.features);
-                    ////debugger;
-                    //return x.concat(res.features);
-                    //if (parameters.cacheKey !== '') this.locker.set(parameters.cacheKey, res.json())
-                })
-            //return data.features.forEach(feature => {
-            //    places.push(feature.place_name);
-            //});
+                });
         } else {
             return Observable.of([]);
         }

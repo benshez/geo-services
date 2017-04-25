@@ -23,7 +23,7 @@ export class LockerConfig {
     public defaultDriverType: Driver | Driver[];
     public namespaceSeparator: string;
 
-    constructor( @Inject(LOCKER_USER_CONFIG) config: ILockerConfig) {
+    constructor(@Inject(LOCKER_USER_CONFIG) config: ILockerConfig) {
         this.driverNamespace = !config || isNil(config.driverNamespace) ? '' : config.driverNamespace;
         this.defaultDriverType = !config || isNil(config.defaultDriverType) ? DRIVERS.SESSION : config.defaultDriverType;
         this.namespaceSeparator = !config || isNil(config.namespaceSeparator) ? ':' : config.namespaceSeparator;

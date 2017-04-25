@@ -70,7 +70,7 @@ export class WebMapComponent implements OnInit {
             .addTo(this.map);
     }
 
-    observableSource = (keyword: any): Observable<IMapQuery[]> => {
+    onModelSource = (keyword: any): Observable<IMapQuery[]> => {
         if (keyword.length < 4) return Observable.of([]);
         this.model = (this.mapper.onQuery(keyword)) ;
         let places: any = [];
@@ -85,6 +85,10 @@ export class WebMapComponent implements OnInit {
         //.value.features.place_name;
 
          return this.model;
+    }
+
+    onValueChanged(event) {
+        debugger
     }
 
     abc(data: any) {
