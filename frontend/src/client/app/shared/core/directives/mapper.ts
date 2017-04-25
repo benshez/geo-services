@@ -69,12 +69,24 @@ export class Mapper {
             this.apiOptions.parameters = '';
             this.apiOptions.concatApi = false;
 
+            let x: IMapQuery[] = [];
+
             return this.apiService.mapper(this.apiOptions)
-                .map(res => {
-                let json = res.json();
-                debugger;
-                return json;
-            }) as any;;
+                .map((res) => {
+                    let c = <IMapQuery[]>res.json();
+                    return c.features;
+                })
+                .do((res) => {
+                    
+                    //return [res.features];
+                    //res.features.forEach(feature => {
+                    //    x.push(feature.place_name);
+                    //});
+                    ////x.concat(res.features);
+                    ////debugger;
+                    //return x.concat(res.features);
+                    //if (parameters.cacheKey !== '') this.locker.set(parameters.cacheKey, res.json())
+                })
             //return data.features.forEach(feature => {
             //    places.push(feature.place_name);
             //});

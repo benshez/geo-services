@@ -66,12 +66,7 @@ export class ApiService {
 
         return this.http.get(parameters.url)
             .debounceTime(1000)
-            .distinctUntilChanged()
-            .map((res: Response) => res.json())
-            .do((res: Response) => {
-                debugger;
-                if (parameters.cacheKey !== '') this.locker.set(parameters.cacheKey, res.json())
-            }) as any;
+            .distinctUntilChanged();
     }
 
     private request(options: ApiServiceOptions): Observable<any> {

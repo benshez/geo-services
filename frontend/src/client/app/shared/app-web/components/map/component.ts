@@ -83,8 +83,12 @@ export class WebMapComponent implements OnInit {
             // do something...
         //});
         //.value.features.place_name;
-         debugger
+
          return this.model;
+    }
+
+    abc(data: any) {
+        debugger;
     }
 
     private assign(obj: any, prop: any, value: any) {
