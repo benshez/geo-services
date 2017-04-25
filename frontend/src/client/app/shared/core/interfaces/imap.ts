@@ -15,7 +15,7 @@ interface IMapCoordinates {
     1: number;
 }
 
-interface IMapFeatures {
+export interface IMapFeatures {
     center: Array<ICoordinates>;
     place_name: string;
     id: string;
@@ -27,7 +27,7 @@ interface IMapValue {
 
 export interface IMapQuery {
     attribution: string;
-    features: IMapFeatures;
+    features: Array<IMapFeatures>;
     query: Array<string>;
     type: string;
 }

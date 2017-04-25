@@ -9,7 +9,8 @@ import { Observable } from 'rxjs/Observable';
 import {
     Config,
     IListener,
-    IMapQuery
+    IMapQuery,
+    IMapFeatures
 } from '../index';
 
 import { Locker } from '../services/locker/index';
@@ -73,13 +74,17 @@ export class Mapper {
             this.apiOptions.url = Config.ENVIRONMENT().MAP_BOX_API + query + '.json?access_token=' + Config.ENVIRONMENT().MAP_BOX_API_KEY;
             this.apiOptions.parameters = '';
             this.apiOptions.concatApi = false;
+
             if (this.locker.has(this.apiOptions.cacheKey)) {
-                return (Observable.of(this.locker.get(this.apiOptions.cacheKey))) as any;
+                //return (Observable.of(this.locker.get(this.apiOptions.cacheKey))) as any;
             };
 
             return this.apiService.mapper(this.apiOptions)
                 .map((res) => {
+                    let x: any = res.json();
                     let ret: IMapQuery[] = <IMapQuery[]>res.json();
+                    let features: IMapFeatures[] = <IMapFeatures[]>x.features;
+                    debugger
                     if (this.apiOptions.cacheKey !== '') this.locker.set(this.apiOptions.cacheKey, ret.features);
                     return ret.features;
                 });

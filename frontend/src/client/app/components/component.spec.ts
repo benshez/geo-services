@@ -1,4 +1,4 @@
-// angular
+﻿// angular
 import { TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -18,9 +18,9 @@ import { MultilingualModule } from '../shared/i18n/multilingual.module';
 import { reducer } from '../shared/i18n/index';
 
 // module
-import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
-import { AboutComponent } from './about/about.component';
+import { AppComponent } from './component';
+import { HomeComponent } from './home/component';
+import { AboutComponent } from './about/component';
 
 const config:Route[] = [
   {path: '', component: HomeComponent},
