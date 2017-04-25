@@ -59,10 +59,10 @@ export class ApiService {
 
     mapper(parameters: ApiServiceParametersOptions): Observable<any> {
 
-        if (this.locker.has(parameters.cacheKey)) {
-            this.message.fire(false);
-            return (Observable.of(this.locker.get(parameters.cacheKey))) as any;
-        }
+        //if (this.locker.has(parameters.cacheKey)) {
+        //    this.message.fire(false);
+        //    return (Observable.of(this.locker.get(parameters.cacheKey))) as any;
+        //}
 
         return this.http.get(parameters.url)
             .debounceTime(1000)

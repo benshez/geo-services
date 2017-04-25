@@ -16,8 +16,9 @@ interface IMapCoordinates {
 }
 
 interface IMapFeatures {
-    center: IMapCoordinates;
+    center: Array<ICoordinates>;
     place_name: string;
+    id: string;
 }
 
 interface IMapValue {
@@ -25,5 +26,8 @@ interface IMapValue {
 }
 
 export interface IMapQuery {
-    value: IMapValue;
+    attribution: string;
+    features: IMapFeatures;
+    query: Array<string>;
+    type: string;
 }

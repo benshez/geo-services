@@ -25,7 +25,6 @@ import { ApiServiceParametersOptions } from '../models/Api';
 export class Mapper {
     public model: IMapQuery;
     private errorMessage: string;
-    private apiOptions: ApiServiceParametersOptions;
 
     constructor(
         private apiService: ApiService,
@@ -75,14 +74,14 @@ export class Mapper {
             this.apiOptions.parameters = '';
             this.apiOptions.concatApi = false;
             if (this.locker.has(this.apiOptions.cacheKey)) {
-                debugger
                 return (Observable.of(this.locker.get(this.apiOptions.cacheKey))) as any;
             };
+
             return this.apiService.mapper(this.apiOptions)
                 .map((res) => {
-                    let c = <IMapQuery[]>res.json();
-                    if (this.apiOptions.parameters.cacheKey !== '') this.locker.set(this.apiOptions.parameters.cacheKey, c);
-                    return c.features;
+                    let ret: IMapQuery[] = <IMapQuery[]>res.json();
+                    if (this.apiOptions.cacheKey !== '') this.locker.set(this.apiOptions.cacheKey, ret.features);
+                    return ret.features;
                 });
         } else {
             return Observable.of([]);

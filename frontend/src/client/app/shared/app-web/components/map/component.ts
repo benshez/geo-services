@@ -66,33 +66,20 @@ export class WebMapComponent implements OnInit {
         // create the marker
         new MapBox.Marker(el, { offset: [-25, -25] })
             .setLngLat([-79.4512, 43.6568])
-            .setPopup(popup) // sets a popup on this marker
+            .setPopup(popup)
             .addTo(this.map);
     }
 
     onModelSource = (keyword: any): Observable<IMapQuery[]> => {
         if (keyword.length < 4) return Observable.of([]);
-        this.model = (this.mapper.onQuery(keyword)) ;
-        let places: any = [];
 
-        //this.model = this.model.value.features.forEach(feature => {
-        //        places.push(feature.place_name);
-        //    });
-            
-        //    debugger
-            // do something...
-        //});
-        //.value.features.place_name;
+        this.model = (this.mapper.onQuery(keyword));
 
-         return this.model;
+        return this.model;
     }
 
     onValueChanged(event) {
-        debugger
-    }
-
-    abc(data: any) {
-        debugger;
+        this.map.setCenter(event.center);
     }
 
     private assign(obj: any, prop: any, value: any) {
