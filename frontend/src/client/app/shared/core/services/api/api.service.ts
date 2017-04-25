@@ -61,7 +61,7 @@ export class ApiService {
 
         if (this.locker.has(parameters.cacheKey)) {
             this.message.fire(false);
-            return (Observable.of(this.locker.get(parameters.cacheKey))) as any;
+            //return (Observable.of(this.locker.get(parameters.cacheKey))) as any;
         }
 
         return this.http.get(parameters.url)

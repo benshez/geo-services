@@ -1,5 +1,5 @@
 ﻿<h2>Map</h2>
-<input auto-complete [(ngModel)]="selected" [source]="observableSource.bind(this)" list-formatter="abc" placeholder="Search..."/>
+<input auto-complete [(ngModel)]="selected" [source]="observableSource.bind(this)" list-formatter="place_name" placeholder="Search..."/>
 <div id="map"></div>
 <!--<mapbox [center]="[4.8951680, 52.3702160]" [style]="'mapbox://styles/mapbox/dark-v9'" accesskey="9.25">
   <mapbox-marker *ngFor="let marker of map.markers"

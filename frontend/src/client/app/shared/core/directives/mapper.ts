@@ -73,6 +73,9 @@ export class Mapper {
 
             return this.apiService.mapper(this.apiOptions)
                 .map((res) => {
+                    //let json = res.json();
+                    debugger
+                    //return json.results;
                     let c = <IMapQuery[]>res.json();
                     return c.features;
                 })
