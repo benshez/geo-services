@@ -6,13 +6,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 // app
 import { ApiService, Locker } from '../../../core/services/index';
 import { User, ApiServiceParametersOptions } from '../../../core/models/index';
-import { Config } from '../../../core/index';
+import { Config, IMapQuery, Mapper } from '../../../core/index';
 
 
 import { Observable } from 'rxjs/Observable';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/observable/of';
-import { Mapper } from '../../../core/index';
 // map
 import * as MapBox from 'mapbox-gl';
 import * as MapBoxGeocoder from '@mapbox/mapbox-gl-geocoder';
@@ -27,7 +26,7 @@ export class WebMapComponent implements OnInit {
 
     public map: any;
 
-    private model: any = {};
+    private model: any = [];
     private errorMessage: string;
     private returnUrl: string;
     private accessToken: String;
@@ -71,8 +70,21 @@ export class WebMapComponent implements OnInit {
             .addTo(this.map);
     }
 
-    observableSource = (keyword: any): Observable<any[]> => {
-        return this.mapper.onQuery(keyword);
+    observableSource = (keyword: any): Observable<IMapQuery[]> => {
+        if (keyword.length < 4) return Observable.of([]);
+        this.model = (this.mapper.onQuery(keyword)) ;
+        let places: any = [];
+
+        //this.model = this.model.value.features.forEach(feature => {
+        //        places.push(feature.place_name);
+        //    });
+            
+        //    debugger
+            // do something...
+        //});
+        //.value.features.place_name;
+         debugger
+         return this.model;
     }
 
     private assign(obj: any, prop: any, value: any) {

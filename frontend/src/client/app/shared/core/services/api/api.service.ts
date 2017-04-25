@@ -57,7 +57,7 @@ export class ApiService {
 
     }
 
-    map(parameters: ApiServiceParametersOptions): Observable<any> {
+    mapper(parameters: ApiServiceParametersOptions): Observable<any> {
 
         if (this.locker.has(parameters.cacheKey)) {
             this.message.fire(false);
@@ -70,7 +70,7 @@ export class ApiService {
             .map((res: Response) => res.json())
             .do((res: Response) => {
                 debugger;
-                if (parameters.cacheKey !== '') this.locker.set(parameters.cacheKey, res)
+                if (parameters.cacheKey !== '') this.locker.set(parameters.cacheKey, res.json())
             }) as any;
     }
 

@@ -17,11 +17,11 @@ import { ApiService } from '../services/api/api.service';
 @Directive({
     selector: '[mapper]'
 })
+
 export class Mapper {
     public model: IMapQuery;
     private errorMessage: string;
     private apiOptions: ApiServiceParametersOptions;
-
     constructor(
         private apiService: ApiService,
         private ngZone: NgZone) { }
@@ -60,7 +60,7 @@ export class Mapper {
             () => { });
     }
 
-    onQuery = (query: string): Observable<any[]> => {
+    onQuery = (query: string): Observable<IMapQuery[]> => {
 
         if (query && query.length > 3) {
             this.apiOptions = new ApiServiceParametersOptions();
@@ -69,9 +69,15 @@ export class Mapper {
             this.apiOptions.parameters = '';
             this.apiOptions.concatApi = false;
 
-            return this.apiService.map(this.apiOptions)
-                .debounceTime(500)
-                .distinctUntilChanged();
+            return this.apiService.mapper(this.apiOptions)
+                .map(res => {
+                let json = res.json();
+                debugger;
+                return json;
+            }) as any;;
+            //return data.features.forEach(feature => {
+            //    places.push(feature.place_name);
+            //});
         } else {
             return Observable.of([]);
         }
