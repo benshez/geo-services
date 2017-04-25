@@ -66,7 +66,7 @@ export class Mapper {
             () => { });
     }
 
-    onQuery = (query: string): Observable<IMapQuery[]> => {
+    onMapFeaturesQuery = (query: string): Observable<IMapFeatures[]> => {
 
         if (query && query.length > 3) {
             this.apiOptions = new ApiServiceParametersOptions();
@@ -76,17 +76,15 @@ export class Mapper {
             this.apiOptions.concatApi = false;
 
             if (this.locker.has(this.apiOptions.cacheKey)) {
-                //return (Observable.of(this.locker.get(this.apiOptions.cacheKey))) as any;
+                return (Observable.of(this.locker.get(this.apiOptions.cacheKey))) as any;
             };
 
             return this.apiService.mapper(this.apiOptions)
                 .map((res) => {
                     let x: any = res.json();
-                    let ret: IMapQuery[] = <IMapQuery[]>res.json();
                     let features: IMapFeatures[] = <IMapFeatures[]>x.features;
-                    debugger
-                    if (this.apiOptions.cacheKey !== '') this.locker.set(this.apiOptions.cacheKey, ret.features);
-                    return ret.features;
+                    if (this.apiOptions.cacheKey !== '') this.locker.set(this.apiOptions.cacheKey, features);
+                    return features;
                 });
         } else {
             return Observable.of([]);

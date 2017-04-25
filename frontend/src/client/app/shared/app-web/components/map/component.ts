@@ -6,7 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 // app
 import { ApiService, Locker } from '../../../core/services/index';
 import { User, ApiServiceParametersOptions } from '../../../core/models/index';
-import { Config, IMapQuery, Mapper } from '../../../core/index';
+import { Config, IMapQuery, IMapFeatures, Mapper } from '../../../core/index';
 
 
 import { Observable } from 'rxjs/Observable';
@@ -53,9 +53,9 @@ export class WebMapComponent implements OnInit {
         //this.map.addControl(new MapBox.NavigationControl());
         //this.map.addControl(new MapBox.GeolocateControl());
 
-        this.map.addControl(new MapBoxGeocoder({
-            accessToken: this.accessToken
-        }));
+        //this.map.addControl(new MapBoxGeocoder({
+        //    accessToken: this.accessToken
+        //}));
 
         var el = document.createElement('div');
         el.id = 'marker';
@@ -70,16 +70,17 @@ export class WebMapComponent implements OnInit {
             .addTo(this.map);
     }
 
-    onModelSource = (keyword: any): Observable<IMapQuery[]> => {
+    onModelSource = (keyword: any): Observable<IMapFeatures[]> => {
         if (keyword.length < 4) return Observable.of([]);
 
-        this.model = (this.mapper.onQuery(keyword));
+        this.model = (this.mapper.onMapFeaturesQuery(keyword));
 
         return this.model;
     }
 
     onValueChanged(event) {
-        this.map.setCenter(event.center);
+        if (event !== '' && event.center)
+            this.map.setCenter(event.center);
     }
 
     private assign(obj: any, prop: any, value: any) {
