@@ -34,8 +34,8 @@ export class WebMapComponent implements OnInit, OnMapper, OnDestroy {
         map: '',
         container: 'map',
         style: 'mapbox://styles/mapbox/light-v9',
-        center: [-79.4512, 43.6568],
-        zoom: 13,
+        center: [152.994306, -26.612273],
+        zoom: 1,
         hash: false
     };
     private marker: IMarker = {
@@ -56,7 +56,7 @@ export class WebMapComponent implements OnInit, OnMapper, OnDestroy {
 
     ngOnInit() {
         this.loading = true;
-        this.onMapComponentInit(this.options);
+        this.onSetLocation(this.options);
         this.returnUrl = this.route.snapshot.queryParams[Config.ROUTE_URLS.LOGIN_RETURN_URL] || '/'; 
     }
 
@@ -69,17 +69,18 @@ export class WebMapComponent implements OnInit, OnMapper, OnDestroy {
             navigator.geolocation.getCurrentPosition(
                 (position: Position) => {
                     options.center = [position.coords.longitude, position.coords.latitude];
-                    self.onCreateMap(options);
+                    options.zoom = 13;
+                    self.onMapComponentInit(options);
                 },
-                (error: PositionError) => { self.onCreateMap(options); },
+                (error: PositionError) => { self.onMapComponentInit(options); },
                 { maximumAge: 60000, timeout: 10000 }
             );
-        } else { self.onCreateMap(options); }
+        } else { self.onMapComponentInit(options); }
     }
 
     onMapComponentInit(options: IMapSetup) {
         this.onAssign(MapBox, 'accessToken', options.accessToken);
-        this.onSetLocation(options);
+        this.onCreateMap(options);
     }
 
     onCreateMap(options: IMapSetup) {
@@ -98,6 +99,24 @@ export class WebMapComponent implements OnInit, OnMapper, OnDestroy {
         this.marker.popup = { offset: 25, text: 'testing' };
 
         this.onAddMarker(this.marker);
+    }
+
+    onAddMarker(options: IMarker) {
+        let el = document.createElement('div');
+        el.id = options.id;
+
+        new MapBox.Marker(el, { offset: options.offset })
+            .setLngLat(options.latLang)
+            .setPopup(this.onCreateMarkerPopup(options.popup))
+            .addTo(this.options.map);
+        this.loading = !this.loading;
+    }
+
+    onCreateMarkerPopup = (options: IPopup): any => {
+        let popup = new MapBox.Popup({ offset: options.offset })
+            .setText(options.text);
+
+        return popup;
     }
 
     onAssign(obj: any, prop: any, value: any) {
@@ -134,23 +153,4 @@ export class WebMapComponent implements OnInit, OnMapper, OnDestroy {
             this.onSetPosition(this.options);
         }
     }
-
-    onAddMarker(options: IMarker) {
-        let el = document.createElement('div');
-        el.id = options.id;
-
-        new MapBox.Marker(el, { offset: options.offset })
-            .setLngLat(options.latLang)
-            .setPopup(this.onCreateMarkerPopup(options.popup))
-            .addTo(this.options.map);
-        this.loading = !this.loading;
-    }
-
-    onCreateMarkerPopup = (options: IPopup): any => {
-        let popup = new MapBox.Popup({ offset: options.offset })
-            .setText(options.text);
-
-        return popup;
-    }
-   
 }
