@@ -136,6 +136,7 @@
     <Folder Include="src\client\app\shared\core\" />
     <Folder Include="src\client\app\shared\core\directives\" />
     <Folder Include="src\client\app\shared\core\interfaces\" />
+    <Folder Include="src\client\app\shared\core\hooks\" />
     <Folder Include="src\client\app\shared\core\services\" />
     <Folder Include="src\client\app\shared\core\services\auth\" />
     <Folder Include="src\client\app\shared\core\services\auth\admin\" />
@@ -565,6 +566,12 @@
     <TypeScriptCompile Include="src\client\app\components\home\routes.ts" />
     <TypeScriptCompile Include="src\client\app\components\index.ts" />
     <TypeScriptCompile Include="src\client\app\shared\core\directives\mapper.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\client\app\shared\core\hooks\index.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\client\app\shared\core\hooks\onMapper.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="src\client\app\shared\core\interfaces\ibroadcast.ts" />

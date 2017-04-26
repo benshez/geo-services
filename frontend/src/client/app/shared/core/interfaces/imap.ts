@@ -31,3 +31,30 @@ export interface IMapQuery {
     query: Array<string>;
     type: string;
 }
+
+export interface IMapOptions {
+    container: string;
+    style: string;
+    center: [number, number];
+    zoom: number;
+    hash: boolean;
+}
+
+export interface IMapSetup extends IMapOptions {
+    accessToken: string;
+    map: any;
+    options: { IMapOptions };
+}
+
+export interface IPopup {
+    offset: number;
+    text: string;
+}
+
+export interface IMarker {
+    map: any;
+    id: string;
+    offset: [number, number];
+    latLang: [number, number];
+    popup: IPopup;
+}
