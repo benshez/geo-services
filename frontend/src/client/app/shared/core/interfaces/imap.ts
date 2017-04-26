@@ -43,7 +43,6 @@ export interface IMapOptions {
 export interface IMapSetup extends IMapOptions {
     accessToken: string;
     map: any;
-    options: { IMapOptions };
 }
 
 export interface IPopup {

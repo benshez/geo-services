@@ -1,6 +1,7 @@
 ﻿import { Observable } from 'rxjs/Observable';
 
 import {
+    ICoordinates,
     IMapSetup,
     IMapOptions,
     IMapFeatures,
@@ -9,6 +10,7 @@ import {
 } from '../interfaces/index';
 
 export declare abstract class OnMapper {
+    abstract onSetLocation(options: IMapSetup): void;
     abstract onMapComponentInit(options: IMapSetup): void;
     abstract onCreateMap(options: IMapSetup): void;
     abstract onSetPosition(options: IMapSetup): void;
