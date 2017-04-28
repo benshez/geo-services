@@ -18,8 +18,7 @@ import * as MapBoxGeocoder from '@mapbox/mapbox-gl-geocoder';
 @Component({
     moduleId: module.id,
     selector: 'sd-map',
-    templateUrl: 'component.html',
-    styleUrls: ['component.css']
+    templateUrl: 'component.html'
 })
 export class WebMapComponent implements OnInit, OnMapper, OnDestroy {
 
@@ -32,22 +31,25 @@ export class WebMapComponent implements OnInit, OnMapper, OnDestroy {
     private options: IMapSetup = {
         accessToken: Config.ENVIRONMENT().MAP_BOX_API_KEY,
         map: '',
-        container: 'map',
-        style: 'mapbox://styles/mapbox/light-v9',
-        center: [152.994306, -26.612273],
-        zoom: 1,
-        hash: false
+        options: {
+            container: 'map',
+            style: 'mapbox://styles/mapbox/light-v9',
+            center: [152.994306, -26.612273],
+            zoom: 1,
+            hash: false,
+            interactive: false
+        }
     };
     private marker: IMarker = {
-        map: this.options.map,
-        id: '',
-        offset: [0, 0],
+        id: 'marker',
+        offset: [-25, -25],
         latLang: [0, 0],
         popup: {
-            offset: 0,
+            offset: 25,
             text: ''
         }
     };
+    private markers: IMarker[] = [];
 
     constructor(public apiService: ApiService, private locker: Locker, private fb: FormBuilder,
         private apiOptions: ApiServiceParametersOptions, private route: ActivatedRoute,
@@ -68,8 +70,8 @@ export class WebMapComponent implements OnInit, OnMapper, OnDestroy {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
                 (position: Position) => {
-                    options.center = [position.coords.longitude, position.coords.latitude];
-                    options.zoom = 13;
+                    options.options.center = [position.coords.longitude, position.coords.latitude];
+                    options.options.zoom = 13;
                     self.onMapComponentInit(options);
                 },
                 (error: PositionError) => { self.onMapComponentInit(options); },
@@ -80,35 +82,41 @@ export class WebMapComponent implements OnInit, OnMapper, OnDestroy {
 
     onMapComponentInit(options: IMapSetup) {
         this.onAssign(MapBox, 'accessToken', options.accessToken);
-        this.onCreateMap(options);
+        options.map = new MapBox.Map(options.options);
+        this.onSetCentre(options);
     }
 
-    onCreateMap(options: IMapSetup) {
-        options.map = new MapBox.Map({
-            container: options.container,
-            style: options.style,
-            center: options.center,
-            zoom: options.zoom,
-            hash: options.hash
-        } as IMapOptions);
-
-        this.marker.map = this.options.map;
-        this.marker.id = 'marker';
-        this.marker.offset = [-25, -25];
-        this.marker.latLang = this.options.center;
-        this.marker.popup = { offset: 25, text: 'testing' };
-
-        this.onAddMarker(this.marker);
+    onSetCentre(options: IMapSetup) {
+        this.loading = true;
+        options.map.setCenter(options.options.center);
+        this.onRemoveMarker(this.markers);
+        this.onAddMarkers(this.onCreateMarker());
     }
 
-    onAddMarker(options: IMarker) {
+    onCreateMarker = (): IMarker => {
+        this.marker.latLang = this.options.options.center;
+        this.marker.popup.text = 'testing';
+
+        return this.marker;
+    }
+
+    onRemoveMarker(markers: any[]) {
+        let self = this;
+        markers.forEach((mark: any, index: number) => {
+            mark.remove();
+            markers.splice(index, 1);
+        }, this);      
+    }
+
+    onAddMarkers(marker: IMarker) {
         let el = document.createElement('div');
-        el.id = options.id;
+        el.id = marker.id;
 
-        new MapBox.Marker(el, { offset: options.offset })
-            .setLngLat(options.latLang)
-            .setPopup(this.onCreateMarkerPopup(options.popup))
-            .addTo(this.options.map);
+        this.markers.push(new MapBox.Marker(el, { offset: marker.offset })
+            .setLngLat(marker.latLang)
+            .setPopup(this.onCreateMarkerPopup(marker.popup))
+            .addTo(this.options.map));
+
         this.loading = !this.loading;
     }
 
@@ -120,23 +128,19 @@ export class WebMapComponent implements OnInit, OnMapper, OnDestroy {
     }
 
     onAssign(obj: any, prop: any, value: any) {
-        if (typeof prop === "string")
-            prop = prop.split(".");
+        if (typeof prop === 'string')
+            prop = prop.split('.');
 
         if (prop.length > 1) {
             var e = prop.shift();
             this.onAssign(obj[e] =
-                Object.prototype.toString.call(obj[e]) === "[object Object]"
+                Object.prototype.toString.call(obj[e]) === '[object Object]'
                     ? obj[e]
                     : {},
                 prop,
                 value);
         } else
             obj[prop[0]] = value;
-    }
-
-    onSetPosition(options: IMapSetup) {
-        options.map.setCenter(options.center);
     }
 
     onSetModelSource = (keyword: any): Observable<IMapFeatures[]> => {
@@ -149,8 +153,8 @@ export class WebMapComponent implements OnInit, OnMapper, OnDestroy {
 
     onPlacesChanged(event: any) {
         if (event !== '' && event.center) {
-            this.options.center = event.center;
-            this.onSetPosition(this.options);
+            this.options.options.center = event.center;
+            this.onSetCentre(this.options);
         }
     }
 }

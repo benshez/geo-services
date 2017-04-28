@@ -38,11 +38,13 @@ export interface IMapOptions {
     center: [number, number];
     zoom: number;
     hash: boolean;
+    interactive: boolean;
 }
 
-export interface IMapSetup extends IMapOptions {
+export interface IMapSetup {
     accessToken: string;
     map: any;
+    options: IMapOptions;
 }
 
 export interface IPopup {
@@ -51,7 +53,6 @@ export interface IPopup {
 }
 
 export interface IMarker {
-    map: any;
     id: string;
     offset: [number, number];
     latLang: [number, number];
