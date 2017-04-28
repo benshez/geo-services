@@ -20,7 +20,7 @@ import * as MapBoxGeocoder from '@mapbox/mapbox-gl-geocoder';
     selector: 'sd-map',
     templateUrl: 'component.html'
 })
-export class WebMapComponent implements OnInit, OnMapper, OnDestroy {
+export class WebMapComponent implements OnInit, OnMapper {
 
     public map: any;
     public loading: boolean = true;
@@ -60,9 +60,6 @@ export class WebMapComponent implements OnInit, OnMapper, OnDestroy {
         this.loading = true;
         this.onSetLocation(this.options);
         this.returnUrl = this.route.snapshot.queryParams[Config.ROUTE_URLS.LOGIN_RETURN_URL] || '/'; 
-    }
-
-    ngOnDestroy() {
     }
 
     onSetLocation(options: IMapSetup) {
@@ -144,10 +141,7 @@ export class WebMapComponent implements OnInit, OnMapper, OnDestroy {
     }
 
     onSetModelSource = (keyword: any): Observable<IMapFeatures[]> => {
-        if (keyword.length < 4) return Observable.of([]);
-
         this.model = (this.mapper.onMapFeaturesQuery(keyword));
-
         return this.model;
     }
 

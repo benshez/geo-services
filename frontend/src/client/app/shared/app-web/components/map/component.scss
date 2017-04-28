@@ -5,6 +5,7 @@
     width: 100%;
   }
 }
+
 #map {
   position: relative;
   height: 100vh;
@@ -54,6 +55,30 @@
 
       .spinner {
         display: block;
+      }
+    }
+  }
+
+  .ngui-auto-complete-wrapper {
+    position: relative;
+    width: 100%;
+
+    .auto-complete-input {
+      width: 100%;
+    }
+
+    .ngui-auto-complete {
+      width: 100%;
+
+      ul {
+        width: 100%;
+
+        .item {
+          width: 100%;
+
+          &.selected {
+          }
+        }
       }
     }
   }
