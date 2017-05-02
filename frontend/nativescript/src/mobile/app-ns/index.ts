@@ -1,4 +1,9 @@
-﻿//components
+﻿// providers 
+
+export const NS_PROVIDERS: any[] = [
+];
+
+//components
 import { NSMapComponent } from './components/map/component';
 
 export const NS_COMPONENTS: any[] = [

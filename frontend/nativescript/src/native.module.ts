@@ -3,6 +3,7 @@ import {
     NativeScriptRouterModule,
     RouterExtensions as TNSRouterExtensions
 } from 'nativescript-angular';
+import { NativeScriptModule } from 'nativescript-angular/nativescript.module';
 
 // angular
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
@@ -53,6 +54,7 @@ MultilingualService.SUPPORTED_LANGUAGES = Config.SUPPORTED_LANGUAGES;
 
 @NgModule({
     imports: [
+        NativeScriptModule,
         CoreModule.forRoot([
             { provide: WindowService, useClass: WindowNative },
             { provide: ConsoleService, useFactory: (cons) },

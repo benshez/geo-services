@@ -1,37 +1,53 @@
 ﻿// libs
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+
+import { Observable } from 'rxjs/Observable';
 
 import { isAndroid, isIOS } from 'platform';
 
 // app
 import { ApiService, Locker } from '../../../../app/shared/core/index';
 import { User, ApiServiceParametersOptions } from '../../../../app/shared/core/index';
-import { Config } from '../../../../app/shared/core/index';
+import { Config, ICoordinates, IMapQuery, IMapFeatures, Mapper, IMapSetup, IMapOptions, IMarker, IPopup } from '../../../../app/shared/core/index';
+
+let mapbox = require('nativescript-mapbox');
 
 
-var mapbox = require("nativescript-mapbox");
 @Component({
     moduleId: module.id,
     selector: 'sd-map',
     templateUrl: 'component.html',
-    styleUrls: ['component.css']
+    styleUrls: ['component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NSMapComponent implements OnInit {
-
-    private model: any = {};
+    public list: any = {
+        name: 'w',
+        description: 'wood'
+    };
+    //['work', 'wood', 'man', 'wow', 'wonderful1'];
+    //public viewModel: Observable<T>;
+    public model: any = [];
     private errorMessage: string;
     private returnUrl: string;
 
-    constructor(public apiService: ApiService, private locker: Locker, private fb: FormBuilder,
-        private apiOptions: ApiServiceParametersOptions, private route: ActivatedRoute,
-        private router: Router) { }
+    constructor(
+        public apiService: ApiService,
+        private locker: Locker,
+        private fb: FormBuilder,
+        private apiOptions: ApiServiceParametersOptions,
+        private route: ActivatedRoute,
+        private router: Router,
+        private mapper: Mapper) { }
 
     ngOnInit() {
         this.returnUrl = this.route.snapshot.queryParams[Config.ROUTE_URLS.LOGIN_RETURN_URL] || '/';
+    }
 
-        this.doCreateTnsMap();
+    itemTapped(ev) {
+        console.log(ev); //your code
     }
 
     doCreateTnsMap() {
@@ -57,5 +73,26 @@ export class NSMapComponent implements OnInit {
             disableScroll: false, // default false 
             disableZoom: false
         });
+    }
+
+    onSetModelSource(keyword: any) {
+        this.model = (this.mapper.onSuggest(keyword));
+        for (let i = 0; i < this.model.length; i++) {
+            console.log(this.model.place_name[i]);
+        };
+
+        //return this.model;
+    }
+
+    onChange(event: any) {
+        if (event.value.length < 4) return;
+        //if (event && event.value && event.value.length > 3) {
+        this.onSetModelSource(event.value);
+        //if (event !== '') {
+        //console.log(event.value); //your code
+        //this.options.options.center = event.center;
+        //this.onSetCentre(this.options);
+        //}
+        //}
     }
 }

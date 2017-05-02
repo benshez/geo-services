@@ -1,4 +1,4 @@
-// nativescript
+﻿// nativescript
 import { platformNativeScriptDynamic } from 'nativescript-angular';
 
 // app

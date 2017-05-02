@@ -22,7 +22,6 @@ import { ApiServiceParametersOptions } from '../models/Api';
 @Directive({
     selector: '[mapper]'
 })
-
 export class Mapper {
     public model: IMapQuery;
     private errorMessage: string;
@@ -33,13 +32,13 @@ export class Mapper {
         private apiOptions: ApiServiceParametersOptions,
         private locker: Locker) { }
 
-    onListenToKeys(listener: IListener) {
+    onListenToTextChanges(listener: IListener) {
         return this.ngZone.runOutsideAngular(() => {
-            Observable.fromEvent<KeyboardEvent>(listener.element, 'keyup')
+            Observable.fromEvent(listener.element, 'text')
                 .debounceTime(1000)
                 .distinctUntilChanged()
                 .subscribe(keyboardEvent => {
-                    this.onSuggest(listener.value);
+                    this.onMapFeaturesQuery(listener.value);
                 });
         });
     }

@@ -6,22 +6,22 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
 // app
-import { NS_COMPONENTS } from './index';
+import { NS_COMPONENTS, NS_PROVIDERS } from './index';
 
 /**
  * Do not specify providers for modules that might be imported by a lazy loaded module.
  */
 @NgModule({
-    imports: [ ],
+    imports: [],
     declarations: [
         NS_COMPONENTS
     ],
-    providers: [ ],
+    providers: [NS_PROVIDERS],
     schemas: [
         NO_ERRORS_SCHEMA,
         CUSTOM_ELEMENTS_SCHEMA
     ],
-    exports: [ ]
+    exports: []
 })
 export class NSAppModule {
 

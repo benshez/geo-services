@@ -51,8 +51,12 @@ export class WebMapComponent implements OnInit, OnMapper {
     };
     private markers: IMarker[] = [];
 
-    constructor(public apiService: ApiService, private locker: Locker, private fb: FormBuilder,
-        private apiOptions: ApiServiceParametersOptions, private route: ActivatedRoute,
+    constructor(
+        public apiService: ApiService,
+        private locker: Locker,
+        private fb: FormBuilder,
+        private apiOptions: ApiServiceParametersOptions,
+        private route: ActivatedRoute,
         private router: Router,
         private mapper: Mapper) { }
 
