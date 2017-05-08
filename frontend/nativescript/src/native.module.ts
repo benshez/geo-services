@@ -4,7 +4,9 @@ import {
     RouterExtensions as TNSRouterExtensions
 } from 'nativescript-angular';
 import { NativeScriptModule } from 'nativescript-angular/nativescript.module';
-
+import { NativeScriptFormsModule } from 'nativescript-angular/forms';
+import { NativeScriptHttpModule } from 'nativescript-angular/http';
+import { Http } from '@angular/http';
 // angular
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
@@ -28,6 +30,12 @@ import { AppReducer } from './app/shared/ngrx/index';
 import { MultilingualEffects } from './app/shared/i18n/index';
 import { ComponentsModule, cons, consoleLogTarget } from './components.module';
 
+// libs
+import { TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+import { AnalyticsModule } from './app/shared/analytics/analytics.module';
+import { MultilingualModule, translateLoaderFactory } from './app/shared/i18n/multilingual.module';
 // {N} custom app specific
 import { WindowNative, NSAppService } from './mobile/core/index';
 import { NS_ANALYTICS_PROVIDERS } from './mobile/analytics/index';
@@ -55,6 +63,16 @@ MultilingualService.SUPPORTED_LANGUAGES = Config.SUPPORTED_LANGUAGES;
 @NgModule({
     imports: [
         NativeScriptModule,
+        NativeScriptFormsModule,
+        NativeScriptHttpModule,
+        NativeScriptRouterModule,
+        AnalyticsModule,
+        CoreModule,
+        MultilingualModule.forRoot([{
+            provide: TranslateLoader,
+            deps: [Http],
+            useFactory: (translateLoaderFactory)
+        }]),
         CoreModule.forRoot([
             { provide: WindowService, useClass: WindowNative },
             { provide: ConsoleService, useFactory: (cons) },

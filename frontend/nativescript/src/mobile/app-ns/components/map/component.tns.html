@@ -1,23 +1,23 @@
-﻿<ActionBar [title]="'ABOUT'" class="action-bar">
+﻿<ActionBar [title]="'MAP'" class="action-bar">
   <NavigationButton [text]="'HOME'"></NavigationButton>
 </ActionBar>
-
 <ScrollView>
-  <StackLayout class="p-20">
+  <StackLayout class="p-10 m-0">
     <lang-switcher></lang-switcher>
-    <Label text="Angular Seed Advanced is a starter project that implements best practices in coding, building and testing Angular 2 apps. Additionally it adds various enhancements and integrations for large global projects." textWrap="true" class="h4"></Label>
-    <StackLayout width="300">
-      <TextField hint="Search...(min. 4 chars)" (propertyChange)="onChange($event)"></TextField>
+    <StackLayout class="form">
+      <StackLayout class="input-field">
+        <TextField hint="Search...(min. 4 chars)" (propertyChange)="onChange($event)"></TextField>
+      </StackLayout>
     </StackLayout>
-    <GridLayout rows="*">
-      <ListView [items]="model | async" (itemTap)="onItemTap($event)">
-        <ng-template let-item="item" let-i="index">
-          <StackLayout>
-            <Label [text]="item.place_name"></Label>
-          </StackLayout>
-        </ng-template>
-      </ListView>
-    </GridLayout>
+
+    <ListView [items]="model | async" (itemTap)="onItemTap($event)" height="200" class="list-group">
+      <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
+        <StackLayout [class.odd]="odd" [class.even]="even">
+          <Label [id]="'lbl' + i" [center]="item.center" [text]="item.place_name"></Label>
+        </StackLayout>
+      </ng-template>
+    </ListView>
+
     <ContentView>
       <map:Mapbox></map:Mapbox>
     </ContentView>
