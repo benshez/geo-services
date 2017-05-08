@@ -38,7 +38,7 @@ export class Mapper {
                 .debounceTime(1000)
                 .distinctUntilChanged()
                 .subscribe(keyboardEvent => {
-                    this.onMapFeaturesQuery(listener.value);
+                    this.onSuggest(listener.value);
                 });
         });
     }
@@ -49,7 +49,7 @@ export class Mapper {
     //    });
     //}
 
-    onSuggest(query: string) {
+    onSuggest = (query: string): Observable<IMapFeatures[]> => {
 
         this.apiOptions.cacheKey = '';
         this.apiOptions.url = Config.ENVIRONMENT().MAP_BOX_API + query + '.json?access_token=' + Config.ENVIRONMENT().MAP_BOX_API_KEY;
@@ -60,9 +60,14 @@ export class Mapper {
             .debounceTime(500)
             .distinctUntilChanged()
             .subscribe(
-            (json: any) => { this.model = json; debugger },
+            (json: any) => {
+                //let x: any = json;
+                //let features: IMapFeatures[] = <IMapFeatures[]>x.features;
+                //this.model = features;
+                return <IMapFeatures[]>json.features;
+            },
             (error: any) => this.errorMessage = <any>error,
-            () => { });
+            () => { }) as any;
     }
 
     onMapFeaturesQuery = (query: string): Observable<IMapFeatures[]> => {

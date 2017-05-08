@@ -1,5 +1,17 @@
-﻿// providers 
+﻿//modules
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
+import { RouterModule } from '@angular/router';
 
+import { NativeScriptModule } from 'nativescript-angular/nativescript.module'; 
+
+export const NS_MODULES: any[] = [
+    NativeScriptModule,
+    CommonModule
+];
+
+// providers
 export const NS_PROVIDERS: any[] = [
 ];
 

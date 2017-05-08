@@ -10,10 +10,10 @@
       <TextField hint="Search...(min. 4 chars)" (propertyChange)="onChange($event)"></TextField>
     </StackLayout>
     <GridLayout rows="*">
-      <ListView [items]="model" itemTap="itemTap">
-        <ng-template let-item="item" let-i="index" let-third="third">
-          <StackLayout [class.third]="third">
-            <Label [text]='"index: " + i'></Label>
+      <ListView [items]="model | async" (itemTap)="onItemTap($event)">
+        <ng-template let-item="item" let-i="index">
+          <StackLayout>
+            <Label [text]="item.place_name"></Label>
           </StackLayout>
         </ng-template>
       </ListView>
