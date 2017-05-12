@@ -29,8 +29,7 @@ class MapFeature {
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NSMapComponent implements OnInit {
-    //public model: RxObservable<Array<MapFeature>>;
-    public loading: boolean = true;
+    public loading: boolean = false;
     public model: Observable<Array<IMapFeatures>>;
     public features: any = [];
 
@@ -91,14 +90,6 @@ export class NSMapComponent implements OnInit {
         }).catch(function (response) {
             //self.onShow(self.options);
         });
-
-        //this.getDeviceLocation().then(result => {
-        //    this.options.options.center[1] = result.latitude;
-        //    this.options.options.center[0] = result.longitude;
-        //    this.onShow(this.options);
-        //}, error => {
-        //    console.error(error);
-        //});
     }
 
     onShow(options: IMapSetup) {
@@ -109,12 +100,6 @@ export class NSMapComponent implements OnInit {
         options.map.show({
             accessToken: options.accessToken, // see 'Prerequisites' above 
             style: mapbox.MapStyle.LIGHT, // see the mapbox.MapStyle enum for other options, default mapbox.MapStyle.STREETS 
-            margins: {
-                left: 10, // default 0 
-                right: 10, // default 0 
-                top: 240, // default 0 
-                bottom: isIOS ? 10 : 10 // default 0, this shows how to override the style for iOS 
-            },
             center: { // optional without a default 
                 lat: options.options.center[1],
                 lng: options.options.center[0]
@@ -142,12 +127,15 @@ export class NSMapComponent implements OnInit {
 
     onSetCentre(options: IMapSetup) {
         this.loading = true;
+
         options.map.setCenter({
             lat: options.options.center[1],
             lng: options.options.center[0],
             animated: false
         });
+
         this.onRemoveMarker();
+
         this.marker.latLang = this.options.options.center;
         this.marker.popup.text = 'testing';
         this.onAddMarkers(this.marker);
@@ -165,15 +153,14 @@ export class NSMapComponent implements OnInit {
                 lng: marker.latLang[0], // mandatory
                 title: marker.popup.text, // no popup unless set
                 subtitle: 'Infamous subtitle!',
-                //icon: 'res://cool_marker', // preferred way, otherwise use:
-                icon: 'https://farm9.staticflickr.com/8571/15844010757_63b093d527_n.jpg', // from the internet (see the note at the bottom of this readme), or:
-                iconPath: 'https://farm9.staticflickr.com/8571/15844010757_63b093d527_n.jpg',
+                icon: 'res://marker', // preferred way, otherwise use:
+                //icon: 'https://farm9.staticflickr.com/8571/15844010757_63b093d527_n.jpg', // from the internet (see the note at the bottom of this readme), or:
+                iconPath: 'res://marker',
                 onTap: this.onTap,
                 onCalloutTap: this.onCalloutTap
             },
             {}
         ])
-        console.log('marker added');
         this.loading = !this.loading;
     }
 
@@ -182,43 +169,14 @@ export class NSMapComponent implements OnInit {
         this.options.options.center = lbl.center;
         if (!this.options.map) this.onShow(this.options);
         else this.onSetCentre(this.options);
+        //if (this.options.map) this.options.map.destroy();
+        //this.onShow(this.options);
     }
 
     onSetModelSource = (keyword: any): Observable<IMapFeatures[]> => {
         this.model = (this.mapper.onMapFeaturesQuery(keyword));
         return this.model;
     }
-
-    //onSetModelSource(keyword: any) {
-
-    //    this.apiOptions.cacheKey = '';
-    //    this.apiOptions.url = Config.ENVIRONMENT().MAP_BOX_API + keyword + '.json?access_token=' + Config.ENVIRONMENT().MAP_BOX_API_KEY;
-    //    this.apiOptions.parameters = '';
-    //    this.apiOptions.concatApi = false;
-    //    this.apiService.get(this.apiOptions)
-    //        .debounceTime(500)
-    //        .distinctUntilChanged()
-    //        .subscribe(
-    //        (json: any) => {
-    //            let x: any = json;
-    //            this.features = x.features;
-    //            let items = [];
-    //            this.features.forEach((item, i) => {
-    //                items.push(new MapFeature(item.id, item.place_name, item.center));
-    //            });
-
-    //            let subscr;
-    //            this.model = RxObservable.create(subscriber => {
-    //                subscr = subscriber;
-    //                subscriber.next(items);
-    //                return () => {
-    //                    //console.log("Unsubscribe called!!!");
-    //                }
-    //            });
-    //        },
-    //        (error: any) => this.errorMessage = <any>error,
-    //        () => { });
-    //}
 
     onTap(marker) {
         console.log("Marker tapped with title: '" + marker.title + "'");

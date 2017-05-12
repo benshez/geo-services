@@ -3,7 +3,7 @@ import { NgModule, Optional, SkipSelf, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA 
 
 
 // app
-import { NS_MODULES, NS_COMPONENTS, NS_PROVIDERS } from './index';
+import { NS_MODULES, NS_COMPONENTS, NS_PROVIDERS, NS_DIRECTIVES } from './index';
 
 /**
  * Do not specify providers for modules that might be imported by a lazy loaded module.
@@ -13,7 +13,8 @@ import { NS_MODULES, NS_COMPONENTS, NS_PROVIDERS } from './index';
         NS_MODULES
     ],
     declarations: [
-        NS_COMPONENTS
+        NS_COMPONENTS,
+        NS_DIRECTIVES
     ],
     providers: [
         NS_PROVIDERS

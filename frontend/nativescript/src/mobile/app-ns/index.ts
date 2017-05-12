@@ -24,6 +24,10 @@ export const NS_COMPONENTS: any[] = [
 
 export * from './components/map/component';
 
+// directives
+export const NS_DIRECTIVES: any[] = [
+];
+
 //routes
 import { APP_ROUTES } from '../../app/components/index';
 import { SHARED_ROUTES } from '../../app/shared/app/index';
