@@ -3,7 +3,7 @@ import { Config } from '../../../../core/index';
 
 export const LOGIN_ROUTES: Array<any> = [
     {
-        path: Config.ROUTE_VALUES.LOGIN_VALUE,
+        path: Config.ROUTE_ROUTES.LOGIN,
         component: LoginComponent
     }
 ];

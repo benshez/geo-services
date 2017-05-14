@@ -63,7 +63,7 @@ export class WebMapComponent implements OnInit, OnMapper {
     ngOnInit() {
         this.loading = true;
         this.onSetLocation(this.options);
-        this.returnUrl = this.route.snapshot.queryParams[Config.ROUTE_URLS.LOGIN_RETURN_URL] || '/'; 
+        this.returnUrl = this.route.snapshot.queryParams[Config.ROUTE_PARAMETERS.LOGIN_RETURN_URL] || '/'; 
     }
 
     onSetLocation(options: IMapSetup) {

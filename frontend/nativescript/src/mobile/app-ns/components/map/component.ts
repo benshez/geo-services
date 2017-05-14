@@ -68,7 +68,7 @@ export class NSMapComponent implements OnInit {
         private mapper: Mapper) { }
 
     ngOnInit() {
-        this.returnUrl = this.route.snapshot.queryParams[Config.ROUTE_URLS.LOGIN_RETURN_URL] || '/';
+        this.returnUrl = this.route.snapshot.queryParams[Config.ROUTE_PARAMETERS.LOGIN_RETURN_URL] || '/';
         this.onSetLocation(this.options);
     }
 

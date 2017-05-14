@@ -121,6 +121,7 @@
     <Folder Include="nativescript\src\mobile\analytics\services\" />
     <Folder Include="nativescript\src\mobile\app-ns\" />
     <Folder Include="nativescript\src\mobile\app-ns\components\" />
+    <Folder Include="nativescript\src\mobile\app-ns\components\map-places\" />
     <Folder Include="nativescript\src\mobile\app-ns\components\map\" />
     <Folder Include="nativescript\src\mobile\app-ns\components\side-drawer-page\" />
     <Folder Include="nativescript\src\mobile\core\directives\" />
@@ -136,6 +137,7 @@
     <Folder Include="src\client\app\components\" />
     <Folder Include="src\client\app\components\about\" />
     <Folder Include="src\client\app\components\home\" />
+    <Folder Include="src\client\app\shared\app-web\components\map-places\" />
     <Folder Include="src\client\app\shared\" />
     <Folder Include="src\client\app\shared\analytics\" />
     <Folder Include="src\client\app\shared\analytics\services\" />
@@ -339,6 +341,10 @@
     <Content Include="nativescript\src\App_Resources\iOS\build.xcconfig" />
     <Content Include="nativescript\src\App_Resources\iOS\Info.plist" />
     <Content Include="nativescript\src\App_Resources\iOS\LaunchScreen.storyboard" />
+    <Content Include="nativescript\src\mobile\app-ns\components\map-places\component.tns.html" />
+    <Content Include="nativescript\src\mobile\app-ns\components\map-places\component.tns.scss" />
+    <Content Include="src\client\app\shared\app-web\components\map-places\component.html" />
+    <Content Include="src\client\app\shared\app-web\components\map-places\component.scss" />
     <Content Include="nativescript\src\mobile\app-ns\components\map\component.tns.html" />
     <Content Include="nativescript\src\mobile\app-ns\components\map\component.tns.scss" />
     <Content Include="nativescript\src\package.json" />
@@ -569,6 +575,12 @@
     <TypeScriptCompile Include="nativescript\src\components.module.ts" />
     <TypeScriptCompile Include="nativescript\src\mobile\analytics\index.ts" />
     <TypeScriptCompile Include="nativescript\src\mobile\analytics\services\ns-angulartics2-segment.service.ts" />
+    <TypeScriptCompile Include="nativescript\src\mobile\app-ns\components\map-places\component.spec.ts" />
+    <TypeScriptCompile Include="nativescript\src\mobile\app-ns\components\map-places\component.ts" />
+    <TypeScriptCompile Include="nativescript\src\mobile\app-ns\components\map-places\routes.ts" />
+    <TypeScriptCompile Include="src\client\app\shared\app-web\components\map-places\component.spec.ts" />
+    <TypeScriptCompile Include="src\client\app\shared\app-web\components\map-places\component.ts" />
+    <TypeScriptCompile Include="src\client\app\shared\app-web\components\map-places\routes.ts" />
     <TypeScriptCompile Include="nativescript\src\mobile\app-ns\components\map\component.spec.ts" />
     <TypeScriptCompile Include="nativescript\src\mobile\app-ns\components\map\component.ts" />
     <TypeScriptCompile Include="nativescript\src\mobile\app-ns\components\map\routes.ts" />

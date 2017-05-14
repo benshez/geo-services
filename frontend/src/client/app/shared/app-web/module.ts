@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
 import { NguiAutoCompleteModule } from '@ngui/auto-complete';
+
 // app
 import { SHARED_COMPONENTS } from './index';
 import { MultilingualModule } from '../i18n/multilingual.module';

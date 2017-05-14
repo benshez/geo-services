@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
         private router: Router) { }
 
     ngOnInit() {
-        this.returnUrl = this.route.snapshot.queryParams[Config.ROUTE_URLS.LOGIN_RETURN_URL] || '/';
+        this.returnUrl = this.route.snapshot.queryParams[Config.ROUTE_PARAMETERS.LOGIN_RETURN_URL] || '/';
         this.form = this.fb.group({
             email: this.email,
             password: this.password

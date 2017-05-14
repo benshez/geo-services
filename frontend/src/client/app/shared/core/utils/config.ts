@@ -17,13 +17,14 @@ export interface IPlatforms {
     DESKTOP: string;
 }
 
-export interface IRouteUrls {
+export interface IRouteParameters {
     LOGIN_RETURN_URL: string;
 }
 
-export interface IRouteValues {
-    LOGIN_VALUE: string;
-    MAP_VALUE: string;
+export interface IRouteRoutes {
+    LOGIN: string;
+    MAP_PLACES: string;
+    MAP: string;
 }
 
 export interface ICacheKeys {
@@ -38,7 +39,16 @@ export interface ILockerKeys {
     USER_DETAIL: string;
 }
 
+export interface IComponentItems {
+    TEMPLATE: string;
+    CSS: string;
+    LABEL_PREFIX: string;
+}
 
+export interface ITranstion {
+    DURATION: number;
+    SLIDE_TOP: string;
+}
 
 export class Config {
 
@@ -63,13 +73,14 @@ export class Config {
         DESKTOP: 'desktop'
     };
 
-    public static ROUTE_URLS: IRouteUrls = {
+    public static ROUTE_PARAMETERS: IRouteParameters = {
         LOGIN_RETURN_URL: 'loginReturnUrl'
     };
 
-    public static ROUTE_VALUES: IRouteValues = {
-        LOGIN_VALUE: 'login',
-        MAP_VALUE: 'map'
+    public static ROUTE_ROUTES: IRouteRoutes = {
+        LOGIN: 'login',
+        MAP_PLACES: 'map-places',
+        MAP: 'map'
     };
 
     public static CACHE_KEYS: ICacheKeys = {
@@ -136,4 +147,14 @@ export class Config {
         }
     }
 
+    public static COMPONENT_ITEMS: IComponentItems = {
+        TEMPLATE: 'component.html',
+        CSS: 'component.css',
+        LABEL_PREFIX: 'lbl'
+    }
+
+    public static TRANSITION: ITranstion = {
+        DURATION: 1000,
+        SLIDE_TOP: 'slideTop'
+    }
 }

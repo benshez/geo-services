@@ -1,0 +1,4 @@
+﻿<h2>Map Places</h2>
+<div id="map">
+  <input class="auto-complete-input" auto-complete [(ngModel)]="selected" [source]="onSetModelSource.bind(this)" (valueChanged)="onPlacesChanged($event)" list-formatter="place_name" placeholder="Search...(min. 4 chars)" min-chars="4" />
+</div>

@@ -5,11 +5,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
-// app
 
+// app
 import { Config } from '../core/index';
 
-import { SHARED_COMPONENTS } from './index';
+import { SHARED_COMPONENTS, SHARED_PROVIDERS } from './index';
 import { MultilingualModule } from '../i18n/multilingual.module';
 
 let SHARED_IMPORTS: any[] = [
@@ -18,7 +18,7 @@ let SHARED_IMPORTS: any[] = [
     ReactiveFormsModule,
     HttpModule,
     RouterModule,
-    MultilingualModule,
+    MultilingualModule
 ];
 
 /**
@@ -32,7 +32,7 @@ let SHARED_IMPORTS: any[] = [
         SHARED_COMPONENTS
     ],
     providers: [
-        //SAMPLE_PROVIDERS
+        SHARED_PROVIDERS
     ],
     schemas: [
         NO_ERRORS_SCHEMA,

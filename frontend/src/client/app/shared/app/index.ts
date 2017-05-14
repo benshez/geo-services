@@ -6,17 +6,21 @@ import { LoginComponent } from './components/user/login/component';
 export const SHARED_COMPONENTS: any[] = [
     NavbarComponent,
     ToolbarComponent,
-    LoginComponent,
+    LoginComponent
 ];
 
 export * from './components/navbar/component';
 export * from './components/toolbar/component';
 export * from './components/user/login/component';
 
+//providers
+export const SHARED_PROVIDERS: any[] = [
+];
+
 //routes
 import { LOGIN_ROUTES } from './components/user/login/routes';
 export const SHARED_ROUTES: Array<any> = [
-    ...LOGIN_ROUTES,
+    ...LOGIN_ROUTES
 ];
 
 //modules

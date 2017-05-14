@@ -23,7 +23,7 @@ export class AuthenticatedAdminGuard implements CanActivate {
                 return false;
             }
         }
-        let url: string = Config.ROUTE_URLS.LOGIN_RETURN_URL.toString();
+        let url: string = Config.ROUTE_PARAMETERS.LOGIN_RETURN_URL.toString();
         this.router.navigate(['/login'], { queryParams: { url: state.url } });
         return false;
     }

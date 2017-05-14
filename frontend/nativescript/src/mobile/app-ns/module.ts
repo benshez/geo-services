@@ -1,7 +1,6 @@
 ﻿// angular
 import { NgModule, Optional, SkipSelf, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
-
 // app
 import { NS_MODULES, NS_COMPONENTS, NS_PROVIDERS, NS_DIRECTIVES } from './index';
 
