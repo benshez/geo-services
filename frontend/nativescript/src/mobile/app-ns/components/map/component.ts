@@ -13,8 +13,6 @@ import { ApiService, Locker } from '../../../../app/shared/core/index';
 import { User, ApiServiceParametersOptions } from '../../../../app/shared/core/index';
 import { Config, ICoordinates, IMapQuery, IMapFeatures, Mapper, IMapSetup, IMapOptions, IMarker, IPopup } from '../../../../app/shared/core/index';
 
-import * as Geolocation from 'nativescript-geolocation';
-
 let mapbox = require('nativescript-mapbox');
 
 class MapFeature {
@@ -69,27 +67,8 @@ export class NSMapComponent implements OnInit {
 
     ngOnInit() {
         this.returnUrl = this.route.snapshot.queryParams[Config.ROUTE_PARAMETERS.LOGIN_RETURN_URL] || '/';
-        this.onSetLocation(this.options);
-    }
-
-    onSetLocation(options: IMapSetup) {
-        let self = this;
-
-        Geolocation.getCurrentLocation({
-            desiredAccuracy: 3,
-            updateDistance: 1,
-            maximumAge: 20000,
-            timeout: 20000
-        }).then((loc) => {
-            console.log('loc found');
-            if (loc) {
-                options.options.center[1] = loc.latitude;
-                options.options.center[0] = loc.longitude;
-                self.onShow(self.options);
-            }
-        }).catch(function (response) {
-            //self.onShow(self.options);
-        });
+        this.options.options.center = [Config.ROUTE_PARAMETERS.LONGITUDE, Config.ROUTE_PARAMETERS.LATITUDE];
+        this.onShow(this.options);
     }
 
     onShow(options: IMapSetup) {
@@ -164,30 +143,11 @@ export class NSMapComponent implements OnInit {
         this.loading = !this.loading;
     }
 
-    onItemTap(args) {
-        var lbl = <any>args.view.getViewById("lbl" + args.index);
-        this.options.options.center = lbl.center;
-        if (!this.options.map) this.onShow(this.options);
-        else this.onSetCentre(this.options);
-        //if (this.options.map) this.options.map.destroy();
-        //this.onShow(this.options);
-    }
-
-    onSetModelSource = (keyword: any): Observable<IMapFeatures[]> => {
-        this.model = (this.mapper.onMapFeaturesQuery(keyword));
-        return this.model;
-    }
-
     onTap(marker) {
         console.log("Marker tapped with title: '" + marker.title + "'");
     }
 
     onCalloutTap(marker) {
         console.log("Marker callout tapped with title: '" + marker.title + "'");
-    }
-
-    onChange(event: any) {
-        if (event.value.length < 4) return;
-        this.onSetModelSource(event.value);
     }
 }

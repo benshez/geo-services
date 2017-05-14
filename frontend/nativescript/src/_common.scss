@@ -1,4 +1,4 @@
-@import 'nativescript-theme-core/scss/light';
+﻿@import 'nativescript-theme-core/scss/light';
 
 $accent: #106CC8;
 
@@ -20,4 +20,8 @@ $btn-color-secondary: darken($accent, 5%);
 }
 .even {
   background-color: $white;
+}
+
+lang-switcher {
+  visibility: hidden;
 }

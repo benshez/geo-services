@@ -1,27 +1,8 @@
-﻿<ActionBar [title]="'MAP'" class="action-bar">
-  <NavigationButton [text]="'HOME'"></NavigationButton>
+﻿<ActionBar [title]="'MAP' | translate" class="action-bar">
+  <NavigationButton [text]="'HOME' | translate"></NavigationButton>
 </ActionBar>
-<lang-switcher></lang-switcher>
 <ScrollView>
   <StackLayout class="p-10 m-0">
-    <StackLayout class="form">
-      <StackLayout class="input-field">
-        <TextField hint="Search...(min. 4 chars)" (propertyChange)="onChange($event)"></TextField>
-      </StackLayout>
-    </StackLayout>
-
-    <StackLayout height="300">
-      <ListView [items]="model | async" (itemTap)="onItemTap($event)" class="list-group">
-        <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
-          <StackLayout [class.odd]="odd" [class.even]="even" class="list-group-item">
-            <GridLayout>
-              <Label [id]="'lbl' + i" [center]="item.center" [text]="item.place_name" class="label-item"></Label>
-            </GridLayout>
-          </StackLayout>
-        </ng-template>
-      </ListView>
-    </StackLayout>
-
     <StackLayout verticalAlignment="bottom">
       <ActivityIndicator [busy]="loading" horizontalAlignment="right"></ActivityIndicator>
       <map:Mapbox></map:Mapbox>

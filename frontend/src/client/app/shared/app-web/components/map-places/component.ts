@@ -38,6 +38,21 @@ export class WebMapPlacesComponent implements OnInit {
         this.returnUrl = this.route.snapshot.queryParams[Config.ROUTE_PARAMETERS.LOGIN_RETURN_URL] || '/';
     }
 
+    onSetLocation() {
+        let self = this;
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position: Position) => {
+                    Config.ROUTE_PARAMETERS.LONGITUDE = position.coords.longitude;
+                    Config.ROUTE_PARAMETERS.LATITUDE = position.coords.latitude;
+                    self.onNavigate();
+                },
+                (error: PositionError) => { self.onNavigate(); },
+                { maximumAge: 60000, timeout: 10000 }
+            );
+        } else { self.onNavigate(); }
+    }
+
     onSetModelSource = (keyword: any): Observable<IMapFeatures[]> => {
         this.model = (this.mapper.onMapFeaturesQuery(keyword));
         return this.model;
@@ -50,13 +65,14 @@ export class WebMapPlacesComponent implements OnInit {
 
     onPlacesChanged(event: any) {
         if (event !== '' && event.center) {
-            this.onNavigate(<ICoordinates>{ longitude: event.center[0], latitude: event.center[1] });
+            Config.ROUTE_PARAMETERS.LONGITUDE = event.center[0];
+            Config.ROUTE_PARAMETERS.LATITUDE = event.center[1];
+            this.onNavigate();
         }
     }
 
-    onNavigate(coordinates: ICoordinates) {
+    onNavigate() {
         this.routerext.navigate([Config.ROUTE_ROUTES.MAP], {
-            queryParams: { longitude: coordinates.longitude, latitude: coordinates.latitude },
             transition: {
                 duration: Config.TRANSITION.DURATION,
                 name: Config.TRANSITION.SLIDE_TOP,

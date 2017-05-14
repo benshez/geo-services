@@ -1,5 +1,11 @@
 ﻿// angular
 import { NgModule, Optional, SkipSelf, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Http } from '@angular/http';
+// libs
+import { TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+import { MultilingualModule, translateLoaderFactory } from '../../app/shared/i18n/multilingual.module';
 
 // app
 import { NS_MODULES, NS_COMPONENTS, NS_PROVIDERS, NS_DIRECTIVES } from './index';
@@ -9,7 +15,12 @@ import { NS_MODULES, NS_COMPONENTS, NS_PROVIDERS, NS_DIRECTIVES } from './index'
  */
 @NgModule({
     imports: [
-        NS_MODULES
+        NS_MODULES,
+        MultilingualModule.forRoot([{
+            provide: TranslateLoader,
+            deps: [Http],
+            useFactory: (translateLoaderFactory)
+        }]),
     ],
     declarations: [
         NS_COMPONENTS,
@@ -23,6 +34,7 @@ import { NS_MODULES, NS_COMPONENTS, NS_PROVIDERS, NS_DIRECTIVES } from './index'
         CUSTOM_ELEMENTS_SCHEMA
     ],
     exports: [
+        MultilingualModule
     ]
 })
 export class NSAppModule {

@@ -1,6 +1,4 @@
 ﻿<h2>Map</h2>
-<input class="auto-complete-input" auto-complete [(ngModel)]="selected" [source]="onSetModelSource.bind(this)" (valueChanged)="onPlacesChanged($event)" list-formatter="place_name" placeholder="Search...(min. 4 chars)" min-chars="4"/>
-
 <div id="map" [class.loading]="loading">
   <div class="map-loader">
     <div class="spinner">

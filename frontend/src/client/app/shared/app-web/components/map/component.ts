@@ -20,7 +20,7 @@ import * as MapBoxGeocoder from '@mapbox/mapbox-gl-geocoder';
     selector: 'sd-map',
     templateUrl: 'component.html'
 })
-export class WebMapComponent implements OnInit, OnMapper {
+export class WebMapComponent implements OnInit {
 
     public map: any;
     public loading: boolean = true;
@@ -35,7 +35,7 @@ export class WebMapComponent implements OnInit, OnMapper {
             container: 'map',
             style: 'mapbox://styles/mapbox/light-v9',
             center: [152.994306, -26.612273],
-            zoom: 1,
+            zoom: 13,
             hash: false,
             interactive: false
         }
@@ -62,23 +62,10 @@ export class WebMapComponent implements OnInit, OnMapper {
 
     ngOnInit() {
         this.loading = true;
-        this.onSetLocation(this.options);
-        this.returnUrl = this.route.snapshot.queryParams[Config.ROUTE_PARAMETERS.LOGIN_RETURN_URL] || '/'; 
-    }
-
-    onSetLocation(options: IMapSetup) {
-        let self = this;
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (position: Position) => {
-                    options.options.center = [position.coords.longitude, position.coords.latitude];
-                    options.options.zoom = 13;
-                    self.onMapComponentInit(options);
-                },
-                (error: PositionError) => { self.onMapComponentInit(options); },
-                { maximumAge: 60000, timeout: 10000 }
-            );
-        } else { self.onMapComponentInit(options); }
+        //this.onSetLocation(this.options);
+        this.returnUrl = this.route.snapshot.queryParams[Config.ROUTE_PARAMETERS.LOGIN_RETURN_URL] || '/';
+        this.options.options.center = [Config.ROUTE_PARAMETERS.LONGITUDE, Config.ROUTE_PARAMETERS.LATITUDE];
+        this.onMapComponentInit(this.options);
     }
 
     onMapComponentInit(options: IMapSetup) {
@@ -142,17 +129,5 @@ export class WebMapComponent implements OnInit, OnMapper {
                 value);
         } else
             obj[prop[0]] = value;
-    }
-
-    onSetModelSource = (keyword: any): Observable<IMapFeatures[]> => {
-        this.model = (this.mapper.onMapFeaturesQuery(keyword));
-        return this.model;
-    }
-
-    onPlacesChanged(event: any) {
-        if (event !== '' && event.center) {
-            this.options.options.center = event.center;
-            this.onSetCentre(this.options);
-        }
     }
 }
