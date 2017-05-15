@@ -10,7 +10,8 @@ import {
     Config,
     IListener,
     IMapQuery,
-    IMapFeatures
+    IMapFeatures,
+    IIndustries
 } from '../index';
 
 import { Locker } from '../services/locker/index';
@@ -93,6 +94,27 @@ export class Mapper {
         } else {
             return Observable.of([]);
         }
+    }
 
+    onIndustriesQuery = (query: string): Observable<IIndustries[]> => {
+        if (query && query.length > 2) {
+            this.apiOptions = new ApiServiceParametersOptions();
+            this.apiOptions.cacheKey = 'industries_' + query;
+            this.apiOptions.url = 'industries';
+            this.apiOptions.parameters = '';
+            this.apiOptions.concatApi = true;
+
+            if (this.locker.has(this.apiOptions.cacheKey)) {
+                return (Observable.of(<IIndustries[]>this.locker.get(this.apiOptions.cacheKey)));
+            };
+
+            return this.apiService.mapper(this.apiOptions)
+                .map((res) => {
+                    if (this.apiOptions.cacheKey !== '') this.locker.set(this.apiOptions.cacheKey, <IIndustries[]>res.json());
+                    return <IIndustries[]>res.json();
+                });
+        } else {
+            return Observable.of([]);
+        }
     }
 }

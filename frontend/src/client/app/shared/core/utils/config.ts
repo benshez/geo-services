@@ -21,6 +21,7 @@ export interface IRouteParameters {
     LOGIN_RETURN_URL: string;
     LONGITUDE: number;
     LATITUDE: number;
+    INDUSTRY: number;
 }
 
 export interface IRouteRoutes {
@@ -78,7 +79,8 @@ export class Config {
     public static ROUTE_PARAMETERS: IRouteParameters = {
         LOGIN_RETURN_URL: 'loginReturnUrl',
         LONGITUDE: 0,
-        LATITUDE: 0
+        LATITUDE: 0,
+        INDUSTRY: 0
     };
 
     public static ROUTE_ROUTES: IRouteRoutes = {

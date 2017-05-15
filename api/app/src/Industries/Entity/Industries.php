@@ -3,7 +3,7 @@
 namespace GeoService\Industries\Entity;
 
 use Doctrine\ORM\Mapping as ORM,
-GeoService\Industries\Entity\Base;
+GeoService\AbstractEntity;
 
 /**
  * Industries
@@ -11,7 +11,7 @@ GeoService\Industries\Entity\Base;
  * @ORM\Table(name="industries", indexes={@ORM\Index(name="idx_description", columns={"description"})})
  * @ORM\Entity
  */
-class Industries extends Base
+class Industries extends AbstractEntity
 {
     /**
      * @var integer
@@ -43,6 +43,10 @@ class Industries extends Base
      */
     private $updatedAt = 'CURRENT_TIMESTAMP';
 
+    public function getArrayCopy()
+    {
+      return get_object_vars($this);
+    }
 
 }
 

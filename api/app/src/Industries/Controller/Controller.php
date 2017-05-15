@@ -4,7 +4,7 @@ namespace GeoService\Industries\Controller;
 
 use Psr\Http\Message\ResponseInterface,
 Psr\Http\Message\RequestInterface,
-GeoService\Users\Manager\Manager;
+GeoService\Industries\Manager\Manager;
 
 {
 	final class Controller
@@ -28,7 +28,7 @@ GeoService\Users\Manager\Manager;
       if ($config) {
         return $response->withJSON($config);
       }
-      return $response->withStatus(404, 'No suppliers found with that slug.');
+      return $response->withStatus(404, 'No industries found with that slug.');
     }
   }
 }

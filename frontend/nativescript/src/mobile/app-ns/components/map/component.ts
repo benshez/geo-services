@@ -132,9 +132,9 @@ export class NSMapComponent implements OnInit {
                 lng: marker.latLang[0], // mandatory
                 title: marker.popup.text, // no popup unless set
                 subtitle: 'Infamous subtitle!',
-                icon: 'res://marker', // preferred way, otherwise use:
+                icon: 'res://marker25_29', // preferred way, otherwise use:
                 //icon: 'https://farm9.staticflickr.com/8571/15844010757_63b093d527_n.jpg', // from the internet (see the note at the bottom of this readme), or:
-                iconPath: 'res://marker',
+                iconPath: 'res://marker25_29',
                 onTap: this.onTap,
                 onCalloutTap: this.onCalloutTap
             },

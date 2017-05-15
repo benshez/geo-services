@@ -203,6 +203,7 @@
     <Folder Include="src\client\assets\" />
     <Folder Include="src\client\assets\favicon\" />
     <Folder Include="src\client\assets\i18n\" />
+    <Folder Include="src\client\assets\img\" />
     <Folder Include="src\client\assets\svg\" />
     <Folder Include="src\client\css\" />
     <Folder Include="src\client\scss\" />
@@ -276,25 +277,33 @@
     <Content Include="nativescript\src\App_Resources\Android\drawable-hdpi\background.png" />
     <Content Include="nativescript\src\App_Resources\Android\drawable-hdpi\icon.png" />
     <Content Include="nativescript\src\App_Resources\Android\drawable-hdpi\ic_menu_black.png" />
+    <Content Include="nativescript\src\App_Resources\Android\drawable-hdpi\marker25_29.png" />
     <Content Include="nativescript\src\App_Resources\Android\drawable-ldpi\background.png" />
     <Content Include="nativescript\src\App_Resources\Android\drawable-ldpi\icon.png" />
+    <Content Include="nativescript\src\App_Resources\Android\drawable-ldpi\marker25_29.png" />
     <Content Include="nativescript\src\App_Resources\Android\drawable-mdpi\background.png" />
     <Content Include="nativescript\src\App_Resources\Android\drawable-mdpi\icon.png" />
     <Content Include="nativescript\src\App_Resources\Android\drawable-mdpi\ic_menu_black.png" />
+    <Content Include="nativescript\src\App_Resources\Android\drawable-mdpi\marker25_29.png" />
+    <Content Include="nativescript\src\App_Resources\Android\drawable-nodpi\marker25_29.png" />
     <Content Include="nativescript\src\App_Resources\Android\drawable-nodpi\splashscreen.9.png" />
     <Content Include="nativescript\src\App_Resources\Android\drawable-nodpi\splash_screen.xml" />
     <Content Include="nativescript\src\App_Resources\Android\drawable-xhdpi\background.png" />
     <Content Include="nativescript\src\App_Resources\Android\drawable-xhdpi\icon.png" />
     <Content Include="nativescript\src\App_Resources\Android\drawable-xhdpi\ic_menu_black.png" />
     <Content Include="nativescript\src\App_Resources\Android\drawable-xhdpi\logo.png" />
+    <Content Include="nativescript\src\App_Resources\Android\drawable-xhdpi\marker25_29.png" />
     <Content Include="nativescript\src\App_Resources\Android\drawable-xxhdpi\background.png" />
     <Content Include="nativescript\src\App_Resources\Android\drawable-xxhdpi\icon.png" />
     <Content Include="nativescript\src\App_Resources\Android\drawable-xxhdpi\ic_menu_black.png" />
     <Content Include="nativescript\src\App_Resources\Android\drawable-xxhdpi\logo.png" />
+    <Content Include="nativescript\src\App_Resources\Android\drawable-xxhdpi\marker25_29.png" />
     <Content Include="nativescript\src\App_Resources\Android\drawable-xxxhdpi\background.png" />
     <Content Include="nativescript\src\App_Resources\Android\drawable-xxxhdpi\icon.png" />
     <Content Include="nativescript\src\App_Resources\Android\drawable-xxxhdpi\ic_menu_black.png" />
     <Content Include="nativescript\src\App_Resources\Android\drawable-xxxhdpi\logo.png" />
+    <Content Include="nativescript\src\App_Resources\Android\drawable-xxxhdpi\marker25_29.png" />
+    <Content Include="nativescript\src\App_Resources\Android\drawable\marker25_29.png" />
     <Content Include="nativescript\src\App_Resources\Android\drawable\splash_logo.png" />
     <Content Include="nativescript\src\App_Resources\Android\values-v21\colors.xml" />
     <Content Include="nativescript\src\App_Resources\Android\values-v21\styles.xml" />
@@ -403,6 +412,10 @@
     <Content Include="src\client\assets\i18n\es.json" />
     <Content Include="src\client\assets\i18n\fr.json" />
     <Content Include="src\client\assets\i18n\ru.json" />
+    <Content Include="src\client\assets\img\marker19_22.png" />
+    <Content Include="src\client\assets\img\marker25_29.png" />
+    <Content Include="src\client\assets\img\marker26_31.png" />
+    <Content Include="src\client\assets\img\marker35_41.png" />
     <Content Include="src\client\assets\logo.icns" />
     <Content Include="src\client\assets\logo.ico" />
     <Content Include="src\client\assets\svg\more.svg" />
@@ -616,6 +629,9 @@
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="src\client\app\shared\core\interfaces\ibroadcast.ts" />
+    <TypeScriptCompile Include="src\client\app\shared\core\interfaces\iindustries.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="src\client\app\shared\core\interfaces\ilistener.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>

@@ -4,7 +4,7 @@
 $app->get('/api/location/users', 'GeoService\Locations\Controller\Controller:fetch');
 $app->get('/api/user/login/{email}', 'GeoService\Locations\Controller\Controller:fetchOne');
 $app->post('/api/user/login', 'GeoService\Users\Controller\Controller:authenticateOne');
-
+$app->get('/api/industries', 'GeoService\Industries\Controller\Controller:fetch');
 
 //$app->post('/api/photos', 'Eos\Controller\PhotoController:create');
 //$app->get('/api/photos', 'Eos\Controller\PhotoController:fetch');

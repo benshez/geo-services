@@ -63,8 +63,9 @@ export class ApiService {
         //    this.message.fire(false);
         //    return (Observable.of(this.locker.get(parameters.cacheKey))) as any;
         //}
+        //this.apiServiceOptions.parameters.url = (parameters.concatApi) ? Config.ENVIRONMENT().API.concat(parameters.url) : parameters.url;
 
-        return this.http.get(parameters.url)
+        return this.http.get((parameters.concatApi) ? Config.ENVIRONMENT().API.concat(parameters.url) : parameters.url)
             .debounceTime(1000)
             .distinctUntilChanged();
     }

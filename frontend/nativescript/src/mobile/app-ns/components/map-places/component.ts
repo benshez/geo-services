@@ -10,7 +10,7 @@ import * as Geolocation from 'nativescript-geolocation';
 // app
 import { ApiService, Locker } from '../../../../app/shared/core/index';
 import { User, ApiServiceParametersOptions } from '../../../../app/shared/core/index';
-import { Config, Mapper, RouterExtensions, IMapFeatures, ICoordinates } from '../../../../app/shared/core/index';
+import { Config, Mapper, RouterExtensions, IMapFeatures, ICoordinates, IIndustries } from '../../../../app/shared/core/index';
 
 @Component({
     moduleId: module.id,
@@ -21,7 +21,9 @@ import { Config, Mapper, RouterExtensions, IMapFeatures, ICoordinates } from '..
 })
 export class NSWebMapPlacesComponent implements OnInit {
     public loading: boolean = false;
-    public model: Observable<Array<IMapFeatures>>;
+    public showMapPlaces: boolean = false;
+    public mapPlaces: Observable<Array<IMapFeatures>>;
+    public industries: Observable<Array<IIndustries>>;
 
     private errorMessage: string;
     private returnUrl: string;
@@ -62,9 +64,14 @@ export class NSWebMapPlacesComponent implements OnInit {
         });
     }
 
+    onSetIndustriesModelSource = (keyword: any): Observable<IIndustries[]> => {
+        this.industries = (this.mapper.onIndustriesQuery(keyword));
+        return this.industries;
+    }
+
     onSetModelSource = (keyword: any): Observable<IMapFeatures[]> => {
-        this.model = (this.mapper.onMapFeaturesQuery(keyword));
-        return this.model;
+        this.mapPlaces = (this.mapper.onMapFeaturesQuery(keyword));
+        return this.mapPlaces;
     }
 
     onChange(event: any) {
@@ -72,11 +79,21 @@ export class NSWebMapPlacesComponent implements OnInit {
         this.onSetModelSource(event.value);
     }
 
+    onIndustriesChanged(event: any) {
+        this.showMapPlaces = false;
+        if (event !== '' && event.id) {
+            Config.ROUTE_PARAMETERS.INDUSTRY = event.id;
+            this.showMapPlaces = true;
+        }
+    }
+
     onItemTap(args) {
-        var lbl = <any>args.view.getViewById('lbl' + args.index);
-        Config.ROUTE_PARAMETERS.LONGITUDE = lbl.center[0];
-        Config.ROUTE_PARAMETERS.LATITUDE = lbl.center[1];
-        this.onNavigate();
+        if (this.showMapPlaces) {
+            var lbl = <any>args.view.getViewById('lbl' + args.index);
+            Config.ROUTE_PARAMETERS.LONGITUDE = lbl.center[0];
+            Config.ROUTE_PARAMETERS.LATITUDE = lbl.center[1];
+            this.onNavigate();
+        }
     }
 
     onNavigate() {

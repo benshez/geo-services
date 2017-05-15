@@ -10,5 +10,6 @@
   "SUCCESS_MSG": "Your deployment of Angular Seed Advanced worked perfectly.",
   "MAP_PLACES": "Map places",
   "USE_CURRENT_LOCATION": "Use current location",
-  "SEARCH_MIN_CHARS": "Search...(min. 4 chars)"
+  "SEARCH_PLACES": "Search places...(min. 4 chars)",
+  "SEARCH_INDUSTRIES": "Search industries...(min. 3 chars)"
 }

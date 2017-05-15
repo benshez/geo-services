@@ -2,15 +2,20 @@
   <NavigationButton [text]="'HOME' | translate"></NavigationButton>
 </ActionBar>
 <StackLayout class="p-10 m-0">
-  <Button (tap)="onSetLocation()" [text]="'USE_CURRENT_LOCATION' | translate" class="btn btn-outline"></Button>
 
   <StackLayout class="form">
     <StackLayout class="input-field">
-      <TextField [hint]="'SEARCH_MIN_CHARS' | translate" (propertyChange)="onChange($event)"></TextField>
+      <TextField [hint]="'SEARCH_INDUSTRIES' | translate" (propertyChange)="onChange($event)"></TextField>
+    </StackLayout>
+
+    <Button *ngIf="showMapPlaces" (tap)="onSetLocation()" [text]="'USE_CURRENT_LOCATION' | translate" class="btn btn-outline"></Button>
+
+    <StackLayout *ngIf="showMapPlaces" class="input-field">
+      <TextField [hint]="'SEARCH_PLACES' | translate" (propertyChange)="onChange($event)"></TextField>
     </StackLayout>
   </StackLayout>
 
-  <StackLayout height="300">
+  <StackLayout height="300" *ngIf="showMapPlaces">
     <ListView [items]="model | async" (itemTap)="onItemTap($event)" class="list-group">
       <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
         <StackLayout [class.odd]="odd" [class.even]="even" class="list-group-item">

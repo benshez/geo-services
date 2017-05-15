@@ -62,3 +62,8 @@ $container['GeoService\Locations\Controller\Controller'] = function ($c) {
     $resource = new \GeoService\Locations\Manager\Manager($c);
     return new GeoService\Locations\Controller\Controller($resource);
 };
+
+$container['GeoService\Industries\Controller\Controller'] = function ($c) {
+    $resource = new \GeoService\Industries\Manager\Manager($c);
+    return new GeoService\Industries\Controller\Controller($resource);
+};

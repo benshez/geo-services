@@ -2,7 +2,8 @@
 
 namespace GeoService\Industries\Manager;
 
-use GeoService\AbstractResource;
+use GeoService\Industries\Entity\Industries,
+GeoService\AbstractResource;
 
 {
 	class Manager extends AbstractResource
@@ -16,7 +17,7 @@ use GeoService\AbstractResource;
     {
       
       if ($id === null) {
-        $configs = $this->entityManager->getRepository('GeoService\Industries\Entity\Industries')->findAll();
+        $configs = $this->entityManager->getRepository(Industries::class)->findAll();
         $configs = array_map(
           function ($config) {
             return $config->getArrayCopy();
@@ -26,7 +27,7 @@ use GeoService\AbstractResource;
 
         return $configs;
       } else {
-        $config = $this->entityManager->getRepository('GeoService\Industries\Entity\Industries')->findOneBy(
+        $config = $this->entityManager->getRepository(Industries::class)->findOneBy(
           array('id' => $id)
         );
         if ($config) {

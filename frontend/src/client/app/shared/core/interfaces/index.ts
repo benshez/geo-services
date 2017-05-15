@@ -5,3 +5,4 @@ export * from './ibroadcast';
 export * from './iuser';
 export * from './imap';
 export * from './ilistener';
+export * from './iindustries';

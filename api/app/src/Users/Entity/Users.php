@@ -151,7 +151,7 @@ class Users extends AbstractEntity
 
     public function findByEmail($email = null)
     {
-    echo "hfghf";
+
     $query = $this->entityManager->createQueryBuilder()->select('partial u.{id,email,username}')
        ->from(Users::class, 'u')
        ->where('u.email = :identifier')
