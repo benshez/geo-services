@@ -96,6 +96,9 @@ export class Mapper {
                     let features: IMapFeatures[] = <IMapFeatures[]>x.features;
                     if (this.apiOptions.cacheKey !== '') this.locker.set(this.apiOptions.cacheKey, features);
                     return features;
+                })
+                .catch((error: any) => {
+                    return Observable.of([]);
                 });
         } else {
             return Observable.of([]);
@@ -118,6 +121,9 @@ export class Mapper {
                 .map((res) => {
                     if (this.apiOptions.cacheKey !== '') this.locker.set(this.apiOptions.cacheKey, <IIndustries[]>res.json());
                     return <IIndustries[]>res.json();
+                })
+                .catch((error: any) => {
+                    return Observable.of([]);
                 });
         } else {
             return Observable.of([]);

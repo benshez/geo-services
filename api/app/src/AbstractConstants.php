@@ -18,10 +18,12 @@ Zend\Cache\Storage\Adapter\Memcache;
     const USER_ACCOUNT_DISABLED = 'User account is not enabled.';
     const FIND_BY_ONE_KEY_EMAIL = 'email';
     const FIND_BY_ID= 'id';
+    const INDUSTRY_INVALID = 'No industries found with that description.';
 
     public static $USER_CREDENTIALS_INVALID = AbstractConstants::USER_CREDENTIALS_INVALID;
     public static $FIND_BY_ONE_KEY_EMAIL = AbstractConstants::FIND_BY_ONE_KEY_EMAIL;
     public static $FIND_BY_ID = AbstractConstants::FIND_BY_ID;
+    public static $INDUSTRY_INVALID = AbstractConstants::INDUSTRY_INVALID;
 
     private $serviceManager;
 

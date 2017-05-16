@@ -58,9 +58,11 @@ export class ApiService {
     }
 
     mapper(parameters: ApiServiceParametersOptions): Observable<any> {
-        return this.http.get((parameters.concatApi) ? Config.ENVIRONMENT().API.concat(parameters.url) : parameters.url);
-            //.debounceTime(5000)
-            //.distinctUntilChanged();
+        return this.http.get((parameters.concatApi) ? Config.ENVIRONMENT().API.concat(parameters.url) : parameters.url)
+            .catch((error: any) => {
+                return Observable.throw(this.unwrapHttpError(error));
+            });
+
     }
 
     private request(options: ApiServiceOptions): Observable<any> {
@@ -107,9 +109,10 @@ export class ApiService {
 
     private unwrapHttpError(error: any): any {
         try {
+            let mess: string = (error.statusText) ? error.statusText : error.json();
             this.message.fire(false);
-            this.logger.error(error.json());
-            return (error.json());
+            this.logger.error(mess);
+            return (mess);
         } catch (jsonError) {
             this.message.fire(false);
             this.logger.error(jsonError);
