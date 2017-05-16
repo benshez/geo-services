@@ -3,6 +3,7 @@
 namespace GeoService\Industries\Entity;
 
 use Doctrine\ORM\Mapping as ORM,
+Doctrine\ORM\EntityRepository,
 GeoService\AbstractEntity;
 
 /**
@@ -10,7 +11,9 @@ GeoService\AbstractEntity;
  *
  * @ORM\Table(name="industries", indexes={@ORM\Index(name="idx_description", columns={"description"})})
  * @ORM\Entity
+ * @ORM\Entity(repositoryClass="GeoService\Industries\Entity\IndustryRepository")
  */
+
 class Industries extends AbstractEntity
 {
     /**
@@ -47,6 +50,22 @@ class Industries extends AbstractEntity
     {
       return get_object_vars($this);
     }
-
 }
 
+class IndustryRepository extends EntityRepository
+{
+    public function getAutoComplete($description = null)
+    {
+        $description = strtolower($description);
+
+        $qb = $this->_em->createQueryBuilder('u');
+        $qb->select('u.id, u.description')
+        ->from(Industries::class, 'u')
+        ->where($qb->expr()->like('LOWER(u.description)', ':identifier'))
+        ->setParameter('identifier',"%$description%");
+
+        $query = $qb->getQuery();
+
+        return $query->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+    }
+}

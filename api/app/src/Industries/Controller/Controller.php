@@ -30,5 +30,12 @@ GeoService\Industries\Manager\Manager;
       }
       return $response->withStatus(404, 'No industries found with that slug.');
     }
+    
+    public function autoComplete(RequestInterface $request, ResponseInterface $response, $args)
+    {
+      $config = $this->resource->autoComplete($args['description']);
+      if ($config) return $response->withJSON($config);
+      return $response->withStatus(404, 'No industries found with that description.');
+    }
   }
 }

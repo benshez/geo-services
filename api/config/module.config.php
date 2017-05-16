@@ -17,6 +17,7 @@ return [
                 'host'     => 'localhost',
                 'dbname'   => 'geo_service',
                 'user'     => 'root',
+                'port'     => '3306',
                 'password' => 'Und3rTh3D@rk',
             ],
             'authentication' => [
