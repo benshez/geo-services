@@ -71,11 +71,17 @@ export class Mapper {
             () => { }) as any;
     }
 
+    searchMapFeatures(terms: Observable<string>, debounceDuration = 400) {
+        return terms.debounceTime(debounceDuration)
+            .distinctUntilChanged()
+            .switchMap(term => this.onMapFeaturesQuery(term));
+    }
+
     onMapFeaturesQuery = (query: string): Observable<IMapFeatures[]> => {
 
         if (query && query.length > 3) {
             this.apiOptions = new ApiServiceParametersOptions();
-            this.apiOptions.cacheKey = 'mapper_' + query;
+            this.apiOptions.cacheKey = Config.CACHE_KEYS.MAP_KEY.concat(query);
             this.apiOptions.url = Config.ENVIRONMENT().MAP_BOX_API + query + '.json?access_token=' + Config.ENVIRONMENT().MAP_BOX_API_KEY;
             this.apiOptions.parameters = '';
             this.apiOptions.concatApi = false;
@@ -99,8 +105,8 @@ export class Mapper {
     onIndustriesQuery = (query: string): Observable<IIndustries[]> => {
         if (query && query.length > 2) {
             this.apiOptions = new ApiServiceParametersOptions();
-            this.apiOptions.cacheKey = 'industries_' + query;
-            this.apiOptions.url = 'industries';
+            this.apiOptions.cacheKey = Config.CACHE_KEYS.INDUSTRIES_KEY.concat(query);
+            this.apiOptions.url = Config.API_END_POINTS.INDUSTRIES.concat(query);
             this.apiOptions.parameters = '';
             this.apiOptions.concatApi = true;
 

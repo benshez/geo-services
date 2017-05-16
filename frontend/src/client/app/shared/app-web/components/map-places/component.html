@@ -1,6 +1,20 @@
 ﻿<h2>Map Places</h2>
 <div id="map">
-  <input class="auto-complete-input" auto-complete [(ngModel)]="id" [source]="onSetIndustriesModelSource.bind(this)" (valueChanged)="onIndustriesChanged($event)" list-formatter="description" placeholder="{{'SEARCH_INDUSTRIES' | translate}}" min-chars="3" />
+  <div class="auto-complete-wrapper">
+    <input class="auto-complete-input" type="text" [formControl]="industriesSearch" placeholder="{{'SEARCH_INDUSTRIES' | translate}}">
+    <div class="auto-complete" [hidden]="!showIndustries">
+      <ul>
+        <li class="item" *ngFor="let industry of industries | async" (click)="onIndustriesChanged(industry)">{{industry.description}}</li>
+      </ul>
+    </div>
+  </div>
   <a *ngIf="showMapPlaces" class="btn link" (click)="onSetLocation()">{{'USE_CURRENT_LOCATION' | translate}}</a>
-  <input *ngIf="showMapPlaces" class="auto-complete-input" auto-complete [(ngModel)]="selected" [source]="onSetModelSource.bind(this)" (valueChanged)="onPlacesChanged($event)" list-formatter="place_name" placeholder="{{'SEARCH_PLACES' | translate}}" min-chars="4" />
+  <div class="auto-complete-wrapper">
+    <input class="auto-complete-input" *ngIf="showMapPlaces" type="text" [formControl]="mapPlacesSearch" placeholder="{{'SEARCH_PLACES' | translate}}">
+    <div class="auto-complete">
+      <ul *ngIf="showMapPlaces">
+        <li class="item" *ngFor="let mapPlace of mapPlaces | async" (click)="onPlacesChanged(mapPlace)">{{mapPlace.place_name}}</li>
+      </ul>
+    </div>
+  </div>
 </div>

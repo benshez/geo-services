@@ -16,7 +16,7 @@ interface IMapCoordinates {
 }
 
 export interface IMapFeatures {
-    center: Array<ICoordinates>;
+    center: IMapCoordinates;
     place_name: string;
     id: string;
 }

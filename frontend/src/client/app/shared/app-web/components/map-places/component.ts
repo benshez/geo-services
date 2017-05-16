@@ -20,11 +20,14 @@ import { Config, Mapper, RouterExtensions, IMapFeatures, ICoordinates, IIndustri
 export class WebMapPlacesComponent implements OnInit {
     public loading: boolean = false;
     public showMapPlaces: boolean = false;
+    public showIndustries: boolean = false;
     public mapPlaces: Observable<Array<IMapFeatures>>;
     public industries: Observable<Array<IIndustries>>;
 
     private errorMessage: string;
     private returnUrl: string;
+    private industriesSearch = new FormControl();
+    private mapPlacesSearch = new FormControl();
 
     constructor(
         public apiService: ApiService,
@@ -38,6 +41,17 @@ export class WebMapPlacesComponent implements OnInit {
 
     ngOnInit() {
         this.returnUrl = this.route.snapshot.queryParams[Config.ROUTE_PARAMETERS.LOGIN_RETURN_URL] || '/';
+
+        this.industries = this.industriesSearch.valueChanges
+            .debounceTime(400)
+            .distinctUntilChanged()
+            .switchMap(term => {
+                this.showIndustries = true;
+                return this.mapper.onIndustriesQuery(term);
+            })
+            .onErrorResumeNext();
+
+        this.mapPlaces = this.mapper.searchMapFeatures(this.mapPlacesSearch.valueChanges);
     }
 
     onSetLocation() {
@@ -55,33 +69,25 @@ export class WebMapPlacesComponent implements OnInit {
         } else { self.onNavigate(); }
     }
 
-    onSetIndustriesModelSource = (keyword: any): Observable<IIndustries[]> => {
-        this.industries = (this.mapper.onIndustriesQuery(keyword));
-        return this.industries;
-    }
-
-    onSetModelSource = (keyword: any): Observable<IMapFeatures[]> => {
-        this.mapPlaces = (this.mapper.onMapFeaturesQuery(keyword));
-        return this.mapPlaces;
-    }
-
-    onChange(event: any) {
-        if (event.value.length < 4) return;
-        this.onSetModelSource(event.value);
-    }
-
-    onIndustriesChanged(event: any) {
+    onIndustriesChanged(args: IIndustries) {
         this.showMapPlaces = false;
-        if (event !== '' && event.id) {
-            Config.ROUTE_PARAMETERS.INDUSTRY = event.id;
+        if (args && args.id) {
+            this.industriesSearch.setValue(args.description, {
+                onlySelf: true,
+                emitEvent: false,
+                emitModelToViewChange: true,
+                emitViewToModelChange: true
+            });
+            Config.ROUTE_PARAMETERS.INDUSTRY = args.id;
+            this.showIndustries = false;
             this.showMapPlaces = true;
         }
     }
 
-    onPlacesChanged(event: any) {
-        if (event !== '' && event.center && this.showMapPlaces) {
-            Config.ROUTE_PARAMETERS.LONGITUDE = event.center[0];
-            Config.ROUTE_PARAMETERS.LATITUDE = event.center[1];
+    onPlacesChanged(args: IMapFeatures) {
+        if (args && args.center && this.showMapPlaces) {
+            Config.ROUTE_PARAMETERS.LONGITUDE = args.center[0];
+            Config.ROUTE_PARAMETERS.LATITUDE = args.center[1];
             this.onNavigate();
         }
     }

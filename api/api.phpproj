@@ -30,6 +30,7 @@
     <Compile Include="app\src\Entity\GeoService\Entity\Users.php" />
     <Compile Include="app\src\Industries\Controller\Controller.php" />
     <Compile Include="app\src\Industries\Entity\Industries.php" />
+    <Compile Include="app\src\Industries\Entity\Repository.php" />
     <Compile Include="app\src\Industries\Manager\Manager.php" />
     <Compile Include="app\src\Locations\Controller\Controller.php" />
     <Compile Include="app\src\Locations\Entity\Locations.php" />

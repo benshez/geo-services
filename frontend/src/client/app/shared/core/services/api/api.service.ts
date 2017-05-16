@@ -58,16 +58,9 @@ export class ApiService {
     }
 
     mapper(parameters: ApiServiceParametersOptions): Observable<any> {
-
-        //if (this.locker.has(parameters.cacheKey)) {
-        //    this.message.fire(false);
-        //    return (Observable.of(this.locker.get(parameters.cacheKey))) as any;
-        //}
-        //this.apiServiceOptions.parameters.url = (parameters.concatApi) ? Config.ENVIRONMENT().API.concat(parameters.url) : parameters.url;
-
-        return this.http.get((parameters.concatApi) ? Config.ENVIRONMENT().API.concat(parameters.url) : parameters.url)
-            .debounceTime(1000)
-            .distinctUntilChanged();
+        return this.http.get((parameters.concatApi) ? Config.ENVIRONMENT().API.concat(parameters.url) : parameters.url);
+            //.debounceTime(5000)
+            //.distinctUntilChanged();
     }
 
     private request(options: ApiServiceOptions): Observable<any> {

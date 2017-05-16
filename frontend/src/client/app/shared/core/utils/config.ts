@@ -32,10 +32,14 @@ export interface IRouteRoutes {
 
 export interface ICacheKeys {
     USER_KEY: string;
+    MAP_KEY: string;
+    INDUSTRIES_KEY: string;
 }
 
 export interface IApiEndPoints {
     USER_LOGIN: string;
+    MAP: string;
+    INDUSTRIES: string;
 }
 
 export interface ILockerKeys {
@@ -90,11 +94,15 @@ export class Config {
     };
 
     public static CACHE_KEYS: ICacheKeys = {
-        USER_KEY: 'user'
+        USER_KEY: 'user_',
+        MAP_KEY: 'mapper_',
+        INDUSTRIES_KEY: 'industries_'
     };
 
     public static API_END_POINTS: IApiEndPoints = {
-        USER_LOGIN: 'user/login'
+        USER_LOGIN: 'user/login',
+        MAP: '',
+        INDUSTRIES: 'industries/'
     };
 
     public static LOCKER_KEYS: ILockerKeys = {
