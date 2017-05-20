@@ -141,10 +141,13 @@
     <Folder Include="src\client\app\shared\" />
     <Folder Include="src\client\app\shared\analytics\" />
     <Folder Include="src\client\app\shared\analytics\services\" />
+    <Folder Include="src\client\app\shared\app-web\components\type-ahead\" />
     <Folder Include="src\client\app\shared\core\" />
     <Folder Include="src\client\app\shared\core\directives\" />
     <Folder Include="src\client\app\shared\core\interfaces\" />
     <Folder Include="src\client\app\shared\core\hooks\" />
+    <Folder Include="src\client\app\shared\core\pipes\" />
+    <Folder Include="src\client\app\shared\core\pipes\values\" />
     <Folder Include="src\client\app\shared\core\services\" />
     <Folder Include="src\client\app\shared\core\services\auth\" />
     <Folder Include="src\client\app\shared\core\services\auth\admin\" />
@@ -375,6 +378,8 @@
     <Content Include="src\client\app\components\home\component.tns.scss" />
     <Content Include="src\client\app\shared\app-web\components\map\component.html" />
     <Content Include="src\client\app\shared\app-web\components\map\component.scss" />
+    <Content Include="src\client\app\shared\app-web\components\type-ahead\component.html" />
+    <Content Include="src\client\app\shared\app-web\components\type-ahead\component.scss" />
     <Content Include="src\client\app\shared\app\components\navbar\component.css" />
     <Content Include="src\client\app\shared\app\components\navbar\component.html" />
     <Content Include="src\client\app\shared\app\components\navbar\component.tns.css" />
@@ -619,6 +624,8 @@
     <TypeScriptCompile Include="src\client\app\components\home\component.ts" />
     <TypeScriptCompile Include="src\client\app\components\home\routes.ts" />
     <TypeScriptCompile Include="src\client\app\components\index.ts" />
+    <TypeScriptCompile Include="src\client\app\shared\app-web\components\type-ahead\component.spec.ts" />
+    <TypeScriptCompile Include="src\client\app\shared\app-web\components\type-ahead\component.ts" />
     <TypeScriptCompile Include="src\client\app\shared\core\directives\mapper.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -639,6 +646,9 @@
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="src\client\app\shared\core\interfaces\iuser.ts" />
+    <TypeScriptCompile Include="src\client\app\shared\core\pipes\values\pipe.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="src\client\app\shared\core\services\auth\admin\service.ts" />
     <TypeScriptCompile Include="src\client\app\shared\core\services\auth\index.ts" />
     <TypeScriptCompile Include="src\client\app\shared\core\services\broadcaster\index.ts" />

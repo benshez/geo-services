@@ -1,15 +1,17 @@
 ﻿import { WebMapComponent } from './components/map/component';
 import { WebMapPlacesComponent } from './components/map-places/component';
-
+import { WebTypeAheadComponent } from './components/type-ahead/component';
 
 // components
 export const SHARED_COMPONENTS: any[] = [
     WebMapComponent,
-    WebMapPlacesComponent
+    WebMapPlacesComponent,
+    WebTypeAheadComponent
 ];
 
 export * from './components/map/component';
 export * from './components/map-places/component';
+export * from './components/type-ahead/component';
 
 //routes
 import { APP_ROUTES } from '../../components/index';

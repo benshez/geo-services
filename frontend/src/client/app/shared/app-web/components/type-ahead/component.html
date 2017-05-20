@@ -1,0 +1,8 @@
+﻿<div class="auto-complete-wrapper" id="typeAhead">
+  <input #typeAheadInput class="auto-complete-input" [formControl]="typeAheadInputFormControl" type="text" placeholder="{{placeholder | translate}}" [(ngModel)]="typeAheadKeyword" />
+  <div class="auto-complete" [hidden]="!typeAheadShow">
+    <ul>
+      <li *ngFor="let item of typeAheadSource; let i=index" [attr.id]="item.id" [innerHtml]="item.value"></li>
+    </ul>
+  </div>
+</div>

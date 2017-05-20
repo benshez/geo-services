@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 
 // module
-import { CORE_PROVIDERS, CORE_IMPORTS, CORE_DIRECTIVES } from './index';
+import { CORE_PROVIDERS, CORE_IMPORTS, CORE_DIRECTIVES, CORE_PIPES } from './index';
 import { Config } from './utils/index';
 
 interface ICoreModuleOptions {
@@ -26,14 +26,16 @@ interface ICoreModuleOptions {
         CORE_IMPORTS
     ],
     declarations: [
-        CORE_DIRECTIVES
+        CORE_DIRECTIVES,
+        CORE_PIPES
     ],
     exports: [
         CommonModule,
         FormsModule,
         RouterModule,
         HttpModule,
-        CORE_DIRECTIVES
+        CORE_DIRECTIVES,
+        CORE_PIPES
     ],
     providers: [
         CORE_PROVIDERS

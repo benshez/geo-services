@@ -41,8 +41,11 @@ a.link {
           width: 100%;
           cursor: pointer;
           padding: 0.5rem;
+          display:inline-block;
 
-          &.selected {
+          &:focus {
+            background-color: blue;
+            color: #fff;
           }
         }
       }

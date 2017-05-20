@@ -41,6 +41,13 @@ export const CORE_IMPORTS: any[] = [
     LockerModule
 ];
 
+
+//pipes
+import { ValuesPipe } from './pipes/values/pipe';
+export const CORE_PIPES: any[] = [
+    ValuesPipe
+];
+
 export * from './utils/index';
 export * from './interfaces/index';
 export * from './services/index';

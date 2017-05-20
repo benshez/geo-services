@@ -1,21 +1,30 @@
 ﻿// libs
-import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
+import {
+    Component, OnInit, Input, ChangeDetectionStrategy, ViewChild, Injectable,
+    Inject, ViewChildren, AfterViewInit, ElementRef, Query, QueryList, Renderer
+} from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 
 // app
 import { ApiService, Locker } from '../../../core/index';
 import { User, ApiServiceParametersOptions } from '../../../core/index';
 import { Config, Mapper, RouterExtensions, IMapFeatures, ICoordinates, IIndustries } from '../../../core/index';
 
+import { WebTypeAheadComponent } from '../type-ahead/component';
+
 @Component({
     moduleId: module.id,
     selector: 'sd-map-places',
     templateUrl: Config.COMPONENT_ITEMS.TEMPLATE,
     styleUrls: [Config.COMPONENT_ITEMS.CSS],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    //host: {
+    //    '(keydown)': 'onKeyDown($event)'
+    //}
 })
 export class WebMapPlacesComponent implements OnInit {
     public loading: boolean = false;
@@ -28,16 +37,23 @@ export class WebMapPlacesComponent implements OnInit {
     private returnUrl: string;
     private industriesSearch = new FormControl();
     private mapPlacesSearch = new FormControl();
+    private selectedIndustryIndex: number = -1;
 
+    private upDownEvents = new Subject<string>();
+    private enterPresses = new Subject<any>();
+
+    @ViewChildren('industriesSuggestions') industriesSuggestions: QueryList<ElementRef>;
+    @ViewChild('search') search: ElementRef;
     constructor(
-        public apiService: ApiService,
+        private apiService: ApiService,
         private locker: Locker,
         private fb: FormBuilder,
         private apiOptions: ApiServiceParametersOptions,
         private route: ActivatedRoute,
         private router: Router,
         private mapper: Mapper,
-        public routerext: RouterExtensions) { }
+        private routerext: RouterExtensions,
+        private renderer: Renderer) { }
 
     ngOnInit() {
         this.returnUrl = this.route.snapshot.queryParams[Config.ROUTE_PARAMETERS.LOGIN_RETURN_URL] || '/';
@@ -52,6 +68,45 @@ export class WebMapPlacesComponent implements OnInit {
             .onErrorResumeNext();
 
         this.mapPlaces = this.mapper.searchMapFeatures(this.mapPlacesSearch.valueChanges);
+    }
+
+    onBindIndustries(args: string) {
+        return this.mapper.onIndustriesQuery(args)
+    }
+
+    ngAfterViewInit() {
+        this.upDownEvents
+            .withLatestFrom(this.industries)
+            .subscribe(([event, industries]) => {
+                for (let industry of industries) {
+                    if (industry.id) {
+                        switch (<string>event) {
+                            case 'up':
+                                this.selectedIndustryIndex = (this.selectedIndustryIndex < 1) ? 0 : this.selectedIndustryIndex - 1;
+                                break;
+                            case 'down':
+                                this.selectedIndustryIndex = (this.selectedIndustryIndex > industries.length) ? industries.length : this.selectedIndustryIndex + 1;
+                                break;
+                        }
+
+                        if (this.selectedIndustryIndex < industries.length) {
+                            let cIndustriesSuggestion: HTMLUListElement = null;
+
+                            let industryItem: ElementRef = this.industriesSuggestions
+                                .filter(x => {
+                                    cIndustriesSuggestion = x.nativeElement;
+                                    return cIndustriesSuggestion.id === industries[this.selectedIndustryIndex].id.toString();
+                                })[0];
+
+                            if (this.industriesSuggestions.length > 0) {
+                                this.renderer.invokeElementMethod(industryItem.nativeElement, 'focus', []);
+                            }
+                        }
+
+                        return;
+                    }
+                }
+            })
     }
 
     onSetLocation() {
@@ -72,16 +127,20 @@ export class WebMapPlacesComponent implements OnInit {
     onIndustriesChanged(args: IIndustries) {
         this.showMapPlaces = false;
         if (args && args.id) {
-            this.industriesSearch.setValue(args.description, {
-                onlySelf: true,
-                emitEvent: false,
-                emitModelToViewChange: true,
-                emitViewToModelChange: true
-            });
             Config.ROUTE_PARAMETERS.INDUSTRY = args.id;
+            this.onUpdateModel(args.description);
             this.showIndustries = false;
             this.showMapPlaces = true;
         }
+    }
+
+    onUpdateModel(activeSuggestion: string) {
+        this.industriesSearch.setValue(activeSuggestion, {
+            onlySelf: true,
+            emitEvent: false,
+            emitModelToViewChange: true,
+            emitViewToModelChange: true
+        });
     }
 
     onPlacesChanged(args: IMapFeatures) {
@@ -99,5 +158,17 @@ export class WebMapPlacesComponent implements OnInit {
                 name: Config.TRANSITION.SLIDE_TOP,
             }
         });
+    }
+
+    onKeyDown(event: string) {
+        if (!this.showIndustries) return;
+        this.upDownEvents.next(event);
+    }
+
+    onKeyDownEnter(args: IIndustries): void {
+        this.onIndustriesChanged(args);
+        this.enterPresses.next(null);
+        this.renderer.invokeElementMethod(this.search.nativeElement, 'focus', []);
+        this.showIndustries = false;
     }
 }

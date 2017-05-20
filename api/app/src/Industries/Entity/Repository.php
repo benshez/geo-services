@@ -6,6 +6,7 @@ Doctrine\ORM\EntityRepository;
 
 class Repository extends EntityRepository
 {
+
     public function getAutoComplete($description = null)
     {
         $description = strtolower($description);

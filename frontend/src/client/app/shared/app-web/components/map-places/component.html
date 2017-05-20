@@ -1,10 +1,13 @@
 ﻿<h2>Map Places</h2>
 <div id="map">
+  <sd-auto-typeahead placeholder="SEARCH_INDUSTRIES" [source]="onBindIndustries.bind(this)" value="description" key="id"></sd-auto-typeahead>
   <div class="auto-complete-wrapper">
-    <input class="auto-complete-input" type="text" [formControl]="industriesSearch" placeholder="{{'SEARCH_INDUSTRIES' | translate}}">
+    <input #search class="auto-complete-input" type="text" [formControl]="industriesSearch" placeholder="{{'SEARCH_INDUSTRIES' | translate}}" (keydown.ArrowDown)="onKeyDown('down')">
     <div class="auto-complete" [hidden]="!showIndustries">
       <ul>
-        <li class="item" *ngFor="let industry of industries | async" (click)="onIndustriesChanged(industry)">{{industry.description}}</li>
+        <li >
+          <a tabindex="-1" #industriesSuggestions class="item" *ngFor="let industry of industries | async" (click)="onIndustriesChanged(industry)" [attr.id]="industry.id" (keydown.ArrowDown)="onKeyDown('down')" (keydown.ArrowUp)="onKeyDown('up')" (keydown.Enter)="onKeyDownEnter(industry)">{{industry.description}}</a>
+        </li>
       </ul>
     </div>
   </div>
