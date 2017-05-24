@@ -11,7 +11,9 @@ import {
     IListener,
     IMapQuery,
     IMapFeatures,
-    IIndustries
+    IIndustries,
+    IDictionary,
+    IDictionaryPair
 } from '../index';
 
 import { Locker } from '../services/locker/index';
@@ -19,6 +21,8 @@ import { Locker } from '../services/locker/index';
 import { ApiService } from '../services/api/api.service';
 
 import { ApiServiceParametersOptions } from '../models/Api';
+
+import { Dictionary } from '../models/Dictionary';
 
 @Directive({
     selector: '[mapper]'
@@ -105,6 +109,50 @@ export class Mapper {
         }
     }
 
+    searchIndustries(terms: Observable<string>, key: string, value: string, delay: number) {
+        return terms.debounceTime(delay)
+            .distinctUntilChanged()
+            .switchMap(term => this.onIndustriesFinder(term, key, value));
+    }
+
+    onIndustriesFinder = (query: string, key: string, value: string): Observable<IDictionary[]>=> {
+        if (query && query.length > 2) {
+            this.apiOptions = new ApiServiceParametersOptions();
+            this.apiOptions.cacheKey = Config.CACHE_KEYS.INDUSTRIES_KEY.concat(query);
+            this.apiOptions.url = Config.API_END_POINTS.INDUSTRIES.concat(query);
+            this.apiOptions.parameters = '';
+            this.apiOptions.concatApi = true;
+
+            if (this.locker.has(this.apiOptions.cacheKey)) {
+                let dataArr: any = Observable.of(<IDictionary[]>this.locker.get(this.apiOptions.cacheKey));
+                debugger
+                return Observable.of(<IDictionary[]>this.locker.get(this.apiOptions.cacheKey));
+            };
+
+            return this.apiService.mapper(this.apiOptions)
+                .map((res) => {
+                    let dataArr: any = [];
+                    let persons = new Dictionary([]);
+                    res.json().forEach((suggestion: any, index: any) => {
+                        persons.add(suggestion[key], suggestion[value]);
+                        //debugger
+                        let item: any = [];
+                        this.onAssign(item, 'key', suggestion[key]);
+                        this.onAssign(item, 'value', suggestion[value]);
+                        dataArr.push(item);
+                    });
+                    if (this.apiOptions.cacheKey !== '') this.locker.set(this.apiOptions.cacheKey, (<IDictionary[]>dataArr));
+                    return persons.toList();//dataArr;
+                })
+                .catch((error: any) => {
+                    debugger
+                    return Observable.of([]);
+                });
+        } else {
+            return Observable.of([]);
+        }
+    }
+
     onIndustriesQuery = (query: string): Observable<IIndustries[]> => {
         if (query && query.length > 2) {
             this.apiOptions = new ApiServiceParametersOptions();
@@ -128,5 +176,11 @@ export class Mapper {
         } else {
             return Observable.of([]);
         }
+    }
+
+    onAssign(obj: any, prop: any, value: any) {
+        if (typeof prop === 'string')
+            prop = prop.split('.');
+        obj[prop[0]] = value;
     }
 }

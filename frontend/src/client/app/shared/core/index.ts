@@ -1,9 +1,10 @@
 ﻿// directives
-import { PlatformDirective, Mapper } from './directives/index';
+import { PlatformDirective, Mapper, Location } from './directives/index';
 
 export const CORE_DIRECTIVES: any[] = [
     PlatformDirective,
-    Mapper
+    Mapper,
+    Location
 ];
 
 import {
@@ -33,7 +34,8 @@ export const CORE_PROVIDERS: any[] = [
     Broadcaster,
     ApiServiceOptions,
     ApiServiceParametersOptions,
-    Mapper
+    Mapper,
+    Location
 ];
 
 // imports

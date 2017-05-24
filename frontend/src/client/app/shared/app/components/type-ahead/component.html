@@ -1,6 +1,6 @@
 ﻿<div class="auto-complete-wrapper" id="typeAhead">
   <input #typeAheadInput class="auto-complete-input" [formControl]="typeAheadInputFormControl" type="text" placeholder="{{placeholder | translate}}" />
-  <div class="auto-complete" [hidden]="!typeAheadShow">
+  <div class="auto-complete" *ngIf="(typeAheadSource | async)?.length!==0">
     <ul>
       <li tabindex="-1" #typeAheadList class="item" *ngFor="let item of typeAheadSource | async" [attr.id]="item.key">{{item.value}}</li>
     </ul>

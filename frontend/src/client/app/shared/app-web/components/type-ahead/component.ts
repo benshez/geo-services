@@ -11,6 +11,8 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
+import { IKeyValuePair } from '../../../core/interfaces';
+
 
 // app
 @Component({
@@ -19,19 +21,22 @@ import { Subject } from 'rxjs/Subject';
     templateUrl: 'component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class WebTypeAheadComponent implements OnInit {
+export class WebTypeAheadComponent implements OnInit, AfterViewInit {
 
-    public typeAheadShow: boolean = false;
-    public typeAheadSource: any[] = [];
+    public typeAheadShow: boolean = true;
+    public typeAheadSource: Observable<Array<IKeyValuePair>>;
     public typeAheadKeyword: string;
 
     private typeAheadInputFormControl = new FormControl();
     private typeAheadPlaceHolder = '';
     private typeAheadItemValue = '';
     private typeAheadItemKey = '';
+    private typeAheadErrorMessage = '';
 
     @ViewChildren('typeAheadList') typeAheadList: QueryList<ElementRef>;
     @ViewChild('typeAheadInput') typeAheadInput: ElementRef;
+
+    @Input() delay: number = 400;
 
     @Input()
     set placeholder(placeholder: string) {
@@ -57,46 +62,93 @@ export class WebTypeAheadComponent implements OnInit {
     constructor(private renderer: Renderer) { }
 
     ngOnInit() {
-        Observable.fromEvent<KeyboardEvent>(this.typeAheadInput.nativeElement, 'keyup')
-            .debounceTime(400)
-            .distinctUntilChanged()
-            .subscribe((event: any) => {
-                this.onLoadSource(event.target.value);
-                
-            });
+        this.typeAheadSource = this.source(this.typeAheadInputFormControl.valueChanges, this.key, this.value, this.delay);
+    }
+
+    ngAfterViewInit() {
+
+      
+        //Observable.fromEvent(this.typeAheadInput.nativeElement, 'keyup')
+
+        //this.typeAheadSource = this.source(this.typeAheadInputFormControl.valueChanges);
+        //this.typeAheadInputFormControl.valueChanges
+        //    .debounceTime(this.delay)
+        //    .distinctUntilChanged()
+        //    .map(keyword => {
+        //        return this.source(keyword)
+        //    })
+        //    //.map((suggestions: any) => {
+        //    .subscribe((suggestions: any) => {
+        //        //let suggestions: any = this.source(event.target.value);
+        //        let arr: any = [];
+        //            suggestions.forEach((suggestion: any, index: any) => {
+        //                let item: any = [];
+        //                this.onAssign(item, 'id', suggestion[this.key]);
+        //                this.onAssign(item, 'value', suggestion[this.value]);
+        //                arr.push(item);
+        //            });
+        //            //this.typeAheadSource.complete();
+        //        //});
+        //        //this.typeAheadSource = suggestions;
+        //            this.typeAheadSource = Observable.of(<any>arr);
+        //            this.typeAheadShow = true;
+        //            //return this.typeAheadSource;
+        //    });
+        //this.typeAheadInputFormControl.valueChanges
+        //    .debounceTime(this.delay)
+        //    .distinctUntilChanged()
+        //    .switchMap(keyword => {
+        //        this.typeAheadShow = true;
+        //        return this.source(keyword)
+        //    })
+        //    .subscribe(
+        //    (json: any) => {
+        //        this.typeAheadSource = json;
+        //        let dataArr: any = [];
+
+        //        json.forEach((suggestion: any, index: any) => {
+        //            let item: any = [];
+        //            this.onAssign(item, 'id', suggestion[this.key]);
+        //            this.onAssign(item, 'value', suggestion[this.value]);
+        //            dataArr.push(item);
+        //        });
+
+        //        this.typeAheadSource = dataArr;
+        //        this.typeAheadShow = true;
+        //    },
+        //    (error: any) => this.typeAheadErrorMessage = <any>error,
+        //    () => { });
     }
 
     onDelayedLoad(keyword: string) {
-        this.delay(() => this.onLoadSource(keyword), 4000);
+        //this.delay(() => this.onLoadSource(keyword), 4000);
     }
 
-    onLoadSource(keyword: string) {
+    onLoadSource = (keyword: string): Observable<Array<any>> => {
         if (typeof this.source === 'function') {
-            this.source(keyword).subscribe(
-                resp => {
+            this.source(keyword)
+                .subscribe(resp => {
                     let dataArr: any = [];
-      
+
                     resp.forEach((suggestion: any, index: any) => {
                         let item: any = [];
-                        item['id'] = suggestion[this.key];
-                        item['value'] = suggestion[this.value];
+                        this.onAssign(item, 'id', suggestion[this.key]);
+                        this.onAssign(item, 'value', suggestion[this.value]);
                         dataArr.push(item);
                     });
 
                     this.typeAheadSource = dataArr;
-                    this.typeAheadShow = true;
-                }
-            );
+
+                    return dataArr;
+                });
         }
+        return null;
     }
 
-
-    private delay = (() => {
-        let timer = 0;
-        return function (callback: any, ms: number) {
-            clearTimeout(timer);
-            timer = setTimeout(callback, ms);
-        };
-    })();
+    onAssign(obj: any, prop: any, value: any) {
+        if (typeof prop === 'string')
+            prop = prop.split('.');
+        obj[prop[0]] = value;
+    }
 
 }
