@@ -7,5 +7,7 @@ export interface ILocationArguments {
     value: any;
     delay: number;
     minQueryLength: number;
+    cacheKey: string;
     apiOptions: ApiServiceParametersOptions;
+    DeepObjectName: string;
 }

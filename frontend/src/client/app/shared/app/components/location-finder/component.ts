@@ -16,6 +16,7 @@ import { TypeAheadComponent } from '../type-ahead/component';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LocationComponent {
+    public showMapPlaces: boolean = false;
 
     constructor(private location: Location) { }
 
@@ -24,9 +25,24 @@ export class LocationComponent {
         args.apiOptions.url = Config.API_END_POINTS.INDUSTRIES.concat('{query}');
         args.apiOptions.parameters = '';
         args.apiOptions.concatApi = true;
-        args.minQueryLength = 2;
 
-        return this.location.searchIndustries(args);
+        return this.location.onSearch(args);
     }
 
+    onBindPlaces(args: ILocationArguments) {
+        args.apiOptions = new ApiServiceParametersOptions();
+        args.apiOptions.url = Config.ENVIRONMENT().MAP_BOX_API.concat('{query}').concat('.json?access_token=').concat(Config.ENVIRONMENT().MAP_BOX_API_KEY);//Config.API_END_POINTS.INDUSTRIES.concat('{query}');
+        args.apiOptions.parameters = '';
+        args.apiOptions.concatApi = false;
+
+        return this.location.onSearch(args);
+    }
+
+    onIndustryChange(args: any) {
+        this.showMapPlaces = false;
+        if (args && args.key) {
+            Config.ROUTE_PARAMETERS.INDUSTRY = args.key;
+            this.showMapPlaces = true;
+        }
+    }
 }

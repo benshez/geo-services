@@ -5,8 +5,8 @@ import { Observable } from 'rxjs/Observable';
 import {
     Config,
     IDictionary,
-    IDictionaryPair,
-    ILocationArguments
+    ILocationArguments,
+    IKeyValuePair
 } from '../index';
 
 import { Locker } from '../services/locker/index';
@@ -17,21 +17,6 @@ import { ApiServiceParametersOptions } from '../models/Api';
 
 import { Dictionary } from '../models/Dictionary';
 
-class Key {
-    constructor(public key: number) {
-    }
-    toString() {
-        return this.key;
-    }
-}
-
-class Value {
-    constructor(public value: any) {
-    }
-    toString() {
-        return this.value;
-    }
-}
 
 @Directive({
     selector: '[location]'
@@ -44,36 +29,41 @@ export class Location {
         private apiOptions: ApiServiceParametersOptions,
         private locker: Locker) { }
 
-    searchIndustries(args: ILocationArguments) {
+    onSearch(args: ILocationArguments) {
         return args.keyword.debounceTime(args.delay)
             .distinctUntilChanged()
-            .switchMap(term => this.onIndustriesQuery(term, args))
-            .onErrorResumeNext();
+            .switchMap(term => this.onQuery(term, args))
+            .onErrorResumeNext()
     }
 
-    onIndustriesQuery = (query: string, args: ILocationArguments): Observable<Array<IDictionary>> => {
-        args.apiOptions.cacheKey = Config.CACHE_KEYS.INDUSTRIES_KEY.concat(query);
-        args.apiOptions.url = args.apiOptions.url.replace('{query}', query);
-
+    onQuery = (query: string, args: ILocationArguments): Observable<Array<IKeyValuePair[]>> => {
         if (query && query.length > args.minQueryLength) {
+
+            if (args.apiOptions.cacheKey !== '') args.apiOptions.cacheKey = args.cacheKey.replace('{query}', query).concat(query.length.toString());
+            args.apiOptions.url = args.apiOptions.url.replace('{query}', query);
+
             if (this.locker.has(args.apiOptions.cacheKey)) {
-                return Observable.of(this.fillDictionary(this.locker.get(args.apiOptions.cacheKey), args).toList()) as any;
+                let data: any = this.locker.get(args.apiOptions.cacheKey);
+                return Observable.of(this.fillDictionary(data, args).toList()) as any;
             };
 
             return this.apiService.mapper(args.apiOptions)
                 .map((res) => {
-                    if (args.apiOptions.cacheKey !== '') this.locker.set(args.apiOptions.cacheKey, res.json());
-                    return this.fillDictionary(res.json(), args).toList();
+                    let data: any = (args.DeepObjectName != '') ? res.json()[args.DeepObjectName] : res.json();
+                    if (args.apiOptions.cacheKey !== '') this.locker.set(args.apiOptions.cacheKey, data);
+                    return this.fillDictionary(data, args).toList();
                 })
                 .catch((error: any) => {
+                    args.apiOptions.url = args.apiOptions.url.replace(query, '{query}');
                     return Observable.of([]);
-                });
+                })
+                .finally(() => { args.apiOptions.url = args.apiOptions.url.replace(query, '{query}'); });
         } else {
             return Observable.of([]);
         }
     }
 
-    fillDictionary = (suggestions: any[], args: ILocationArguments): Dictionary => {
+    private fillDictionary = (suggestions: any[], args: ILocationArguments): Dictionary<IKeyValuePair> => {
         let dict = new Dictionary();
         suggestions.forEach((suggestion: any, index: any) => {
             dict.add([], ['key', 'value'], [suggestion[args.key], suggestion[args.value]]);

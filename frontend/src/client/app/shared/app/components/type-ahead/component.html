@@ -1,9 +1,8 @@
-﻿<div class="auto-complete-wrapper" id="typeAhead">
-  <input #typeAheadInput class="auto-complete-input" [formControl]="typeAheadInputFormControl" type="text" placeholder="{{placeholder | translate}}" />
-  <div class="auto-complete" *ngIf="(typeAheadSource | async)?.length!==0">
+﻿<div class="typeahead-wrapper">
+  <input #typeAheadInput class="typeahead-input" [formControl]="typeAheadInputFormControl" type="text" placeholder="{{placeholder | translate}}" (keydown.ArrowDown)="onKeyDownArrow('down')"/>
+  <div class="typeahead" *ngIf="(typeAheadSource | async)?.length!==0">
     <ul>
-      <li tabindex="-1" #typeAheadList class="item" *ngFor="let item of typeAheadSource | async" [attr.id]="item.key">{{item.value}}</li>
+      <li tabindex="-1" #typeAheadList class="item" *ngFor="let item of typeAheadSource | async" [attr.id]="item.key" (keydown.ArrowDown)="onKeyDownArrow('down')" (keydown.ArrowUp)="onKeyDownArrow('up')" (click)="onKeyDownEnter(item)" (keydown.Enter)="onKeyDownEnter(item)">{{item.value}}</li>
     </ul>
   </div>
-  {{typeAheadShow}}
 </div>

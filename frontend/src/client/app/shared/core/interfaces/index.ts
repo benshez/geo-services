@@ -9,3 +9,4 @@ export * from './iindustries';
 export * from './idictionary';
 export * from './idictionarypair';
 export * from './ilocationarguments';
+export * from './ikeyvaluepair';

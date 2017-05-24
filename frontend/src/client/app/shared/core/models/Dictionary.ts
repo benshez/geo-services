@@ -1,6 +1,6 @@
-﻿import { IDictionary } from '../index';
+﻿import { IDictionary, IKeyValuePair } from '../index';
 
-export class Dictionary implements IDictionary {
+export class Dictionary<T> implements IDictionary {
     private keysValues: any[] = [];
 
     constructor(obj: any[] = []) {
@@ -37,6 +37,10 @@ export class Dictionary implements IDictionary {
         }
 
         return true;
+    }
+
+    count(): number {
+        return this.keysValues.length;
     }
 
     toLookup(): IDictionary {

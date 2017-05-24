@@ -661,6 +661,9 @@
     <TypeScriptCompile Include="src\client\app\shared\core\interfaces\idictionary.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="src\client\app\shared\core\interfaces\ikeyvaluepair.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="src\client\app\shared\core\interfaces\ilistener.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
