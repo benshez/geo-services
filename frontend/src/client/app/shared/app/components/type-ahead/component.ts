@@ -107,7 +107,12 @@ export class TypeAheadComponent implements OnInit, AfterViewInit {
         this.onTypeAheadIndexChanged.emit(args);
         this.typeAheadEnterPresses.next(null);
         this.renderer.invokeElementMethod(this.typeAheadInput.nativeElement, Config.EVENTS.FOCUS, []);       
-        this.typeAheadInputFormControl.setValue(args.value);
+        this.typeAheadInputFormControl.setValue(args.value, {
+            onlySelf: true,
+            emitEvent: false,
+            emitModelToViewChange: true,
+            emitViewToModelChange: true
+        });
         this.typeAheadShown = false;
     }
 
@@ -128,7 +133,7 @@ export class TypeAheadComponent implements OnInit, AfterViewInit {
         this.typeAheadSource = this.source(args);
 
         this.typeAheadValueChange = this.typeAheadInputFormControl.valueChanges
-            .subscribe((value: any) => { this.typeAheadShown = value.length >= this.minlength; });
+            .subscribe((value: any) => { this.typeAheadShown = value.length >= this.minlength;});
     }
 
     subscribeTypeAheadUpDownEvents() {
