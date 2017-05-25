@@ -11,8 +11,9 @@ import { FormControl } from '@angular/forms';
 
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
+import { Subscription } from 'rxjs/Subscription';
 
-import { ILocationArguments, IKeyValuePair } from '../../../core/interfaces';
+import { Config, ILocationArguments, IKeyValuePair } from '../../../core/index';
 
 // app
 @Component({
@@ -36,6 +37,7 @@ export class TypeAheadComponent implements OnInit, AfterViewInit {
     private typeAheadDeepObjectName: string = '';
     private typeAheadUpDownEvents = new Subject<string>();
     private typeAheadEnterPresses = new Subject<any>();
+    private typeAheadValueChange: Subscription;
     private typeAheadSelectedIndex: number = -1;
 
     @ViewChildren('typeAheadList') typeAheadList: QueryList<ElementRef>;
@@ -77,23 +79,12 @@ export class TypeAheadComponent implements OnInit, AfterViewInit {
     }
     get object(): string { return this.typeAheadDeepObjectName; }
 
-    @Output() onTypeAheadIndexChanged: any = new EventEmitter();;
+    @Output() onTypeAheadIndexChanged: any = new EventEmitter();
 
     constructor(private renderer: Renderer) { }
 
     ngOnInit() {
-        let args: ILocationArguments = {
-            keyword: this.typeAheadInputFormControl.valueChanges,
-            key: this.key,
-            value: this.value,
-            delay: this.delay,
-            apiOptions: null,
-            minQueryLength: this.minlength,
-            cacheKey: this.cache.concat('_').concat('{query}'),
-            DeepObjectName: this.typeAheadDeepObjectName
-        };
-
-        this.typeAheadSource = this.source(args);
+        this.subscribeTypeAheadSourse();
     }
 
     ngAfterViewInit() {
@@ -115,14 +106,29 @@ export class TypeAheadComponent implements OnInit, AfterViewInit {
     onKeyDownEnter(args: any): void {
         this.onTypeAheadIndexChanged.emit(args);
         this.typeAheadEnterPresses.next(null);
-        this.renderer.invokeElementMethod(this.typeAheadInput.nativeElement, 'focus', []);       
-        this.typeAheadInputFormControl.setValue(args.value, {
-            onlySelf: true,
-            emitEvent: false,
-            emitModelToViewChange: true,
-            emitViewToModelChange: true
-        });
+        this.renderer.invokeElementMethod(this.typeAheadInput.nativeElement, Config.EVENTS.FOCUS, []);       
+        this.typeAheadInputFormControl.setValue(args.value);
         this.typeAheadShown = false;
+    }
+
+    subscribeTypeAheadSourse() {
+        if (this.typeAheadValueChange) this.typeAheadValueChange.unsubscribe;
+
+        let args: ILocationArguments = {
+            keyword: this.typeAheadInputFormControl.valueChanges,
+            key: this.key,
+            value: this.value,
+            delay: this.delay,
+            apiOptions: null,
+            minQueryLength: this.minlength,
+            cacheKey: this.cache.concat('_').concat('{query}'),
+            DeepObjectName: this.typeAheadDeepObjectName
+        };
+
+        this.typeAheadSource = this.source(args);
+
+        this.typeAheadValueChange = this.typeAheadInputFormControl.valueChanges
+            .subscribe((value: any) => { this.typeAheadShown = value.length >= this.minlength; });
     }
 
     subscribeTypeAheadUpDownEvents() {
@@ -132,10 +138,10 @@ export class TypeAheadComponent implements OnInit, AfterViewInit {
                 for (let suggestion of suggestions) {
                     if (suggestion.key) {
                         switch (<string>event) {
-                            case 'up':
+                            case Config.EVENTS.ARROW_UP:
                                 this.typeAheadSelectedIndex = (this.typeAheadSelectedIndex < 1) ? 0 : this.typeAheadSelectedIndex - 1;
                                 break;
-                            case 'down':
+                            case Config.EVENTS.ARROW_DOWN:
                                 this.typeAheadSelectedIndex = (this.typeAheadSelectedIndex > suggestions.length) ? suggestions.length : this.typeAheadSelectedIndex + 1;
                                 break;
                         }
@@ -150,7 +156,7 @@ export class TypeAheadComponent implements OnInit, AfterViewInit {
                                 })[0];
 
                             if (this.typeAheadList.length > 0) {
-                                this.renderer.invokeElementMethod(industryItem.nativeElement, 'focus', []);
+                                this.renderer.invokeElementMethod(industryItem.nativeElement, Config.EVENTS.FOCUS, []);
                             }
                         }
 

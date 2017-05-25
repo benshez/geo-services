@@ -17,9 +17,8 @@ import { ApiServiceParametersOptions } from '../models/Api';
 
 import { Dictionary } from '../models/Dictionary';
 
-
 @Directive({
-    selector: '[location]'
+    selector: '[sd-location]'
 })
 export class Location {
 
@@ -38,7 +37,6 @@ export class Location {
 
     onQuery = (query: string, args: ILocationArguments): Observable<Array<IKeyValuePair[]>> => {
         if (query && query.length > args.minQueryLength) {
-
             if (args.apiOptions.cacheKey !== '') args.apiOptions.cacheKey = args.cacheKey.replace('{query}', query).concat(query.length.toString());
             args.apiOptions.url = args.apiOptions.url.replace('{query}', query);
 
@@ -66,7 +64,7 @@ export class Location {
     private fillDictionary = (suggestions: any[], args: ILocationArguments): Dictionary<IKeyValuePair> => {
         let dict = new Dictionary();
         suggestions.forEach((suggestion: any, index: any) => {
-            dict.add([], ['key', 'value'], [suggestion[args.key], suggestion[args.value]]);
+            dict.add([], [Config.DICTIONAR_KEYS.KEY, Config.DICTIONAR_KEYS.VALUE], [suggestion[args.key], suggestion[args.value]]);
         });
         return dict;
     }

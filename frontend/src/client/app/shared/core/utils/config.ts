@@ -57,6 +57,17 @@ export interface ITranstion {
     SLIDE_TOP: string;
 }
 
+export interface IEvents {
+    ARROW_UP: string;
+    ARROW_DOWN: string;
+    FOCUS: string;
+}
+
+export interface IDictionaryKeys {
+    KEY: string;
+    VALUE: string;
+}
+
 export class Config {
 
     public static PageClass: any;
@@ -170,5 +181,16 @@ export class Config {
     public static TRANSITION: ITranstion = {
         DURATION: 1000,
         SLIDE_TOP: 'slideTop'
+    }
+
+    public static EVENTS: IEvents = {
+        ARROW_UP: 'up',
+        ARROW_DOWN: 'down',
+        FOCUS: 'focus'
+    }
+
+    public static DICTIONAR_KEYS: IDictionaryKeys = {
+        KEY: 'key',
+        VALUE: 'value'
     }
 }
