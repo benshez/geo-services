@@ -11,7 +11,7 @@
 
 <form (submit)="addName()">
   <input [(ngModel)]="newName" name="newName" [placeholder]="'INPUT_HINT' | translate">
-  <button type="submit">{{'ADD_BTN_TEXT' | translate}}</button>
+  <button type="submit" class="btn">{{'ADD_BTN_TEXT' | translate}}</button>
 </form>
 
 <ul>
@@ -19,5 +19,5 @@
 </ul>
 
 <p>
-  <a class="link" (click)="readAbout()">About - RouterExtensions example</a>
+  <a class="btn" (click)="readAbout()">About - RouterExtensions example</a>
 </p>

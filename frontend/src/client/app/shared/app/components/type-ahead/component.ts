@@ -19,14 +19,15 @@ import { Config, ILocationArguments, IKeyValuePair } from '../../../core/index';
 @Component({
     moduleId: module.id,
     selector: 'sd-typeahead',
-    templateUrl: 'component.html',
+    templateUrl: Config.COMPONENT_ITEMS.TEMPLATE,
+    styleUrls: [Config.COMPONENT_ITEMS.CSS],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TypeAheadComponent implements OnInit, AfterViewInit {
 
     public typeAheadSource: Array<IKeyValuePair[]>;
     public typeAheadKeyword: string;
-    public typeAheadShown: boolean = true;
+    public typeAheadShown: boolean = false;
 
     private typeAheadInputFormControl = new FormControl();
     private typeAheadPlaceHolder: string = '';
@@ -117,7 +118,9 @@ export class TypeAheadComponent implements OnInit, AfterViewInit {
     }
 
     subscribeTypeAheadSourse() {
-        if (this.typeAheadValueChange) this.typeAheadValueChange.unsubscribe;
+        if (this.typeAheadValueChange) {
+            this.typeAheadValueChange.unsubscribe;
+        }
 
         let args: ILocationArguments = {
             keyword: this.typeAheadInputFormControl.valueChanges,

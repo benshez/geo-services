@@ -10,8 +10,8 @@ import { IAppState, getNames } from '../../shared/ngrx/index';
 @Component({
     moduleId: module.id,
     selector: 'sd-home',
-    templateUrl: 'component.html',
-    styleUrls: ['component.css']
+    templateUrl: Config.COMPONENT_ITEMS.TEMPLATE,
+    styleUrls: [Config.COMPONENT_ITEMS.CSS],
 })
 export class HomeComponent implements OnInit {
     public names$: Observable<any>;

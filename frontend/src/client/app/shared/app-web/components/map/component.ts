@@ -18,7 +18,8 @@ import * as MapBoxGeocoder from '@mapbox/mapbox-gl-geocoder';
 @Component({
     moduleId: module.id,
     selector: 'sd-map',
-    templateUrl: 'component.html'
+    templateUrl: Config.COMPONENT_ITEMS.TEMPLATE,
+    styleUrls: [Config.COMPONENT_ITEMS.CSS],
 })
 export class WebMapComponent implements OnInit {
 

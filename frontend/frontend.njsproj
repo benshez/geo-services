@@ -212,6 +212,7 @@
     <Folder Include="src\client\assets\img\" />
     <Folder Include="src\client\assets\svg\" />
     <Folder Include="src\client\css\" />
+    <Folder Include="src\client\css\theme\" />
     <Folder Include="src\client\scss\" />
     <Folder Include="src\e2e\" />
     <Folder Include="src\e2e\framework\" />
@@ -362,7 +363,7 @@
     <Content Include="src\client\app\shared\app-web\components\map-places\component.scss" />
     <Content Include="src\client\app\shared\app-web\components\map\component.css" />
     <Content Include="src\client\app\shared\app\components\location-finder\component.html" />
-    <Content Include="src\client\app\shared\app\components\location-finder\component.scss" />
+    <Content Include="src\client\app\shared\app\components\location-finder\component.css" />
     <Content Include="nativescript\src\mobile\app-ns\components\map\component.tns.html" />
     <Content Include="nativescript\src\mobile\app-ns\components\map\component.tns.scss" />
     <Content Include="nativescript\src\package.json" />
@@ -373,15 +374,15 @@
     <Content Include="nativescript\yarn.lock" />
     <Content Include="package.json" />
     <Content Include="src\client\app\components\about\component.html" />
-    <Content Include="src\client\app\components\about\component.scss" />
+    <Content Include="src\client\app\components\about\component.css" />
     <Content Include="src\client\app\components\about\component.tns.html" />
-    <Content Include="src\client\app\components\about\component.tns.scss" />
+    <Content Include="src\client\app\components\about\component.tns.css" />
     <Content Include="src\client\app\components\component.html" />
     <Content Include="src\client\app\components\component.tns.html" />
     <Content Include="src\client\app\components\home\component.html" />
-    <Content Include="src\client\app\components\home\component.scss" />
+    <Content Include="src\client\app\components\home\component.css" />
     <Content Include="src\client\app\components\home\component.tns.html" />
-    <Content Include="src\client\app\components\home\component.tns.scss" />
+    <Content Include="src\client\app\components\home\component.tns.css" />
     <Content Include="src\client\app\shared\app-web\components\map\component.html" />
     <Content Include="src\client\app\shared\app-web\components\map\component.scss" />
     <Content Include="src\client\app\shared\app-web\components\type-ahead\component.html" />
@@ -395,7 +396,7 @@
     <Content Include="src\client\app\shared\app\components\toolbar\component.tns.css" />
     <Content Include="src\client\app\shared\app\components\toolbar\component.tns.html" />
     <Content Include="src\client\app\shared\app\components\type-ahead\component.html" />
-    <Content Include="src\client\app\shared\app\components\type-ahead\component.scss" />
+    <Content Include="src\client\app\shared\app\components\type-ahead\component.css" />
     <Content Include="src\client\app\shared\app\components\user\login\component.html" />
     <Content Include="src\client\app\shared\app\components\user\login\component.scss" />
     <Content Include="src\client\app\shared\app\components\user\login\component.tns.html" />
@@ -433,7 +434,19 @@
     <Content Include="src\client\assets\logo.ico" />
     <Content Include="src\client\assets\svg\more.svg" />
     <Content Include="src\client\assets\svg\smile.svg" />
+    <Content Include="src\client\css\theme\_buttons.scss" />
+    <Content Include="src\client\css\theme\_color.scss" />
+    <Content Include="src\client\css\theme\_dropdown.scss" />
     <Content Include="src\client\css\main.scss" />
+    <Content Include="src\client\css\theme\_global.scss" />
+    <Content Include="src\client\css\theme\_input-fields.scss" />
+    <Content Include="src\client\css\theme\_map.scss">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="src\client\css\theme\_navbar.scss" />
+    <Content Include="src\client\css\theme\_normalize.scss" />
+    <Content Include="src\client\css\theme\_typography.scss" />
+    <Content Include="src\client\css\theme\_variables.scss" />
     <Content Include="src\client\index.html" />
     <Content Include="src\client\ngsw-manifest.json" />
     <Content Include="src\client\package.json" />

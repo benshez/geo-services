@@ -3,13 +3,13 @@
 // app
 import { LogService } from '../../../core/index';
 
+import { Config } from '../../../core/index';
+
 @Component({
     moduleId: module.id,
     selector: 'sd-toolbar',
-    templateUrl: 'component.html',
-    styleUrls: [
-        'component.css',
-    ],
+    templateUrl: Config.COMPONENT_ITEMS.TEMPLATE,
+    styleUrls: [Config.COMPONENT_ITEMS.CSS],
 })
 export class ToolbarComponent {
 
