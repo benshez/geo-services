@@ -18,7 +18,8 @@ import {
     ApiServiceParametersOptions,
     ApiServiceOptions,
     ConsoleService,
-    LogService
+    LogService,
+    LoaderService
 
 } from './services/index';
 
@@ -35,7 +36,8 @@ export const CORE_PROVIDERS: any[] = [
     ApiServiceOptions,
     ApiServiceParametersOptions,
     Mapper,
-    Location
+    Location,
+    LoaderService
 ];
 
 // imports

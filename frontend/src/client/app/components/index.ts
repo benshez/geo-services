@@ -16,7 +16,6 @@ export * from './home/component';
 //routes
 import { HOME_ROUTES } from './home/routes';
 import { ABOUT_ROUTES } from './about/routes';
-
 export const APP_ROUTES: Array<any> = [
     ...HOME_ROUTES,
     ...ABOUT_ROUTES

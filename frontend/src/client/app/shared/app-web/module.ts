@@ -6,7 +6,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
 // app
-import { SHARED_COMPONENTS } from './index';
+import { WEB_COMPONENTS, WEB_PROVIDERS } from './index';
 import { MultilingualModule } from '../i18n/multilingual.module';
 import { Config } from '../core/index';
 
@@ -23,16 +23,17 @@ import { Config } from '../core/index';
         MultilingualModule
     ],
     declarations: [
-        SHARED_COMPONENTS
+        WEB_COMPONENTS
     ],
     providers: [
+        WEB_PROVIDERS
     ],
     schemas: [
         NO_ERRORS_SCHEMA,
         CUSTOM_ELEMENTS_SCHEMA
     ],
     exports: [
-        SHARED_COMPONENTS,
+        WEB_COMPONENTS,
         MultilingualModule
     ]
 })

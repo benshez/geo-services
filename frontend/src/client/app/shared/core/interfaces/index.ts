@@ -10,3 +10,4 @@ export * from './idictionary';
 export * from './idictionarypair';
 export * from './ilocationarguments';
 export * from './ikeyvaluepair';
+export * from './iloaderstate';

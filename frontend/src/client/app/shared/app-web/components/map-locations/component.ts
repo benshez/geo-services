@@ -6,7 +6,7 @@ import { RouterExtensions, Config, Location, ILocationArguments, IMapFeatures } 
 
 import { ApiServiceParametersOptions } from '../../../core/models/Api';
 
-import { TypeAheadComponent } from '../type-ahead/component';
+import { TypeAheadComponent } from '../../../app/components/type-ahead/component';
 
 @Component({
     moduleId: module.id,
@@ -15,7 +15,7 @@ import { TypeAheadComponent } from '../type-ahead/component';
     styleUrls: [Config.COMPONENT_ITEMS.CSS],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LocationComponent {
+export class WebMapLocationComponent {
     public showMapPlaces: boolean = false;
 
     constructor(private location: Location, private routerext: RouterExtensions) { }

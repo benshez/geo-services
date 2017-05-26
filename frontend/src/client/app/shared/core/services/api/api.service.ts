@@ -7,20 +7,22 @@ import { Config } from '../../utils/index';
 import { ApiServiceOptions, ApiServiceParametersOptions } from '../../models/index';
 
 import { Locker } from '../locker/index';
-import { MessageEvent } from '../message/service';
 import { LogService } from '../logging/index';
+import { LoaderService } from '../../services/loader/index';
 
 @Injectable()
 export class ApiService {
 
-    constructor(private http: Http, private logger: LogService, private message: MessageEvent,
-        private locker: Locker, private apiServiceOptions: ApiServiceOptions) { }
+    constructor(private http: Http,
+        private logger: LogService,
+        private locker: Locker,
+        private apiServiceOptions: ApiServiceOptions,
+        private loaderService: LoaderService) { }
 
     get(parameters: ApiServiceParametersOptions): Observable<Response> {
-        this.message.fire(true);
+        this.showLoader();
 
         if (this.locker.has(parameters.url)) {
-            this.message.fire(false);
             return (Observable.of(this.locker.get(parameters.url))) as any;
         }
 
@@ -38,7 +40,6 @@ export class ApiService {
     }
 
     post(parameters: ApiServiceParametersOptions): Observable<Response> {
-        this.message.fire(true);
 
         this.apiServiceOptions.method = RequestMethod.Post;
         this.apiServiceOptions.parameters = parameters;
@@ -53,16 +54,18 @@ export class ApiService {
         if (isCommand) {
             this.apiServiceOptions.pendingCommandsSubject.next(++this.apiServiceOptions.pendingCommandCount);
         }
-        return this.request(this.apiServiceOptions);
 
+        return this.request(this.apiServiceOptions);
     }
 
     mapper(parameters: ApiServiceParametersOptions): Observable<any> {
-        return this.http.get((parameters.concatApi) ? Config.ENVIRONMENT().API.concat(parameters.url) : parameters.url)
-            .catch((error: any) => {
-                return Observable.throw(this.unwrapHttpError(error));
-            });
+        this.showLoader();
 
+        return this.http.get((parameters.concatApi) ? Config.ENVIRONMENT().API.concat(parameters.url) : parameters.url)
+            .catch(this.onCatch)
+            .finally(() => {
+                this.onEnd();
+            });
     }
 
     private request(options: ApiServiceOptions): Observable<any> {
@@ -85,16 +88,15 @@ export class ApiService {
 
         return (this.http.request(options.parameters.url, requestOptions)
             .map((res: Response) => res.json())
+            .catch(this.onCatch)
             .do((res: Response) => {
-                this.logger.info(res);
+                this.onSuccess(res);
                 if (options.parameters.cacheKey !== '') this.locker.set(options.parameters.cacheKey, res);
+            }, (error: any) => {
+                this.onError(error);
             })
-            .catch((error: any) => {
-                return Observable.throw(this.unwrapHttpError(error));
-            })
-            .share()
             .finally(() => {
-                this.message.fire(false);
+                this.onEnd();
                 if (isCommand) options.pendingCommandsSubject.next(--options.pendingCommandCount);
             })) as any;
     }
@@ -107,19 +109,27 @@ export class ApiService {
         return searchParams;
     }
 
-    private unwrapHttpError(error: any): any {
-        try {
-            let mess: string = (error.statusText) ? error.statusText : error.json();
-            this.message.fire(false);
-            this.logger.error(mess);
-            return (mess);
-        } catch (jsonError) {
-            this.message.fire(false);
-            this.logger.error(jsonError);
-            return ({
-                code: -1,
-                message: 'An unexpected error occurred.'
-            });
-        }
+    private onCatch(error: any, caught: Observable<any>): Observable<any> {
+        return Observable.throw(error);
+    }
+
+    private onSuccess(res: Response): void {
+        this.logger.info('Request successful');
+    }
+
+    private onError(res: Response): void {
+        this.logger.error('Error, status code: '.concat(res.status.toString()));
+    }
+
+    private onEnd(): void {
+        this.hideLoader();
+    }
+
+    private showLoader(): void {
+        this.loaderService.show();
+    }
+
+    private hideLoader(): void {
+        this.loaderService.hide();
     }
 }

@@ -10,4 +10,5 @@ export * from './window.service';
 export * from './locker/index';
 export * from './message/index';
 export * from './broadcaster/index';
+export * from './loader/index';
 export * from '../models/index';
