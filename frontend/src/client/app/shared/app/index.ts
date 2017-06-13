@@ -14,7 +14,6 @@ export const SHARED_COMPONENTS: any[] = [
 export * from './components/navbar/component';
 export * from './components/toolbar/component';
 export * from './components/user/login/component';
-export * from './components/type-ahead/component';
 export * from './components/loader/component';
 
 //providers

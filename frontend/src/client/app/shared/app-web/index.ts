@@ -22,13 +22,13 @@ export const WEB_PROVIDERS: any[] = [
 import { APP_ROUTES } from '../../components/index';
 import { SHARED_ROUTES } from '../app/index';
 import { WEB_MAP_ROUTES } from './components/map/routes';
-import { WEB_LOCATION_ROUTES } from './components/map-locations/routes';
+import { WEB_LOCATIONS_ROUTES } from './components/map-locations/routes';
 
 export const WEB_ROUTES: Array<any> = [
     ...APP_ROUTES,
     ...SHARED_ROUTES,
     ...WEB_MAP_ROUTES,
-    ...WEB_LOCATION_ROUTES
+    ...WEB_LOCATIONS_ROUTES
 ];
 
 //modules

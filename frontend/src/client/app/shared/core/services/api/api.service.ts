@@ -9,7 +9,7 @@ import { ApiServiceOptions, ApiServiceParametersOptions } from '../../models/ind
 import { Locker } from '../locker/index';
 import { LogService } from '../logging/index';
 import { LoaderService } from '../../services/loader/index';
-
+var nshttp = require("http");
 @Injectable()
 export class ApiService {
 
@@ -61,7 +61,13 @@ export class ApiService {
     mapper(parameters: ApiServiceParametersOptions): Observable<any> {
         this.showLoader();
 
-        return this.http.get((parameters.concatApi) ? Config.ENVIRONMENT().API.concat(parameters.url) : parameters.url)
+        let api: string = (parameters.concatApi) ? Config.ENVIRONMENT().API.concat(parameters.url) : parameters.url;
+        //api = 'http://192.168.0.11:8000/api/industries/Ing';
+        //console.log(api);
+        //return Observable.fromPromise(
+        //    nshttp.getJSON(api));
+
+        return this.http.get(api)
             .catch(this.onCatch)
             .finally(() => {
                 this.onEnd();
@@ -110,6 +116,7 @@ export class ApiService {
     }
 
     private onCatch(error: any, caught: Observable<any>): Observable<any> {
+        console.log('eee');
         return Observable.throw(error);
     }
 
@@ -122,6 +129,7 @@ export class ApiService {
     }
 
     private onEnd(): void {
+        console.log('cccc');
         this.hideLoader();
     }
 

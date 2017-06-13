@@ -1,0 +1,11 @@
+﻿<ActionBar [title]="'MAP_PLACES' | translate" class="action-bar">
+  <NavigationButton [text]="'HOME' | translate"></NavigationButton>
+</ActionBar>
+<StackLayout class="p-10 m-0">
+  <StackLayout class="form">
+    <sd-typeahead placeholder="SEARCH_INDUSTRIES" [source]="onBindIndustries.bind(this)" value="description" key="id" minlength="2" (onTypeAheadIndexChanged)="onIndustryChange($event)"></sd-typeahead>
+    <Button (tap)="onSetLocation()" [text]="'USE_CURRENT_LOCATION' | translate" class="btn btn-outline"></Button>
+  </StackLayout>
+</StackLayout>
+
+

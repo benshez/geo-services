@@ -7,6 +7,7 @@ import { NativeScriptModule } from 'nativescript-angular/nativescript.module';
 import { NativeScriptFormsModule } from 'nativescript-angular/forms';
 import { NativeScriptHttpModule } from 'nativescript-angular/http';
 import { Http } from '@angular/http';
+
 // angular
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
@@ -36,6 +37,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AnalyticsModule } from './app/shared/analytics/analytics.module';
 import { MultilingualModule, translateLoaderFactory } from './app/shared/i18n/multilingual.module';
+
 // {N} custom app specific
 import { WindowNative, NSAppService } from './mobile/core/index';
 import { NS_ANALYTICS_PROVIDERS } from './mobile/analytics/index';

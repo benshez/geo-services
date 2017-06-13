@@ -1,21 +1,23 @@
-﻿// libs
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+﻿import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 // app
-import { RouterExtensions, Config, Location, ILocationArguments, IMapFeatures } from '../../../core/index';
+import { RouterExtensions, Config, Location, ILocationArguments, IMapFeatures } from '../../../../app/shared/core/index';
 
-import { ApiServiceParametersOptions } from '../../../core/models/Api';
+import { ApiServiceParametersOptions } from '../../../../app/shared/core/models/Api';
 
-import { TypeAheadComponent } from '../type-ahead/component';
+import { NSTypeAheadComponent } from '../type-ahead/component';
+
+import * as Geolocation from 'nativescript-geolocation';
 
 @Component({
     moduleId: module.id,
     selector: 'sd-locations',
     templateUrl: Config.COMPONENT_ITEMS.TEMPLATE,
     styleUrls: [Config.COMPONENT_ITEMS.CSS],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class WebMapLocationComponent {
+export class NSMapLocationsComponent {
+
     public showMapPlaces: boolean = false;
 
     constructor(private location: Location, private routerext: RouterExtensions) { }
@@ -25,8 +27,8 @@ export class WebMapLocationComponent {
         args.apiOptions.url = Config.API_END_POINTS.INDUSTRIES.concat('{query}');
         args.apiOptions.parameters = '';
         args.apiOptions.concatApi = true;
-
-        return this.location.onSearch(args);
+        //return this.location.onSearcher(args);
+        return this.location.onSearch(args);//.map((res) => { return res; });
     }
 
     onBindPlaces(args: ILocationArguments) {
@@ -34,7 +36,7 @@ export class WebMapLocationComponent {
         args.apiOptions.url = Config.ENVIRONMENT().MAP_BOX_API.concat('{query}').concat('.json?access_token=').concat(Config.ENVIRONMENT().MAP_BOX_API_KEY);//Config.API_END_POINTS.INDUSTRIES.concat('{query}');
         args.apiOptions.parameters = '';
         args.apiOptions.concatApi = false;
-
+        
         return this.location.onSearch(args);
     }
 
@@ -56,17 +58,23 @@ export class WebMapLocationComponent {
 
     onSetLocation() {
         let self = this;
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (position: Position) => {
-                    Config.ROUTE_PARAMETERS.LONGITUDE = position.coords.longitude;
-                    Config.ROUTE_PARAMETERS.LATITUDE = position.coords.latitude;
-                    self.onNavigate();
-                },
-                (error: PositionError) => { self.onNavigate(); },
-                { maximumAge: 60000, timeout: 10000 }
-            );
-        } else { self.onNavigate(); }
+        Geolocation.getCurrentLocation({
+            desiredAccuracy: 3,
+            updateDistance: 1,
+            maximumAge: 20000,
+            timeout: 20000
+        }).then((position) => {
+            console.log('loc found');
+            if (position) {
+                Config.ROUTE_PARAMETERS.LONGITUDE = position.longitude;
+                Config.ROUTE_PARAMETERS.LATITUDE = position.latitude;
+                self.onNavigate();
+            } else {
+                self.onNavigate();
+            }
+        }).catch(function (response) {
+            self.onNavigate();
+        });
     }
 
     onNavigate() {
@@ -76,5 +84,14 @@ export class WebMapLocationComponent {
                 name: Config.TRANSITION.SLIDE_TOP,
             }
         });
+    }
+
+    onItemTap(args) {
+        if (this.showMapPlaces) {
+            var lbl = <any>args.view.getViewById('lbl' + args.index);
+            Config.ROUTE_PARAMETERS.LONGITUDE = lbl.center[0];
+            Config.ROUTE_PARAMETERS.LATITUDE = lbl.center[1];
+            this.onNavigate();
+        }
     }
 }
