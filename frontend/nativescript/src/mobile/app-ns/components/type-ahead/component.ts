@@ -142,6 +142,8 @@ export class NSTypeAheadComponent implements OnInit, AfterViewInit {
 
         this.source(args).subscribe(results => {
             console.log(results);
+            console.log(this.key);
+            console.log(this.value);
             this.typeAheadSource = results;
             this.typeAheadShown = true;
         });

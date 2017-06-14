@@ -144,9 +144,11 @@
     <Folder Include="src\client\app\shared\app\components\loader\" />
     <Folder Include="src\client\app\shared\app-web\components\type-ahead\" />
     <Folder Include="src\client\app\shared\core\" />
+    <Folder Include="src\client\app\shared\core\collections\KeyValuePairs\" />
     <Folder Include="src\client\app\shared\core\directives\" />
     <Folder Include="src\client\app\shared\core\interfaces\" />
     <Folder Include="src\client\app\shared\core\hooks\" />
+    <Folder Include="src\client\app\shared\core\collections\" />
     <Folder Include="src\client\app\shared\core\pipes\" />
     <Folder Include="src\client\app\shared\core\pipes\values\" />
     <Folder Include="src\client\app\shared\core\services\" />
@@ -651,6 +653,18 @@
     <TypeScriptCompile Include="src\client\app\components\index.ts" />
     <TypeScriptCompile Include="src\client\app\shared\app-web\components\type-ahead\component.spec.ts" />
     <TypeScriptCompile Include="src\client\app\shared\app-web\components\type-ahead\component.ts" />
+    <TypeScriptCompile Include="src\client\app\shared\core\collections\dictionary.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\client\app\shared\core\collections\index.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\client\app\shared\core\collections\KeyValuePairs\interfaces.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\client\app\shared\core\collections\KeyValuePairs\models.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="src\client\app\shared\core\directives\location.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>

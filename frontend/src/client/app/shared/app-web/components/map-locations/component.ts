@@ -1,6 +1,8 @@
 ﻿// libs
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 
+import { Observable } from 'rxjs/Observable';
+
 // app
 import { RouterExtensions, Config, Location, ILocationArguments, IMapFeatures } from '../../../core/index';
 
@@ -8,15 +10,17 @@ import { ApiServiceParametersOptions } from '../../../core/models/Api';
 
 import { TypeAheadComponent } from '../type-ahead/component';
 
+import { IKeyValue, IKeyValueDictionary } from '../../../core/collections/KeyValuePairs/interfaces';
 @Component({
     moduleId: module.id,
     selector: 'sd-locations',
     templateUrl: Config.COMPONENT_ITEMS.TEMPLATE,
-    styleUrls: [Config.COMPONENT_ITEMS.CSS],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrls: [Config.COMPONENT_ITEMS.CSS]
 })
 export class WebMapLocationComponent {
     public showMapPlaces: boolean = false;
+    public iData: IKeyValueDictionary;
+    public mData: IKeyValueDictionary;
 
     constructor(private location: Location, private routerext: RouterExtensions) { }
 
@@ -26,7 +30,7 @@ export class WebMapLocationComponent {
         args.apiOptions.parameters = '';
         args.apiOptions.concatApi = true;
 
-        return this.location.onSearch(args);
+        this.location.onSearch(args).subscribe(results => this.iData = results as any);
     }
 
     onBindPlaces(args: ILocationArguments) {
@@ -35,21 +39,22 @@ export class WebMapLocationComponent {
         args.apiOptions.parameters = '';
         args.apiOptions.concatApi = false;
 
-        return this.location.onSearch(args);
+        this.location.onSearch(args).subscribe(results => this.mData = results as any);
     }
 
     onIndustryChange(args: any) {
         this.showMapPlaces = false;
-        if (args && args.key) {
-            Config.ROUTE_PARAMETERS.INDUSTRY = args.key;
+        if (args !== '') {
+            Config.ROUTE_PARAMETERS.INDUSTRY = args;
             this.showMapPlaces = true;
         }
     }
 
     onPlaceChange(args: any) {
-        if (args && args.key && this.showMapPlaces) {
-            Config.ROUTE_PARAMETERS.LONGITUDE = args.key[0];
-            Config.ROUTE_PARAMETERS.LATITUDE = args.key[1];
+        debugger
+        if (args && this.showMapPlaces) {
+            Config.ROUTE_PARAMETERS.LONGITUDE = args[0];
+            Config.ROUTE_PARAMETERS.LATITUDE = args[1];
             this.onNavigate();
         }
     }

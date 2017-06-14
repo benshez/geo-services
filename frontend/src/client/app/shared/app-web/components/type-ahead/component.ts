@@ -11,10 +11,12 @@ import { FormControl } from '@angular/forms';
 
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+
 import { Subscription } from 'rxjs/Subscription';
 
 import { Config, ILocationArguments, IKeyValuePair } from '../../../core/index';
-
+import { IKeyValue, IKeyValueDictionary } from '../../../core/collections/KeyValuePairs/interfaces';
 // app
 @Component({
     moduleId: module.id,
@@ -25,7 +27,7 @@ import { Config, ILocationArguments, IKeyValuePair } from '../../../core/index';
 })
 export class TypeAheadComponent implements OnInit, AfterViewInit {
 
-    public typeAheadSource: Array<IKeyValuePair[]>;
+    public typeAheadSource: IKeyValueDictionary;
     public typeAheadKeyword: string;
     public typeAheadShown: boolean = false;
 
@@ -43,6 +45,17 @@ export class TypeAheadComponent implements OnInit, AfterViewInit {
 
     @ViewChildren('typeAheadList') typeAheadList: QueryList<ElementRef>;
     @ViewChild('typeAheadInput') typeAheadInput: ElementRef;
+
+    private _data = new BehaviorSubject<IKeyValueDictionary>([]);
+
+    @Input()
+    set data(value) {
+        this._data.next(value);
+    };
+
+    get data() {
+        return this._data.getValue();
+    }
 
     @Input() source: any;
 
@@ -85,10 +98,10 @@ export class TypeAheadComponent implements OnInit, AfterViewInit {
     constructor(private renderer: Renderer) { }
 
     ngOnInit() {
-        this.subscribeTypeAheadSource();
     }
 
     ngAfterViewInit() {
+        this.subscribeTypeAheadSource();
         this.subscribeTypeAheadUpDownEvents();
     }
 
@@ -97,11 +110,13 @@ export class TypeAheadComponent implements OnInit, AfterViewInit {
         this.typeAheadUpDownEvents.next(event);
     }
 
-    onKeyDownEnter(args: any): void {
-        this.onTypeAheadIndexChanged.emit(args);
+    onKeyDownEnter(key: any, value: any): void {
+        this._data.next([]);
+        debugger
+        this.onTypeAheadIndexChanged.emit(key);
         this.typeAheadEnterPresses.next(null);
         this.renderer.invokeElementMethod(this.typeAheadInput.nativeElement, Config.EVENTS.FOCUS, []);       
-        this.typeAheadInputFormControl.setValue(args.value, {
+        this.typeAheadInputFormControl.setValue(value, {
             onlySelf: true,
             emitEvent: false,
             emitModelToViewChange: true,
@@ -112,7 +127,7 @@ export class TypeAheadComponent implements OnInit, AfterViewInit {
 
     subscribeTypeAheadSource() {
         if (this.typeAheadValueChange) {
-            this.typeAheadValueChange.unsubscribe;
+            this.typeAheadValueChange.unsubscribe();
         }
 
         let args: ILocationArguments = {
@@ -126,34 +141,41 @@ export class TypeAheadComponent implements OnInit, AfterViewInit {
             DeepObjectName: this.typeAheadDeepObjectName
         };
 
-        this.typeAheadSource = this.source(args);
+        this.source(args);
 
-        this.typeAheadValueChange = this.typeAheadInputFormControl.valueChanges
-            .subscribe((value: any) => { this.typeAheadShown = value.length >= this.minlength; });
+        this._data.subscribe(results => {
+            if (typeof (results) === 'undefined') {
+                this.typeAheadSource = [] as any;
+            } else {
+                this.typeAheadShown = true;
+                this.typeAheadSource = results;
+            }
+        });
     }
 
     subscribeTypeAheadUpDownEvents() {
+        if (this.typeAheadUpDownEvents) this.typeAheadUpDownEvents.unsubscribe;
         this.typeAheadUpDownEvents
             .withLatestFrom(this.typeAheadSource)
             .subscribe(([event, suggestions]) => {
-                for (let suggestion of suggestions) {
-                    if (suggestion.key) {
+                for (let suggestion of suggestions.keys()) {
+                    if (suggestion) {
                         switch (<string>event) {
                             case Config.EVENTS.ARROW_UP:
                                 this.typeAheadSelectedIndex = (this.typeAheadSelectedIndex < 1) ? 0 : this.typeAheadSelectedIndex - 1;
                                 break;
                             case Config.EVENTS.ARROW_DOWN:
-                                this.typeAheadSelectedIndex = (this.typeAheadSelectedIndex > suggestions.length) ? suggestions.length : this.typeAheadSelectedIndex + 1;
+                                this.typeAheadSelectedIndex = (this.typeAheadSelectedIndex > suggestions.keys().length) ? suggestions.keys().length : this.typeAheadSelectedIndex + 1;
                                 break;
                         }
 
-                        if (this.typeAheadSelectedIndex < suggestions.length) {
+                        if (this.typeAheadSelectedIndex < suggestions.keys().length) {
                             let cSuggestion: HTMLUListElement = null;
 
                             let industryItem: ElementRef = this.typeAheadList
                                 .filter(x => {
                                     cSuggestion = x.nativeElement;
-                                    return cSuggestion.id === suggestions[this.typeAheadSelectedIndex].key.toString();
+                                    return cSuggestion.id === suggestions.keys[this.typeAheadSelectedIndex].toString();
                                 })[0];
 
                             if (this.typeAheadList.length > 0) {

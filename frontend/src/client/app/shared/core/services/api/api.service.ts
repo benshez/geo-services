@@ -9,7 +9,7 @@ import { ApiServiceOptions, ApiServiceParametersOptions } from '../../models/ind
 import { Locker } from '../locker/index';
 import { LogService } from '../logging/index';
 import { LoaderService } from '../../services/loader/index';
-var nshttp = require("http");
+//var nshttp = require("http");
 @Injectable()
 export class ApiService {
 
@@ -62,8 +62,9 @@ export class ApiService {
         this.showLoader();
 
         let api: string = (parameters.concatApi) ? Config.ENVIRONMENT().API.concat(parameters.url) : parameters.url;
-        //api = 'http://192.168.0.11:8000/api/industries/Ing';
-        //console.log(api);
+        //api = 'http://192.168.0.3:8000/api/industries/Ing';
+        console.log(api);
+
         //return Observable.fromPromise(
         //    nshttp.getJSON(api));
 
@@ -116,7 +117,6 @@ export class ApiService {
     }
 
     private onCatch(error: any, caught: Observable<any>): Observable<any> {
-        console.log('eee');
         return Observable.throw(error);
     }
 
@@ -129,7 +129,6 @@ export class ApiService {
     }
 
     private onEnd(): void {
-        console.log('cccc');
         this.hideLoader();
     }
 
