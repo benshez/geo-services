@@ -1,13 +1,12 @@
 ﻿// libs
 import {
-    Component, OnInit, AfterViewInit,
-    OnDestroy, ChangeDetectionStrategy,
+    Component,
+    OnDestroy,
     ViewChild, ViewChildren,
     ElementRef, Query, QueryList,
     Renderer, Input,
     EventEmitter, Output
 } from '@angular/core';
-import { FormControl } from '@angular/forms';
 
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
@@ -22,37 +21,28 @@ import { IKeyValue, IKeyValueDictionary, ISelectedKeyValue } from '../../../core
     moduleId: module.id,
     selector: 'sd-typeahead',
     templateUrl: Config.COMPONENT_ITEMS.TEMPLATE,
-    styleUrls: [Config.COMPONENT_ITEMS.CSS],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrls: [Config.COMPONENT_ITEMS.CSS]
 })
-export class TypeAheadComponent implements OnInit, AfterViewInit {
+export class TypeAheadComponent {
 
     public typeAheadSource: IKeyValueDictionary;
     public typeAheadKeyword: string;
 
-    private typeAheadInputFormControl = new FormControl();
     private typeAheadPlaceHolder: string = '';
-    private typeAheadItemValue: string = '';
-    private typeAheadItemKey: string = '';
     private typeAheadErrorMessage: string = '';
-    private typeAheadCacheKey: string = '';
-    private typeAheadDeepObjectName: string = '';
-    private typeAheadUpDownEvents = new Subject<string>();
-    private typeAheadEnterPresses = new Subject<any>();
     private typeAheadValueChange: Subscription;
     private typeAheadSelectedIndex: number = -1;
     private _typeAheadShown: boolean;
 
-    @ViewChild('typeAheadList') typeAheadList: ElementRef;
-    @ViewChild('typeAheadInput') typeAheadInput: ElementRef;
     @Output() public typeAheadShownChange: EventEmitter<boolean> = new EventEmitter();
-    @Input() public get typeAheadShown(): boolean {
+
+    @Input()
+    public get typeAheadShown(): boolean {
         return this._typeAheadShown;
     }
 
     public set typeAheadShown(value) {
         this._typeAheadShown = !!value;
-
         this.typeAheadShownChange.emit(this.typeAheadShown);
     }
 
@@ -78,11 +68,8 @@ export class TypeAheadComponent implements OnInit, AfterViewInit {
         return this._data.getValue();
     }
 
-    @Input() source: any;
-
-    @Input() delay: number = 400;
-
     @Input() minlength: number = 2;
+    @Input() source: any;
 
     @Input()
     set placeholder(placeholder: string) {
@@ -90,43 +77,14 @@ export class TypeAheadComponent implements OnInit, AfterViewInit {
     }
     get placeholder(): string { return this.typeAheadPlaceHolder; }
 
-    @Input()
-    set value(value: string) {
-        this.typeAheadItemValue = (value && value.trim()) || '<no value text set>';
-    }
-    get value(): string { return this.typeAheadItemValue; }
-
-    @Input()
-    set key(value: string) {
-        this.typeAheadItemKey = (value && value.trim()) || '<no key set>';
-    }
-    get key(): string { return this.typeAheadItemKey; }
-
-    @Input()
-    set cache(value: string) {
-        this.typeAheadCacheKey = (value && value.trim()) || '';
-    }
-    get cache(): string { return this.typeAheadCacheKey; }
-
-    @Input()
-    set object(value: string) {
-        this.typeAheadDeepObjectName = (value && value.trim()) || '';
-    }
-    get object(): string { return this.typeAheadDeepObjectName; }
-
     @Output() onTypeAheadIndexChanged: any = new EventEmitter();
+
+    @ViewChild('typeAheadList') typeAheadList: ElementRef;
+    @ViewChild('typeAheadInput') typeAheadInput: ElementRef;
 
     constructor(private renderer: Renderer) { }
 
-    ngOnInit() { }
-
-    ngAfterViewInit() {
-        //this.subscribeTypeAheadSource();
-    }
-
     onKeyDownArrow(event: string) {
-        //if (!this.typeAheadShown)
-        //if (this._data.value.length === 0) this.subscribeTypeAheadSource();
         this.typeAheadListElementScroll(event);
     }
 
@@ -155,12 +113,6 @@ export class TypeAheadComponent implements OnInit, AfterViewInit {
 
     setTypeAheadInputValue(args: any, input: any, setFocus: boolean = false) {
         let item: ISelectedKeyValue = this.typeAheadSource.getItemByKey(args);
-        //this.typeAheadInputFormControl.setValue(item.value, {
-        //    onlySelf: true,
-        //    emitEvent: false,
-        //    emitModelToViewChange: true,
-        //    emitViewToModelChange: true
-        //});
         input.value = item.value;
         if (setFocus) {
             input.focus();

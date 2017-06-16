@@ -46,7 +46,18 @@ export class WebMapLocationComponent {
         this.location.onSearch(args).subscribe(results => this.iData = results as any);
     }
 
-    onBindPlaces(args: ILocationArguments) {
+    onBindPlaces(keyword: Observable<string>) {
+
+        let args: ILocationArguments = {
+            keyword: keyword,
+            key: 'center',
+            value: 'place_name',
+            delay: 400,
+            apiOptions: null,
+            minQueryLength: 2,
+            cacheKey: 'places'.concat('_').concat('{query}'),
+            DeepObjectName: 'features'
+        };
         args.apiOptions = new ApiServiceParametersOptions();
         args.apiOptions.url = Config.ENVIRONMENT().MAP_BOX_API.concat('{query}').concat('.json?access_token=').concat(Config.ENVIRONMENT().MAP_BOX_API_KEY);//Config.API_END_POINTS.INDUSTRIES.concat('{query}');
         args.apiOptions.parameters = '';
