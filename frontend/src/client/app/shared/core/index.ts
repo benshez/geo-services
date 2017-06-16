@@ -1,10 +1,10 @@
 ﻿// directives
-import { PlatformDirective, Mapper, Location } from './directives/index';
+import { PlatformDirective, Mapper } from './directives/index';
+import { Location } from './collections/index';
 
 export const CORE_DIRECTIVES: any[] = [
     PlatformDirective,
-    Mapper,
-    Location
+    Mapper
 ];
 
 import {

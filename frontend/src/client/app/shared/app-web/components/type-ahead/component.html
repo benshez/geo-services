@@ -1,8 +1,8 @@
 ﻿<div class="typeahead-wrapper">
-  <input #typeAheadInput class="typeahead-input" [formControl]="typeAheadInputFormControl" type="text" placeholder="{{placeholder | translate}}" (keydown.ArrowDown)="onKeyDownArrow('down')" />
-  <div  class="typeahead" *ngIf="typeAheadSource && typeAheadShown">
-    <ul class="dropdown-content">
-      <li tabindex="-1" #typeAheadList class="typeahead-item" *ngFor="let item of (typeAheadSource.keys()), let idx = index" [attr.id]="typeAheadSource.keys()[idx]" (keydown.ArrowDown)="onKeyDownArrow('down')" (keydown.ArrowUp)="onKeyDownArrow('up')" (click)="onKeyDownEnter(typeAheadSource.values()[idx].key, typeAheadSource.values()[idx].value)" (keydown.Enter)="onKeyDownEnter(typeAheadSource.values()[idx].key, typeAheadSource.values()[idx].value)">
+  <input #typeAheadInput class="typeahead-input" [formControl]="typeAheadInputFormControl" type="text" placeholder="{{placeholder | translate}}" (keydown.ArrowDown)="onKeyDownArrow('down')" (input)="subscribeTypeAheadSource($event)"/>
+  <div  class="typeahead">
+    <ul class="dropdown-content" *ngIf="typeAheadSource && typeAheadShown" #typeAheadList>
+      <li tabindex="-1" class="typeahead-item" *ngFor="let item of (typeAheadSource.keys()), let idx = index" [attr.id]="item" (keydown.ArrowDown)="onKeyDownArrow('down')" (keydown.ArrowUp)="onKeyDownArrow('up')" (click)="onKeyDownEnter(item)" (keydown.Enter)="onKeyDownEnter(item)">
         <span>{{typeAheadSource.values()[idx].value}}</span>
       </li>
     </ul>

@@ -1,1 +1,2 @@
-﻿export * from './dictionary';
+﻿export * from './KeyValuePairs/index';
+export * from './dictionary';

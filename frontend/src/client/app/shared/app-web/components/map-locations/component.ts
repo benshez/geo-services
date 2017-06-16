@@ -4,13 +4,14 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 // app
-import { RouterExtensions, Config, Location, ILocationArguments, IMapFeatures } from '../../../core/index';
+import { RouterExtensions, Config, ILocationArguments, IMapFeatures } from '../../../core/index';
 
 import { ApiServiceParametersOptions } from '../../../core/models/Api';
 
 import { TypeAheadComponent } from '../type-ahead/component';
 
-import { IKeyValue, IKeyValueDictionary } from '../../../core/collections/KeyValuePairs/interfaces';
+import { IKeyValue, IKeyValueDictionary, Location } from '../../../core/collections/index';
+
 @Component({
     moduleId: module.id,
     selector: 'sd-locations',
@@ -24,7 +25,19 @@ export class WebMapLocationComponent {
 
     constructor(private location: Location, private routerext: RouterExtensions) { }
 
-    onBindIndustries(args: ILocationArguments) {
+    onBindIndustries(keyword: Observable<string>) {
+
+        let args: ILocationArguments = {
+            keyword: keyword,
+            key: 'id',
+            value: 'description',
+            delay: 400,
+            apiOptions: null,
+            minQueryLength: 2,
+            cacheKey: 'industries'.concat('_').concat('{query}'),
+            DeepObjectName: ''
+        };
+
         args.apiOptions = new ApiServiceParametersOptions();
         args.apiOptions.url = Config.API_END_POINTS.INDUSTRIES.concat('{query}');
         args.apiOptions.parameters = '';
@@ -51,7 +64,6 @@ export class WebMapLocationComponent {
     }
 
     onPlaceChange(args: any) {
-        debugger
         if (args && this.showMapPlaces) {
             Config.ROUTE_PARAMETERS.LONGITUDE = args[0];
             Config.ROUTE_PARAMETERS.LATITUDE = args[1];

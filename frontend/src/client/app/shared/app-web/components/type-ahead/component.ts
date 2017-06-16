@@ -16,7 +16,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subscription } from 'rxjs/Subscription';
 
 import { Config, ILocationArguments, IKeyValuePair } from '../../../core/index';
-import { IKeyValue, IKeyValueDictionary } from '../../../core/collections/KeyValuePairs/interfaces';
+import { IKeyValue, IKeyValueDictionary, ISelectedKeyValue } from '../../../core/collections/KeyValuePairs/interfaces';
 // app
 @Component({
     moduleId: module.id,
@@ -29,7 +29,6 @@ export class TypeAheadComponent implements OnInit, AfterViewInit {
 
     public typeAheadSource: IKeyValueDictionary;
     public typeAheadKeyword: string;
-    public typeAheadShown: boolean = false;
 
     private typeAheadInputFormControl = new FormControl();
     private typeAheadPlaceHolder: string = '';
@@ -42,9 +41,31 @@ export class TypeAheadComponent implements OnInit, AfterViewInit {
     private typeAheadEnterPresses = new Subject<any>();
     private typeAheadValueChange: Subscription;
     private typeAheadSelectedIndex: number = -1;
+    private _typeAheadShown: boolean;
 
-    @ViewChildren('typeAheadList') typeAheadList: QueryList<ElementRef>;
+    @ViewChild('typeAheadList') typeAheadList: ElementRef;
     @ViewChild('typeAheadInput') typeAheadInput: ElementRef;
+    @Output() public typeAheadShownChange: EventEmitter<boolean> = new EventEmitter();
+    @Input() public get typeAheadShown(): boolean {
+        return this._typeAheadShown;
+    }
+
+    public set typeAheadShown(value) {
+        this._typeAheadShown = !!value;
+
+        this.typeAheadShownChange.emit(this.typeAheadShown);
+    }
+
+    private _keyword = new BehaviorSubject<string>('');
+
+    @Input()
+    set keyword(value) {
+        this._keyword.next(value);
+    };
+
+    get keyword() {
+        return this._keyword.getValue();
+    }
 
     private _data = new BehaviorSubject<IKeyValueDictionary>([]);
 
@@ -97,51 +118,24 @@ export class TypeAheadComponent implements OnInit, AfterViewInit {
 
     constructor(private renderer: Renderer) { }
 
-    ngOnInit() {
-    }
+    ngOnInit() { }
 
     ngAfterViewInit() {
-        this.subscribeTypeAheadSource();
-        this.subscribeTypeAheadUpDownEvents();
+        //this.subscribeTypeAheadSource();
     }
 
     onKeyDownArrow(event: string) {
-        if (this.typeAheadList.length === 0) return;
-        this.typeAheadUpDownEvents.next(event);
+        //if (!this.typeAheadShown)
+        //if (this._data.value.length === 0) this.subscribeTypeAheadSource();
+        this.typeAheadListElementScroll(event);
     }
 
-    onKeyDownEnter(key: any, value: any): void {
-        this._data.next([]);
-        debugger
-        this.onTypeAheadIndexChanged.emit(key);
-        this.typeAheadEnterPresses.next(null);
-        this.renderer.invokeElementMethod(this.typeAheadInput.nativeElement, Config.EVENTS.FOCUS, []);       
-        this.typeAheadInputFormControl.setValue(value, {
-            onlySelf: true,
-            emitEvent: false,
-            emitModelToViewChange: true,
-            emitViewToModelChange: true
-        });
-        this.typeAheadShown = false;
-    }
+    subscribeTypeAheadSource(evt) {
+        if (evt.target.value.length <= this.minlength) return;
 
-    subscribeTypeAheadSource() {
-        if (this.typeAheadValueChange) {
-            this.typeAheadValueChange.unsubscribe();
-        }
-
-        let args: ILocationArguments = {
-            keyword: this.typeAheadInputFormControl.valueChanges,
-            key: this.key,
-            value: this.value,
-            delay: this.delay,
-            apiOptions: null,
-            minQueryLength: this.minlength,
-            cacheKey: this.cache.concat('_').concat('{query}'),
-            DeepObjectName: this.typeAheadDeepObjectName
-        };
-
-        this.source(args);
+        this.keyword = evt.target.value;
+        
+        this.source(this._keyword);
 
         this._data.subscribe(results => {
             if (typeof (results) === 'undefined') {
@@ -153,38 +147,53 @@ export class TypeAheadComponent implements OnInit, AfterViewInit {
         });
     }
 
-    subscribeTypeAheadUpDownEvents() {
-        if (this.typeAheadUpDownEvents) this.typeAheadUpDownEvents.unsubscribe;
-        this.typeAheadUpDownEvents
-            .withLatestFrom(this.typeAheadSource)
-            .subscribe(([event, suggestions]) => {
-                for (let suggestion of suggestions.keys()) {
-                    if (suggestion) {
-                        switch (<string>event) {
-                            case Config.EVENTS.ARROW_UP:
-                                this.typeAheadSelectedIndex = (this.typeAheadSelectedIndex < 1) ? 0 : this.typeAheadSelectedIndex - 1;
-                                break;
-                            case Config.EVENTS.ARROW_DOWN:
-                                this.typeAheadSelectedIndex = (this.typeAheadSelectedIndex > suggestions.keys().length) ? suggestions.keys().length : this.typeAheadSelectedIndex + 1;
-                                break;
-                        }
+    onKeyDownEnter(args: any) {
+        let input: any = this.typeAheadInput.nativeElement;
+        this.resetTypeAheadSelectedIndex();
+        this.setTypeAheadInputValue(args, input, true);
+    }
 
-                        if (this.typeAheadSelectedIndex < suggestions.keys().length) {
-                            let cSuggestion: HTMLUListElement = null;
+    setTypeAheadInputValue(args: any, input: any, setFocus: boolean = false) {
+        let item: ISelectedKeyValue = this.typeAheadSource.getItemByKey(args);
+        //this.typeAheadInputFormControl.setValue(item.value, {
+        //    onlySelf: true,
+        //    emitEvent: false,
+        //    emitModelToViewChange: true,
+        //    emitViewToModelChange: true
+        //});
+        input.value = item.value;
+        if (setFocus) {
+            input.focus();
+            this.typeAheadShown = false;
+            this.onTypeAheadIndexChanged.emit(item.key);
+            this._data.next([]);
+        }
+    }
 
-                            let industryItem: ElementRef = this.typeAheadList
-                                .filter(x => {
-                                    cSuggestion = x.nativeElement;
-                                    return cSuggestion.id === suggestions.keys[this.typeAheadSelectedIndex].toString();
-                                })[0];
+    typeAheadListElementScroll(event: string) {
+        let tal = this.typeAheadList;
+        if (typeof (tal) === 'undefined') return;
+        let ul = tal.nativeElement;
+        let elems: Array<HTMLUListElement> = ul.getElementsByTagName('li');
+        if (elems.length === 0) return;
 
-                            if (this.typeAheadList.length > 0) {
-                                this.renderer.invokeElementMethod(industryItem.nativeElement, Config.EVENTS.FOCUS, []);
-                            }
-                        }
-                        return;
-                    }
-                }
-            });
+        switch (<string>event) {
+            case Config.EVENTS.ARROW_DOWN:
+                if((this.typeAheadSelectedIndex + 1) >= elems.length) this.resetTypeAheadSelectedIndex();
+                this.typeAheadSelectedIndex++;
+                break
+            case Config.EVENTS.ARROW_UP:
+                this.typeAheadSelectedIndex--;
+                if (this.typeAheadSelectedIndex < 0) this.typeAheadSelectedIndex = (elems.length - 1);
+                break
+        }
+
+        let elem = elems[this.typeAheadSelectedIndex];
+        this.setTypeAheadInputValue(elem.id, this.typeAheadInput.nativeElement);
+        elem.focus();
+    }
+
+    resetTypeAheadSelectedIndex() {
+        this.typeAheadSelectedIndex = -1;
     }
 }

@@ -1,4 +1,4 @@
-﻿import { IDictionary } from './KeyValuePairs/interfaces';
+﻿import { IDictionary, ISelectedKeyValue } from './KeyValuePairs/interfaces';
 
 export class Dictionary implements IDictionary {
 
@@ -41,6 +41,10 @@ export class Dictionary implements IDictionary {
         }
 
         return true;
+    }
+
+    getItemByKey(key: number): ISelectedKeyValue {
+        return this[key];
     }
 
     toLookup(): IDictionary {
