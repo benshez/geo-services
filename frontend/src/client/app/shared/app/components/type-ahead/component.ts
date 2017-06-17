@@ -14,7 +14,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { Subscription } from 'rxjs/Subscription';
 
-import { Config, ILocationArguments, IKeyValuePair } from '../../../core/index';
+import { Config, ILocationArguments } from '../../../core/index';
 import { IKeyValue, IKeyValueDictionary, ISelectedKeyValue } from '../../../core/collections/KeyValuePairs/interfaces';
 import { KeyValueDictionary } from '../../../core/collections/index';
 // app
@@ -75,6 +75,7 @@ export class TypeAheadComponent {
     constructor(private renderer: Renderer) { }
 
     onKeyDownArrow(event: string) {
+        this.typeAheadShown = true;
         this.typeAheadListElementScroll(event);
     }
 

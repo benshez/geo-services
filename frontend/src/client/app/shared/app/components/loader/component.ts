@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
-import { Config, Location, ILoaderState, LoaderService } from '../../../core/index';
+import { Config, ILoaderState, LoaderService } from '../../../core/index';
 
 @Component({
     moduleId: module.id,

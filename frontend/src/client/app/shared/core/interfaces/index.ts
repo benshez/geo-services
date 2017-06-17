@@ -6,8 +6,5 @@ export * from './iuser';
 export * from './imap';
 export * from './ilistener';
 export * from './iindustries';
-export * from './idictionary';
-export * from './idictionarypair';
 export * from './ilocationarguments';
-export * from './ikeyvaluepair';
 export * from './iloaderstate';
