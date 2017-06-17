@@ -20,12 +20,10 @@ import { IKeyValue, IKeyValueDictionary, Location } from '../../../core/collecti
 })
 export class WebMapLocationComponent {
     public showMapPlaces: boolean = false;
-    public iData: IKeyValueDictionary;
-    public mData: IKeyValueDictionary;
 
     constructor(private location: Location, private routerext: RouterExtensions) { }
 
-    onBindIndustries(keyword: Observable<string>) {
+    onBindIndustries = (keyword: Observable<string>): Observable<IKeyValueDictionary> => {
 
         let args: ILocationArguments = {
             keyword: keyword,
@@ -43,10 +41,10 @@ export class WebMapLocationComponent {
         args.apiOptions.parameters = '';
         args.apiOptions.concatApi = true;
 
-        this.location.onSearch(args).subscribe(results => this.iData = results as any);
+        return this.location.onSearch(args);
     }
 
-    onBindPlaces(keyword: Observable<string>) {
+    onBindPlaces = (keyword: Observable<string>): Observable<IKeyValueDictionary> => {
 
         let args: ILocationArguments = {
             keyword: keyword,
@@ -63,7 +61,7 @@ export class WebMapLocationComponent {
         args.apiOptions.parameters = '';
         args.apiOptions.concatApi = false;
 
-        this.location.onSearch(args).subscribe(results => this.mData = results as any);
+        return this.location.onSearch(args);
     }
 
     onIndustryChange(args: any) {

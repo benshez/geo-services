@@ -58,17 +58,6 @@ export class TypeAheadComponent {
         return this._keyword.getValue();
     }
 
-    private _data = new BehaviorSubject<IKeyValueDictionary>([] as any);
-
-    @Input()
-    set data(value) {
-        this._data.next(value);
-    };
-
-    get data() {
-        return this._data.getValue();
-    }
-
     @Input() minlength: number = 2;
     @Input() source: any;
 
@@ -94,16 +83,14 @@ export class TypeAheadComponent {
 
         this.keyword = evt.target.value;
         
-        this.source(this._keyword);
-
-        this._data.subscribe(results => {
+        this.source(this._keyword).subscribe(results => {
             if (typeof (results) === 'undefined') {
                 this.typeAheadSource = [] as any;
             } else {
                 this.typeAheadShown = true;
                 this.typeAheadSource = results;
             }
-        });
+        }).unsubscribe;
     }
 
     onKeyDownEnter(args: any) {
@@ -119,7 +106,6 @@ export class TypeAheadComponent {
             input.focus();
             this.typeAheadShown = false;
             this.onTypeAheadIndexChanged.emit(item.key);
-            this._data.next([] as any);
         }
     }
 
