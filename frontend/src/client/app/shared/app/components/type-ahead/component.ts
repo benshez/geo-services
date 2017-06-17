@@ -16,6 +16,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { Config, ILocationArguments, IKeyValuePair } from '../../../core/index';
 import { IKeyValue, IKeyValueDictionary, ISelectedKeyValue } from '../../../core/collections/KeyValuePairs/interfaces';
+import { KeyValueDictionary } from '../../../core/collections/index';
 // app
 @Component({
     moduleId: module.id,
@@ -57,7 +58,7 @@ export class TypeAheadComponent {
         return this._keyword.getValue();
     }
 
-    private _data = new BehaviorSubject<IKeyValueDictionary>([]);
+    private _data = new BehaviorSubject<IKeyValueDictionary>([] as any);
 
     @Input()
     set data(value) {
@@ -118,7 +119,7 @@ export class TypeAheadComponent {
             input.focus();
             this.typeAheadShown = false;
             this.onTypeAheadIndexChanged.emit(item.key);
-            this._data.next([]);
+            this._data.next([] as any);
         }
     }
 

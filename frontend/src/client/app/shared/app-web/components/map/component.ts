@@ -6,7 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 // app
 import { ApiService, Locker } from '../../../core/services/index';
 import { User, ApiServiceParametersOptions } from '../../../core/models/index';
-import { Config, ICoordinates, IMapQuery, IMapFeatures, Mapper, IMapSetup, IMapOptions, IMarker, IPopup } from '../../../core/index';
+import { Config, ICoordinates, IMapQuery, IMapFeatures, IMapSetup, IMapOptions, IMarker, IPopup } from '../../../core/index';
 import { OnMapper } from '../../../core/hooks/onMapper';
 
 import { Observable } from 'rxjs/Observable';
@@ -58,8 +58,7 @@ export class WebMapComponent implements OnInit {
         private fb: FormBuilder,
         private apiOptions: ApiServiceParametersOptions,
         private route: ActivatedRoute,
-        private router: Router,
-        private mapper: Mapper) { }
+        private router: Router) { }
 
     ngOnInit() {
         this.loading = true;

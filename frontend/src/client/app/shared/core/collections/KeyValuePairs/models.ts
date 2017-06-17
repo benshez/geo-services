@@ -11,6 +11,6 @@ export class KeyValueDictionary extends Dictionary {
     }
 
     toLookup(): IKeyValueDictionary {
-        return this;
+        return this as any;
     }
 }

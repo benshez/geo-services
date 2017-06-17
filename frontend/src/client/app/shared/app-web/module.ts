@@ -10,6 +10,8 @@ import { WEB_COMPONENTS, WEB_PROVIDERS } from './index';
 import { MultilingualModule } from '../i18n/multilingual.module';
 import { Config } from '../core/index';
 
+import { SharedAppModule } from '../../../app/shared/app/module';
+
 /**
  * Do not specify providers for modules that might be imported by a lazy loaded module.
  */
@@ -20,7 +22,8 @@ import { Config } from '../core/index';
         ReactiveFormsModule,
         HttpModule,
         RouterModule,
-        MultilingualModule
+        MultilingualModule,
+        SharedAppModule
     ],
     declarations: [
         WEB_COMPONENTS

@@ -2,23 +2,27 @@
 import { ToolbarComponent } from './components/toolbar/component';
 import { LoginComponent } from './components/user/login/component';
 import { LoaderComponent } from './components/loader/component';
+import { TypeAheadComponent } from './components/type-ahead/component';
 
 //components
 export const SHARED_COMPONENTS: any[] = [
     NavbarComponent,
     ToolbarComponent,
     LoginComponent,
-    LoaderComponent
+    LoaderComponent,
+    TypeAheadComponent
 ];
 
 export * from './components/navbar/component';
 export * from './components/toolbar/component';
 export * from './components/user/login/component';
 export * from './components/loader/component';
+export * from './components/type-ahead/component';
 
 //providers
 export const SHARED_PROVIDERS: any[] = [
-    LoaderComponent
+    LoaderComponent,
+    TypeAheadComponent
 ];
 
 //routes

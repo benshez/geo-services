@@ -1,21 +1,17 @@
 ﻿// components
 import { WebMapComponent } from './components/map/component';
 import { WebMapLocationComponent } from './components/map-locations/component';
-import { TypeAheadComponent } from './components/type-ahead/component';
 
 export const WEB_COMPONENTS: any[] = [
     WebMapComponent,
-    WebMapLocationComponent,
-    TypeAheadComponent
+    WebMapLocationComponent
 ];
 
 export * from './components/map/component';
 export * from './components/map-locations/component';
-export * from './components/type-ahead/component';
 
 //providers
 export const WEB_PROVIDERS: any[] = [
-    TypeAheadComponent
 ];
 
 //routes
