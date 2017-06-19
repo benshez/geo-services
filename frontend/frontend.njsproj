@@ -47,11 +47,15 @@
     <Folder Include="nativescript\src\app\shared\app\" />
     <Folder Include="nativescript\src\app\shared\app\common\" />
     <Folder Include="nativescript\src\app\shared\app\components\" />
+    <Folder Include="nativescript\src\app\shared\app\components\loader\" />
     <Folder Include="nativescript\src\app\shared\app\components\navbar\" />
     <Folder Include="nativescript\src\app\shared\app\components\toolbar\" />
+    <Folder Include="nativescript\src\app\shared\app\components\type-ahead\" />
     <Folder Include="nativescript\src\app\shared\app\components\user\" />
     <Folder Include="nativescript\src\app\shared\app\components\user\login\" />
     <Folder Include="nativescript\src\app\shared\core\" />
+    <Folder Include="nativescript\src\app\shared\core\collections\" />
+    <Folder Include="nativescript\src\app\shared\core\collections\KeyValuePairs\" />
     <Folder Include="nativescript\src\app\shared\core\directives\" />
     <Folder Include="nativescript\src\app\shared\core\interfaces\" />
     <Folder Include="nativescript\src\app\shared\core\models\" />
@@ -123,7 +127,6 @@
     <Folder Include="nativescript\src\mobile\app-ns\components\" />
     <Folder Include="nativescript\src\mobile\app-ns\components\map-locations\" />
     <Folder Include="nativescript\src\mobile\app-ns\components\map\" />
-    <Folder Include="nativescript\src\mobile\app-ns\components\type-ahead\" />
     <Folder Include="nativescript\src\mobile\core\directives\" />
     <Folder Include="nativescript\src\mobile\core\directives\borderless-button\" />
     <Folder Include="nativescript\src\mobile\core\" />
@@ -249,6 +252,8 @@
     <Content Include="nativescript\src\app\components\home\component.tns.scss" />
     <Content Include="nativescript\src\app\shared\app-web\components\map\component.html" />
     <Content Include="nativescript\src\app\shared\app-web\components\map\component.scss" />
+    <Content Include="nativescript\src\app\shared\app\components\loader\component.css" />
+    <Content Include="nativescript\src\app\shared\app\components\loader\component.html" />
     <Content Include="nativescript\src\app\shared\app\components\navbar\navbar.component.css" />
     <Content Include="nativescript\src\app\shared\app\components\navbar\navbar.component.html" />
     <Content Include="nativescript\src\app\shared\app\components\navbar\navbar.component.tns.css" />
@@ -257,6 +262,10 @@
     <Content Include="nativescript\src\app\shared\app\components\toolbar\toolbar.component.html" />
     <Content Include="nativescript\src\app\shared\app\components\toolbar\toolbar.component.tns.css" />
     <Content Include="nativescript\src\app\shared\app\components\toolbar\toolbar.component.tns.html" />
+    <Content Include="nativescript\src\app\shared\app\components\type-ahead\component.css" />
+    <Content Include="nativescript\src\app\shared\app\components\type-ahead\component.html" />
+    <Content Include="nativescript\src\app\shared\app\components\type-ahead\component.tns.css" />
+    <Content Include="nativescript\src\app\shared\app\components\type-ahead\component.tns.html" />
     <Content Include="nativescript\src\app\shared\app\components\user\login\login.component.html" />
     <Content Include="nativescript\src\app\shared\app\components\user\login\login.component.scss" />
     <Content Include="nativescript\src\app\shared\app\components\user\login\login.component.tns.html" />
@@ -358,8 +367,6 @@
     <Content Include="nativescript\src\App_Resources\iOS\LaunchScreen.storyboard" />
     <Content Include="nativescript\src\mobile\app-ns\components\map-locations\component.tns.html" />
     <Content Include="nativescript\src\mobile\app-ns\components\map-locations\component.tns.scss" />
-    <Content Include="nativescript\src\mobile\app-ns\components\type-ahead\component.tns.css" />
-    <Content Include="nativescript\src\mobile\app-ns\components\type-ahead\component.tns.html" />
     <Content Include="src\client\app\shared\app-web\components\map\component.css" />
     <Content Include="src\client\app\shared\app\components\loader\component.css" />
     <Content Include="src\client\app\shared\app\components\loader\component.html" />
@@ -394,8 +401,10 @@
     <Content Include="src\client\app\shared\app\components\toolbar\component.html" />
     <Content Include="src\client\app\shared\app\components\toolbar\component.tns.css" />
     <Content Include="src\client\app\shared\app\components\toolbar\component.tns.html" />
-    <Content Include="src\client\app\shared\app\components\type-ahead\component.html" />
+    <Content Include="src\client\app\shared\app\components\type-ahead\component.tns.css" />
+    <Content Include="src\client\app\shared\app\components\type-ahead\component.tns.html" />
     <Content Include="src\client\app\shared\app\components\type-ahead\component.css" />
+    <Content Include="src\client\app\shared\app\components\type-ahead\component.html" />
     <Content Include="src\client\app\shared\app\components\user\login\component.html" />
     <Content Include="src\client\app\shared\app\components\user\login\component.scss" />
     <Content Include="src\client\app\shared\app\components\user\login\component.tns.html" />
@@ -484,13 +493,24 @@
     <TypeScriptCompile Include="nativescript\src\app\shared\app-web\module.ts" />
     <TypeScriptCompile Include="nativescript\src\app\shared\app\common\category.common.ts" />
     <TypeScriptCompile Include="nativescript\src\app\shared\app\common\index.ts" />
+    <TypeScriptCompile Include="nativescript\src\app\shared\app\components\loader\component.spec.ts" />
+    <TypeScriptCompile Include="nativescript\src\app\shared\app\components\loader\component.ts" />
     <TypeScriptCompile Include="nativescript\src\app\shared\app\components\navbar\navbar.component.ts" />
     <TypeScriptCompile Include="nativescript\src\app\shared\app\components\toolbar\toolbar.component.ts" />
+    <TypeScriptCompile Include="nativescript\src\app\shared\app\components\type-ahead\component.spec.ts" />
+    <TypeScriptCompile Include="nativescript\src\app\shared\app\components\type-ahead\component.ts" />
+    <TypeScriptCompile Include="nativescript\src\app\shared\app\components\type-ahead\module.ts" />
     <TypeScriptCompile Include="nativescript\src\app\shared\app\components\user\login\login.component.spec.ts" />
     <TypeScriptCompile Include="nativescript\src\app\shared\app\components\user\login\login.component.ts" />
     <TypeScriptCompile Include="nativescript\src\app\shared\app\components\user\login\routes.ts" />
     <TypeScriptCompile Include="nativescript\src\app\shared\app\index.ts" />
     <TypeScriptCompile Include="nativescript\src\app\shared\app\module.ts" />
+    <TypeScriptCompile Include="nativescript\src\app\shared\core\collections\dictionary.ts" />
+    <TypeScriptCompile Include="nativescript\src\app\shared\core\collections\index.ts" />
+    <TypeScriptCompile Include="nativescript\src\app\shared\core\collections\KeyValuePairs\index.ts" />
+    <TypeScriptCompile Include="nativescript\src\app\shared\core\collections\KeyValuePairs\interfaces.ts" />
+    <TypeScriptCompile Include="nativescript\src\app\shared\core\collections\KeyValuePairs\models.ts" />
+    <TypeScriptCompile Include="nativescript\src\app\shared\core\collections\KeyValuePairs\service.ts" />
     <TypeScriptCompile Include="nativescript\src\app\shared\core\core.module.ts" />
     <TypeScriptCompile Include="nativescript\src\app\shared\core\directives\index.ts" />
     <TypeScriptCompile Include="nativescript\src\app\shared\core\directives\platform.directive.spec.ts" />
@@ -612,8 +632,6 @@
     <TypeScriptCompile Include="nativescript\src\mobile\app-ns\components\map-locations\component.spec.ts" />
     <TypeScriptCompile Include="nativescript\src\mobile\app-ns\components\map-locations\component.ts" />
     <TypeScriptCompile Include="nativescript\src\mobile\app-ns\components\map-locations\routes.ts" />
-    <TypeScriptCompile Include="nativescript\src\mobile\app-ns\components\type-ahead\component.spec.ts" />
-    <TypeScriptCompile Include="nativescript\src\mobile\app-ns\components\type-ahead\component.ts" />
     <TypeScriptCompile Include="src\client\app\shared\app\components\loader\component.spec.ts" />
     <TypeScriptCompile Include="src\client\app\shared\app\components\loader\component.ts" />
     <TypeScriptCompile Include="src\client\app\shared\app-web\components\map-locations\component.spec.ts" />
@@ -646,9 +664,7 @@
     <TypeScriptCompile Include="src\client\app\components\index.ts" />
     <TypeScriptCompile Include="src\client\app\shared\app\components\type-ahead\component.spec.ts" />
     <TypeScriptCompile Include="src\client\app\shared\app\components\type-ahead\component.ts" />
-    <TypeScriptCompile Include="src\client\app\shared\app\components\type-ahead\module.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\client\app\shared\app\components\type-ahead\module.ts" />
     <TypeScriptCompile Include="src\client\app\shared\core\collections\dictionary.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>

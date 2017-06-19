@@ -8,8 +8,6 @@ import { RouterExtensions, Config, ILocationArguments, IMapFeatures } from '../.
 
 import { ApiServiceParametersOptions } from '../../../core/models/Api';
 
-import { TypeAheadComponent } from '../../../app/components/type-ahead/component';
-
 import { IKeyValue, IKeyValueDictionary, Location } from '../../../core/collections/index';
 
 @Component({

@@ -1,25 +1,27 @@
 ﻿// angular
-import { NgModule, Optional, SkipSelf, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-
+import { NgModule, ModuleWithProviders } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MultilingualModule } from '../../../i18n/multilingual.module';
 import { TypeAheadComponent } from './component';
 
 @NgModule({
+    imports: [
+        CommonModule,
+        MultilingualModule
+    ],
     declarations: [
         TypeAheadComponent
     ],
-    schemas: [
-        NO_ERRORS_SCHEMA,
-        CUSTOM_ELEMENTS_SCHEMA
-    ],
     exports: [
-        TypeAheadComponent
+        TypeAheadComponent,
+        MultilingualModule
     ]
 })
 export class TypeAheadModule {
 
-    constructor( @Optional() @SkipSelf() parentModule: TypeAheadModule) {
-        if (parentModule) {
-            throw new Error('TypeAheadModule already loaded; Import in root module only.');
-        }
+    static forRoot(): ModuleWithProviders {
+        return {
+            ngModule: TypeAheadModule
+        };
     }
 }

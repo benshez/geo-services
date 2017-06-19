@@ -12,6 +12,7 @@ import { Config } from '../core/index';
 
 import { SharedAppModule } from '../../../app/shared/app/module';
 
+import { TypeAheadModule } from '../app/components/type-ahead/module';
 /**
  * Do not specify providers for modules that might be imported by a lazy loaded module.
  */
@@ -23,7 +24,7 @@ import { SharedAppModule } from '../../../app/shared/app/module';
         HttpModule,
         RouterModule,
         MultilingualModule,
-        SharedAppModule
+        TypeAheadModule.forRoot()
     ],
     declarations: [
         WEB_COMPONENTS

@@ -1,4 +1,5 @@
 ﻿import { IDictionary, ISelectedKeyValue } from './KeyValuePairs/interfaces';
+import { KeyValueArray } from './KeyValuePairs/models';
 
 export class Dictionary implements IDictionary {
 
@@ -49,5 +50,17 @@ export class Dictionary implements IDictionary {
 
     toLookup(): IDictionary {
         return this;
+    }
+
+    toArray(): Array<ISelectedKeyValue> {
+        let arr = [];
+
+        for (let key in this._keys) {
+            if (this._keys.hasOwnProperty(key)) {
+                arr.push(new KeyValueArray(key, this._values[key]));
+            }
+        }
+
+        return arr;
     }
 }

@@ -28,7 +28,7 @@ export class Location {
             if (this.locker.has(args.apiOptions.cacheKey)) {
                 let data: any = this.locker.get(args.apiOptions.cacheKey);
                 debugger
-                return Observable.of(data) as any;
+                //return Observable.of(data) as any;
             };
 
             return this.apiService.mapper(args.apiOptions)

@@ -14,3 +14,7 @@ export class KeyValueDictionary extends Dictionary {
         return this as any;
     }
 }
+
+export class KeyValueArray {
+    constructor(key: any, value: any) { }
+}

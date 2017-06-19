@@ -1,9 +1,8 @@
 ﻿// libs
 import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+
 import { Router, ActivatedRoute } from '@angular/router';
 
-//import { Observable as RxObservable } from 'rxjs/Observable';
 import { Observable } from 'rxjs/Observable';
 
 import { isAndroid, isIOS } from 'platform';
@@ -11,7 +10,7 @@ import { isAndroid, isIOS } from 'platform';
 // app
 import { ApiService, Locker } from '../../../../app/shared/core/index';
 import { User, ApiServiceParametersOptions } from '../../../../app/shared/core/index';
-import { Config, ICoordinates, IMapQuery, IMapFeatures, Mapper, IMapSetup, IMapOptions, IMarker, IPopup } from '../../../../app/shared/core/index';
+import { Config, ICoordinates, IMapQuery, IMapFeatures, IMapSetup, IMapOptions, IMarker, IPopup } from '../../../../app/shared/core/index';
 
 let mapbox = require('nativescript-mapbox');
 
@@ -28,7 +27,6 @@ class MapFeature {
 })
 export class NSMapComponent implements OnInit {
     public loading: boolean = false;
-    public model: Observable<Array<IMapFeatures>>;
     public features: any = [];
 
     private errorMessage: string;
@@ -59,11 +57,9 @@ export class NSMapComponent implements OnInit {
     constructor(
         public apiService: ApiService,
         private locker: Locker,
-        private fb: FormBuilder,
         private apiOptions: ApiServiceParametersOptions,
         private route: ActivatedRoute,
-        private router: Router,
-        private mapper: Mapper) { }
+        private router: Router) { }
 
     ngOnInit() {
         this.returnUrl = this.route.snapshot.queryParams[Config.ROUTE_PARAMETERS.LOGIN_RETURN_URL] || '/';

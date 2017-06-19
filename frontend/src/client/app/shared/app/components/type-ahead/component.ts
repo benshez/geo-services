@@ -17,6 +17,9 @@ import { Subscription } from 'rxjs/Subscription';
 import { Config, ILocationArguments } from '../../../core/index';
 import { IKeyValue, IKeyValueDictionary, ISelectedKeyValue } from '../../../core/collections/KeyValuePairs/interfaces';
 import { KeyValueDictionary } from '../../../core/collections/index';
+class KeyValueArray {
+    constructor(key: any, value: any) { }
+}
 // app
 @Component({
     moduleId: module.id,
@@ -26,7 +29,7 @@ import { KeyValueDictionary } from '../../../core/collections/index';
 })
 export class TypeAheadComponent {
 
-    public typeAheadSource: IKeyValueDictionary;
+    public typeAheadSource: any;
     public typeAheadKeyword: string;
 
     private typeAheadPlaceHolder: string = '';
@@ -80,9 +83,11 @@ export class TypeAheadComponent {
     }
 
     subscribeTypeAheadSource(evt) {
-        if (evt.target.value.length <= this.minlength) return;
+        let searchString: string = (evt.target) ? evt.target.value : evt.value;
 
-        this.keyword = evt.target.value;
+        if (searchString.length <= this.minlength) return;
+
+        this.keyword = searchString;
         
         this.source(this._keyword).subscribe(results => {
             if (typeof (results) === 'undefined') {
@@ -90,8 +95,22 @@ export class TypeAheadComponent {
             } else {
                 this.typeAheadShown = true;
                 this.typeAheadSource = results;
+                let arr = [];
+                for (let key in this.typeAheadSource.keys()) {
+                    //if (user.hasOwnProperty(key)) {
+                    arr.push(new KeyValueArray(key, this.typeAheadSource.values()[key]));
+                    //}
+                }
+                this.typeAheadSource = arr;
+                console.log(arr);
+                //console.log(JSON.stringify(this.typeAheadSource.values()));
             }
         }).unsubscribe;
+    }
+
+    onItemTap(args: any) {
+        let item: ISelectedKeyValue = this.typeAheadSource.getItemByKey(args.index);
+        console.log((item.value));
     }
 
     onKeyDownEnter(args: any) {

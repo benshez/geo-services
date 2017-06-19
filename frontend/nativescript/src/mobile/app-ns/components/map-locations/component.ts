@@ -1,11 +1,13 @@
 ﻿import { Component, ChangeDetectionStrategy } from '@angular/core';
 
+import { Observable } from 'rxjs/Observable';
+
 // app
-import { RouterExtensions, Config, Location, ILocationArguments, IMapFeatures } from '../../../../app/shared/core/index';
+import { RouterExtensions, Config, ILocationArguments, IMapFeatures } from '../../../../app/shared/core/index';
 
 import { ApiServiceParametersOptions } from '../../../../app/shared/core/models/Api';
 
-import { NSTypeAheadComponent } from '../type-ahead/component';
+import { IKeyValue, IKeyValueDictionary, Location } from '../../../../app/shared/core/collections/index';
 
 import * as Geolocation from 'nativescript-geolocation';
 
@@ -22,21 +24,42 @@ export class NSMapLocationsComponent {
 
     constructor(private location: Location, private routerext: RouterExtensions) { }
 
-    onBindIndustries(args: ILocationArguments) {
+    onBindIndustries = (keyword: Observable<string>): Observable<IKeyValueDictionary> => {
+        let args: ILocationArguments = {
+            keyword: keyword,
+            key: 'id',
+            value: 'description',
+            delay: 400,
+            apiOptions: null,
+            minQueryLength: 2,
+            cacheKey: 'industries'.concat('_').concat('{query}'),
+            DeepObjectName: ''
+        };
+
         args.apiOptions = new ApiServiceParametersOptions();
         args.apiOptions.url = Config.API_END_POINTS.INDUSTRIES.concat('{query}');
         args.apiOptions.parameters = '';
         args.apiOptions.concatApi = true;
-        //return this.location.onSearcher(args);
-        return this.location.onSearch(args);//.map((res) => { return res; });
+
+        return this.location.onSearch(args);
     }
 
-    onBindPlaces(args: ILocationArguments) {
+    onBindPlaces = (keyword: Observable<string>): Observable<IKeyValueDictionary> => {
+        let args: ILocationArguments = {
+            keyword: keyword,
+            key: 'center',
+            value: 'place_name',
+            delay: 400,
+            apiOptions: null,
+            minQueryLength: 2,
+            cacheKey: 'places'.concat('_').concat('{query}'),
+            DeepObjectName: 'features'
+        };
         args.apiOptions = new ApiServiceParametersOptions();
         args.apiOptions.url = Config.ENVIRONMENT().MAP_BOX_API.concat('{query}').concat('.json?access_token=').concat(Config.ENVIRONMENT().MAP_BOX_API_KEY);//Config.API_END_POINTS.INDUSTRIES.concat('{query}');
         args.apiOptions.parameters = '';
         args.apiOptions.concatApi = false;
-        
+
         return this.location.onSearch(args);
     }
 

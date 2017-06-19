@@ -7,32 +7,33 @@ import { RouterModule } from '@angular/router';
 import { NativeScriptModule } from 'nativescript-angular/nativescript.module'; 
 import { NativeScriptFormsModule } from 'nativescript-angular/forms';
 
+import { TypeAheadModule } from '../../app/shared/app/components/type-ahead/module';
+
 export const NS_MODULES: any[] = [
     NativeScriptModule,
     CommonModule,
     NativeScriptFormsModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TypeAheadModule.forRoot()
 ];
 
 // providers
 export const NS_PROVIDERS: any[] = [
+
 ];
 
 //components
 import { NSMapComponent } from './components/map/component';
 import { NSMapLocationsComponent } from './components/map-locations/component';
-import { NSTypeAheadComponent } from './components/type-ahead/component';
 
 export const NS_COMPONENTS: any[] = [
     NSMapComponent,
-    NSTypeAheadComponent,
     NSMapLocationsComponent
 ];
 
 export * from './components/map/component';
 export * from './components/map-locations/component';
-export * from './components/type-ahead/component';
 
 // directives
 export const NS_DIRECTIVES: any[] = [
