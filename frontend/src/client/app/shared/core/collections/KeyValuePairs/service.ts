@@ -46,7 +46,7 @@ export class Location {
                     let suggestionsData: IKeyValueDictionary = suggestions.toLookup();
 
                     if (args.apiOptions.cacheKey !== '') this.locker.set(args.apiOptions.cacheKey, suggestionsData);
-                    
+
                     return suggestionsData;
 
                 }).catch((error: any) => {

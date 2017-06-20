@@ -1,9 +1,9 @@
 ﻿<div class="typeahead-wrapper">
   <input #typeAheadInput class="typeahead-input" type="text" placeholder="{{placeholder | translate}}" (keydown.ArrowDown)="onKeyDownArrow('down')" (input)="subscribeTypeAheadSource($event)"/>
   <div  class="typeahead">
-    <ul class="dropdown-content" *ngIf="typeAheadSource && typeAheadShown" #typeAheadList>
-      <li tabindex="-1" class="typeahead-item" *ngFor="let item of (typeAheadSource.keys()), let idx = index" [attr.id]="item" (keydown.ArrowDown)="onKeyDownArrow('down')" (keydown.ArrowUp)="onKeyDownArrow('up')" (click)="onKeyDownEnter(item)" (keydown.Enter)="onKeyDownEnter(item)">
-        <span>{{typeAheadSource.values()[idx].value}}</span>
+    <ul class="dropdown-content" *ngIf="typeAheadDictionary && typeAheadShown" #typeAheadList>
+      <li tabindex="-1" class="typeahead-item" *ngFor="let item of (typeAheadDictionary.keys()), let idx = index" [attr.id]="item" (keydown.ArrowDown)="onKeyDownArrow('down')" (keydown.ArrowUp)="onKeyDownArrow('up')" (click)="onKeyDownEnter(item)" (keydown.Enter)="onKeyDownEnter(item)">
+        <span>{{typeAheadDictionary.values()[idx].value}}</span>
       </li>
     </ul>
   </div>

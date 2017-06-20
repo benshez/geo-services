@@ -1,4 +1,4 @@
-﻿import { Dictionary } from '../dictionary';
+﻿import { Dictionary } from './dictionary';
 import { IKeyValue, IKeyValueDictionary } from './interfaces';
 
 export class KeyValueDictionary extends Dictionary {

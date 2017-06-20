@@ -61,12 +61,8 @@ export class ApiService {
     mapper(parameters: ApiServiceParametersOptions): Observable<any> {
         this.showLoader();
 
-        let api: string = (parameters.concatApi) ? Config.ENVIRONMENT().API.concat(parameters.url) : parameters.url;
-        api = 'http://192.168.0.3:8000/api/industries/Ing';
-        console.log(api);
-
-        //return Observable.fromPromise(
-        //    nshttp.getJSON(api));
+        //let api: string = (parameters.concatApi) ? Config.ENVIRONMENT().API.concat(parameters.url) : parameters.url;
+        let api: string = (parameters.concatApi) ? 'http://192.168.0.9:8000/api/industries/Ing' : parameters.url;
 
         return this.http.get(api)
             .catch(this.onCatch)

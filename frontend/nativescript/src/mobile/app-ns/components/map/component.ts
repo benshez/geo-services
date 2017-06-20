@@ -75,9 +75,15 @@ export class NSMapComponent implements OnInit {
         options.map.show({
             accessToken: options.accessToken, // see 'Prerequisites' above 
             style: mapbox.MapStyle.LIGHT, // see the mapbox.MapStyle enum for other options, default mapbox.MapStyle.STREETS 
+            margins: {
+                left: 10,
+                right: 10,
+                top: 65,
+                bottom: 0
+            },
             center: { // optional without a default 
-                lat: options.options.center[1],
-                lng: options.options.center[0]
+                lat: self.options.options.center[1],
+                lng: self.options.options.center[0]
             },
             zoomLevel: 13, // 0-20, default 0 
             showUserLocation: true, // default false - requires location permissions on Android which you can remove from AndroidManifest.xml if you don't need them 
@@ -86,7 +92,7 @@ export class NSMapComponent implements OnInit {
             hideCompass: true, // default false 
             disableRotation: false, // default false 
             disableScroll: true, // default false 
-            disableZoom: true
+            disableZoom: true,
         }).then(
             function (result) {
                 self.onMapComponentInit(self.options);

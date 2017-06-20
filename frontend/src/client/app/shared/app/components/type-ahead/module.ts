@@ -15,13 +15,15 @@ import { TypeAheadComponent } from './component';
     exports: [
         TypeAheadComponent,
         MultilingualModule
-    ]
+    ],
+    providers: []
 })
 export class TypeAheadModule {
 
     static forRoot(): ModuleWithProviders {
         return {
-            ngModule: TypeAheadModule
+            ngModule: TypeAheadModule,
+            providers: []
         };
     }
 }

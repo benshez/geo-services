@@ -4,7 +4,8 @@
 <StackLayout class="p-10 m-0">
   <StackLayout class="form">
     <sd-typeahead placeholder="SEARCH_INDUSTRIES" [source]="onBindIndustries.bind(this)" value="description" key="id" minlength="2" (onTypeAheadIndexChanged)="onIndustryChange($event)"></sd-typeahead>
-    <Button (tap)="onSetLocation()" [text]="'USE_CURRENT_LOCATION' | translate" class="btn btn-outline"></Button>
+    <Button *ngIf="showMapPlaces" (tap)="onSetLocation()" [text]="'USE_CURRENT_LOCATION' | translate" class="btn btn-outline"></Button>
+    <sd-typeahead *ngIf="showMapPlaces" placeholder="SEARCH_PLACES" [source]="onBindPlaces.bind(this)" value="description" key="id" minlength="3" (onTypeAheadIndexChanged)="onPlaceChange($event)"></sd-typeahead>
   </StackLayout>
 </StackLayout>
 

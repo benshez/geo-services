@@ -1,13 +1,11 @@
 ﻿<StackLayout>
-  <TextField #typeAheadInput [hint]="placeholder | translate" (propertyChange)="subscribeTypeAheadSource($event)" keyups(keydown.ArrowDown)="onKeyDownArrow('down')"></TextField>
+  <TextField #typeAheadInput [hint]="placeholder | translate" (propertyChange)="subscribeTypeAheadSource($event)"></TextField>
   <StackLayout class="typeahead" *ngIf="typeAheadSource && typeAheadShown">
-    <ListView tabindex="-1" #typeAheadList [items]="typeAheadSource.values()" (itemTap)="onItemTap($event)" class="list-group">
-      <ng-template let-dataitem="item" let-i="index" let-odd="odd" let-even="even">
-        
+    <ListView tabindex="-1" #typeAheadList [items]="typeAheadSource" (itemTap)="onItemTap($event)" class="list-group">
+      <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">       
           <GridLayout>
-            <Label [text]="dataitem[0].value"></Label>
+            <Label [text]="item.value"></Label>
           </GridLayout>
-
       </ng-template>
     </ListView>
   </StackLayout>

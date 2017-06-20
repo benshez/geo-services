@@ -16,11 +16,8 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { Config, ILocationArguments } from '../../../core/index';
 import { IKeyValue, IKeyValueDictionary, ISelectedKeyValue } from '../../../core/collections/KeyValuePairs/interfaces';
-import { KeyValueDictionary } from '../../../core/collections/index';
-class KeyValueArray {
-    constructor(key: any, value: any) { }
-}
-// app
+import { KeyValueDictionary, KeyValueArray } from '../../../core/collections/index';
+
 @Component({
     moduleId: module.id,
     selector: 'sd-typeahead',
@@ -29,9 +26,10 @@ class KeyValueArray {
 })
 export class TypeAheadComponent {
 
-    public typeAheadSource: any;
+    public typeAheadSource: Array<any>;
     public typeAheadKeyword: string;
 
+    private typeAheadDictionary: KeyValueDictionary
     private typeAheadPlaceHolder: string = '';
     private typeAheadErrorMessage: string = '';
     private typeAheadValueChange: Subscription;
@@ -94,23 +92,19 @@ export class TypeAheadComponent {
                 this.typeAheadSource = [] as any;
             } else {
                 this.typeAheadShown = true;
-                this.typeAheadSource = results;
-                let arr = [];
-                for (let key in this.typeAheadSource.keys()) {
-                    //if (user.hasOwnProperty(key)) {
-                    arr.push(new KeyValueArray(key, this.typeAheadSource.values()[key]));
-                    //}
-                }
-                this.typeAheadSource = arr;
-                console.log(arr);
-                //console.log(JSON.stringify(this.typeAheadSource.values()));
+                this.typeAheadDictionary = results;
+                this.typeAheadSource = this.typeAheadDictionary.toArray();
+                //console.log(JSON.stringify(this.typeAheadDictionary));
             }
         }).unsubscribe;
     }
 
     onItemTap(args: any) {
-        let item: ISelectedKeyValue = this.typeAheadSource.getItemByKey(args.index);
-        console.log((item.value));
+        let item: ISelectedKeyValue = this.typeAheadDictionary.getItemByKey(args.index);
+        let input: any = this.typeAheadInput.nativeElement;
+        input.focus();
+        this.typeAheadShown = false;
+        this.onTypeAheadIndexChanged.emit(item.key);
     }
 
     onKeyDownEnter(args: any) {
@@ -120,7 +114,7 @@ export class TypeAheadComponent {
     }
 
     setTypeAheadInputValue(args: any, input: any, setFocus: boolean = false) {
-        let item: ISelectedKeyValue = this.typeAheadSource.getItemByKey(args);
+        let item: ISelectedKeyValue = this.typeAheadDictionary.getItemByKey(args);
         input.value = item.value;
         if (setFocus) {
             input.focus();

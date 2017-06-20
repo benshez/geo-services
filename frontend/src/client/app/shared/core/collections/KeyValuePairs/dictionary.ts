@@ -1,5 +1,5 @@
-﻿import { IDictionary, ISelectedKeyValue } from './KeyValuePairs/interfaces';
-import { KeyValueArray } from './KeyValuePairs/models';
+﻿import { IDictionary, ISelectedKeyValue } from './interfaces';
+import { KeyValueArray } from './models';
 
 export class Dictionary implements IDictionary {
 
@@ -57,7 +57,7 @@ export class Dictionary implements IDictionary {
 
         for (let key in this._keys) {
             if (this._keys.hasOwnProperty(key)) {
-                arr.push(new KeyValueArray(key, this._values[key]));
+                arr.push(this._values[key].value);
             }
         }
 

@@ -665,7 +665,7 @@
     <TypeScriptCompile Include="src\client\app\shared\app\components\type-ahead\component.spec.ts" />
     <TypeScriptCompile Include="src\client\app\shared\app\components\type-ahead\component.ts" />
     <TypeScriptCompile Include="src\client\app\shared\app\components\type-ahead\module.ts" />
-    <TypeScriptCompile Include="src\client\app\shared\core\collections\dictionary.ts">
+    <TypeScriptCompile Include="src\client\app\shared\core\collections\KeyValuePairs\dictionary.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="src\client\app\shared\core\collections\index.ts">

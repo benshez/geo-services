@@ -65,16 +65,16 @@ export class NSMapLocationsComponent {
 
     onIndustryChange(args: any) {
         this.showMapPlaces = false;
-        if (args && args.key) {
+        if (args !== '') {
             Config.ROUTE_PARAMETERS.INDUSTRY = args.key;
             this.showMapPlaces = true;
         }
     }
 
     onPlaceChange(args: any) {
-        if (args && args.key && this.showMapPlaces) {
-            Config.ROUTE_PARAMETERS.LONGITUDE = args.key[0];
-            Config.ROUTE_PARAMETERS.LATITUDE = args.key[1];
+        if (args && this.showMapPlaces) {
+            Config.ROUTE_PARAMETERS.LONGITUDE = args[0];
+            Config.ROUTE_PARAMETERS.LATITUDE = args[1];
             this.onNavigate();
         }
     }
