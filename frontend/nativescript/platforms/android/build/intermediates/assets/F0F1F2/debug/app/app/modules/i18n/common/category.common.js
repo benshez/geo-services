@@ -1,4 +1,0 @@
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.CATEGORY = 'Multilingual';
-
-//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9tb2R1bGVzL2kxOG4vY29tbW9uL2NhdGVnb3J5LmNvbW1vbi50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiO0FBQWEsUUFBQSxRQUFRLEdBQVcsY0FBYyxDQUFDIiwiZmlsZSI6ImFwcC9tb2R1bGVzL2kxOG4vY29tbW9uL2NhdGVnb3J5LmNvbW1vbi5qcyIsInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBjb25zdCBDQVRFR09SWTogc3RyaW5nID0gJ011bHRpbGluZ3VhbCc7XG4iXX0=

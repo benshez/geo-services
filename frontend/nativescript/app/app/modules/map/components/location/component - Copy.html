@@ -1,4 +1,0 @@
-<h2>{{ 'MAP_PLACES' | translate }}</h2>
-<sd-typeahead placeholder="SEARCH_INDUSTRIES" [source]="onBindIndustries.bind(this)" minlength="2" (onTypeAheadIndexChanged)="onIndustryChange($event)"></sd-typeahead>
-<a *ngIf="showMapPlaces" class="btn link" (click)="onSetLocation()">{{'USE_CURRENT_LOCATION' | translate}}</a>
-<sd-typeahead *ngIf="showMapPlaces" [source]="onBindPlaces.bind(this)" placeholder="SEARCH_PLACES" minlength="3" (onTypeAheadIndexChanged)="onPlaceChange($event)"></sd-typeahead>
