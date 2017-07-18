@@ -22,3 +22,4 @@ obj/
 Visual Studio 2015
 *.csproj
 *.config
+ChromeDebugger-UserData/
