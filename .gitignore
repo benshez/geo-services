@@ -64,8 +64,8 @@ frontend/lib
 frontend/test
 frontend/tmp
 frontend/.tmp
-frontend/**/*.js
-frontend/**/*.js.map
+frontend/src/**/*.js
+frontend/src/**/*.js.map
 frontend/**/*.ngfactory.js
 frontend/**/*.ngfactory.ts
 frontend/nativescript/app
