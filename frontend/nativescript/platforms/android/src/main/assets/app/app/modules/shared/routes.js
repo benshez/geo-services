@@ -1,0 +1,6 @@
+Object.defineProperty(exports, "__esModule", { value: true });
+// app
+var routes_1 = require("../../components/routes");
+exports.SHARED_ROUTES = routes_1.APP_ROUTES.slice();
+
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9tb2R1bGVzL3NoYXJlZC9yb3V0ZXMudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtBQUFBLE1BQU07QUFDTixrREFBcUQ7QUFFeEMsUUFBQSxhQUFhLEdBQ25CLG1CQUFVLFNBQ2YiLCJmaWxlIjoiYXBwL21vZHVsZXMvc2hhcmVkL3JvdXRlcy5qcyIsInNvdXJjZXNDb250ZW50IjpbIi8vIGFwcFxuaW1wb3J0IHsgQVBQX1JPVVRFUyB9IGZyb20gJy4uLy4uL2NvbXBvbmVudHMvcm91dGVzJztcblxuZXhwb3J0IGNvbnN0IFNIQVJFRF9ST1VURVM6IEFycmF5PGFueT4gPSBbXG4gICAgLi4uQVBQX1JPVVRFU1xuXTtcbiJdfQ==

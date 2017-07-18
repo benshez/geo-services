@@ -13,7 +13,7 @@ let template: any;
 let menu: any;
 
 // app
-import { DesktopConfig } from './app/shared/electron/index';
+import { DesktopConfig } from './app/modules/electron/index';
 
 // Sample
 // You would need a valid `submitURL` to use
@@ -51,13 +51,13 @@ app.on('ready', () => {
     console.log(`Page navigated: ${url}`);
   });
 
-  let appTitle: string = `Angular Seed Advanced`;
+  let appTitle: string = `Geo Service`;
 
   let langMenu: any = {
     label: 'Language',
     submenu: []
   };
-  for (var lang of DesktopConfig.SUPPORTED_LANGUAGES) {
+  for (var lang of DesktopConfig.GET_SUPPORTED_LANGUAGES()) {
     let code = lang.code;
     let langOption = {
       label: lang.title,
@@ -123,7 +123,7 @@ app.on('ready', () => {
         }, {
           type: 'separator'
         }, {
-          label: 'Hide Angular Seed Advanced',
+          label: 'Hide Geo Service',
           accelerator: 'Command+H',
           selector: 'hide:'
         }, {

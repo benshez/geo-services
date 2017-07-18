@@ -1,0 +1,8 @@
+Object.defineProperty(exports, "__esModule", { value: true });
+// nativescript
+var platform_1 = require("nativescript-angular/platform");
+// app
+var native_module_1 = require("./native.module");
+platform_1.platformNativeScriptDynamic().bootstrapModule(native_module_1.NativeModule);
+
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiO0FBQUEsZUFBZTtBQUNmLDBEQUE0RTtBQUU1RSxNQUFNO0FBQ04saURBQStDO0FBRS9DLHNDQUEyQixFQUFFLENBQUMsZUFBZSxDQUFDLDRCQUFZLENBQUMsQ0FBQyIsImZpbGUiOiJhcHAuanMiLCJzb3VyY2VzQ29udGVudCI6WyIvLyBuYXRpdmVzY3JpcHRcbmltcG9ydCB7IHBsYXRmb3JtTmF0aXZlU2NyaXB0RHluYW1pYyB9IGZyb20gJ25hdGl2ZXNjcmlwdC1hbmd1bGFyL3BsYXRmb3JtJztcblxuLy8gYXBwXG5pbXBvcnQgeyBOYXRpdmVNb2R1bGUgfSBmcm9tICcuL25hdGl2ZS5tb2R1bGUnO1xuXG5wbGF0Zm9ybU5hdGl2ZVNjcmlwdER5bmFtaWMoKS5ib290c3RyYXBNb2R1bGUoTmF0aXZlTW9kdWxlKTtcbiJdfQ==

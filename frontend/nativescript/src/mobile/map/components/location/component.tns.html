@@ -1,0 +1,12 @@
+﻿<ActionBar [title]="'MAP_PLACES' | translate" class="action-bar">
+    <NavigationButton [text]="'HOME' | translate"></NavigationButton>
+</ActionBar>
+<StackLayout class="p-0 m-0">
+    <ScrollView>
+        <StackLayout>
+            <sd-typeahead placeholder="SEARCH_INDUSTRIES" [source]="onBindIndustries.bind(this)" value="description" key="id" minlength="2" (onTypeAheadIndexChanged)="onIndustryChange($event)"></sd-typeahead>
+            <Button *ngIf="showMapPlaces" (tap)="onSetLocation()" [text]="'USE_CURRENT_LOCATION' | translate" class="btn btn-outline"></Button>
+            <sd-typeahead *ngIf="showMapPlaces" placeholder="SEARCH_PLACES" [source]="onBindPlaces.bind(this)" value="description" key="id" minlength="3" (onTypeAheadIndexChanged)="onPlaceChange($event)"></sd-typeahead>
+        </StackLayout>
+    </ScrollView>
+</StackLayout>

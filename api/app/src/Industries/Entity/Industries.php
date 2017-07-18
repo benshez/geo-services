@@ -1,10 +1,19 @@
 <?php
 
+/*
+ * This file is part of Geo Service API.
+ *
+ * (c) Ben van Heerden <benshez@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace GeoService\Industries\Entity;
 
-use Doctrine\ORM\Mapping as ORM,
-Doctrine\ORM\EntityRepository,
-GeoService\AbstractEntity;
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\EntityRepository;
+use GeoService\AbstractEntity;
 
 /**
  * Industries
@@ -48,6 +57,6 @@ class Industries extends AbstractEntity
 
     public function getArrayCopy()
     {
-      return get_object_vars($this);
+        return get_object_vars($this);
     }
 }

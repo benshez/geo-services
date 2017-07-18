@@ -1,2 +1,0 @@
-﻿// app
-export * from './platform';

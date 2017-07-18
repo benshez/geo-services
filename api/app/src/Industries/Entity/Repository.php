@@ -1,11 +1,10 @@
 <?php
+
 namespace GeoService\Industries\Entity;
 
-use Doctrine\ORM\Mapping as ORM,
-Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\EntityRepository;
 
-class Repository extends EntityRepository
-{
+class Repository extends EntityRepository {
 
     public function getAutoComplete($description = null)
     {
@@ -15,7 +14,7 @@ class Repository extends EntityRepository
         $qb->select('u.id, u.description')
         ->from(Industries::class, 'u')
         ->where($qb->expr()->like('LOWER(u.description)', ':identifier'))
-        ->setParameter('identifier',"%$description%");
+        ->setParameter('identifier', "%$description%");
 
         $query = $qb->getQuery();
 

@@ -1,4 +1,4 @@
-﻿import { join } from 'path';
+import { join } from 'path';
 import { SeedAdvancedConfig } from './seed-advanced.config';
 import { ExtendPackages } from './seed.config.interfaces';
 
@@ -8,51 +8,54 @@ import { ExtendPackages } from './seed.config.interfaces';
  */
 export class ProjectConfig extends SeedAdvancedConfig {
 
-    PROJECT_TASKS_DIR = join(process.cwd(), this.TOOLS_DIR, 'tasks', 'project');
+  PROJECT_TASKS_DIR = join(process.cwd(), this.TOOLS_DIR, 'tasks', 'project');
+  
+  constructor() {
+    super();
+    // this.APP_TITLE = 'Put name of your app here';
+    // this.GOOGLE_ANALYTICS_ID = 'Your site's ID';
 
-    constructor() {
-        super();
-        // this.APP_TITLE = 'Put name of your app here';
-        // this.GOOGLE_ANALYTICS_ID = 'Your site's ID';
+    /* Enable typeless compiler runs (faster) between typed compiler runs. */
+    // this.TYPED_COMPILE_INTERVAL = 5;
 
-        /* Enable typeless compiler runs (faster) between typed compiler runs. */
-        // this.TYPED_COMPILE_INTERVAL = 5;
+    // Add `NPM` third-party libraries to be injected/bundled.
+    this.NPM_DEPENDENCIES = [
+      ...this.NPM_DEPENDENCIES,
+      // {src: 'jquery/dist/jquery.min.js', inject: 'libs'},
+    ];
 
-        // Add `NPM` third-party libraries to be injected/bundled.
-        this.NPM_DEPENDENCIES = [
-            ...this.NPM_DEPENDENCIES,
-            // {src: 'jquery/dist/jquery.min.js', inject: 'libs'},
-        ];
+    // Add `local` third-party libraries to be injected/bundled.
+    this.APP_ASSETS = [
+      // {src: `${this.APP_SRC}/your-path-to-lib/libs/jquery-ui.js`, inject: true, vendor: false}
+      // {src: `${this.CSS_SRC}/path-to-lib/test-lib.css`, inject: true, vendor: false},
+    ];
 
-        // Add `local` third-party libraries to be injected/bundled.
-        this.APP_ASSETS = [
-            // {src: `${this.APP_SRC}/your-path-to-lib/libs/jquery-ui.js`, inject: true, vendor: false}
-            // {src: `${this.CSS_SRC}/path-to-lib/test-lib.css`, inject: true, vendor: false},
-        ];
+    this.ROLLUP_INCLUDE_DIR = [
+      ...this.ROLLUP_INCLUDE_DIR,
+      //'node_modules/moment/**'
+    ];
 
-        // Add packages (e.g. ng2-translate)
-        // ng2-translate is already added with the advanced seed - here for example only
-        let additionalPackages: ExtendPackages[] = [
-            {
-                name: '@mapbox/mapbox-gl-geocoder', path: 'node_modules/@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.min.js'
-            },
-            {
-                name: 'mapbox-gl', path: 'node_modules/mapbox-gl/dist/mapbox-gl.js'
-            },
-            {
-                name: '@ngui/auto-complete', path: 'node_modules/@ngui/auto-complete/dist/auto-complete.umd.js',
-            }
-        ];
-        ////
-        this.addPackagesBundles(additionalPackages);
+    this.ROLLUP_NAMED_EXPORTS = [
+      ...this.ROLLUP_NAMED_EXPORTS,
+      //{'node_modules/immutable/dist/immutable.js': [ 'Map' ]},
+    ];
 
-        /* Add proxy middleware */
-        // this.PROXY_MIDDLEWARE = [
-        //   require('http-proxy-middleware')({ ws: false, target: 'http://localhost:3003' })
-        // ];
+    // Add packages (e.g. ng2-translate)
+    // ng2-translate is already added with the advanced seed - here for example only
+    let additionalPackages: ExtendPackages[] = [
+        {
+            name: 'mapbox-gl', path: 'node_modules/mapbox-gl/dist/mapbox-gl.js'
+        }
+    ];
+    ////
+    this.addPackagesBundles(additionalPackages);
+    /* Add proxy middleware */
+    // this.PROXY_MIDDLEWARE = [
+    //   require('http-proxy-middleware')('/api', { ws: false, target: 'http://localhost:3003' })
+    // ];
 
-        /* Add to or override NPM module configurations: */
-        // this.PLUGIN_CONFIGS['browser-sync'] = { ghostMode: false };
-    }
+    /* Add to or override NPM module configurations: */
+    // this.PLUGIN_CONFIGS['browser-sync'] = { ghostMode: false };
+  }
 
 }

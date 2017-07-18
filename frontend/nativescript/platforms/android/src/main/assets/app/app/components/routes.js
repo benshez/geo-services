@@ -1,0 +1,8 @@
+Object.defineProperty(exports, "__esModule", { value: true });
+// app
+var routes_1 = require("./home/routes");
+var routes_2 = require("./about/routes");
+var routes_3 = require("../modules/user/components/login/routes/routes");
+exports.APP_ROUTES = routes_1.HomeRoutes.concat(routes_2.AboutRoutes, routes_3.LoginRoutes);
+
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9jb21wb25lbnRzL3JvdXRlcy50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiO0FBQUEsTUFBTTtBQUNOLHdDQUEyQztBQUMzQyx5Q0FBNkM7QUFDN0MseUVBQTZFO0FBRWhFLFFBQUEsVUFBVSxHQUNoQixtQkFBVSxRQUNWLG9CQUFXLEVBQ1gsb0JBQVcsRUFDaEIiLCJmaWxlIjoiYXBwL2NvbXBvbmVudHMvcm91dGVzLmpzIiwic291cmNlc0NvbnRlbnQiOlsiLy8gYXBwXG5pbXBvcnQgeyBIb21lUm91dGVzIH0gZnJvbSAnLi9ob21lL3JvdXRlcyc7XG5pbXBvcnQgeyBBYm91dFJvdXRlcyB9IGZyb20gJy4vYWJvdXQvcm91dGVzJztcbmltcG9ydCB7IExvZ2luUm91dGVzIH0gZnJvbSAnLi4vbW9kdWxlcy91c2VyL2NvbXBvbmVudHMvbG9naW4vcm91dGVzL3JvdXRlcyc7XG5cbmV4cG9ydCBjb25zdCBBUFBfUk9VVEVTOiBBcnJheTxhbnk+ID0gW1xuICAgIC4uLkhvbWVSb3V0ZXMsXG4gICAgLi4uQWJvdXRSb3V0ZXMsXG4gICAgLi4uTG9naW5Sb3V0ZXNcbl07XG4iXX0=

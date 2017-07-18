@@ -1,4 +1,4 @@
-﻿// angular
+// angular
 import { NgModule } from '@angular/core';
 import { APP_BASE_HREF } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
@@ -13,29 +13,43 @@ import { TranslateLoader } from '@ngx-translate/core';
 
 // app
 import { APP_COMPONENTS, AppComponent } from './app/components/index';
+import { WEB_MAP_COMPONENTS } from './app/modules/map/index';
+import { SHARED_ROUTES } from './app/modules/shared/routes';
+import { WEB_MAP_ROUTES, MAP_LOCATION_ROUTES } from './app/modules/map/routes/web/routes';
+
+export const WEB_ROUTES: Array<any> = [
+    ...SHARED_ROUTES,
+    ...WEB_MAP_ROUTES,
+    ...MAP_LOCATION_ROUTES
+];
 
 // feature modules
-import { CoreModule } from './app/shared/core/core.module';
-import { AppReducer } from './app/shared/ngrx/index';
-import { AnalyticsModule } from './app/shared/analytics/analytics.module';
-import { MultilingualModule, translateLoaderFactory } from './app/shared/i18n/multilingual.module';
-import { MultilingualEffects } from './app/shared/i18n/index';
+import {
+    WindowService,
+    StorageService,
+    ConsoleService,
+    createConsoleTarget,
+    provideConsoleTarget,
+    LogTarget,
+    LogLevel,
+    ConsoleTarget,
+    ApiServiceOptions,
+    ApiServiceParametersOptions
+} from './app/modules/core/services/index';
+import { CoreModule, Config } from './app/modules/core/index';
+import { AnalyticsModule } from './app/modules/analytics/index';
+import { MultilingualModule, Languages, translateLoaderFactory, MultilingualEffects } from './app/modules/i18n/index';
+import { SampleModule, SampleEffects } from './app/modules/sample/index';
 
-import { SharedAppModule } from './app/shared/app/index';
-import { WebOnlyModule, WEB_ROUTES } from './app/shared/app-web/index';
+import { WebMapModule } from './app/modules/map/module';
+import { AppReducer } from './app/modules/ngrx/index';
 
 // config
-import { Config, WindowService, ConsoleService, createConsoleTarget, provideConsoleTarget, LogTarget, LogLevel, ConsoleTarget } from './app/shared/core/index';
 Config.PLATFORM_TARGET = Config.PLATFORMS.WEB;
 if (String('<%= BUILD_TYPE %>') === 'dev') {
     // only output console logging in dev mode
     Config.DEBUG.LEVEL_4 = true;
 }
-
-// sample config (extra)
-import { MultilingualService } from './app/shared/i18n/services/multilingual.service';
-// custom i18n language support
-MultilingualService.SUPPORTED_LANGUAGES = Config.SUPPORTED_LANGUAGES;
 
 let routerModule = RouterModule.forRoot(WEB_ROUTES);
 
@@ -45,11 +59,14 @@ if (String('<%= TARGET_DESKTOP %>') === 'true') {
     routerModule = RouterModule.forRoot(WEB_ROUTES, { useHash: true });
 }
 
-declare var window, console;
+declare var window, console, localStorage;
 
 // For AoT compilation to work:
 export function win() {
     return window;
+}
+export function storage() {
+    return localStorage;
 }
 export function cons() {
     return console;
@@ -72,29 +89,40 @@ if (String('<%= BUILD_TYPE %>') === 'dev') {
         BrowserModule,
         CoreModule.forRoot([
             { provide: WindowService, useFactory: (win) },
+            { provide: StorageService, useFactory: (storage) },
             { provide: ConsoleService, useFactory: (cons) },
-            { provide: LogTarget, useFactory: (consoleLogTarget), deps: [ConsoleService], multi: true }
+            { provide: LogTarget, useFactory: (consoleLogTarget), deps: [ConsoleService], multi: true },
+            { provide: ApiServiceOptions },
+            { provide: ApiServiceParametersOptions }
         ]),
         routerModule,
         AnalyticsModule,
-        SharedAppModule,
-        WebOnlyModule,
         MultilingualModule.forRoot([{
             provide: TranslateLoader,
             deps: [Http],
             useFactory: (translateLoaderFactory)
         }]),
+        SampleModule,
+        // configure app state
         StoreModule.provideStore(AppReducer),
+        EffectsModule.run(MultilingualEffects),
+        EffectsModule.run(SampleEffects),
+        // dev environment only imports
         DEV_IMPORTS,
-        EffectsModule.run(MultilingualEffects)
     ],
     declarations: [
-        APP_COMPONENTS
+        APP_COMPONENTS,
+        WEB_MAP_COMPONENTS
     ],
     providers: [
         {
             provide: APP_BASE_HREF,
             useValue: '<%= APP_BASE %>'
+        },
+        // override with supported languages
+        {
+            provide: Languages,
+            useValue: Config.GET_SUPPORTED_LANGUAGES()
         }
     ],
     bootstrap: [AppComponent]

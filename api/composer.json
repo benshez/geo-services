@@ -1,14 +1,14 @@
 {
-  "name": "valeriocomo/doctrim",
-  "description": "Slim 3 with Doctrine Migrations",
-  "version": "0.0.0",
+  "name": "geoservice/api",
+  "description": "Geo Service Application API",
+  "version": "0.0.1",
   "license": "BSD-3-Clause",
-  "keywords": [ "slim-framework", "doctrine", "doctrine-migrations", "migrations" ],
+  "keywords": [ "geoservice", "slim-framework", "doctrine", "doctrine-migrations", "migrations" ],
   "authors": [
     {
-      "name": "Valerio Como",
-      "email": "valeriocomo@gmail.com",
-      "homepage": "http://valeriocomo.com"
+      "name": "Ben van Heerden",
+      "email": "benshez1@gmail.com",
+      "homepage": "https://github.com/benshez/geo-services"
     }
   ],
   "autoload": {
