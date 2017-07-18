@@ -24,4 +24,5 @@ Visual Studio 2015
 *.config
 ChromeDebugger-UserData/
 frontend/node_modules/
-api/node_modules/ss
+api/node_modules/
+api/vendor/
