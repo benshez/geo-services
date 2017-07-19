@@ -9,6 +9,7 @@ $container = $app->getContainer();
 // monolog
 $container['logger'] = function ($c) {
     $settings = $c->get('settings');
+		
     $logger = new \Monolog\Logger($settings['logger']['name']);
     $logger->pushProcessor(new \Monolog\Processor\UidProcessor());
     $logger->pushHandler(new \Monolog\Handler\StreamHandler($settings['logger']['path'], \Monolog\Logger::DEBUG));
@@ -18,6 +19,7 @@ $container['logger'] = function ($c) {
 //Slim CSRF
 $container['csrf'] = function ($c) {
     $guard = new \Slim\Csrf\Guard();
+
     $guard->setFailureCallable(function ($request, $response, $next) {
         $request = $request->withAttribute("csrf_status", false);
         return $next($request, $response);
@@ -28,6 +30,7 @@ $container['csrf'] = function ($c) {
 // Doctrine
 $container['em'] = function ($c) {
     $settings = $c->get('settings');
+
     $config = \Doctrine\ORM\Tools\Setup::createAnnotationMetadataConfiguration(
         $settings['doctrine']['meta']['entity_path'],
         $settings['doctrine']['meta']['auto_generate_proxies'],

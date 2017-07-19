@@ -26,7 +26,8 @@
     "jeremykendall/password-validator": "^3.0.4",
     "doctrine/doctrine-module": "^2.0",
     "zendframework/zend-crypt": "^3.2.0",
-    "tuupola/cors-middleware":  "^0.5.2"
+		"tuupola/cors-middleware":  "^0.5.2",
+		"symfony/config": "^3.3.5"
   },
   "require-dev": {
     "doctrine/migrations": "^1.4",

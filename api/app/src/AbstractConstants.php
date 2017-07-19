@@ -19,6 +19,7 @@ Zend\Cache\Storage\Adapter\Memcache;
     const FIND_BY_ONE_KEY_EMAIL = 'email';
     const FIND_BY_ID= 'id';
     const INDUSTRY_INVALID = 'No industries found with that description.';
+		const SYS_PATH = __DIR__;
 
     public static $USER_CREDENTIALS_INVALID = AbstractConstants::USER_CREDENTIALS_INVALID;
     public static $FIND_BY_ONE_KEY_EMAIL = AbstractConstants::FIND_BY_ONE_KEY_EMAIL;
