@@ -1,4 +1,5 @@
 settings:
   determineRouteBeforeAppMiddleware: true
   displayErrorDetails: true
-  '@include':  environment-dev.yaml
+  imports:
+    - { resource: config_dev.yaml }

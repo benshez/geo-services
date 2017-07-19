@@ -3,9 +3,9 @@
 log/
 
 # ignore configs
-config/environments/environment-dev.yaml
-config/environments/environment-test.yaml
-config/environments/environment-live.yaml
+config/environments/config_dev.yaml
+config/environments/config_test.yaml
+config/environments/config_live.yaml
 
 # ignore documentation
 docs_generated
