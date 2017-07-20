@@ -17,7 +17,9 @@ require __DIR__ . '/../vendor/autoload.php';
 
 $parser = new \Symfony\Component\Yaml\Parser();
 
-$settings = $parser->parse(file_get_contents(__DIR__ . '/../config/environments/module.config.yaml'), 4);
+$parameters = $parser->parse(file_get_contents(__DIR__ . '/../config/environments/parameters.yaml'), 4);
+
+$settings = $parser->parse(file_get_contents(__DIR__ . '/../config/environments/parameters.'.$parameters['parameters']['environment'].'.yaml'), 4);
 
 $app = new \Slim\App($settings);
 

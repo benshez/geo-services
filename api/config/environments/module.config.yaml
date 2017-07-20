@@ -1,5 +1,0 @@
-settings:
-  determineRouteBeforeAppMiddleware: true
-  displayErrorDetails: true
-  imports:
-    - { resource: config_dev.yaml }
