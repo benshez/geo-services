@@ -2,18 +2,17 @@
 
 namespace GeoService\Locations\Entity;
 
-use Doctrine\ORM\Mapping as ORM,
-GeoService\AbstractEntity,
-GeoService\Users\Entity\Users;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Locations
  *
  * @ORM\Table(name="locations", indexes={@ORM\Index(name="idx_ip_from", columns={"ip_from"}), @ORM\Index(name="idx_ip_to", columns={"ip_to"}), @ORM\Index(name="idx_ip_from_to", columns={"ip_from", "ip_to"}), @ORM\Index(name="fk_locations_user_id_users_id", columns={"user_id"})})
  * @ORM\Entity
+ * @ORM\Entity(repositoryClass="GeoService\Locations\Entity\Repository")
  */
-class Locations extends AbstractEntity
-{
+
+class Locations  {
     /**
      * @var integer
      *
@@ -21,120 +20,96 @@ class Locations extends AbstractEntity
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    protected $id;
+    private $id;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="ip_from", type="integer", nullable=true)
      */
-    protected $ipFrom;
+    private $ipFrom;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="ip_to", type="integer", nullable=true)
      */
-    protected $ipTo;
+    private $ipTo;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="user_id", type="integer", nullable=false)
      */
-    protected $userId;
+    private $userId;
 
     /**
      * @var string
      *
      * @ORM\Column(name="country_code", type="string", length=2, nullable=true)
      */
-    protected $countryCode;
+    private $countryCode;
 
     /**
      * @var string
      *
      * @ORM\Column(name="country_name", type="string", length=64, nullable=true)
      */
-    protected $countryName;
+    private $countryName;
 
     /**
      * @var string
      *
      * @ORM\Column(name="region_name", type="string", length=128, nullable=true)
      */
-    protected $regionName;
+    private $regionName;
 
     /**
      * @var string
      *
      * @ORM\Column(name="city_name", type="string", length=128, nullable=true)
      */
-    protected $cityName;
+    private $cityName;
 
     /**
      * @var float
      *
      * @ORM\Column(name="latitude", type="float", precision=10, scale=0, nullable=true)
      */
-    protected $latitude;
+    private $latitude;
 
     /**
      * @var float
      *
      * @ORM\Column(name="longitude", type="float", precision=10, scale=0, nullable=true)
      */
-    protected $longitude;
+    private $longitude;
 
     /**
      * @var string
      *
      * @ORM\Column(name="zip_code", type="string", length=30, nullable=true)
      */
-    protected $zipCode;
+    private $zipCode;
 
     /**
      * @var string
      *
      * @ORM\Column(name="time_zone", type="string", length=8, nullable=true)
      */
-    protected $timeZone;
+    private $timeZone;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
-    protected $createdAt = 'CURRENT_TIMESTAMP';
+    private $createdAt = 'CURRENT_TIMESTAMP';
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="updated_at", type="datetime", nullable=false)
      */
-    protected $updatedAt = 'CURRENT_TIMESTAMP';
-
-    public function getUserId() 
-    {
-      return $this->userId;
-    }
-
-    /**
-     * @var GeoService\Users\Entity\Users
-     *
-     */
-    protected $user;
-
-    /**
-     * Get array copy of object
-     *
-     * @return array
-     */
-    public function setUser(Users $user = null)
-    {
-      if($user === null) return false;
-      $this->user = $user->getArrayCopy();   
-    }
-
+    private $updatedAt = 'CURRENT_TIMESTAMP';
 }
-

@@ -2,59 +2,46 @@
 
 namespace GeoService\Users\Manager;
 
-use Zend\ServiceManager\ServiceManager,
-Zend\Crypt\Password\Bcrypt,
-GeoService\Users\Entity\Users,
-GeoService\AbstractResource;
+use GeoService\Users\Entity\Users;
+use GeoService\Base\BaseResource;
+use GeoService\Users\Validation\Validation;
 
-{
-	class Manager extends AbstractResource
-	{
-    /**
-     * @param string|null $id
-     *
-     * @return array
-     */
-    
-    public function get($id = null)
-    {
-  
-      if ($id === null) {
-        $configs = $this->entityManager->getRepository(Users::class)->findAll();
-        
-        $configs = array_map(
-          function ($config) {
-            return $config->getArrayCopy();
-          },$configs
-        );
+class Manager extends BaseResource {
 
-        return $configs;
-      } else {
-        $config = $this->entityManager->getRepository(Users::class)->findOneBy(array(\GeoService\AbstractConstants::$USER_CREDENTIALS_INVALID => $id));
-        if ($config) return $config->getArrayCopy();
-      }
+	private $validator;
 
-      return false;
-    }
+	public function authenticate($email = null, $password = null) {
+		if (!$this->userEmailInputIsValid($email)) {
+			return array('error' => $this->validator->getMessages());
+		}
+		
+		if (!$this->userPasswordInputIsValid($password)) {
+			return array('error' => $this->validator->getMessages());
+		}
 
-    public function authenticate($email = null, $password = null) 
-    {
-      
-      if ($email == null || $password == null) return array('error' => \GeoService\AbstractConstants::$USER_CREDENTIALS_INVALID);
+		$user = $this->get(\GeoService\Base\BaseConstants::$USERS_ENTITY, array(\GeoService\Base\BaseConstants::$FIND_BY_ONE_KEY_EMAIL => $email));
+		
+		if (!$this->userPasswordIsValid($password, $user['salt'], $user['password'])) {
+			return array('error' => \GeoService\Base\BaseConstants::$USER_CREDENTIALS_INVALID);
+		}
 
-      $config = $this->entityManager->getRepository(Users::class)
-        ->findOneBy(array(\GeoService\AbstractConstants::$FIND_BY_ONE_KEY_EMAIL => $email));
+		return $user;
+	}
 
-        $query = $this->entityManager->createQueryBuilder()->select('u.email, u.username')
-       ->from(Users::class, 'u')
-       ->where('u.email = :identifier')
-       ->orderBy('u.username', 'ASC')
-       ->setParameter('identifier', $email);
-      //return $query->getQuery()->getResult();
-      if ($config) return $config->getArrayCopyAuthenticatedUser($password);
+	private function userEmailInputIsValid($email) {
+		$this->validator = new Validation();
+		$this->validator->validateEmailInput($email);
+		return $this->validator->isValid($email);
+	}
 
-      return array('error' => \GeoService\AbstractConstants::$USER_CREDENTIALS_INVALID);
-    }
+	private function userPasswordInputIsValid($password) {
+		$this->validator = new Validation();
+		$this->validator->validateUserPasswordInput($password);
+		return $this->validator->isValid($password);
+	}
 
+	private function userPasswordIsValid($password, $salt, $hash) {
+		$this->validator = new Validation();
+		return $this->validator->validateUserPasswordIsCorrect($password, $salt, $hash);
 	}
 }

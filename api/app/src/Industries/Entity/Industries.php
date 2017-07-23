@@ -12,8 +12,6 @@
 namespace GeoService\Industries\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\EntityRepository;
-use GeoService\AbstractEntity;
 
 /**
  * Industries
@@ -23,8 +21,7 @@ use GeoService\AbstractEntity;
  * @ORM\Entity(repositoryClass="GeoService\Industries\Entity\Repository")
  */
 
-class Industries extends AbstractEntity
-{
+class Industries {
     /**
      * @var integer
      *
@@ -54,9 +51,4 @@ class Industries extends AbstractEntity
      * @ORM\Column(name="updated_at", type="datetime", nullable=false)
      */
     private $updatedAt = 'CURRENT_TIMESTAMP';
-
-    public function getArrayCopy()
-    {
-        return get_object_vars($this);
-    }
 }

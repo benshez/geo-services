@@ -32,4 +32,3 @@ class Base
         $this->user = $user->getArrayCopy();
     }
 }
-

@@ -3,8 +3,12 @@ use Doctrine\ORM\Tools\Console\ConsoleRunner;
 
 require 'vendor/autoload.php';
 
-$settings = include 'app/settings.php';
-$settings = $settings['settings']['doctrine'];
+$parser = new \Symfony\Component\Yaml\Parser();
+
+$parameters = $parser->parse(file_get_contents(__DIR__ . '/../config/environments/parameters.yaml'), 4);
+$settings = $parser->parse(file_get_contents(__DIR__ . '/../config/environments/parameters.'.$parameters['parameters']['environment'].'.yaml'), 4);
+//$settings = include 'app/settings.php';
+//$settings = $settings['settings']['doctrine'];
 
 $config = \Doctrine\ORM\Tools\Setup::createAnnotationMetadataConfiguration(
     $settings['meta']['entity_path'],

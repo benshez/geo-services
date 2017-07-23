@@ -2,33 +2,14 @@
 
 namespace GeoService\Locations\Controller;
 
-use Psr\Http\Message\ResponseInterface,
-Psr\Http\Message\RequestInterface,
-GeoService\Locations\Manager\Manager;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\RequestInterface;
+use GeoService\Locations\Manager\Manager;
+use GeoService\Base\BaseController;
 
-{
-	final class Controller
-	{
-    private $resource;
+final class Controller extends BaseController {
 
-    public function __construct(Manager $resource)
-    {
-      $this->resource = $resource;
-    }
-
-    public function fetch(RequestInterface $request, ResponseInterface $response, $args)
-    {
-      $configs = $this->resource->get(); 
-      return $response->withJSON($configs);
-    }
-
-    public function fetchOne(RequestInterface $request, ResponseInterface $response, $args)
-    {
-      $config = $this->resource->get($args['id']);
-      if ($config) {
-        return $response->withJSON($config);
-      }
-      return $response->withStatus(404, 'No suppliers found with that slug.');
-    }
-  }
+	public function __construct(Manager $manager) {
+		$this->manager = $manager;
+	}
 }

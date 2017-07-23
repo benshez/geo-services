@@ -6,18 +6,17 @@ use Doctrine\ORM\EntityRepository;
 
 class Repository extends EntityRepository {
 
-    public function getAutoComplete($description = null)
-    {
-        $description = strtolower($description);
+	public function getAutoComplete($description = null) {
+		$description = strtolower($description);
 
-        $qb = $this->_em->createQueryBuilder('u');
-        $qb->select('u.id, u.description')
-        ->from(Industries::class, 'u')
-        ->where($qb->expr()->like('LOWER(u.description)', ':identifier'))
-        ->setParameter('identifier', "%$description%");
+		$qb = $this->_em->createQueryBuilder('u');
+		$qb->select('u.id, u.description')
+		->from(Industries::class, 'u')
+		->where($qb->expr()->like('LOWER(u.description)', ':identifier'))
+		->setParameter('identifier', "%$description%");
 
-        $query = $qb->getQuery();
+		$query = $qb->getQuery();
 
-        return $query->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
-    }
+		return $query->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+	}
 }
