@@ -5,12 +5,15 @@ namespace GeoService\Users\Manager;
 use GeoService\Users\Entity\Users;
 use GeoService\Base\BaseResource;
 use GeoService\Users\Validation\Validation;
+use \GeoService\Base\BaseEntity;
 
 class Manager extends BaseResource {
 
 	private $validator;
 
 	public function authenticate($email = null, $password = null) {
+		$error = new BaseEntity();
+
 		if (!$this->userEmailInputIsValid($email)) {
 			return array('error' => $this->validator->getMessages());
 		}
@@ -22,7 +25,7 @@ class Manager extends BaseResource {
 		$user = $this->get(\GeoService\Base\BaseConstants::$USERS_ENTITY, array(\GeoService\Base\BaseConstants::$FIND_BY_ONE_KEY_EMAIL => $email));
 		
 		if (!$this->userPasswordIsValid($password, $user['salt'], $user['password'])) {
-			return array('error' => \GeoService\Base\BaseConstants::$USER_CREDENTIALS_INVALID);
+			return $error->createErrorAray(\GeoService\Base\BaseConstants::$USER_CREDENTIALS_INVALID);
 		}
 
 		return $user;

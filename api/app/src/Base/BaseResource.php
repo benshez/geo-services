@@ -1,24 +1,9 @@
 <?php
 namespace GeoService\Base;
 
-use Doctrine\ORM\EntityManager;
-use Interop\Container\ContainerInterface;
+use GeoService\Base\BaseManager;
 
-class BaseResource {
-	/**
-	* @var \Doctrine\ORM\EntityManager
-	*/
-	protected $entityManager = null;
-
-	/**
-	* @var \Interop\Container\ContainerInterface
-	*/
-	protected $container = null;
-
-	public function __construct(ContainerInterface $container) {
-			$this->container = $container;
-			$this->entityManager = $this->container->get('em');
-	}
+class BaseResource extends BaseManager {
 
 	public function get($class, $id = null) {
 		if ($id === null) {
