@@ -12,20 +12,18 @@ class Manager extends BaseResource {
 	private $validator;
 
 	public function authenticate($email = null, $password = null) {
-		$error = new BaseEntity();
-
 		if (!$this->userEmailInputIsValid($email)) {
-			return array('error' => $this->validator->getMessages());
+			return $this->validator->getMessagesAray();
 		}
 		
 		if (!$this->userPasswordInputIsValid($password)) {
-			return array('error' => $this->validator->getMessages());
+			return $this->validator->getMessagesAray();
 		}
 
 		$user = $this->get(\GeoService\Base\BaseConstants::$USERS_ENTITY, array(\GeoService\Base\BaseConstants::$FIND_BY_ONE_KEY_EMAIL => $email));
 		
 		if (!$this->userPasswordIsValid($password, $user['salt'], $user['password'])) {
-			return $error->createErrorAray(\GeoService\Base\BaseConstants::$USER_CREDENTIALS_INVALID);
+			return $this->validator->getMessagesAray();
 		}
 
 		return $user;

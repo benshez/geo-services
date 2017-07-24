@@ -2,16 +2,10 @@
 
 namespace GeoService\Users\Validation;
 
-use Zend\Validator;
 use Zend\Crypt\Password\Bcrypt;
+use \GeoService\Base\BaseValidation;
 
-class Validation implements \Zend\Validator\ValidatorInterface {
-
-	protected $validator = null;
-
-	public function __construct() {
-		$this->validator = new Validator\ValidatorChain();
-	}
+class Validation extends BaseValidation {
 
 	public function validateUserPasswordInput($value) {
 		$this->validator
@@ -29,8 +23,13 @@ class Validation implements \Zend\Validator\ValidatorInterface {
 		// 		'cost' => 10
 		// ));
 		// $x = $bcrypt->create($password);
+		$verified = $bcrypt->verify($password, $hash);
 
-		return $bcrypt->verify($password, $hash);
+		if (!$verified) {
+			$this->setMessagesAray(\GeoService\Base\BaseConstants::$USER_CREDENTIALS_INVALID);
+		}
+
+		return $verified;
 	}
 
 	public function validateEmailInput($value) {
@@ -38,13 +37,5 @@ class Validation implements \Zend\Validator\ValidatorInterface {
 		->attachByName('NotEmpty', [], true)
 		->attachByName('StringLength', ['min' => 6], true)
 		->attachByName('EmailAddress');
-	}
-
-	public function isValid($value) {
-		return $this->validator->isValid($value);
-	}
-
-	public function getMessages() {
-		return $this->validator->getMessages();
 	}
 }

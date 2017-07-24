@@ -6,18 +6,7 @@ use GeoService\Base\BaseConstants;
 
 class BaseEntity extends BaseConstants {
 
-	protected $error = array();
-
-	public function __construct() {
-		$this->error = array();
-	}
-
-	public function createErrorAray($error = null) {
-		if ($error) {
-			$this->error = array('error' => true,  'message' => $error);
-			return $this->error;
-		}
-	}
+	public function __construct() { }
 
 	/**
 		* Get array copy of object
