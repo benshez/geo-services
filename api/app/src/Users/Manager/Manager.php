@@ -11,7 +11,7 @@ class Manager extends BaseResource {
 
 	private $validator;
 
-	public function authenticate($email = null, $password = null) {
+	public function authenticate($email, $password) {
 		if (!$this->userEmailInputIsValid($email)) {
 			return $this->validator->getMessagesAray();
 		}

@@ -1,10 +1,10 @@
 <?php
 namespace GeoService\Base;
 
-use Doctrine\ORM\EntityManager;
 use Interop\Container\ContainerInterface;
+use GeoService\Base\BaseEntity;
 
-class BaseManager extends EntityManager {
+class BaseManager extends BaseEntity {
 	/**
 	* @var \Doctrine\ORM\EntityManager
 	*/

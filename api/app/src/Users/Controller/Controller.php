@@ -7,7 +7,6 @@ use Psr\Http\Message\RequestInterface;
 use GeoService\Users\Manager\Manager;
 use GeoService\Base\BaseController;
 
-{
 final class Controller extends BaseController {
 
 	private $resource;
@@ -26,5 +25,4 @@ final class Controller extends BaseController {
 
 		return $response->withStatus(404, 'No user found with that id.');
 	}
-}
 }

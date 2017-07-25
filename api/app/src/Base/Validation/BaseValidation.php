@@ -1,15 +1,16 @@
 <?php
 
-namespace GeoService\Base;
+namespace GeoService\Base\Validation;
 
 use Zend\Validator;
+use GeoService\Base\Validation\IBaseValidation;
 
-class BaseValidation implements \Zend\Validator\ValidatorInterface {
+class BaseValidation implements \Zend\Validator\ValidatorInterface, IBaseValidation {
 
 	protected $validator = null;
 
 	public function __construct() {
-		$this->validator = new Validator\ValidatorChain();
+		$this->createValidator();
 	}
 	
 	public function isValid($value) {
@@ -30,5 +31,14 @@ class BaseValidation implements \Zend\Validator\ValidatorInterface {
 
 	public function setMessagesAray($error = null) {
 		$this->error = array('error' => true,  'message' => $error);
+	}
+
+	public function createValidator() {
+		$this->disposeValidator();
+		$this->validator = new Validator\ValidatorChain();
+	}
+	
+	public function disposeValidator(){
+		$this->validator = null;
 	}
 }

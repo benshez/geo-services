@@ -12,4 +12,15 @@ final class Controller extends BaseController {
 	public function __construct(Manager $manager) {
 		$this->manager = $manager;
 	}
+
+	public function fetchAllByIndustryCode(RequestInterface $request, ResponseInterface $response, $args)
+	{
+		$config = $this->manager->fetchAllByIndustryCode($args['industry']);
+
+		if ($config) {
+			return $response->withJSON($config);
+		}
+
+		return $response->withStatus(404, 'No user found with that id.');
+	}
 }

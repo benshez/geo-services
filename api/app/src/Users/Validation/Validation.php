@@ -3,7 +3,7 @@
 namespace GeoService\Users\Validation;
 
 use Zend\Crypt\Password\Bcrypt;
-use \GeoService\Base\BaseValidation;
+use GeoService\Base\Validation\BaseValidation;
 
 class Validation extends BaseValidation {
 
@@ -18,11 +18,7 @@ class Validation extends BaseValidation {
 				'salt' => $salt,
 				'cost' => 10
 		)) : new Bcrypt();
-		// $bcrypt = new Bcrypt(array(
-		// 		'salt' => $salt,
-		// 		'cost' => 10
-		// ));
-		// $x = $bcrypt->create($password);
+
 		$verified = $bcrypt->verify($password, $hash);
 
 		if (!$verified) {

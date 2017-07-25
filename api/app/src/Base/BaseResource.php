@@ -24,4 +24,18 @@ class BaseResource extends BaseManager {
 
 		return false;
 	}
+
+	public function findAllBy($class, $id) {
+		$configs = $this->entityManager->getRepository($class)->findBy($id);
+		
+		$configs = array_map(function ($config) {
+			return $config->getArrayCopy();
+		}, $configs);
+
+		if ($configs) {
+			return $configs;
+		}
+
+		return false;
+	}
 }

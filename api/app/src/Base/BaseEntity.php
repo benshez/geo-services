@@ -2,9 +2,9 @@
 
 namespace GeoService\Base;
 
-use GeoService\Base\BaseConstants;
+use Doctrine\ORM\EntityManager;
 
-class BaseEntity extends BaseConstants {
+class BaseEntity extends EntityManager {
 
 	public function __construct() { }
 

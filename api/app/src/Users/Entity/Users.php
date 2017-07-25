@@ -3,13 +3,16 @@
 namespace GeoService\Users\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 use GeoService\Base\BaseEntity;
+use GeoService\Locations\Entity\Locations;
 
 /**
  * Users
  *
  * @ORM\Table(name="users", indexes={@ORM\Index(name="idx_username", columns={"username"}), @ORM\Index(name="idx_email", columns={"email"}), @ORM\Index(name="idx_about", columns={"about"}), @ORM\Index(name="idx_website", columns={"website"}), @ORM\Index(name="fk_users_address_id_address_id", columns={"address_id"}), @ORM\Index(name="fk_users_industry_id_industries_id", columns={"industry_id"})})
  * @ORM\Entity
+ * @ORM\Entity(repositoryClass="GeoService\Users\Entity\Repository")
  */
 class Users extends BaseEntity {
 	/**

@@ -7,9 +7,9 @@ use GeoService\Base\BaseResource;
 
 class Manager extends BaseResource {
 
-	public function autoComplete($description = null) {
+	public function autoComplete($description) {
 		return $this->entityManager
-		->getRepository(Industries::class)
+		->getRepository(\GeoService\Base\BaseConstants::$INDUSTRIES_ENTITY)
 		->getAutoComplete($description);
 	}
 }

@@ -1,7 +1,7 @@
 <?php
 // Routes
 
-$app->get('/api/location/users', 'GeoService\Locations\Controller\Controller:fetch');
+$app->get('/api/location/{industry}', 'GeoService\Locations\Controller\Controller:fetchAllByIndustryCode');
 $app->get('/api/user/login/{email}', 'GeoService\Locations\Controller\Controller:fetchOne');
 $app->post('/api/user/login', 'GeoService\Users\Controller\Controller:authenticateOne');
 $app->get('/api/industries/{description}', 'GeoService\Industries\Controller\Controller:autoComplete');
