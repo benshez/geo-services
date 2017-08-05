@@ -18,7 +18,7 @@ GeoService\Roles\Manager\Manager;
 
     public function fetch(RequestInterface $request, ResponseInterface $response, $args)
     {
-      $configs = $this->resource->get(); 
+      $configs = $this->resource->get();
       return $response->withJSON($configs);
     }
 

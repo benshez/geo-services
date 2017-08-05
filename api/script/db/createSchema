@@ -1,98 +1,195 @@
-mysql -u root -p << 'SQL'
+-- MySQL Workbench Forward Engineering
 
-CREATE DATABASE IF NOT EXISTS geo_service;
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
-USE `geo_service`;
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema geo_service
+-- -----------------------------------------------------
+DROP SCHEMA IF EXISTS `geo_service` ;
 
-DROP TABLE IF EXISTS `industries`;
+-- -----------------------------------------------------
+-- Schema geo_service
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `geo_service` DEFAULT CHARACTER SET latin1 ;
+USE `geo_service` ;
 
-CREATE TABLE `industries`(
-	`id` int NOT NULL AUTO_INCREMENT,PRIMARY KEY (id),
-	`description` varchar(255) NOT NULL,
-	`created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	`updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	INDEX `idx_description` (`description`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- -----------------------------------------------------
+-- Table `geo_service`.`industries`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `geo_service`.`industries` ;
 
-DROP TABLE IF EXISTS `roles`;
+CREATE TABLE IF NOT EXISTS `geo_service`.`industries` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `description` VARCHAR(255) CHARACTER SET 'utf8' NOT NULL,
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  INDEX `idx_description` (`description` ASC))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
 
-CREATE TABLE `roles`(
-	`id` int NOT NULL AUTO_INCREMENT,PRIMARY KEY (id),
-	`user_id` int(11) NOT NULL,
-	`role` varchar(40) NOT NULL,
-	`enabled` tinyint(1) NOT NULL,
-	`created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	`updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	INDEX `idx_role` (`role`),
-	CONSTRAINT `fk_roles_user_id_users_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-DROP TABLE IF EXISTS `users`;
+-- -----------------------------------------------------
+-- Table `geo_service`.`users`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `geo_service`.`users` ;
 
-CREATE TABLE `users`(
-	`id` int NOT NULL AUTO_INCREMENT,PRIMARY KEY (id),
-	`address_id` int(11) NOT NULL,
-	`industry_id` int(11),
-	`username` varchar(255) NOT NULL,
-	`usersurname` varchar(255) NOT NULL,
-	`logo` varchar(255),
-	`password` varchar(255) NOT NULL,
-	`salt` varchar(255) NOT NULL,
-	`enabled` tinyint(1) NOT NULL,
-	`locked` tinyint(1) NOT NULL,
-	`last_login` datetime NOT NULL,
-	`expires_at` datetime NOT NULL,
-	`email` varchar(255) NOT NULL,
-	`about` varchar(255),
-	`website` varchar(255),
-	`facebook` varchar(255),
-	`twitter` varchar(255),
-	`created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	`updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	INDEX `idx_username` (`username`),
-	INDEX `idx_email` (`email`),
-	INDEX `idx_about` (`about`),
-	INDEX `idx_website` (`website`),
-	CONSTRAINT `fk_users_address_id_address_id` FOREIGN KEY (`address_id`) REFERENCES `address` (`id`),
-	CONSTRAINT `fk_users_industry_id_industries_id` FOREIGN KEY (`industry_id`) REFERENCES `industries` (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+CREATE TABLE IF NOT EXISTS `geo_service`.`users` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `address_id` INT(11) NOT NULL,
+  `industry_id` INT(11) NULL DEFAULT NULL,
+  `suppliers_id` INT(11) NULL DEFAULT NULL,
+  `username` VARCHAR(255) CHARACTER SET 'utf8' NOT NULL,
+  `usersurname` VARCHAR(255) CHARACTER SET 'utf8' NOT NULL,
+  `logo` VARCHAR(255) CHARACTER SET 'utf8' NULL DEFAULT NULL,
+  `password` VARCHAR(255) CHARACTER SET 'utf8' NOT NULL,
+  `salt` VARCHAR(255) CHARACTER SET 'utf8' NOT NULL,
+  `enabled` TINYINT(1) NOT NULL,
+  `locked` TINYINT(1) NOT NULL,
+  `last_login` DATETIME NOT NULL,
+  `expires_at` DATETIME NOT NULL,
+  `email` VARCHAR(255) CHARACTER SET 'utf8' NOT NULL,
+  `about` VARCHAR(255) CHARACTER SET 'utf8' NULL DEFAULT NULL,
+  `website` VARCHAR(255) CHARACTER SET 'utf8' NULL DEFAULT NULL,
+  `facebook` VARCHAR(255) CHARACTER SET 'utf8' NULL DEFAULT NULL,
+  `twitter` VARCHAR(255) CHARACTER SET 'utf8' NULL DEFAULT NULL,
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  INDEX `idx_username` (`username` ASC),
+  INDEX `idx_email` (`email` ASC),
+  INDEX `idx_about` (`about` ASC),
+  INDEX `idx_website` (`website` ASC),
+  INDEX `fk_users_address_id_address_id` (`address_id` ASC),
+  INDEX `fk_users_suppliers_id_suppliers_id` (`suppliers_id` ASC),
+  INDEX `fk_users_industry_id_industries_id_idx` (`industry_id` ASC),
+  CONSTRAINT `fk_users_industry_id_industries_id`
+    FOREIGN KEY (`industry_id`)
+    REFERENCES `geo_service`.`industries` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
 
-DROP TABLE IF EXISTS `address`;
 
-CREATE TABLE `address`(
-	`id` int NOT NULL AUTO_INCREMENT,PRIMARY KEY (id),
-	`address` text,
-	`state` varchar(10),
-	`city` varchar(40),
-	`phone` varchar(28),
-	`email` varchar(28),
-	`created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	`updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	INDEX `idx_phone` (`phone`),
-	INDEX `idx_email` (`email`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- -----------------------------------------------------
+-- Table `geo_service`.`address`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `geo_service`.`address` ;
 
-DROP TABLE IF EXISTS `locations`;
+CREATE TABLE IF NOT EXISTS `geo_service`.`address` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `address` TEXT CHARACTER SET 'utf8' NULL DEFAULT NULL,
+  `state` VARCHAR(10) CHARACTER SET 'utf8' NULL DEFAULT NULL,
+  `city` VARCHAR(40) CHARACTER SET 'utf8' NULL DEFAULT NULL,
+  `phone` VARCHAR(28) CHARACTER SET 'utf8' NULL DEFAULT NULL,
+  `email` VARCHAR(28) CHARACTER SET 'utf8' NULL DEFAULT NULL,
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  INDEX `idx_phone` (`phone` ASC),
+  INDEX `idx_email` (`email` ASC),
+  CONSTRAINT `fk_address_id_address_id`
+    FOREIGN KEY (`id`)
+    REFERENCES `geo_service`.`users` (`address_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
 
-CREATE TABLE `locations`(
-	`id` int NOT NULL AUTO_INCREMENT,PRIMARY KEY (id),
-	`ip_from` int(10) UNSIGNED,
-	`ip_to` int(10) UNSIGNED,
-	`user_id` int(11) NOT NULL,
-	`country_code` char(2),
-	`country_name` varchar(64),
-	`region_name` varchar(128),
-	`city_name` varchar(128),
-	`latitude` double,
-	`longitude` double,
-	`zip_code` varchar(30),
-	`time_zone` varchar(8),
-	`created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	`updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	INDEX `idx_ip_from` (`ip_from`),
-	INDEX `idx_ip_to` (`ip_to`),
-	INDEX `idx_ip_from_to` (`ip_from`, `ip_to`),
-	CONSTRAINT `fk_locations_user_id_users_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-SQL
+-- -----------------------------------------------------
+-- Table `geo_service`.`locations`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `geo_service`.`locations` ;
+
+CREATE TABLE IF NOT EXISTS `geo_service`.`locations` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `ip_from` INT(10) UNSIGNED NULL DEFAULT NULL,
+  `ip_to` INT(10) UNSIGNED NULL DEFAULT NULL,
+  `user_id` INT(11) NOT NULL,
+  `country_code` CHAR(2) CHARACTER SET 'utf8' NULL DEFAULT NULL,
+  `country_name` VARCHAR(64) CHARACTER SET 'utf8' NULL DEFAULT NULL,
+  `region_name` VARCHAR(128) CHARACTER SET 'utf8' NULL DEFAULT NULL,
+  `city_name` VARCHAR(128) CHARACTER SET 'utf8' NULL DEFAULT NULL,
+  `latitude` DOUBLE NULL DEFAULT NULL,
+  `longitude` DOUBLE NULL DEFAULT NULL,
+  `zip_code` VARCHAR(30) CHARACTER SET 'utf8' NULL DEFAULT NULL,
+  `time_zone` VARCHAR(8) CHARACTER SET 'utf8' NULL DEFAULT NULL,
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  INDEX `idx_ip_from` (`ip_from` ASC),
+  INDEX `idx_ip_to` (`ip_to` ASC),
+  INDEX `idx_ip_from_to` (`ip_from` ASC, `ip_to` ASC),
+  INDEX `fk_users_id_users_id` (`user_id` ASC),
+  CONSTRAINT `fk_users_id_users_id`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `geo_service`.`users` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+
+-- -----------------------------------------------------
+-- Table `geo_service`.`roles`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `geo_service`.`roles` ;
+
+CREATE TABLE IF NOT EXISTS `geo_service`.`roles` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `user_id` INT(11) NOT NULL,
+  `role` VARCHAR(40) CHARACTER SET 'utf8' NOT NULL,
+  `enabled` TINYINT(1) NOT NULL,
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  INDEX `idx_role` (`role` ASC),
+  INDEX `fk_roles_user_id_users_id` (`user_id` ASC),
+  CONSTRAINT `fk_roles_user_id_users_id`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `geo_service`.`users` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+
+-- -----------------------------------------------------
+-- Table `geo_service`.`suppliers`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `geo_service`.`suppliers` ;
+
+CREATE TABLE IF NOT EXISTS `geo_service`.`suppliers` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `industry_id` INT(11) NOT NULL,
+  `company_name` VARCHAR(45) NOT NULL,
+  `user_review` INT(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `idxuser_review` (`user_review` ASC),
+  INDEX `idxcompany_name` (`company_name` ASC),
+  INDEX `fk_users_industry_id_industries_id_idx` (`industry_id` ASC),
+  INDEX `fk_suppliers_industry_id_industries_id_idx` (`industry_id` ASC),
+  CONSTRAINT `fk_suppliers_industry_id_industries_id`
+    FOREIGN KEY (`industry_id`)
+    REFERENCES `geo_service`.`industries` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

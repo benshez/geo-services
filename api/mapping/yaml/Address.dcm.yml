@@ -1,0 +1,66 @@
+Address:
+    type: entity
+    table: address
+    indexes:
+        idx_phone:
+            columns:
+                - phone
+        idx_email:
+            columns:
+                - email
+    id: {  }
+    fields:
+        address:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+        state:
+            type: string
+            nullable: true
+            length: 10
+            options:
+                fixed: false
+        city:
+            type: string
+            nullable: true
+            length: 40
+            options:
+                fixed: false
+        phone:
+            type: string
+            nullable: true
+            length: 28
+            options:
+                fixed: false
+        email:
+            type: string
+            nullable: true
+            length: 28
+            options:
+                fixed: false
+        createdAt:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: created_at
+        updatedAt:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: updated_at
+    oneToOne:
+        id:
+            targetEntity: Users
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id:
+                    referencedColumnName: address_id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

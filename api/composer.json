@@ -13,14 +13,16 @@
   ],
   "autoload": {
     "psr-4": {
+			"": "mapping/yaml",
+			"": "mapping/entities",
       "GeoService\\": "app/src",
       "GeoService\\ComposerScript\\": "script/composer"
     }
   },
   "require": {
     "doctrine/orm": "~2.5",
-    "slim/slim": "^3.0",
-    "monolog/monolog": "^1.13",
+    "slim/slim": "^3.1",
+    "monolog/monolog": "^1.17",
     "slim/http-cache": "^0.3.0",
     "lcobucci/jwt": "^3.1",
     "jeremykendall/password-validator": "^3.0.4",
@@ -34,7 +36,8 @@
     "phpunit/phpunit": "^5.4"
   },
   "scripts": {
-    "generate-service": "GeoService\\ComposerScript\\Generator::generateService",
+		"generate-service": "GeoService\\ComposerScript\\Generator::generateService",
+		"generate-entities": "doctrine-generator.sh",
     "start": "php -S 0.0.0.0:8080 -t public public/index.php",
     "test": "phpunit"
   }

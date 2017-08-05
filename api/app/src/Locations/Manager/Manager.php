@@ -13,10 +13,12 @@ class Manager extends BaseResource {
 		if (!$this->userIndustryCodeInput($industry)) {
 			return $this->validator->getMessagesAray();
 		}
-		$ad = $this->get(\GeoService\Base\BaseConstants::$LOCATIONS_ENTITY, array(\GeoService\Base\BaseConstants::$FIND_LOCATIONS_BY_USERS => 1));
-		$adx = $ad->get;
-		//$userIds = $this->findAllBy(\GeoService\Base\BaseConstants::$USERS_ENTITY, array(\GeoService\Base\BaseConstants::$FIND_USERS_BY_INDUSTRY => $industry));
-		//$locations = $this->findAllBy(\GeoService\Base\BaseConstants::$LOCATIONS_ENTITY, array(\GeoService\Base\BaseConstants::$FIND_LOCATIONS_BY_USERS => $userIds));
+
+		//$users = $this->findAllBy(\GeoService\Base\BaseConstants::$USERS_ENTITY, array(\GeoService\Base\BaseConstants::$FIND_USERS_BY_INDUSTRY => $industry));
+
+		$location = $this->findAllBy(\GeoService\Base\BaseConstants::$LOCATIONS_ENTITY, array(\GeoService\Base\BaseConstants::$FIND_USERS_BY_INDUSTRY => $industry));
+		
+		return $location;
 	}
 
 	private function userIndustryCodeInput($industry) {

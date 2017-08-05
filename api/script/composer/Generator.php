@@ -1,6 +1,6 @@
 <?php
 
-namespace App\ComposerScript;
+namespace GeoService\ComposerScript;
 
 use Composer\Script\Event;
 use Composer\Installer\PackageEvent;

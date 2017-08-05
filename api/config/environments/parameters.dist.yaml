@@ -2,6 +2,11 @@ settings:
   determineRouteBeforeAppMiddleware: true
   displayErrorDetails: true
   doctrine:
+    dbal:
+      charset: utf8mb4
+      default_table_options:
+        charset: utf8mb4
+        collate: utf8mb4_unicode_ci  
     meta:
       entity_path:
       - app/src/Entity

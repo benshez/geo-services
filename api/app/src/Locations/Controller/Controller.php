@@ -13,14 +13,13 @@ final class Controller extends BaseController {
 		$this->manager = $manager;
 	}
 
-	public function fetchAllByIndustryCode(RequestInterface $request, ResponseInterface $response, $args)
-	{
+	public function fetchAllByIndustryCode(RequestInterface $request, ResponseInterface $response, $args) {
 		$config = $this->manager->fetchAllByIndustryCode($args['industry']);
 
 		if ($config) {
 			return $response->withJSON($config);
 		}
 
-		return $response->withStatus(404, 'No user found with that id.');
+		return $response->withStatus(404, 'No suppliers from the selected industry found in your area.');
 	}
 }
