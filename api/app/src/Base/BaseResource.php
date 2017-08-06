@@ -3,9 +3,16 @@ namespace GeoService\Base;
 
 use GeoService\Base\BaseManager;
 
-class BaseResource extends BaseManager {
+class BaseResource extends BaseManager
+{
 
-	public function get($class, $id = null) {
+	/**
+		* @param string|null $id
+		*
+		* @return array
+		*/
+	public function get($class, $id = null)
+	{
 		if ($id === null) {
 			$configs = $this->entityManager->getRepository($class)->findAll();
 
@@ -25,7 +32,14 @@ class BaseResource extends BaseManager {
 		return false;
 	}
 
-	public function findAllBy($class, $id) {
+	/**
+		* @param string|$class	
+		* @param string|$id
+		*
+		* @return array
+		*/
+	public function findAllBy($class, $id)
+	{
 		$configs = $this->entityManager->getRepository($class)->findBy($id);
 		
 		// $configs = array_map(function ($config) {

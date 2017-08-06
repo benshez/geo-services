@@ -7,11 +7,11 @@ use Psr\Http\Message\RequestInterface;
 use GeoService\Users\Manager\Manager;
 use GeoService\Base\BaseController;
 
-final class Controller extends BaseController {
+final class Controller extends BaseController
+{
 
-	private $resource;
-
-	public function __construct(Manager $manager) {
+	public function __construct(Manager $manager)
+	{
 		$this->manager = $manager;
 	}
 

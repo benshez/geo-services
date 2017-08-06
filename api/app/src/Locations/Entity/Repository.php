@@ -7,23 +7,27 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Query\Expr\Join;
 use \Doctrine\Orm\NoResultException;
 
-class Repository extends EntityRepository {
+class Repository extends EntityRepository
+{
 
-	public function __construct($em, $class) {
+	public function __construct($em, $class)
+	{
 		parent::__construct($em, $class);
 	}
 
-	public function findOneBy(array $criteria, array $orderBy = null) {
+	public function findOneBy(array $criteria, array $orderBy = null)
+	{
 		return parent::findOneBy($criteria, $orderBy);
 	}
 
-	public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null) {
+	public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+	{
 		$date = new \DateTime();
 
 		$qb = $this->_em->createQueryBuilder();
 		$qb->select('loc.latitude, loc.longitude, usr.username, usr.usersurname, usr.email, usr.logo, usr.about, usr.website, usr.facebook, usr.twitter, ind.description')
 		->from(\GeoService\Base\BaseConstants::$USERS_ENTITY, 'usr')
-		->innerJoin(\GeoService\Base\BaseConstants::$LOCATIONS_ENTITY, 'loc', Join::WITH, '(loc.userId = usr.id)')
+		->innerJoin(\GeoService\Base\BaseConstants::$LOCATIONS_ENTITY, 'loc', Join::WITH, '(loc.user = usr.id)')
 		->innerJoin(\GeoService\Base\BaseConstants::$INDUSTRIES_ENTITY, 'ind', Join::WITH, '(usr.industry = ind.id)')
 		->where('usr.industry = :identifier')
 		->andWhere('usr.expiresAt >= :expires')
@@ -39,22 +43,4 @@ class Repository extends EntityRepository {
 			return false;
 		}
 	}
-
-	/**
-		* Get array copy of object
-		*
-		* @return array
-		*/
-
-	// public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null) {
-	// 	$qb = $this->_em->createQueryBuilder('u');
-	// 	$qb->select('u.latitude, u.longitude')
-	// 	->from(\GeoService\Base\BaseConstants::$LOCATIONS_ENTITY, 'u')
-	// 	->where('u.userId IN (:identifier)')
-	// 	->setParameter('identifier', $criteria['userId']);
-
-	// 	$query = $qb->getQuery();
-
-	// 	return $query->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
-	// }
 }

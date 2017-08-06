@@ -6,16 +6,19 @@ use Interop\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\RequestInterface;
 
-abstract class BaseController {
+abstract class BaseController
+{
 
 	protected $manager = null;
 
-	public function fetch(RequestInterface $request, ResponseInterface $response, $args) {
+	public function fetch(RequestInterface $request, ResponseInterface $response, $args)
+	{
 		$configs = $this->manager->get();
 		return $response->withJSON($configs);
 	}
 
-	public function fetchOne(RequestInterface $request, ResponseInterface $response, $args) {
+	public function fetchOne(RequestInterface $request, ResponseInterface $response, $args)
+	{
 		$config = $this->manager->get($args['id']);
 
 		if ($config) {

@@ -7,11 +7,13 @@ use GeoService\Base\BaseResource;
 use GeoService\Users\Validation\Validation;
 use \GeoService\Base\BaseEntity;
 
-class Manager extends BaseResource {
+class Manager extends BaseResource
+{
 
 	private $validator;
 
-	public function authenticate($email, $password) {
+	public function authenticate($email, $password)
+	{
 		if (!$this->userEmailInputIsValid($email)) {
 			return $this->validator->getMessagesAray();
 		}
@@ -29,19 +31,22 @@ class Manager extends BaseResource {
 		return $user;
 	}
 
-	private function userEmailInputIsValid($email) {
+	private function userEmailInputIsValid($email)
+	{
 		$this->validator = new Validation();
 		$this->validator->validateEmailInput($email);
 		return $this->validator->isValid($email);
 	}
 
-	private function userPasswordInputIsValid($password) {
+	private function userPasswordInputIsValid($password)
+	{
 		$this->validator = new Validation();
 		$this->validator->validateUserPasswordInput($password);
 		return $this->validator->isValid($password);
 	}
 
-	private function userPasswordIsValid($password, $salt, $hash) {
+	private function userPasswordIsValid($password, $salt, $hash)
+	{
 		$this->validator = new Validation();
 		return $this->validator->validateUserPasswordIsCorrect($password, $salt, $hash);
 	}

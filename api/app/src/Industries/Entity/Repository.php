@@ -4,9 +4,11 @@ namespace GeoService\Industries\Entity;
 
 use Doctrine\ORM\EntityRepository;
 
-class Repository extends EntityRepository {
+class Repository extends EntityRepository
+{
 
-	public function getAutoComplete($description = null) {
+	public function getAutoComplete($description = null)
+	{
 		$description = strtolower($description);
 
 		$qb = $this->_em->createQueryBuilder('u');

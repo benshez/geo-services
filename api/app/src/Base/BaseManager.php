@@ -4,7 +4,8 @@ namespace GeoService\Base;
 use Interop\Container\ContainerInterface;
 use GeoService\Base\BaseEntity;
 
-class BaseManager extends BaseEntity {
+class BaseManager extends BaseEntity
+{
 	/**
 	* @var \Doctrine\ORM\EntityManager
 	*/
@@ -15,7 +16,8 @@ class BaseManager extends BaseEntity {
 	*/
 	protected $container = null;
 
-	public function __construct(ContainerInterface $container) {
+	public function __construct(ContainerInterface $container)
+	{
 			$this->container = $container;
 			$this->entityManager = $this->container->get('em');
 	}

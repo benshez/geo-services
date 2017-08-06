@@ -14,7 +14,8 @@ use \GeoService\Industries\Entity\Industries;
  * @ORM\Entity
  * @ORM\Entity(repositoryClass="GeoService\Users\Entity\Repository")
  */
-class Users {
+class Users
+{
 	/**
 		* @var integer
 		*

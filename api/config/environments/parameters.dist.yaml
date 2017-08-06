@@ -1,6 +1,8 @@
 settings:
   determineRouteBeforeAppMiddleware: true
   displayErrorDetails: true
+  useSimpleAnnotationReader: false
+  mode: null
   doctrine:
     dbal:
       charset: utf8mb4
@@ -37,16 +39,16 @@ settings:
             namespace: GeoSevice
             ttl: 300
   cors:
-    origin: origin
+    origin: 
+    - null
     methods:
-    - GET
-    - POST
-    - PUT
-    - PATCH
-    - DELETE
-    headers.allow: []
-    headers.expose: []
+    - null
+    headers.allow: 
+    - null
+    headers.expose:
+    -
     credentials: true
-    cache: 0
+    cache: 86400
     error: null
     logger: null
+    

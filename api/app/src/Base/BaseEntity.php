@@ -11,23 +11,27 @@ use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
  * @ORM\MappedSuperclass
  * @ORM\HasLifecycleCallbacks
  */
-class BaseEntity extends EntityManager {
+class BaseEntity extends EntityManager
+{
 
-	public function __construct() { }
+	public function __construct()
+	{ }
 
 	/**
 	 * Get array copy of object
 	 *
 	 * @return array
 	 */
-	public function getArrayCopy() {
+	public function getArrayCopy()
+	{
 		return get_object_vars($this);
 	}
 
 	/**
 	 * @ORM\preUpdate
 	 */
-	public function setUpdatedAt() {
+	public function setUpdatedAt()
+	{
 			$this->updatedAt = new \DateTime();
 	}
 }

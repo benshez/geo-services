@@ -21,7 +21,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="GeoService\Industries\Entity\Repository")
  */
 
-class Industries {
+class Industries
+{
 	/**
 	 * @var integer
 	 *

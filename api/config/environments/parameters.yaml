@@ -1,2 +1,3 @@
-parameters:
-  environment: development
+settings:
+  mode: development
+  

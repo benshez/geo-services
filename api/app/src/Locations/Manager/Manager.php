@@ -7,9 +7,11 @@ use GeoService\Locations\Entity\Locations;
 use GeoService\Users\Entity\Users;
 use GeoService\Locations\Validation\Validation;
 
-class Manager extends BaseResource {
+class Manager extends BaseResource
+{
 	
-	public function fetchAllByIndustryCode($industry) {
+	public function fetchAllByIndustryCode($industry)
+	{
 		if (!$this->userIndustryCodeInput($industry)) {
 			return $this->validator->getMessagesAray();
 		}
@@ -21,7 +23,8 @@ class Manager extends BaseResource {
 		return $location;
 	}
 
-	private function userIndustryCodeInput($industry) {
+	private function userIndustryCodeInput($industry)
+	{
 		$this->validator = new Validation();
 		$this->validator->validateIndustryCodeInput($industry);
 		return $this->validator->isValid($industry);

@@ -2,7 +2,8 @@
 
 namespace GeoService\Base;
 
-class BaseConstants {
+class BaseConstants
+{
 	
 	const USERS_ENTITY = '\GeoService\Users\Entity\Users';
 	const INDUSTRIES_ENTITY = '\GeoService\Industries\Entity\Industries';

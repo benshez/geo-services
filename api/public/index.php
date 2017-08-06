@@ -13,15 +13,15 @@ require __DIR__ . '/../vendor/autoload.php';
 
 // Instantiate the app
 
-//$settings = require __DIR__ . '/../config/module.config.php';
-
 $parser = new \Symfony\Component\Yaml\Parser();
 
 $parameters = $parser->parse(file_get_contents(__DIR__ . '/../config/environments/parameters.yaml'), 4);
 
-$settings = $parser->parse(file_get_contents(__DIR__ . '/../config/environments/parameters.'.$parameters['parameters']['environment'].'.yaml'), 4);
+$settings = $parser->parse(file_get_contents(__DIR__ . '/../config/environments/parameters.'.$parameters['settings']['mode'].'.yaml'), 4);
 
-$app = new \Slim\App($settings);
+$merge['settings'] = array_merge($settings['settings'], $parameters['settings']);
+
+$app = new \Slim\App($merge);
 
 // Set up dependencies
 require __DIR__ . '/../app/dependencies.php';
