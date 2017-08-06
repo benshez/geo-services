@@ -6,12 +6,5 @@
 //$app->add( new \GeoService\Resources\Services\Authentication\Authorization() );
 
 $app->add(new \Tuupola\Middleware\Cors(
-	['origin' => ['chrome-extension://fhbjgbiflinjbdggehcddcbncdddomop', 'http://localhost:5556'],
-    'methods' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'REQUEST'],
-    //'headers.allow' => ['Authorization', 'If-Match', 'If-Unmodified-Since'],
-    'headers.allow' => ['X-Requested-With', 'Content-Type', 'Accept', 'Origin', 'Authorization'],
-    'headers.expose' => [],
-    'credentials' => false,
-    //'logger' => $container->logger,
-    'cache' => 86400]
+	$settings['settings']['cors']
 ));
