@@ -2,16 +2,10 @@
 
 namespace GeoService\Roles\Controller;
 
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\RequestInterface;
-use GeoService\Locations\Manager\Manager;
-use GeoService\Base\BaseController;
+use GeoService\Base\Controller\BaseController;
+use GeoService\Roles\Interfaces\IRolesController;
 
-final class Controller
+final class Controller extends BaseController implements IRolesController
 {
 
-	public function __construct(Manager $manager)
-	{
-		$this->manager = $manager;
-	}
 }

@@ -7,7 +7,7 @@ use Doctrine\ORM\Tools\Console\ConsoleRunner;
 
 $parser = new \Symfony\Component\Yaml\Parser();
 $parameters = $parser->parse(file_get_contents(__DIR__ . '/../config/environments/parameters.yaml'), 4);
-$mode = $parameters['parameters']['mode'];
+$mode = $parameters['settings']['mode'];
 $isDevMode = ($mode == 'development');
 $parameters = $parser->parse(file_get_contents(__DIR__ . '/../config/environments/parameters.'.$mode.'.yaml'), 4);
 

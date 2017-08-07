@@ -5,7 +5,7 @@ Roles:
         idx_role:
             columns:
                 - role
-        fk_roles_user_id_users_id:
+        fk_users_id_roles_user_id_idx:
             columns:
                 - user_id
     id:

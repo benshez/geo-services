@@ -1,6 +1,6 @@
 <?php
 
-namespace GeoService\Base\Validation;
+namespace GeoService\Base\Interfaces;
 
 interface IBaseValidation {
 	public function createValidator();

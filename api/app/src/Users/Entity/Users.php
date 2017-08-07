@@ -10,7 +10,7 @@ use \GeoService\Industries\Entity\Industries;
 /**
  * Users
  *
- * @ORM\Table(name="users", indexes={@ORM\Index(name="idx_username", columns={"username"}), @ORM\Index(name="idx_email", columns={"email"}), @ORM\Index(name="idx_about", columns={"about"}), @ORM\Index(name="idx_website", columns={"website"}), @ORM\Index(name="fk_users_address_id_address_id", columns={"address_id"}), @ORM\Index(name="fk_users_industry_id_industries_id", columns={"industry_id"})})
+ * @ORM\Table(name="users", indexes={@ORM\Index(name="idx_username", columns={"username"}), @ORM\Index(name="idx_email", columns={"email"}), @ORM\Index(name="idx_about", columns={"about"}), @ORM\Index(name="idx_website", columns={"website"}), @ORM\Index(name="fk_users_address_id_address_id", columns={"address_id"}), @ORM\Index(name="fk_users_suppliers_id_suppliers_id", columns={"suppliers_id"}), @ORM\Index(name="fk_users_industry_id_industries_id_idx", columns={"industry_id"})})
  * @ORM\Entity
  * @ORM\Entity(repositoryClass="GeoService\Users\Entity\Repository")
  */

@@ -51,4 +51,9 @@ settings:
     cache: 86400
     error: null
     logger: null
-    
+  messages:
+    validation:
+      user:
+        not_found: 'No user found with that id.'
+      address:
+        not_found: 'No address found with that id.'

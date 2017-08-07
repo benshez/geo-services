@@ -2,27 +2,24 @@
 
 namespace GeoService\Users\Controller;
 
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\RequestInterface;
-use GeoService\Users\Manager\Manager;
-use GeoService\Base\BaseController;
+use GeoService\Base\Controller\BaseController;
+use GeoService\Users\Interfaces\IUsersController;
 
-final class Controller extends BaseController
+final class Controller extends BaseController implements IUsersController
 {
 
-	public function __construct(Manager $manager)
-	{
-		$this->manager = $manager;
-	}
+	public function authenticateOne(
+		\Psr\Http\Message\RequestInterface $request,
+		\Psr\Http\Message\ResponseInterface $response,
+		$args
+	) {
 
-	public function authenticateOne(RequestInterface $request, ResponseInterface $response, $args)
-	{
-		$config = $this->manager->authenticate($request->getParam('email'), $request->getParam('password'));
+		$config = $this->model->authenticate($request->getParam('email'), $request->getParam('password'));
 
 		if ($config) {
 			return $response->withJSON($config);
 		}
 
-		return $response->withStatus(404, 'No user found with that id.');
+		return $response->withStatus(404, $this->model->getNotFoundMessageFromConfig($this->model->getMessagePart()));
 	}
 }

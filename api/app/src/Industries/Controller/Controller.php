@@ -2,25 +2,20 @@
 
 namespace GeoService\Industries\Controller;
 
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\RequestInterface;
-use GeoService\Industries\Manager\Manager;
-use GeoService\Base\BaseController;
+use GeoService\Base\Controller\BaseController;
+use GeoService\Industries\Interfaces\IIndustriesController;
 
-final class Controller extends BaseController
+class Controller extends BaseController implements IIndustriesController
 {
 	
-	public function __construct(Manager $manager)
-	{
-		$this->manager = $manager;
-	}
+	public function autoComplete(
+		\Psr\Http\Message\RequestInterface $request,
+		\Psr\Http\Message\ResponseInterface $response,
+		$args
+	) {
+		$config = $this->model->autoComplete($args['description']);
 
-	public function autoComplete(RequestInterface $request, ResponseInterface $response, $args)
-	{
-		$config = $this->manager->autoComplete($args['description']);
-
-		if ($config)
-		{
+		if ($config) {
 			return $response->withJSON($config);
 		}
 

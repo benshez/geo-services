@@ -2,9 +2,9 @@
 
 namespace GeoService\Industries\Entity;
 
-use Doctrine\ORM\EntityRepository;
+use GeoService\Base\Entity\BaseEntity;
 
-class Repository extends EntityRepository
+class Repository extends BaseEntity
 {
 
 	public function getAutoComplete($description = null)

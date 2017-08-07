@@ -3,7 +3,7 @@
 namespace GeoService\Base\Validation;
 
 use Zend\Validator;
-use GeoService\Base\Validation\IBaseValidation;
+use GeoService\Base\Interfaces\IBaseValidation;
 
 class BaseValidation implements \Zend\Validator\ValidatorInterface, IBaseValidation {
 

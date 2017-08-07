@@ -2,22 +2,18 @@
 
 namespace GeoService\Locations\Controller;
 
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\RequestInterface;
-use GeoService\Locations\Manager\Manager;
-use GeoService\Base\BaseController;
+use GeoService\Base\Controller\BaseController;
+use GeoService\Locations\Interfaces\ILocationsController;
 
-final class Controller extends BaseController
+class Controller extends BaseController implements ILocationsController
 {
 
-	public function __construct(Manager $manager)
-	{
-		$this->manager = $manager;
-	}
-
-	public function fetchAllByIndustryCode(RequestInterface $request, ResponseInterface $response, $args)
-	{
-		$config = $this->manager->fetchAllByIndustryCode($args['industry']);
+	public function findLocationsByIndustryCode(
+		\Psr\Http\Message\RequestInterface $request,
+		\Psr\Http\Message\ResponseInterface $response,
+		$args
+	) {
+		$config = $this->model->findLocationsByIndustryCode($args['industry']);
 
 		if ($config) {
 			return $response->withJSON($config);

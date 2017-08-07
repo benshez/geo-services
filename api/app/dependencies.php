@@ -59,16 +59,26 @@ $container['auth'] = function ($c) {
 // Action factories
 // -----------------------------------------------------------------------------
 $container['GeoService\Users\Controller\Controller'] = function ($c) {
-	$resource = new \GeoService\Users\Manager\Manager($c);
-	return new GeoService\Users\Controller\Controller($resource);
+		$resource = new \GeoService\Users\Model\Model($c);
+		return new GeoService\Users\Controller\Controller($resource);
 };
 
-$container['GeoService\Locations\Controller\Controller'] = function ($c) {
-	$resource = new \GeoService\Locations\Manager\Manager($c);
-	return new GeoService\Locations\Controller\Controller($resource);
+$container['GeoService\Address\Controller\Controller'] = function ($c) {
+		$resource = new \GeoService\Address\Model\Model($c);
+		return new GeoService\Address\Controller\Controller($resource);
 };
 
 $container['GeoService\Industries\Controller\Controller'] = function ($c) {
-	$resource = new \GeoService\Industries\Manager\Manager($c);
+	$resource = new \GeoService\Industries\Model\Model($c);
 	return new GeoService\Industries\Controller\Controller($resource);
+};
+
+$container['GeoService\Locations\Controller\Controller'] = function ($c) {
+	$resource = new \GeoService\Locations\Model\Model($c);
+	return new GeoService\Locations\Controller\Controller($resource);
+};
+
+$container['GeoService\Roles\Controller\Controller'] = function ($c) {
+	$resource = new \GeoService\Roles\Model\Model($c);
+	return new GeoService\Roles\Controller\Controller($resource);
 };
