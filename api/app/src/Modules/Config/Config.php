@@ -13,14 +13,10 @@ class Config
 
 	public function getConfig()
 	{
+		$path = __DIR__ .'/../../../../config/environments/';
 		$reader = new YamlConfig([\Symfony\Component\Yaml\Yaml::class, 'parse']);
-		$mode = $reader->fromFile(__DIR__ . './environments/parameters.yaml');
-
-		$parser = new \Symfony\Component\Yaml\Parser();
-		$parameters = $parser->parse(file_get_contents(__DIR__ . './environments/parameters.yaml'), 4);
-		$settings = $parser->parse(file_get_contents(__DIR__ . './environments/parameters.'.$parameters['settings']['mode'].'.yaml'), 4);
-		$config = $reader->fromFile(__DIR__ . '/environments/'.$parameters['settings']['mode'].'/parameters.yaml');
-		$merge['settings'] = array_merge($settings['settings'], $parameters['settings']);
-		return $merge;
+		$mode = $reader->fromFile($path.'parameters.yaml');
+		$config['settings'] = $reader->fromFile($path.$mode['mode'].'/parameters.yaml');
+		return $config;
 	}
 }
