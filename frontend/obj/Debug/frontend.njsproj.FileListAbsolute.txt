@@ -1,1 +1,0 @@
-D:\geo-services\frontend\obj\Debug\frontend.njsprojResolveAssemblyReference.cache

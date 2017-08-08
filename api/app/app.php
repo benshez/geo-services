@@ -3,9 +3,9 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 // Set up config
-require_once __DIR__ . '/../config/config.php';
+//require_once __DIR__ . '/../config/config.php';
 
-$config = new GeoServiceConfig();
+$config = new \GeoService\Modules\Config\Config();
 
 $settings = $config->getConfig();
 
