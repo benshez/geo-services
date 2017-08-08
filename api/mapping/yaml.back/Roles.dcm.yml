@@ -1,13 +1,13 @@
-Address:
+Roles:
     type: entity
-    table: address
+    table: roles
     indexes:
-        idx_phone:
+        idx_role:
             columns:
-                - phone
-        idx_email:
+                - role
+        fk_users_id_roles_user_id_idx:
             columns:
-                - email
+                - user_id
     id:
         id:
             type: integer
@@ -18,36 +18,15 @@ Address:
             generator:
                 strategy: IDENTITY
     fields:
-        address:
-            type: text
-            nullable: true
-            length: 65535
-            options:
-                fixed: false
-        state:
+        role:
             type: string
-            nullable: true
-            length: 10
-            options:
-                fixed: false
-        city:
-            type: string
-            nullable: true
+            nullable: false
             length: 40
             options:
                 fixed: false
-        phone:
-            type: string
-            nullable: true
-            length: 28
-            options:
-                fixed: false
-        email:
-            type: string
-            nullable: true
-            length: 28
-            options:
-                fixed: false
+        enabled:
+            type: boolean
+            nullable: false
         createdAt:
             type: datetime
             nullable: false
@@ -60,15 +39,15 @@ Address:
             options:
                 default: CURRENT_TIMESTAMP
             column: updated_at
-    oneToOne:
-        id:
+    manyToOne:
+        user:
             targetEntity: Users
             cascade: {  }
             fetch: LAZY
             mappedBy: null
             inversedBy: null
             joinColumns:
-                id:
-                    referencedColumnName: address_id
+                user_id:
+                    referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

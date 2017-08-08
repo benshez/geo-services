@@ -4,13 +4,11 @@ require 'vendor/autoload.php';
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Console\ConsoleRunner;
+use GeoService\Modules\Config\Config;
 
-$parser = new \Symfony\Component\Yaml\Parser();
-$parameters = $parser->parse(file_get_contents(__DIR__ . '/../config/environments/parameters.yaml'), 4);
-$mode = $parameters['settings']['mode'];
-$isDevMode = ($mode == 'development');
-$parameters = $parser->parse(file_get_contents(__DIR__ . '/../config/environments/parameters.'.$mode.'.yaml'), 4);
-
+$config = new \GeoService\Modules\Config\Config();
+$parameters = $config->getConfig();
+$isDevMode = ($parameters['settings']['mode'] == 'development');
 // the connection configuration
 $dbParameters = $parameters['settings']['doctrine']['connection'];
 

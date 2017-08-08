@@ -1,13 +1,19 @@
-Address:
+Suppliers:
     type: entity
-    table: address
+    table: suppliers
     indexes:
-        idx_phone:
+        idxuser_review:
             columns:
-                - phone
-        idx_email:
+                - user_review
+        idxcompany_name:
             columns:
-                - email
+                - company_name
+        fk_users_industry_id_industries_id_idx:
+            columns:
+                - industry_id
+        fk_suppliers_industry_id_industries_id_idx:
+            columns:
+                - industry_id
     id:
         id:
             type: integer
@@ -18,36 +24,19 @@ Address:
             generator:
                 strategy: IDENTITY
     fields:
-        address:
-            type: text
-            nullable: true
-            length: 65535
-            options:
-                fixed: false
-        state:
+        companyName:
             type: string
-            nullable: true
-            length: 10
+            nullable: false
+            length: 45
             options:
                 fixed: false
-        city:
-            type: string
+            column: company_name
+        userReview:
+            type: integer
             nullable: true
-            length: 40
             options:
-                fixed: false
-        phone:
-            type: string
-            nullable: true
-            length: 28
-            options:
-                fixed: false
-        email:
-            type: string
-            nullable: true
-            length: 28
-            options:
-                fixed: false
+                unsigned: false
+            column: user_review
         createdAt:
             type: datetime
             nullable: false
@@ -60,15 +49,15 @@ Address:
             options:
                 default: CURRENT_TIMESTAMP
             column: updated_at
-    oneToOne:
-        id:
-            targetEntity: Users
+    manyToOne:
+        industry:
+            targetEntity: Industries
             cascade: {  }
             fetch: LAZY
             mappedBy: null
             inversedBy: null
             joinColumns:
-                id:
-                    referencedColumnName: address_id
+                industry_id:
+                    referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }
