@@ -55,30 +55,44 @@ $container['auth'] = function ($c) {
 	];
 };
 
+$container['mailer'] = function ($c) {
+	$settings = $c->get('settings');
+	
+	$mailer = new PHPMailer;
+
+	$mailer->Host = 'your.host.com';
+	$mailer->SMTPAuth = true;
+	$mailer->SMTPSecure = 'ssl';
+	$mailer->Port = '';
+	$mailer->Username = 'your@email.address';
+	$mailer->isHTML(true);
+
+	return new \GeoService\Application\Mailer($c->view, $mailer);
+};
 // -----------------------------------------------------------------------------
 // Action factories
 // -----------------------------------------------------------------------------
-$container['GeoService\Users\Controller\Controller'] = function ($c) {
-		$resource = new \GeoService\Users\Model\Model($c);
-		return new GeoService\Users\Controller\Controller($resource);
+$container['GeoService\Bundles\Users\Controller\Controller'] = function ($c) {
+		$resource = new \GeoService\Bundles\Users\Model\Model($c);
+		return new GeoService\Bundles\Users\Controller\Controller($resource);
 };
 
-$container['GeoService\Address\Controller\Controller'] = function ($c) {
-		$resource = new \GeoService\Address\Model\Model($c);
-		return new GeoService\Address\Controller\Controller($resource);
+$container['GeoService\Bundles\Address\Controller\Controller'] = function ($c) {
+		$resource = new \GeoService\Bundles\Address\Model\Model($c);
+		return new GeoService\Bundles\Address\Controller\Controller($resource);
 };
 
-$container['GeoService\Industries\Controller\Controller'] = function ($c) {
-	$resource = new \GeoService\Industries\Model\Model($c);
-	return new GeoService\Industries\Controller\Controller($resource);
+$container['GeoService\Bundles\Industries\Controller\Controller'] = function ($c) {
+	$resource = new \GeoService\Bundles\Industries\Model\Model($c);
+	return new GeoService\Bundles\Industries\Controller\Controller($resource);
 };
 
-$container['GeoService\Locations\Controller\Controller'] = function ($c) {
-	$resource = new \GeoService\Locations\Model\Model($c);
-	return new GeoService\Locations\Controller\Controller($resource);
+$container['GeoService\Bundles\Locations\Controller\Controller'] = function ($c) {
+	$resource = new \GeoService\Bundles\Locations\Model\Model($c);
+	return new GeoService\Bundles\Locations\Controller\Controller($resource);
 };
 
-$container['GeoService\Roles\Controller\Controller'] = function ($c) {
-	$resource = new \GeoService\Roles\Model\Model($c);
-	return new GeoService\Roles\Controller\Controller($resource);
+$container['GeoService\Bundles\Roles\Controller\Controller'] = function ($c) {
+	$resource = new \GeoService\Bundles\Roles\Model\Model($c);
+	return new GeoService\Bundles\Roles\Controller\Controller($resource);
 };

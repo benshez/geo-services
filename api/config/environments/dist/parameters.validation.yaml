@@ -1,0 +1,5 @@
+validation:
+  user:
+    not_found: 'No user found with that id.'
+  address:
+    not_found: 'No address found with that id.'

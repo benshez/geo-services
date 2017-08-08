@@ -1,0 +1,37 @@
+<?php
+
+namespace GeoService\Bundles\Users\Validation;
+
+use Zend\Crypt\Password\Bcrypt;
+use GeoService\Modules\Base\Validation\BaseValidation;
+
+class Validation extends BaseValidation {
+
+	public function validateUserPasswordInput($value) {
+		$this->validator
+		->attachByName('NotEmpty', [], true)
+		->attachByName('StringLength', ['min' => 2], true);
+	}
+
+	public function validateUserPasswordIsCorrect($password, $salt, $hash) {
+		$bcrypt = ($salt) ? new Bcrypt(array(
+				'salt' => $salt,
+				'cost' => 10
+		)) : new Bcrypt();
+
+		$verified = $bcrypt->verify($password, $hash);
+
+		if (!$verified) {
+			$this->setMessagesAray(\GeoService\Modules\Base\BaseConstants::$USER_CREDENTIALS_INVALID);
+		}
+
+		return $verified;
+	}
+
+	public function validateEmailInput($value) {
+		$this->validator
+		->attachByName('NotEmpty', [], true)
+		->attachByName('StringLength', ['min' => 6], true)
+		->attachByName('EmailAddress');
+	}
+}

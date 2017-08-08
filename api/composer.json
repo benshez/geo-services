@@ -29,7 +29,8 @@
     "doctrine/doctrine-module": "^2.0",
     "zendframework/zend-crypt": "^3.2.0",
 		"tuupola/cors-middleware":  "^0.5.2",
-		"symfony/config": "^3.3.5"
+		"symfony/config": "^3.3.5",
+		"phpmailer/phpmailer": "^5.2.24"
   },
   "require-dev": {
     "doctrine/migrations": "^1.4",

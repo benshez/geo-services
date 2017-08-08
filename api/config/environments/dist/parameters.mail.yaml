@@ -1,0 +1,9 @@
+'@include': parameters.validation.yaml
+mail:
+  host:
+  auth: true
+  secure:
+  port:
+  username:
+  password:
+  is_html: true
