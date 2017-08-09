@@ -5,7 +5,9 @@ require_once __DIR__ . '/../vendor/autoload.php';
 // Set up config
 $config = new \GeoService\Modules\Config\Config();
 
-$app = new \Slim\App($config->getConfig());
+$settings = $config->getConfig();
+
+$app = new \Slim\App($settings);
 
 // Set up dependencies
 require_once 'dependencies.php';

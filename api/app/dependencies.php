@@ -69,6 +69,13 @@ $container['mailer'] = function ($c) {
 
 	return new \GeoService\Application\Mailer($c->view, $mailer);
 };
+
+$container['TokenAuthentication'] = function ($c) {
+    return function ($request, $response, $next) use ($c) {
+        $settings = $c['settings'];
+        return $next($request, $response);
+    };
+};
 // -----------------------------------------------------------------------------
 // Action factories
 // -----------------------------------------------------------------------------

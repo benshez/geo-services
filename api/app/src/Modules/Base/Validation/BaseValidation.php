@@ -38,7 +38,7 @@ class BaseValidation implements \Zend\Validator\ValidatorInterface, IBaseValidat
 		$this->validator = new Validator\ValidatorChain();
 	}
 	
-	public function disposeValidator(){
+	public function disposeValidator() {
 		$this->validator = null;
 	}
 }

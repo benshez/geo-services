@@ -18,7 +18,7 @@ class Model extends BaseModel implements IAddressModel
 
 	public function getMessagePart()
 	{
-		return 'messages:validation:address:not_found';
+		return 'validation:address:not_found';
 	}
 
 	public function setCriteria(array $criteria)

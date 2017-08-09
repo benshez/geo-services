@@ -8,6 +8,8 @@ use Zend\Config\Reader\Yaml as YamlConfig;
 
 class Config
 {
+	protected $path = __DIR__ .'/../../../../config/environments/';
+
 	public function __construct()
 	{ }
 
@@ -15,8 +17,8 @@ class Config
 	{
 		$path = __DIR__ .'/../../../../config/environments/';
 		$reader = new YamlConfig([\Symfony\Component\Yaml\Yaml::class, 'parse']);
-		$mode = $reader->fromFile($path.'parameters.yaml');
-		$config['settings'] = $reader->fromFile($path.$mode['mode'].'/parameters.yaml');
+		$mode = $reader->fromFile($this->path.'parameters.yaml');
+		$config['settings'] = $reader->fromFile($this->path.$mode['mode'].'/parameters.yaml');
 		return $config;
 	}
 }

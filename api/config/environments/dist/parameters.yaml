@@ -2,4 +2,5 @@
 determineRouteBeforeAppMiddleware: true
 displayErrorDetails: true
 useSimpleAnnotationReader: false
+version: v1.0
 mode: development

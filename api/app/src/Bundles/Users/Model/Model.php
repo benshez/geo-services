@@ -19,7 +19,7 @@ class Model extends BaseModel implements IUsersModel
 
 	public function getMessagePart()
 	{
-		return 'messages:validation:user:not_found';
+		return 'validation:user:not_found';
 	}
 
 	public function setCriteria(array $criteria)
