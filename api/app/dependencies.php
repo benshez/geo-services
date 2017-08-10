@@ -6,6 +6,12 @@ $container = $app->getContainer();
 // Service factories
 // -----------------------------------------------------------------------------
 
+//Slim app
+$container['slim'] = function ($c) {
+   global $app;
+   return $app;
+};
+
 // monolog
 $container['logger'] = function ($c) {
 	$settings = $c->get('settings');
@@ -67,26 +73,26 @@ $container['mailer'] = function ($c) {
 	$mailer->Username = 'your@email.address';
 	$mailer->isHTML(true);
 
-	return new \GeoService\Application\Mailer($c->view, $mailer);
+	return new \GeoService\Modules\Mailer\Mailer($c->view, $mailer);
 };
 
 $container['TokenAuthentication'] = function ($c) {
-    return function ($request, $response, $next) use ($c) {
-        $settings = $c['settings'];
-        return $next($request, $response);
-    };
+	return function ($request, $response, $next) use ($c) {
+		$settings = $c['settings'];
+		return $next($request, $response);
+	};
 };
 // -----------------------------------------------------------------------------
 // Action factories
 // -----------------------------------------------------------------------------
 $container['GeoService\Bundles\Users\Controller\Controller'] = function ($c) {
-		$resource = new \GeoService\Bundles\Users\Model\Model($c);
-		return new GeoService\Bundles\Users\Controller\Controller($resource);
+	$resource = new \GeoService\Bundles\Users\Model\Model($c);
+	return new GeoService\Bundles\Users\Controller\Controller($resource);
 };
 
 $container['GeoService\Bundles\Address\Controller\Controller'] = function ($c) {
-		$resource = new \GeoService\Bundles\Address\Model\Model($c);
-		return new GeoService\Bundles\Address\Controller\Controller($resource);
+	$resource = new \GeoService\Bundles\Address\Model\Model($c);
+	return new GeoService\Bundles\Address\Controller\Controller($resource);
 };
 
 $container['GeoService\Bundles\Industries\Controller\Controller'] = function ($c) {

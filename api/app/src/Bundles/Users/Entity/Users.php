@@ -5,7 +5,6 @@ namespace GeoService\Bundles\Users\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use GeoService\Modules\Base\BaseEntity;
-use \GeoService\Bundles\Industries\Entity\Industries as Industries;
 
 /**
  * Users

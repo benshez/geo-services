@@ -10,7 +10,7 @@ class Routes
 
 	protected $routes;
 
-	public function __construct($app, array $routes)
+	public function __construct(\Slim\App $app, array $routes)
 	{
 		$this->routes = $routes;
 		$this->app = $app;
