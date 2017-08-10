@@ -7,7 +7,7 @@ doctrine:
       collate: utf8mb4_unicode_ci
   meta:
     entity_path:
-    - app/src/Entity
+    - mapping/entities
     auto_generate_proxies: true
     proxy_dir:
     cache: null

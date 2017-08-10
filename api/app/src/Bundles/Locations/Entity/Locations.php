@@ -110,9 +110,9 @@ class Locations
 	private $updatedAt = 'CURRENT_TIMESTAMP';
 
 	/**
-		* @var GeoService\Bundles\Users\Entity\Users
+		* @var \Users
 		*
-		* @ORM\ManyToOne(targetEntity="GeoService\Bundles\Users\Entity\Users")
+		* @ORM\ManyToOne(targetEntity="Users")
 		* @ORM\JoinColumns({
 		*   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
 		* })
@@ -421,11 +421,11 @@ class Locations
 	/**
 		* Set user
 		*
-		* @param \GeoService\Bundles\Users\Entity\Users $user
+		* @param \Users $user
 		*
 		* @return Locations
 		*/
-	public function setUser(\GeoService\Bundles\Users\Entity\Users $user = null)
+	public function setUser(\Users $user = null)
 	{
 			$this->user = $user;
 
@@ -435,7 +435,7 @@ class Locations
 	/**
 		* Get user
 		*
-		* @return \GeoService\Bundles\Users\Entity\Users
+		* @return \Users
 		*/
 	public function getUser()
 	{

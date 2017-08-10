@@ -9,261 +9,243 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="address", indexes={@ORM\Index(name="idx_phone", columns={"phone"}), @ORM\Index(name="idx_email", columns={"email"})})
  * @ORM\Entity
- * @ORM\Entity(repositoryClass="GeoService\Bundles\Address\Entity\Repository")
  */
 
 class Address {
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="address", type="text", length=65535, nullable=true)
-     */
-    private $address;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="state", type="string", length=10, nullable=true)
-     */
-    private $state;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="city", type="string", length=40, nullable=true)
-     */
-    private $city;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="phone", type="string", length=28, nullable=true)
-     */
-    private $phone;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=28, nullable=true)
-     */
-    private $email;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="created_at", type="datetime", nullable=false)
-     */
-    private $createdAt = 'CURRENT_TIMESTAMP';
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="updated_at", type="datetime", nullable=false)
-     */
-    private $updatedAt = 'CURRENT_TIMESTAMP';
-
-    /**
+	/**
+		* @var integer
+		*
 		* @ORM\Column(name="id", type="integer")
 		* @ORM\Id
 		* @ORM\GeneratedValue(strategy="IDENTITY")
-     * @var \GeoService\Bundles\Users\Entity\Users
-     *
-     * @ORM\OneToOne(targetEntity="\GeoService\Bundles\Users\Entity\Users")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id", referencedColumnName="address_id", unique=true)
-     * })
-     */
-    private $id;
+		*/
+	private $id;
 
-    /**
-     * Set address
-     *
-     * @param string $address
-     *
-     * @return Address
-     */
-    public function setAddress($address)
-    {
-        $this->address = $address;
+	/**
+		* @var string
+		*
+		* @ORM\Column(name="address", type="text", length=65535, nullable=true)
+		*/
+	private $address;
 
-        return $this;
-    }
+	/**
+		* @var string
+		*
+		* @ORM\Column(name="state", type="string", length=10, nullable=true)
+		*/
+	private $state;
 
-    /**
-     * Get address
-     *
-     * @return string
-     */
-    public function getAddress()
-    {
-        return $this->address;
-    }
+	/**
+		* @var string
+		*
+		* @ORM\Column(name="city", type="string", length=40, nullable=true)
+		*/
+	private $city;
 
-    /**
-     * Set state
-     *
-     * @param string $state
-     *
-     * @return Address
-     */
-    public function setState($state)
-    {
-        $this->state = $state;
+	/**
+		* @var string
+		*
+		* @ORM\Column(name="phone", type="string", length=28, nullable=true)
+		*/
+	private $phone;
 
-        return $this;
-    }
+	/**
+		* @var string
+		*
+		* @ORM\Column(name="email", type="string", length=28, nullable=true)
+		*/
+	private $email;
 
-    /**
-     * Get state
-     *
-     * @return string
-     */
-    public function getState()
-    {
-        return $this->state;
-    }
+	/**
+		* @var \DateTime
+		*
+		* @ORM\Column(name="created_at", type="datetime", nullable=false)
+		*/
+	private $createdAt = 'CURRENT_TIMESTAMP';
 
-    /**
-     * Set city
-     *
-     * @param string $city
-     *
-     * @return Address
-     */
-    public function setCity($city)
-    {
-        $this->city = $city;
+	/**
+		* @var \DateTime
+		*
+		* @ORM\Column(name="updated_at", type="datetime", nullable=false)
+		*/
+	private $updatedAt = 'CURRENT_TIMESTAMP';
 
-        return $this;
-    }
 
-    /**
-     * Get city
-     *
-     * @return string
-     */
-    public function getCity()
-    {
-        return $this->city;
-    }
+	/**
+		* Get id
+		*
+		* @return integer
+		*/
+	public function getId()
+	{
+			return $this->id;
+	}
 
-    /**
-     * Set phone
-     *
-     * @param string $phone
-     *
-     * @return Address
-     */
-    public function setPhone($phone)
-    {
-        $this->phone = $phone;
+	/**
+		* Set address
+		*
+		* @param string $address
+		*
+		* @return Address
+		*/
+	public function setAddress($address)
+	{
+			$this->address = $address;
 
-        return $this;
-    }
+			return $this;
+	}
 
-    /**
-     * Get phone
-     *
-     * @return string
-     */
-    public function getPhone()
-    {
-        return $this->phone;
-    }
+	/**
+		* Get address
+		*
+		* @return string
+		*/
+	public function getAddress()
+	{
+			return $this->address;
+	}
 
-    /**
-     * Set email
-     *
-     * @param string $email
-     *
-     * @return Address
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
+	/**
+		* Set state
+		*
+		* @param string $state
+		*
+		* @return Address
+		*/
+	public function setState($state)
+	{
+			$this->state = $state;
 
-        return $this;
-    }
+			return $this;
+	}
 
-    /**
-     * Get email
-     *
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
+	/**
+		* Get state
+		*
+		* @return string
+		*/
+	public function getState()
+	{
+			return $this->state;
+	}
 
-    /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     *
-     * @return Address
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
+	/**
+		* Set city
+		*
+		* @param string $city
+		*
+		* @return Address
+		*/
+	public function setCity($city)
+	{
+			$this->city = $city;
 
-        return $this;
-    }
+			return $this;
+	}
 
-    /**
-     * Get createdAt
-     *
-     * @return \DateTime
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
+	/**
+		* Get city
+		*
+		* @return string
+		*/
+	public function getCity()
+	{
+			return $this->city;
+	}
 
-    /**
-     * Set updatedAt
-     *
-     * @param \DateTime $updatedAt
-     *
-     * @return Address
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
+	/**
+		* Set phone
+		*
+		* @param string $phone
+		*
+		* @return Address
+		*/
+	public function setPhone($phone)
+	{
+			$this->phone = $phone;
 
-        return $this;
-    }
+			return $this;
+	}
 
-    /**
-     * Get updatedAt
-     *
-     * @return \DateTime
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
-    }
+	/**
+		* Get phone
+		*
+		* @return string
+		*/
+	public function getPhone()
+	{
+			return $this->phone;
+	}
 
-    /**
-     * Set id
-     *
-     * @param \GeoService\Bundles\Users\Entity\Users $id
-     *
-     * @return Address
-     */
-    public function setId(\GeoService\Bundles\Users\Entity\Users $id = null)
-    {
-        $this->id = $id;
+	/**
+		* Set email
+		*
+		* @param string $email
+		*
+		* @return Address
+		*/
+	public function setEmail($email)
+	{
+			$this->email = $email;
 
-        return $this;
-    }
+			return $this;
+	}
 
-    /**
-     * Get id
-     *
-     * @return \GeoService\Bundles\Users\Entity\Users
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
+	/**
+		* Get email
+		*
+		* @return string
+		*/
+	public function getEmail()
+	{
+			return $this->email;
+	}
+
+	/**
+		* Set createdAt
+		*
+		* @param \DateTime $createdAt
+		*
+		* @return Address
+		*/
+	public function setCreatedAt($createdAt)
+	{
+			$this->createdAt = $createdAt;
+
+			return $this;
+	}
+
+	/**
+		* Get createdAt
+		*
+		* @return \DateTime
+		*/
+	public function getCreatedAt()
+	{
+			return $this->createdAt;
+	}
+
+	/**
+		* Set updatedAt
+		*
+		* @param \DateTime $updatedAt
+		*
+		* @return Address
+		*/
+	public function setUpdatedAt($updatedAt)
+	{
+			$this->updatedAt = $updatedAt;
+
+			return $this;
+	}
+
+	/**
+		* Get updatedAt
+		*
+		* @return \DateTime
+		*/
+	public function getUpdatedAt()
+	{
+			return $this->updatedAt;
+	}
 }

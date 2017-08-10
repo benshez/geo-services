@@ -60,15 +60,4 @@ Address:
             options:
                 default: CURRENT_TIMESTAMP
             column: updated_at
-    oneToOne:
-        id:
-            targetEntity: Users
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                id:
-                    referencedColumnName: address_id
-            orphanRemoval: false
     lifecycleCallbacks: {  }

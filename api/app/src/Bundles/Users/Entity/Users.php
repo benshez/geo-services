@@ -5,14 +5,13 @@ namespace GeoService\Bundles\Users\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use GeoService\Modules\Base\BaseEntity;
-use \GeoService\Bundles\Industries\Entity\Industries;
+use \GeoService\Bundles\Industries\Entity\Industries as Industries;
 
 /**
  * Users
  *
  * @ORM\Table(name="users", indexes={@ORM\Index(name="idx_username", columns={"username"}), @ORM\Index(name="idx_email", columns={"email"}), @ORM\Index(name="idx_about", columns={"about"}), @ORM\Index(name="idx_website", columns={"website"}), @ORM\Index(name="fk_users_address_id_address_id", columns={"address_id"}), @ORM\Index(name="fk_users_suppliers_id_suppliers_id", columns={"suppliers_id"}), @ORM\Index(name="fk_users_industry_id_industries_id_idx", columns={"industry_id"})})
  * @ORM\Entity
- * @ORM\Entity(repositoryClass="GeoService\Bundles\Users\Entity\Repository")
  */
 class Users
 {
@@ -24,13 +23,6 @@ class Users
 		* @ORM\GeneratedValue(strategy="IDENTITY")
 		*/
 	private $id;
-
-	/**
-		* @var integer
-		*
-		* @ORM\Column(name="address_id", type="integer", nullable=false)
-		*/
-	private $addressId;
 
 	/**
 		* @var integer
@@ -152,6 +144,16 @@ class Users
 	private $updatedAt = 'CURRENT_TIMESTAMP';
 
 	/**
+		* @var \GeoService\Bundles\Address\Entity\Address
+		*
+		* @ORM\ManyToOne(targetEntity="\GeoService\Bundles\Address\Entity\Address")
+		* @ORM\JoinColumns({
+		*   @ORM\JoinColumn(name="address_id", referencedColumnName="id")
+		* })
+		*/
+	private $address;
+
+	/**
 		* @var \GeoService\Bundles\Industries\Entity\Industries
 		*
 		* @ORM\ManyToOne(targetEntity="\GeoService\Bundles\Industries\Entity\Industries")
@@ -161,6 +163,7 @@ class Users
 		*/
 	private $industry;
 
+
 	/**
 		* Get id
 		*
@@ -169,30 +172,6 @@ class Users
 	public function getId()
 	{
 			return $this->id;
-	}
-
-	/**
-		* Set addressId
-		*
-		* @param integer $addressId
-		*
-		* @return Users
-		*/
-	public function setAddressId($addressId)
-	{
-			$this->addressId = $addressId;
-
-			return $this;
-	}
-
-	/**
-		* Get addressId
-		*
-		* @return integer
-		*/
-	public function getAddressId()
-	{
-			return $this->addressId;
 	}
 
 	/**
@@ -604,6 +583,30 @@ class Users
 	}
 
 	/**
+		* Set address
+		*
+		* @param \Address $address
+		*
+		* @return Users
+		*/
+	public function setAddress(\GeoService\Bundles\Address\Entity\Address $address = null)
+	{
+			$this->address = $address;
+
+			return $this;
+	}
+
+	/**
+		* Get address
+		*
+		* @return \GeoService\Bundles\Address\Entity\Address
+		*/
+	public function getAddress()
+	{
+			return $this->address;
+	}
+
+	/**
 		* Set industry
 		*
 		* @param \GeoService\Bundles\Industries\Entity\Industries $industry
@@ -620,7 +623,7 @@ class Users
 	/**
 		* Get industry
 		*
-		* @return \Industries
+		* @return \GeoService\Bundles\Industries\Entity\Industries
 		*/
 	public function getIndustry()
 	{

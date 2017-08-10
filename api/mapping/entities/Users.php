@@ -24,13 +24,6 @@ class Users
     /**
      * @var integer
      *
-     * @ORM\Column(name="address_id", type="integer", nullable=false)
-     */
-    private $addressId;
-
-    /**
-     * @var integer
-     *
      * @ORM\Column(name="suppliers_id", type="integer", nullable=true)
      */
     private $suppliersId;
@@ -148,6 +141,16 @@ class Users
     private $updatedAt = 'CURRENT_TIMESTAMP';
 
     /**
+     * @var \Address
+     *
+     * @ORM\ManyToOne(targetEntity="Address")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="address_id", referencedColumnName="id")
+     * })
+     */
+    private $address;
+
+    /**
      * @var \Industries
      *
      * @ORM\ManyToOne(targetEntity="Industries")
@@ -166,30 +169,6 @@ class Users
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set addressId
-     *
-     * @param integer $addressId
-     *
-     * @return Users
-     */
-    public function setAddressId($addressId)
-    {
-        $this->addressId = $addressId;
-
-        return $this;
-    }
-
-    /**
-     * Get addressId
-     *
-     * @return integer
-     */
-    public function getAddressId()
-    {
-        return $this->addressId;
     }
 
     /**
@@ -598,6 +577,30 @@ class Users
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * Set address
+     *
+     * @param \Address $address
+     *
+     * @return Users
+     */
+    public function setAddress(\Address $address = null)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * Get address
+     *
+     * @return \Address
+     */
+    public function getAddress()
+    {
+        return $this->address;
     }
 
     /**

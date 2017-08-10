@@ -33,12 +33,6 @@ Users:
             generator:
                 strategy: IDENTITY
     fields:
-        addressId:
-            type: integer
-            nullable: false
-            options:
-                unsigned: false
-            column: address_id
         suppliersId:
             type: integer
             nullable: true
@@ -132,6 +126,16 @@ Users:
                 default: CURRENT_TIMESTAMP
             column: updated_at
     manyToOne:
+        address:
+            targetEntity: Address
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                address_id:
+                    referencedColumnName: id
+            orphanRemoval: false
         industry:
             targetEntity: Industries
             cascade: {  }

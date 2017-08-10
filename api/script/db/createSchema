@@ -19,6 +19,30 @@ CREATE SCHEMA IF NOT EXISTS `geo_service` DEFAULT CHARACTER SET latin1 ;
 USE `geo_service` ;
 
 -- -----------------------------------------------------
+-- Table `geo_service`.`address`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `geo_service`.`address` ;
+
+CREATE TABLE IF NOT EXISTS `geo_service`.`address` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `address` TEXT CHARACTER SET 'utf8' NULL DEFAULT NULL,
+  `state` VARCHAR(10) CHARACTER SET 'utf8' NULL DEFAULT NULL,
+  `city` VARCHAR(40) CHARACTER SET 'utf8' NULL DEFAULT NULL,
+  `phone` VARCHAR(28) CHARACTER SET 'utf8' NULL DEFAULT NULL,
+  `email` VARCHAR(28) CHARACTER SET 'utf8' NULL DEFAULT NULL,
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+CREATE INDEX `idx_phone` ON `geo_service`.`address` (`phone` ASC);
+
+CREATE INDEX `idx_email` ON `geo_service`.`address` (`email` ASC);
+
+
+-- -----------------------------------------------------
 -- Table `geo_service`.`industries`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `geo_service`.`industries` ;
@@ -30,7 +54,6 @@ CREATE TABLE IF NOT EXISTS `geo_service`.`industries` (
   `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
@@ -64,6 +87,11 @@ CREATE TABLE IF NOT EXISTS `geo_service`.`users` (
   `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
+  CONSTRAINT `fk_users_address_id_address_id`
+    FOREIGN KEY (`address_id`)
+    REFERENCES `geo_service`.`address` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
   CONSTRAINT `fk_users_industry_id_industries_id`
     FOREIGN KEY (`industry_id`)
     REFERENCES `geo_service`.`industries` (`id`)
@@ -86,35 +114,6 @@ CREATE INDEX `fk_users_address_id_address_id` ON `geo_service`.`users` (`address
 CREATE INDEX `fk_users_suppliers_id_suppliers_id` ON `geo_service`.`users` (`suppliers_id` ASC);
 
 CREATE INDEX `fk_users_industry_id_industries_id_idx` ON `geo_service`.`users` (`industry_id` ASC);
-
-
--- -----------------------------------------------------
--- Table `geo_service`.`address`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `geo_service`.`address` ;
-
-CREATE TABLE IF NOT EXISTS `geo_service`.`address` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `address` TEXT CHARACTER SET 'utf8' NULL DEFAULT NULL,
-  `state` VARCHAR(10) CHARACTER SET 'utf8' NULL DEFAULT NULL,
-  `city` VARCHAR(40) CHARACTER SET 'utf8' NULL DEFAULT NULL,
-  `phone` VARCHAR(28) CHARACTER SET 'utf8' NULL DEFAULT NULL,
-  `email` VARCHAR(28) CHARACTER SET 'utf8' NULL DEFAULT NULL,
-  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `fk_address_id_address_id`
-    FOREIGN KEY (`id`)
-    REFERENCES `geo_service`.`users` (`address_id`)
-    ON DELETE CASCADE
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_bin;
-
-CREATE INDEX `idx_phone` ON `geo_service`.`address` (`phone` ASC);
-
-CREATE INDEX `idx_email` ON `geo_service`.`address` (`email` ASC);
 
 
 -- -----------------------------------------------------

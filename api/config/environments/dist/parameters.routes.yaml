@@ -1,0 +1,7 @@
+routes:
+- name: address
+  methods: [GET, POST]
+  priority: 0
+  pattern: '/api/v1/address/{id}'
+  placeholders: ['id': '[a-z0-9]+']
+  middleware: ['TokenAuthentication']

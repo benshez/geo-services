@@ -1,6 +1,6 @@
 <?php
 
-namespace GeoService\Modules\Middleware;
+namespace GeoService\Modules\Middleware\TokenAuthentication;
 
 use Interop\Container\ContainerInterface;
 use	Psr\Http\Message\RequestInterface;

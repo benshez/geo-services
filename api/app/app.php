@@ -16,6 +16,7 @@ require_once 'dependencies.php';
 require_once 'middleware.php';
 
 // Register routes
-require_once 'routes.php';
+//require_once 'routes.php';
+$routes = new \GeoService\Modules\Routes\Routes($app, $settings['settings']['routes']);
 
 $app->run();

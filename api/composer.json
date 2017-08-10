@@ -21,9 +21,9 @@
   },
   "require": {
     "doctrine/orm": "~2.5",
-    "slim/slim": "^3.1",
+    "slim/slim": "^3.5",
     "monolog/monolog": "^1.17",
-    "slim/http-cache": "^0.3.0",
+		"slim/http-cache": "^0.3.0",
     "lcobucci/jwt": "^3.1",
     "jeremykendall/password-validator": "^3.0.4",
     "doctrine/doctrine-module": "^2.0",

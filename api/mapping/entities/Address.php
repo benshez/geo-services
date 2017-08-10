@@ -13,6 +13,15 @@ use Doctrine\ORM\Mapping as ORM;
 class Address
 {
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="address", type="text", length=65535, nullable=true)
@@ -61,16 +70,16 @@ class Address
      */
     private $updatedAt = 'CURRENT_TIMESTAMP';
 
-    /**
-     * @var \Users
-     *
-     * @ORM\OneToOne(targetEntity="Users")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id", referencedColumnName="address_id", unique=true)
-     * })
-     */
-    private $id;
 
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Set address
@@ -238,30 +247,6 @@ class Address
     public function getUpdatedAt()
     {
         return $this->updatedAt;
-    }
-
-    /**
-     * Set id
-     *
-     * @param \Users $id
-     *
-     * @return Address
-     */
-    public function setId(\Users $id = null)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
-     * Get id
-     *
-     * @return \Users
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 }
 
