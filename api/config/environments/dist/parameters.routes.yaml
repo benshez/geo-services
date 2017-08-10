@@ -1,7 +1,26 @@
 routes:
-- name: address
-  methods: [GET, POST]
-  priority: 0
-  pattern: '/api/v1/address/{id}'
-  placeholders: ['id': '[a-z0-9]+']
-  middleware: ['TokenAuthentication']
+  location:
+    methods:
+    - GET
+    actions:
+    - 'GeoService\Bundles\Locations\Controller\Controller:fetchOne'
+    priority: 0
+    pattern: '/api/user/login/{email}'
+    middleware:
+  address:
+    methods:
+    - GET
+    actions:
+    - 'GeoService\Bundles\Address\Controller\Controller:fetchOne'
+    priority: 0
+    pattern: '/api/v1/address/{id}'
+    middleware:
+    - 'TokenAuthentication'
+  login:
+    methods:
+    - POST
+    actions:
+    - 'GeoService\Bundles\Users\Controller\Controller:authenticateOne'
+    priority: 0
+    pattern: '/api/user/login'
+    middleware:
