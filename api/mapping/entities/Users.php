@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Users
  *
- * @ORM\Table(name="users", indexes={@ORM\Index(name="idx_username", columns={"username"}), @ORM\Index(name="idx_email", columns={"email"}), @ORM\Index(name="idx_about", columns={"about"}), @ORM\Index(name="idx_website", columns={"website"}), @ORM\Index(name="fk_users_address_id_address_id", columns={"address_id"}), @ORM\Index(name="fk_users_suppliers_id_suppliers_id", columns={"suppliers_id"}), @ORM\Index(name="fk_users_industry_id_industries_id_idx", columns={"industry_id"})})
+ * @ORM\Table(name="users", indexes={@ORM\Index(name="idx_username", columns={"username"}), @ORM\Index(name="idx_email", columns={"email"}), @ORM\Index(name="idx_about", columns={"about"}), @ORM\Index(name="idx_website", columns={"website"}), @ORM\Index(name="fk_users_address_id_address_id", columns={"address_id"}), @ORM\Index(name="fk_users_suppliers_id_suppliers_id", columns={"suppliers_id"}), @ORM\Index(name="fk_users_industry_id_industries_id_idx", columns={"industry_id"}), @ORM\Index(name="fk_users_role_id_roles_id_idx", columns={"role_id"})})
  * @ORM\Entity
  */
 class Users
@@ -141,6 +141,20 @@ class Users
     private $updatedAt = 'CURRENT_TIMESTAMP';
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="token_char", type="string", length=16, nullable=true)
+     */
+    private $tokenChar;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="token_expiry", type="datetime", nullable=true)
+     */
+    private $tokenExpiry;
+
+    /**
      * @var \Address
      *
      * @ORM\ManyToOne(targetEntity="Address")
@@ -159,6 +173,16 @@ class Users
      * })
      */
     private $industry;
+
+    /**
+     * @var \Roles
+     *
+     * @ORM\ManyToOne(targetEntity="Roles")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="role_id", referencedColumnName="id")
+     * })
+     */
+    private $role;
 
 
     /**
@@ -580,6 +604,54 @@ class Users
     }
 
     /**
+     * Set tokenChar
+     *
+     * @param string $tokenChar
+     *
+     * @return Users
+     */
+    public function setTokenChar($tokenChar)
+    {
+        $this->tokenChar = $tokenChar;
+
+        return $this;
+    }
+
+    /**
+     * Get tokenChar
+     *
+     * @return string
+     */
+    public function getTokenChar()
+    {
+        return $this->tokenChar;
+    }
+
+    /**
+     * Set tokenExpiry
+     *
+     * @param \DateTime $tokenExpiry
+     *
+     * @return Users
+     */
+    public function setTokenExpiry($tokenExpiry)
+    {
+        $this->tokenExpiry = $tokenExpiry;
+
+        return $this;
+    }
+
+    /**
+     * Get tokenExpiry
+     *
+     * @return \DateTime
+     */
+    public function getTokenExpiry()
+    {
+        return $this->tokenExpiry;
+    }
+
+    /**
      * Set address
      *
      * @param \Address $address
@@ -625,6 +697,30 @@ class Users
     public function getIndustry()
     {
         return $this->industry;
+    }
+
+    /**
+     * Set role
+     *
+     * @param \Roles $role
+     *
+     * @return Users
+     */
+    public function setRole(\Roles $role = null)
+    {
+        $this->role = $role;
+
+        return $this;
+    }
+
+    /**
+     * Get role
+     *
+     * @return \Roles
+     */
+    public function getRole()
+    {
+        return $this->role;
     }
 }
 

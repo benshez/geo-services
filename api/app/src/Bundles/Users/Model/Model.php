@@ -44,6 +44,8 @@ class Model extends BaseModel implements IUsersModel
 		
 		$this->setCriteria(array(\GeoService\Modules\Base\BaseConstants::$FIND_BY_ONE_KEY_EMAIL => $email));
 
+		//$token = bin2hex(random_bytes(16));
+
 		$user = parent::get();
 		
 		if ($user) {

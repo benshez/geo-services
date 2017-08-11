@@ -5,9 +5,6 @@ Roles:
         idx_role:
             columns:
                 - role
-        fk_users_id_roles_user_id_idx:
-            columns:
-                - user_id
     id:
         id:
             type: integer
@@ -39,15 +36,4 @@ Roles:
             options:
                 default: CURRENT_TIMESTAMP
             column: updated_at
-    manyToOne:
-        user:
-            targetEntity: Users
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                user_id:
-                    referencedColumnName: id
-            orphanRemoval: false
     lifecycleCallbacks: {  }

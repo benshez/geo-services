@@ -23,6 +23,9 @@ Users:
         fk_users_industry_id_industries_id_idx:
             columns:
                 - industry_id
+        fk_users_role_id_roles_id_idx:
+            columns:
+                - role_id
     id:
         id:
             type: integer
@@ -125,6 +128,17 @@ Users:
             options:
                 default: CURRENT_TIMESTAMP
             column: updated_at
+        tokenChar:
+            type: string
+            nullable: true
+            length: 16
+            options:
+                fixed: false
+            column: token_char
+        tokenExpiry:
+            type: datetime
+            nullable: true
+            column: token_expiry
     manyToOne:
         address:
             targetEntity: Address
@@ -144,6 +158,16 @@ Users:
             inversedBy: null
             joinColumns:
                 industry_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        role:
+            targetEntity: Roles
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                role_id:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

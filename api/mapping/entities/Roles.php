@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Roles
  *
- * @ORM\Table(name="roles", indexes={@ORM\Index(name="idx_role", columns={"role"}), @ORM\Index(name="fk_users_id_roles_user_id_idx", columns={"user_id"})})
+ * @ORM\Table(name="roles", indexes={@ORM\Index(name="idx_role", columns={"role"})})
  * @ORM\Entity
  */
 class Roles
@@ -48,16 +48,6 @@ class Roles
      * @ORM\Column(name="updated_at", type="datetime", nullable=false)
      */
     private $updatedAt = 'CURRENT_TIMESTAMP';
-
-    /**
-     * @var \Users
-     *
-     * @ORM\ManyToOne(targetEntity="Users")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     * })
-     */
-    private $user;
 
 
     /**
@@ -164,30 +154,6 @@ class Roles
     public function getUpdatedAt()
     {
         return $this->updatedAt;
-    }
-
-    /**
-     * Set user
-     *
-     * @param \Users $user
-     *
-     * @return Roles
-     */
-    public function setUser(\Users $user = null)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return \Users
-     */
-    public function getUser()
-    {
-        return $this->user;
     }
 }
 
