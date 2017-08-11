@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Users
  *
- * @ORM\Table(name="users", indexes={@ORM\Index(name="idx_username", columns={"username"}), @ORM\Index(name="idx_email", columns={"email"}), @ORM\Index(name="idx_about", columns={"about"}), @ORM\Index(name="idx_website", columns={"website"}), @ORM\Index(name="fk_users_address_id_address_id", columns={"address_id"}), @ORM\Index(name="fk_users_suppliers_id_suppliers_id", columns={"suppliers_id"}), @ORM\Index(name="fk_users_industry_id_industries_id_idx", columns={"industry_id"}), @ORM\Index(name="fk_users_role_id_roles_id_idx", columns={"role_id"})})
+ * @ORM\Table(name="users", indexes={@ORM\Index(name="idx_username", columns={"username"}), @ORM\Index(name="idx_email", columns={"email"}), @ORM\Index(name="idx_about", columns={"about"}), @ORM\Index(name="idx_website", columns={"website"})})
  * @ORM\Entity
  */
 class Users
@@ -20,13 +20,6 @@ class Users
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="suppliers_id", type="integer", nullable=true)
-     */
-    private $suppliersId;
 
     /**
      * @var string
@@ -154,36 +147,6 @@ class Users
      */
     private $tokenExpiry;
 
-    /**
-     * @var \Address
-     *
-     * @ORM\ManyToOne(targetEntity="Address")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="address_id", referencedColumnName="id")
-     * })
-     */
-    private $address;
-
-    /**
-     * @var \Industries
-     *
-     * @ORM\ManyToOne(targetEntity="Industries")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="industry_id", referencedColumnName="id")
-     * })
-     */
-    private $industry;
-
-    /**
-     * @var \Roles
-     *
-     * @ORM\ManyToOne(targetEntity="Roles")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="role_id", referencedColumnName="id")
-     * })
-     */
-    private $role;
-
 
     /**
      * Get id
@@ -193,30 +156,6 @@ class Users
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set suppliersId
-     *
-     * @param integer $suppliersId
-     *
-     * @return Users
-     */
-    public function setSuppliersId($suppliersId)
-    {
-        $this->suppliersId = $suppliersId;
-
-        return $this;
-    }
-
-    /**
-     * Get suppliersId
-     *
-     * @return integer
-     */
-    public function getSuppliersId()
-    {
-        return $this->suppliersId;
     }
 
     /**
@@ -649,78 +588,6 @@ class Users
     public function getTokenExpiry()
     {
         return $this->tokenExpiry;
-    }
-
-    /**
-     * Set address
-     *
-     * @param \Address $address
-     *
-     * @return Users
-     */
-    public function setAddress(\Address $address = null)
-    {
-        $this->address = $address;
-
-        return $this;
-    }
-
-    /**
-     * Get address
-     *
-     * @return \Address
-     */
-    public function getAddress()
-    {
-        return $this->address;
-    }
-
-    /**
-     * Set industry
-     *
-     * @param \Industries $industry
-     *
-     * @return Users
-     */
-    public function setIndustry(\Industries $industry = null)
-    {
-        $this->industry = $industry;
-
-        return $this;
-    }
-
-    /**
-     * Get industry
-     *
-     * @return \Industries
-     */
-    public function getIndustry()
-    {
-        return $this->industry;
-    }
-
-    /**
-     * Set role
-     *
-     * @param \Roles $role
-     *
-     * @return Users
-     */
-    public function setRole(\Roles $role = null)
-    {
-        $this->role = $role;
-
-        return $this;
-    }
-
-    /**
-     * Get role
-     *
-     * @return \Roles
-     */
-    public function getRole()
-    {
-        return $this->role;
     }
 }
 

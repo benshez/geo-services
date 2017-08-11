@@ -8,12 +8,9 @@ Suppliers:
         idxcompany_name:
             columns:
                 - company_name
-        fk_users_industry_id_industries_id_idx:
-            columns:
-                - industry_id
         fk_suppliers_industry_id_industries_id_idx:
             columns:
-                - industry_id
+                - user_id
     id:
         id:
             type: integer
@@ -50,14 +47,14 @@ Suppliers:
                 default: CURRENT_TIMESTAMP
             column: updated_at
     manyToOne:
-        industry:
-            targetEntity: Industries
+        user:
+            targetEntity: Suppliers
             cascade: {  }
             fetch: LAZY
             mappedBy: null
             inversedBy: null
             joinColumns:
-                industry_id:
+                user_id:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

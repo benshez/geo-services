@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Address
  *
- * @ORM\Table(name="address", indexes={@ORM\Index(name="idx_phone", columns={"phone"}), @ORM\Index(name="idx_email", columns={"email"})})
+ * @ORM\Table(name="address", indexes={@ORM\Index(name="idx_phone", columns={"phone"}), @ORM\Index(name="idx_email", columns={"email"}), @ORM\Index(name="fk_address_user_id_users_id_idx", columns={"user_id"})})
  * @ORM\Entity
  */
 class Address
@@ -69,6 +69,16 @@ class Address
      * @ORM\Column(name="updated_at", type="datetime", nullable=false)
      */
     private $updatedAt = 'CURRENT_TIMESTAMP';
+
+    /**
+     * @var \Users
+     *
+     * @ORM\ManyToOne(targetEntity="Users")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * })
+     */
+    private $user;
 
 
     /**
@@ -247,6 +257,30 @@ class Address
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Users $user
+     *
+     * @return Address
+     */
+    public function setUser(\Users $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Users
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }
 

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Locations
  *
- * @ORM\Table(name="locations", indexes={@ORM\Index(name="idx_ip_from", columns={"ip_from"}), @ORM\Index(name="idx_ip_to", columns={"ip_to"}), @ORM\Index(name="idx_ip_from_to", columns={"ip_from", "ip_to"}), @ORM\Index(name="fk_users_id_users_id", columns={"user_id"})})
+ * @ORM\Table(name="locations", indexes={@ORM\Index(name="idx_ip_from", columns={"ip_from"}), @ORM\Index(name="idx_ip_to", columns={"ip_to"}), @ORM\Index(name="idx_ip_from_to", columns={"ip_from", "ip_to"}), @ORM\Index(name="fk_locations_supplier_id_suppliers_id_idx", columns={"supplier_id"})})
  * @ORM\Entity
  */
 class Locations
@@ -106,14 +106,14 @@ class Locations
     private $updatedAt = 'CURRENT_TIMESTAMP';
 
     /**
-     * @var \Users
+     * @var \Suppliers
      *
-     * @ORM\ManyToOne(targetEntity="Users")
+     * @ORM\ManyToOne(targetEntity="Suppliers")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="supplier_id", referencedColumnName="id")
      * })
      */
-    private $user;
+    private $supplier;
 
 
     /**
@@ -415,27 +415,27 @@ class Locations
     }
 
     /**
-     * Set user
+     * Set supplier
      *
-     * @param \Users $user
+     * @param \Suppliers $supplier
      *
      * @return Locations
      */
-    public function setUser(\Users $user = null)
+    public function setSupplier(\Suppliers $supplier = null)
     {
-        $this->user = $user;
+        $this->supplier = $supplier;
 
         return $this;
     }
 
     /**
-     * Get user
+     * Get supplier
      *
-     * @return \Users
+     * @return \Suppliers
      */
-    public function getUser()
+    public function getSupplier()
     {
-        return $this->user;
+        return $this->supplier;
     }
 }
 

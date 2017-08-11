@@ -1,0 +1,41 @@
+Security:
+    type: entity
+    table: security
+    indexes:
+        fk_security_users_id_user_id_idx_idx:
+            columns:
+                - user_id
+        fk_security_role_id_roles_id_idx:
+            columns:
+                - role_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    manyToOne:
+        role:
+            targetEntity: Security
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                role_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        user:
+            targetEntity: Users
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                user_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

@@ -8,6 +8,9 @@ Address:
         idx_email:
             columns:
                 - email
+        fk_address_user_id_users_id_idx:
+            columns:
+                - user_id
     id:
         id:
             type: integer
@@ -60,4 +63,15 @@ Address:
             options:
                 default: CURRENT_TIMESTAMP
             column: updated_at
+    manyToOne:
+        user:
+            targetEntity: Users
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                user_id:
+                    referencedColumnName: id
+            orphanRemoval: false
     lifecycleCallbacks: {  }
