@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Suppliers
  *
- * @ORM\Table(name="suppliers", indexes={@ORM\Index(name="idxuser_review", columns={"user_review"}), @ORM\Index(name="idxcompany_name", columns={"company_name"}), @ORM\Index(name="fk_suppliers_industry_id_industries_id_idx", columns={"user_id"})})
+ * @ORM\Table(name="suppliers", indexes={@ORM\Index(name="idxuser_review", columns={"user_review"}), @ORM\Index(name="idxcompany_name", columns={"company_name"}), @ORM\Index(name="fk_suppliers_industry_id_industries_id", columns={"industry_id"})})
  * @ORM\Entity
  */
 class Suppliers
@@ -50,14 +50,14 @@ class Suppliers
     private $updatedAt = 'CURRENT_TIMESTAMP';
 
     /**
-     * @var \Suppliers
+     * @var \Industries
      *
-     * @ORM\ManyToOne(targetEntity="Suppliers")
+     * @ORM\ManyToOne(targetEntity="Industries")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="industry_id", referencedColumnName="id")
      * })
      */
-    private $user;
+    private $industry;
 
 
     /**
@@ -167,27 +167,27 @@ class Suppliers
     }
 
     /**
-     * Set user
+     * Set industry
      *
-     * @param \Suppliers $user
+     * @param \Industries $industry
      *
      * @return Suppliers
      */
-    public function setUser(\Suppliers $user = null)
+    public function setIndustry(\Industries $industry = null)
     {
-        $this->user = $user;
+        $this->industry = $industry;
 
         return $this;
     }
 
     /**
-     * Get user
+     * Get industry
      *
-     * @return \Suppliers
+     * @return \Industries
      */
-    public function getUser()
+    public function getIndustry()
     {
-        return $this->user;
+        return $this->industry;
     }
 }
 

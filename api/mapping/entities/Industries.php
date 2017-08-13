@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Industries
  *
- * @ORM\Table(name="industries", indexes={@ORM\Index(name="idx_description", columns={"description"}), @ORM\Index(name="fk_industries_supplier_id_suppliers_id_idx", columns={"suppler_id"})})
+ * @ORM\Table(name="industries", indexes={@ORM\Index(name="idx_description", columns={"description"})})
  * @ORM\Entity
  */
 class Industries
@@ -41,16 +41,6 @@ class Industries
      * @ORM\Column(name="updated_at", type="datetime", nullable=false)
      */
     private $updatedAt = 'CURRENT_TIMESTAMP';
-
-    /**
-     * @var \Suppliers
-     *
-     * @ORM\ManyToOne(targetEntity="Suppliers")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="suppler_id", referencedColumnName="id")
-     * })
-     */
-    private $suppler;
 
 
     /**
@@ -133,30 +123,6 @@ class Industries
     public function getUpdatedAt()
     {
         return $this->updatedAt;
-    }
-
-    /**
-     * Set suppler
-     *
-     * @param \Suppliers $suppler
-     *
-     * @return Industries
-     */
-    public function setSuppler(\Suppliers $suppler = null)
-    {
-        $this->suppler = $suppler;
-
-        return $this;
-    }
-
-    /**
-     * Get suppler
-     *
-     * @return \Suppliers
-     */
-    public function getSuppler()
-    {
-        return $this->suppler;
     }
 }
 

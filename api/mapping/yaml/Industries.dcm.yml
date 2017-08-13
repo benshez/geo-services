@@ -5,9 +5,6 @@ Industries:
         idx_description:
             columns:
                 - description
-        fk_industries_supplier_id_suppliers_id_idx:
-            columns:
-                - suppler_id
     id:
         id:
             type: integer
@@ -36,15 +33,4 @@ Industries:
             options:
                 default: CURRENT_TIMESTAMP
             column: updated_at
-    manyToOne:
-        suppler:
-            targetEntity: Suppliers
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                suppler_id:
-                    referencedColumnName: id
-            orphanRemoval: false
     lifecycleCallbacks: {  }

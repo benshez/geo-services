@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Security
  *
- * @ORM\Table(name="security", indexes={@ORM\Index(name="fk_security_users_id_user_id_idx_idx", columns={"user_id"}), @ORM\Index(name="fk_security_role_id_roles_id_idx", columns={"role_id"})})
+ * @ORM\Table(name="security", indexes={@ORM\Index(name="fk_security_role_id_roles_id", columns={"role_id"}), @ORM\Index(name="fk_security_users_id_user_id_idx_idx", columns={"user_id"})})
  * @ORM\Entity
  */
 class Security
@@ -22,9 +22,9 @@ class Security
     private $id;
 
     /**
-     * @var \Security
+     * @var \Roles
      *
-     * @ORM\ManyToOne(targetEntity="Security")
+     * @ORM\ManyToOne(targetEntity="Roles")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="role_id", referencedColumnName="id")
      * })
@@ -55,11 +55,11 @@ class Security
     /**
      * Set role
      *
-     * @param \Security $role
+     * @param \Roles $role
      *
      * @return Security
      */
-    public function setRole(\Security $role = null)
+    public function setRole(\Roles $role = null)
     {
         $this->role = $role;
 
@@ -69,7 +69,7 @@ class Security
     /**
      * Get role
      *
-     * @return \Security
+     * @return \Roles
      */
     public function getRole()
     {

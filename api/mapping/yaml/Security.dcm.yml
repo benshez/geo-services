@@ -2,12 +2,12 @@ Security:
     type: entity
     table: security
     indexes:
+        fk_security_role_id_roles_id:
+            columns:
+                - role_id
         fk_security_users_id_user_id_idx_idx:
             columns:
                 - user_id
-        fk_security_role_id_roles_id_idx:
-            columns:
-                - role_id
     id:
         id:
             type: integer
@@ -19,7 +19,7 @@ Security:
                 strategy: IDENTITY
     manyToOne:
         role:
-            targetEntity: Security
+            targetEntity: Roles
             cascade: {  }
             fetch: LAZY
             mappedBy: null

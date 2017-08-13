@@ -1,24 +1,24 @@
 <?php
 
-namespace GeoService\Bundles\Address\Model;
+namespace GeoService\Bundles\Locations\Model;
 
 use Interop\Container\ContainerInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use GeoService\Bundles\Address\Interfaces\IAddressModel;
+use GeoService\Bundles\Pages\Interfaces\IPagesModel;
 use GeoService\Modules\Base\Model\BaseModel;
 
-class Model extends BaseModel implements IAddressModel
+class Model extends BaseModel implements IPagesModel
 {
 
 	public function getClass()
 	{
-		return '\GeoService\Bundles\Address\Entity\Address';
+		return '\GeoService\Bundles\Pages\Entity\Pages';
 	}
 
 	public function getMessagePart()
 	{
-		return 'validation:address:not_found';
+		return 'messages:validation:address:not_found';
 	}
 
 	public function setCriteria(array $criteria)

@@ -1,0 +1,152 @@
+Contact:
+    type: entity
+    table: contact
+    indexes:
+        idx_phone:
+            columns:
+                - phone
+        idx_email:
+            columns:
+                - email
+    uniqueConstraints:
+        supplier_id_UNIQUE:
+            columns:
+                - supplier_id
+        user_id_UNIQUE:
+            columns:
+                - user_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        address:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+        state:
+            type: string
+            nullable: true
+            length: 10
+            options:
+                fixed: false
+        city:
+            type: string
+            nullable: true
+            length: 40
+            options:
+                fixed: false
+        phone:
+            type: string
+            nullable: true
+            length: 28
+            options:
+                fixed: false
+        email:
+            type: string
+            nullable: true
+            length: 28
+            options:
+                fixed: false
+        logo:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        password:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        salt:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        enabled:
+            type: boolean
+            nullable: false
+        locked:
+            type: boolean
+            nullable: false
+        lastLogin:
+            type: datetime
+            nullable: false
+            column: last_login
+        expiresAt:
+            type: datetime
+            nullable: false
+            column: expires_at
+        website:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        facebook:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        twitter:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        tokenChar:
+            type: string
+            nullable: true
+            length: 16
+            options:
+                fixed: false
+            column: token_char
+        tokenExpiry:
+            type: datetime
+            nullable: true
+            column: token_expiry
+        updatedAt:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: updated_at
+        createdAt:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: created_at
+    manyToOne:
+        supplier:
+            targetEntity: Suppliers
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                supplier_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        user:
+            targetEntity: Users
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                user_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

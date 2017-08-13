@@ -3,12 +3,15 @@
 namespace GeoService\Bundles\Locations\Entity;
 
 use Doctrine\ORM\EntityRepository;
-use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\Expr\Join;
-use \Doctrine\Orm\NoResultException;
+use Doctrine\Orm\NoResultException;
+use GeoService\Modules\Base\BaseConstants;
 
 class Repository extends EntityRepository
 {
+	protected $criteria;
+	protected $orderBy;
 
 	public function __construct($em, $class)
 	{
@@ -17,30 +20,47 @@ class Repository extends EntityRepository
 
 	public function findOneBy(array $criteria, array $orderBy = null)
 	{
-		return parent::findOneBy($criteria, $orderBy);
-	}
+		$this->criteria = $criteria['industryId'];
+		$this->orderBy = $orderBy;
 
-	public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
-	{
-		$date = new \DateTime();
-
-		$qb = $this->_em->createQueryBuilder();
-		$qb->select('loc.latitude, loc.longitude, usr.username, usr.usersurname, usr.email, usr.logo, usr.about, usr.website, usr.facebook, usr.twitter, ind.description')
-		->from(\GeoService\Modules\Base\BaseConstants::$USERS_ENTITY, 'usr')
-		->innerJoin(\GeoService\Modules\Base\BaseConstants::$LOCATIONS_ENTITY, 'loc', Join::WITH, '(loc.user = usr.id)')
-		->innerJoin(\GeoService\Modules\Base\BaseConstants::$INDUSTRIES_ENTITY, 'ind', Join::WITH, '(usr.industry = ind.id)')
-		->where('usr.industry = :identifier')
-		->andWhere('usr.expiresAt >= :expires')
-		->andWhere('usr.enabled = 1')
-		->setParameter('identifier', $criteria['industryId'])
-		->setParameter('expires', '\'' . $date->format('Y-m-d') . '\'');
-
-		$query = $qb->getQuery();
+		$query = $this->getQuery();
 
 		try {
-			return $query->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+			return $query->getResult(Query::HYDRATE_ARRAY);
 		} catch (NoResultException $e) {
 			return false;
 		}
+	}
+
+	private function getQuery()
+	{
+		$qb = $this->_em->createQueryBuilder();
+
+		$qb->select($this->getSelectStatement())
+		->from(BaseConstants::SUPPLIERS_ENTITY, 'suppliers')
+		->innerJoin(BaseConstants::LOCATIONS_ENTITY, 'locations', Join::WITH, '(locations.supplier = suppliers.id)')
+		->innerJoin(BaseConstants::CONTACT_ENTITY, 'contact', Join::WITH, '(contact.supplier = suppliers.id)')
+		->innerJoin(BaseConstants::INDUSTRIES_ENTITY, 'industries', Join::WITH, '(suppliers.industry = industries.id)')
+		->where('industries.id = :identifier')
+		->andWhere('contact.enabled = 1')
+		->andWhere('contact.expiresAt >= :expires')
+		->setParameter('identifier', $this->criteria)
+		->setParameter('expires', $this->getFormattedDate());
+
+		return $qb->getQuery();
+	}
+
+	private function getFormattedDate()
+	{
+		$date = new \DateTime();
+		return '\'' . $date->format('Y-m-d') . '\'';
+	}
+
+	private function getSelectStatement()
+	{
+		$statement = 'locations.latitude, locations.longitude, suppliers.companyName, contact.phone,';
+		$statement .= 'contact.logo, contact.email, contact.website, contact.facebook, contact.twitter';
+
+		return $statement;
 	}
 }

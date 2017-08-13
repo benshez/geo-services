@@ -1,14 +1,5 @@
 <?php
 
-/*
- * This file is part of Geo Service API.
- *
- * (c) Ben van Heerden <benshez@gmail.com>
- *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
- */
-
 namespace GeoService\Bundles\Industries\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -24,53 +15,53 @@ use Doctrine\ORM\Mapping as ORM;
 class Industries
 {
 	/**
-		* @var integer
-		*
-		* @ORM\Column(name="id", type="integer")
-		* @ORM\Id
-		* @ORM\GeneratedValue(strategy="IDENTITY")
-		*/
+	 * @var integer
+	 *
+	 * @ORM\Column(name="id", type="integer")
+	 * @ORM\Id
+	 * @ORM\GeneratedValue(strategy="IDENTITY")
+	 */
 	private $id;
 
 	/**
-		* @var string
-		*
-		* @ORM\Column(name="description", type="string", length=255, nullable=false)
-		*/
+	 * @var string
+	 *
+	 * @ORM\Column(name="description", type="string", length=255, nullable=false)
+	 */
 	private $description;
 
 	/**
-		* @var \DateTime
-		*
-		* @ORM\Column(name="created_at", type="datetime", nullable=false)
-		*/
+	 * @var \DateTime
+	 *
+	 * @ORM\Column(name="created_at", type="datetime", nullable=false)
+	 */
 	private $createdAt = 'CURRENT_TIMESTAMP';
 
 	/**
-		* @var \DateTime
-		*
-		* @ORM\Column(name="updated_at", type="datetime", nullable=false)
-		*/
+	 * @var \DateTime
+	 *
+	 * @ORM\Column(name="updated_at", type="datetime", nullable=false)
+	 */
 	private $updatedAt = 'CURRENT_TIMESTAMP';
 
 
 	/**
-		* Get id
-		*
-		* @return integer
-		*/
+	 * Get id
+	 *
+	 * @return integer
+	 */
 	public function getId()
 	{
 			return $this->id;
 	}
 
 	/**
-		* Set description
-		*
-		* @param string $description
-		*
-		* @return Industries
-		*/
+	 * Set description
+	 *
+	 * @param string $description
+	 *
+	 * @return Industries
+	 */
 	public function setDescription($description)
 	{
 			$this->description = $description;
@@ -79,22 +70,22 @@ class Industries
 	}
 
 	/**
-		* Get description
-		*
-		* @return string
-		*/
+	 * Get description
+	 *
+	 * @return string
+	 */
 	public function getDescription()
 	{
 			return $this->description;
 	}
 
 	/**
-		* Set createdAt
-		*
-		* @param \DateTime $createdAt
-		*
-		* @return Industries
-		*/
+	 * Set createdAt
+	 *
+	 * @param \DateTime $createdAt
+	 *
+	 * @return Industries
+	 */
 	public function setCreatedAt($createdAt)
 	{
 			$this->createdAt = $createdAt;
@@ -103,22 +94,22 @@ class Industries
 	}
 
 	/**
-		* Get createdAt
-		*
-		* @return \DateTime
-		*/
+	 * Get createdAt
+	 *
+	 * @return \DateTime
+	 */
 	public function getCreatedAt()
 	{
 			return $this->createdAt;
 	}
 
 	/**
-		* Set updatedAt
-		*
-		* @param \DateTime $updatedAt
-		*
-		* @return Industries
-		*/
+	 * Set updatedAt
+	 *
+	 * @param \DateTime $updatedAt
+	 *
+	 * @return Industries
+	 */
 	public function setUpdatedAt($updatedAt)
 	{
 			$this->updatedAt = $updatedAt;
@@ -127,10 +118,10 @@ class Industries
 	}
 
 	/**
-		* Get updatedAt
-		*
-		* @return \DateTime
-		*/
+	 * Get updatedAt
+	 *
+	 * @return \DateTime
+	 */
 	public function getUpdatedAt()
 	{
 			return $this->updatedAt;

@@ -5,12 +5,12 @@
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Address
+ * Pages
  *
- * @ORM\Table(name="address", indexes={@ORM\Index(name="idx_phone", columns={"phone"}), @ORM\Index(name="idx_email", columns={"email"}), @ORM\Index(name="fk_address_user_id_users_id_idx", columns={"user_id"})})
+ * @ORM\Table(name="pages", indexes={@ORM\Index(name="idx_title", columns={"title"}), @ORM\Index(name="fk_pages_users_id_user_id_idx", columns={"user_id"})})
  * @ORM\Entity
  */
-class Address
+class Pages
 {
     /**
      * @var integer
@@ -24,37 +24,23 @@ class Address
     /**
      * @var string
      *
-     * @ORM\Column(name="address", type="text", length=65535, nullable=true)
+     * @ORM\Column(name="title", type="string", length=255, nullable=false)
      */
-    private $address;
+    private $title;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="state", type="string", length=10, nullable=true)
+     * @ORM\Column(name="content", type="text", nullable=false)
      */
-    private $state;
+    private $content;
 
     /**
-     * @var string
+     * @var boolean
      *
-     * @ORM\Column(name="city", type="string", length=40, nullable=true)
+     * @ORM\Column(name="enabled", type="boolean", nullable=false)
      */
-    private $city;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="phone", type="string", length=28, nullable=true)
-     */
-    private $phone;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=28, nullable=true)
-     */
-    private $email;
+    private $enabled;
 
     /**
      * @var \DateTime
@@ -92,123 +78,75 @@ class Address
     }
 
     /**
-     * Set address
+     * Set title
      *
-     * @param string $address
+     * @param string $title
      *
-     * @return Address
+     * @return Pages
      */
-    public function setAddress($address)
+    public function setTitle($title)
     {
-        $this->address = $address;
+        $this->title = $title;
 
         return $this;
     }
 
     /**
-     * Get address
+     * Get title
      *
      * @return string
      */
-    public function getAddress()
+    public function getTitle()
     {
-        return $this->address;
+        return $this->title;
     }
 
     /**
-     * Set state
+     * Set content
      *
-     * @param string $state
+     * @param string $content
      *
-     * @return Address
+     * @return Pages
      */
-    public function setState($state)
+    public function setContent($content)
     {
-        $this->state = $state;
+        $this->content = $content;
 
         return $this;
     }
 
     /**
-     * Get state
+     * Get content
      *
      * @return string
      */
-    public function getState()
+    public function getContent()
     {
-        return $this->state;
+        return $this->content;
     }
 
     /**
-     * Set city
+     * Set enabled
      *
-     * @param string $city
+     * @param boolean $enabled
      *
-     * @return Address
+     * @return Pages
      */
-    public function setCity($city)
+    public function setEnabled($enabled)
     {
-        $this->city = $city;
+        $this->enabled = $enabled;
 
         return $this;
     }
 
     /**
-     * Get city
+     * Get enabled
      *
-     * @return string
+     * @return boolean
      */
-    public function getCity()
+    public function getEnabled()
     {
-        return $this->city;
-    }
-
-    /**
-     * Set phone
-     *
-     * @param string $phone
-     *
-     * @return Address
-     */
-    public function setPhone($phone)
-    {
-        $this->phone = $phone;
-
-        return $this;
-    }
-
-    /**
-     * Get phone
-     *
-     * @return string
-     */
-    public function getPhone()
-    {
-        return $this->phone;
-    }
-
-    /**
-     * Set email
-     *
-     * @param string $email
-     *
-     * @return Address
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
+        return $this->enabled;
     }
 
     /**
@@ -216,7 +154,7 @@ class Address
      *
      * @param \DateTime $createdAt
      *
-     * @return Address
+     * @return Pages
      */
     public function setCreatedAt($createdAt)
     {
@@ -240,7 +178,7 @@ class Address
      *
      * @param \DateTime $updatedAt
      *
-     * @return Address
+     * @return Pages
      */
     public function setUpdatedAt($updatedAt)
     {
@@ -264,7 +202,7 @@ class Address
      *
      * @param \Users $user
      *
-     * @return Address
+     * @return Pages
      */
     public function setUser(\Users $user = null)
     {

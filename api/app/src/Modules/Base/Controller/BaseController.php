@@ -29,6 +29,7 @@ class BaseController implements IBaseController
 		ResponseInterface $response,
 		$args
 	) {
+		$this->getModel()->setCriteria($args);
 		$configs = $this->getModel()->get();
 		return $response->withJSON($configs);
 	}

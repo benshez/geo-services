@@ -13,7 +13,7 @@ class Model extends BaseModel implements ILocationsModel
 
 	public function getClass()
 	{
-		return '\GeoService\Bundles\Locations\Entity\Locations';
+		return '\GeoService\Bundles\Industries\Entity\Industries';
 	}
 
 	public function getMessagePart()

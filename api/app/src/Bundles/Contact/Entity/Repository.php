@@ -1,6 +1,6 @@
 <?php
 
-namespace GeoService\Bundles\Address\Entity;
+namespace GeoService\Bundles\Contact\Entity;
 
 use GeoService\Modules\Base\Entity\BaseEntity;
 

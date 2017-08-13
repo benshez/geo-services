@@ -1,14 +1,11 @@
-Address:
+Pages:
     type: entity
-    table: address
+    table: pages
     indexes:
-        idx_phone:
+        idx_title:
             columns:
-                - phone
-        idx_email:
-            columns:
-                - email
-        fk_address_user_id_users_id_idx:
+                - title
+        fk_pages_users_id_user_id_idx:
             columns:
                 - user_id
     id:
@@ -21,36 +18,21 @@ Address:
             generator:
                 strategy: IDENTITY
     fields:
-        address:
+        title:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        content:
             type: text
-            nullable: true
-            length: 65535
+            nullable: false
+            length: null
             options:
                 fixed: false
-        state:
-            type: string
-            nullable: true
-            length: 10
-            options:
-                fixed: false
-        city:
-            type: string
-            nullable: true
-            length: 40
-            options:
-                fixed: false
-        phone:
-            type: string
-            nullable: true
-            length: 28
-            options:
-                fixed: false
-        email:
-            type: string
-            nullable: true
-            length: 28
-            options:
-                fixed: false
+        enabled:
+            type: boolean
+            nullable: false
         createdAt:
             type: datetime
             nullable: false

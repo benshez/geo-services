@@ -29,4 +29,7 @@ php ./vendor/doctrine/orm/bin/doctrine orm:generate-entities --generate-annotati
 # Validate schema
 php ./vendor/doctrine/orm/bin/doctrine orm:validate-schema
 
+# Update schema
+php ./vendor/doctrine/orm/bin/doctrine orm:schema-tool:update --force --complete --dump-sql
+
 read -p "Press enter to continue"
