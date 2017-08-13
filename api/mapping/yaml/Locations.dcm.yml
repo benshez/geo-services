@@ -12,9 +12,9 @@ Locations:
             columns:
                 - ip_from
                 - ip_to
-        fk_locations_supplier_id_suppliers_id_idx:
+        fk_locations_user_id_users_id_idx:
             columns:
-                - supplier_id
+                - user_id
     id:
         id:
             type: integer
@@ -102,14 +102,14 @@ Locations:
                 default: CURRENT_TIMESTAMP
             column: updated_at
     manyToOne:
-        supplier:
-            targetEntity: Suppliers
+        user:
+            targetEntity: Users
             cascade: {  }
             fetch: LAZY
             mappedBy: null
             inversedBy: null
             joinColumns:
-                supplier_id:
+                user_id:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

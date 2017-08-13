@@ -8,11 +8,7 @@ Contact:
         idx_email:
             columns:
                 - email
-    uniqueConstraints:
-        supplier_id_UNIQUE:
-            columns:
-                - supplier_id
-        user_id_UNIQUE:
+        fk_contacts_user_id_user_id_idx:
             columns:
                 - user_id
     id:
@@ -25,6 +21,18 @@ Contact:
             generator:
                 strategy: IDENTITY
     fields:
+        username:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        usersurname:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
         address:
             type: text
             nullable: true
@@ -55,38 +63,6 @@ Contact:
             length: 28
             options:
                 fixed: false
-        logo:
-            type: string
-            nullable: true
-            length: 255
-            options:
-                fixed: false
-        password:
-            type: string
-            nullable: false
-            length: 255
-            options:
-                fixed: false
-        salt:
-            type: string
-            nullable: false
-            length: 255
-            options:
-                fixed: false
-        enabled:
-            type: boolean
-            nullable: false
-        locked:
-            type: boolean
-            nullable: false
-        lastLogin:
-            type: datetime
-            nullable: false
-            column: last_login
-        expiresAt:
-            type: datetime
-            nullable: false
-            column: expires_at
         website:
             type: string
             nullable: true
@@ -105,40 +81,19 @@ Contact:
             length: 255
             options:
                 fixed: false
-        tokenChar:
-            type: string
-            nullable: true
-            length: 16
-            options:
-                fixed: false
-            column: token_char
-        tokenExpiry:
-            type: datetime
-            nullable: true
-            column: token_expiry
         updatedAt:
             type: datetime
             nullable: false
             options:
                 default: CURRENT_TIMESTAMP
             column: updated_at
-        createdAt:
+        tokenExpiry:
             type: datetime
             nullable: false
             options:
                 default: CURRENT_TIMESTAMP
-            column: created_at
+            column: token_expiry
     manyToOne:
-        supplier:
-            targetEntity: Suppliers
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                supplier_id:
-                    referencedColumnName: id
-            orphanRemoval: false
         user:
             targetEntity: Users
             cascade: {  }

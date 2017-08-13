@@ -37,13 +37,13 @@ class Repository extends EntityRepository
 		$qb = $this->_em->createQueryBuilder();
 
 		$qb->select($this->getSelectStatement())
-		->from(BaseConstants::SUPPLIERS_ENTITY, 'suppliers')
-		->innerJoin(BaseConstants::LOCATIONS_ENTITY, 'locations', Join::WITH, '(locations.supplier = suppliers.id)')
-		->innerJoin(BaseConstants::CONTACT_ENTITY, 'contact', Join::WITH, '(contact.supplier = suppliers.id)')
-		->innerJoin(BaseConstants::INDUSTRIES_ENTITY, 'industries', Join::WITH, '(suppliers.industry = industries.id)')
+		->from(BaseConstants::USERS_ENTITY, 'users')
+		->innerJoin(BaseConstants::LOCATIONS_ENTITY, 'locations', Join::WITH, '(locations.user = users.id)')
+		->innerJoin(BaseConstants::CONTACT_ENTITY, 'contact', Join::WITH, '(contact.user = users.id)')
+		->innerJoin(BaseConstants::INDUSTRIES_ENTITY, 'industries', Join::WITH, '(users.industry = industries.id)')
 		->where('industries.id = :identifier')
-		->andWhere('contact.enabled = 1')
-		->andWhere('contact.expiresAt >= :expires')
+		->andWhere('users.enabled = 1')
+		->andWhere('users.expiresAt >= :expires')
 		->setParameter('identifier', $this->criteria)
 		->setParameter('expires', $this->getFormattedDate());
 
@@ -58,8 +58,8 @@ class Repository extends EntityRepository
 
 	private function getSelectStatement()
 	{
-		$statement = 'locations.latitude, locations.longitude, suppliers.companyName, contact.phone,';
-		$statement .= 'contact.logo, contact.email, contact.website, contact.facebook, contact.twitter';
+		$statement = 'locations.latitude, locations.longitude, users.username, contact.phone,';
+		$statement .= 'users.logo, contact.email, contact.website, contact.facebook, contact.twitter';
 
 		return $statement;
 	}

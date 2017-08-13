@@ -37,31 +37,22 @@ CREATE INDEX `idx_description` ON `geo_service`.`industries` (`description` ASC)
 
 
 -- -----------------------------------------------------
--- Table `geo_service`.`suppliers`
+-- Table `geo_service`.`roles`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `geo_service`.`suppliers` ;
+DROP TABLE IF EXISTS `geo_service`.`roles` ;
 
-CREATE TABLE IF NOT EXISTS `geo_service`.`suppliers` (
+CREATE TABLE IF NOT EXISTS `geo_service`.`roles` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `industry_id` INT(11) NULL DEFAULT NULL,
-  `company_name` VARCHAR(45) NOT NULL,
-  `user_review` INT(11) NULL DEFAULT NULL,
+  `role` VARCHAR(40) CHARACTER SET 'utf8' NOT NULL,
+  `enabled` TINYINT(1) NOT NULL,
   `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `fk_suppliers_industry_id_industries_id`
-    FOREIGN KEY (`industry_id`)
-    REFERENCES `geo_service`.`industries` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
 
-CREATE INDEX `idxuser_review` ON `geo_service`.`suppliers` (`user_review` ASC);
-
-CREATE INDEX `idxcompany_name` ON `geo_service`.`suppliers` (`company_name` ASC);
-
-CREATE INDEX `fk_suppliers_industry_id_industries_id` ON `geo_service`.`suppliers` (`industry_id` ASC);
+CREATE INDEX `idx_role` ON `geo_service`.`roles` (`role` ASC);
 
 
 -- -----------------------------------------------------
@@ -71,16 +62,37 @@ DROP TABLE IF EXISTS `geo_service`.`users` ;
 
 CREATE TABLE IF NOT EXISTS `geo_service`.`users` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `username` VARCHAR(255) CHARACTER SET 'utf8' NOT NULL,
-  `usersurname` VARCHAR(255) CHARACTER SET 'utf8' NOT NULL,
-  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `role_id` INT(11) NULL DEFAULT NULL,
+  `industry_id` INT(11) NULL DEFAULT NULL,
+  `password` VARCHAR(255) CHARACTER SET 'utf8' NOT NULL,
+  `salt` VARCHAR(255) CHARACTER SET 'utf8' NOT NULL,
+  `locked` TINYINT(1) NOT NULL,
+  `enabled` TINYINT(1) NOT NULL,
+  `expires_at` DATETIME NOT NULL,
+  `last_login` DATETIME NOT NULL,
+  `token_char` VARCHAR(16) CHARACTER SET 'utf8' NULL DEFAULT NULL,
+  `token_expiry` DATETIME NULL DEFAULT NULL,
+  `logo` VARCHAR(255) CHARACTER SET 'utf8' NULL DEFAULT NULL,
+  `username` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`))
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_users_industry_id_industries_id`
+    FOREIGN KEY (`industry_id`)
+    REFERENCES `geo_service`.`industries` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_users_role_id_roles_id`
+    FOREIGN KEY (`role_id`)
+    REFERENCES `geo_service`.`roles` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
-CREATE INDEX `idx_username` ON `geo_service`.`users` (`username` ASC);
+CREATE INDEX `fk_users_role_id_roles_id_idx` ON `geo_service`.`users` (`role_id` ASC);
+
+CREATE INDEX `fk_users_industry_id_industries_id_idx` ON `geo_service`.`users` (`industry_id` ASC);
 
 
 -- -----------------------------------------------------
@@ -89,35 +101,22 @@ CREATE INDEX `idx_username` ON `geo_service`.`users` (`username` ASC);
 DROP TABLE IF EXISTS `geo_service`.`contact` ;
 
 CREATE TABLE IF NOT EXISTS `geo_service`.`contact` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `id` INT(11) NOT NULL,
   `user_id` INT(11) NULL DEFAULT NULL,
-  `supplier_id` INT(11) NULL DEFAULT NULL,
+  `username` VARCHAR(255) CHARACTER SET 'utf8' NOT NULL,
+  `usersurname` VARCHAR(255) CHARACTER SET 'utf8' NOT NULL,
   `address` TEXT CHARACTER SET 'utf8' NULL DEFAULT NULL,
   `state` VARCHAR(10) CHARACTER SET 'utf8' NULL DEFAULT NULL,
   `city` VARCHAR(40) CHARACTER SET 'utf8' NULL DEFAULT NULL,
   `phone` VARCHAR(28) CHARACTER SET 'utf8' NULL DEFAULT NULL,
   `email` VARCHAR(28) CHARACTER SET 'utf8' NULL DEFAULT NULL,
-  `logo` VARCHAR(255) CHARACTER SET 'utf8' NULL DEFAULT NULL,
-  `password` VARCHAR(255) CHARACTER SET 'utf8' NOT NULL,
-  `salt` VARCHAR(255) CHARACTER SET 'utf8' NOT NULL,
-  `enabled` TINYINT(1) NOT NULL,
-  `locked` TINYINT(1) NOT NULL,
-  `last_login` DATETIME NOT NULL,
-  `expires_at` DATETIME NOT NULL,
   `website` VARCHAR(255) CHARACTER SET 'utf8' NULL DEFAULT NULL,
   `facebook` VARCHAR(255) CHARACTER SET 'utf8' NULL DEFAULT NULL,
   `twitter` VARCHAR(255) CHARACTER SET 'utf8' NULL DEFAULT NULL,
-  `token_char` VARCHAR(16) CHARACTER SET 'utf8' NULL DEFAULT NULL,
-  `token_expiry` DATETIME NULL DEFAULT NULL,
   `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `token_expiry` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  CONSTRAINT `fk_address_supplier_id_suppliers_id`
-    FOREIGN KEY (`supplier_id`)
-    REFERENCES `geo_service`.`suppliers` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_address_user_id_users_id`
+  CONSTRAINT `fk_contacts_user_id_user_id`
     FOREIGN KEY (`user_id`)
     REFERENCES `geo_service`.`users` (`id`)
     ON DELETE NO ACTION
@@ -126,17 +125,11 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
-CREATE UNIQUE INDEX `supplier_id_UNIQUE` ON `geo_service`.`contact` (`supplier_id` ASC);
-
-CREATE UNIQUE INDEX `user_id_UNIQUE` ON `geo_service`.`contact` (`user_id` ASC);
-
 CREATE INDEX `idx_phone` ON `geo_service`.`contact` (`phone` ASC);
 
 CREATE INDEX `idx_email` ON `geo_service`.`contact` (`email` ASC);
 
-CREATE INDEX `fk_contact_user_id_users_id` ON `geo_service`.`contact` (`user_id` ASC);
-
-CREATE INDEX `fk_contact_supplier_id_suppliers_id` ON `geo_service`.`contact` (`supplier_id` ASC);
+CREATE INDEX `fk_contacts_user_id_user_id_idx` ON `geo_service`.`contact` (`user_id` ASC);
 
 
 -- -----------------------------------------------------
@@ -146,7 +139,7 @@ DROP TABLE IF EXISTS `geo_service`.`locations` ;
 
 CREATE TABLE IF NOT EXISTS `geo_service`.`locations` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `supplier_id` INT(11) NULL DEFAULT NULL,
+  `user_id` INT(11) NULL DEFAULT NULL,
   `ip_from` INT(10) UNSIGNED NULL DEFAULT NULL,
   `ip_to` INT(10) UNSIGNED NULL DEFAULT NULL,
   `country_code` CHAR(2) CHARACTER SET 'utf8' NULL DEFAULT NULL,
@@ -160,9 +153,9 @@ CREATE TABLE IF NOT EXISTS `geo_service`.`locations` (
   `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  CONSTRAINT `fk_locations_supplier_id_suppliers_id`
-    FOREIGN KEY (`supplier_id`)
-    REFERENCES `geo_service`.`suppliers` (`id`)
+  CONSTRAINT `fk_locations_user_id_users_id`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `geo_service`.`users` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -175,7 +168,7 @@ CREATE INDEX `idx_ip_to` ON `geo_service`.`locations` (`ip_to` ASC);
 
 CREATE INDEX `idx_ip_from_to` ON `geo_service`.`locations` (`ip_from` ASC, `ip_to` ASC);
 
-CREATE INDEX `fk_locations_supplier_id_suppliers_id_idx` ON `geo_service`.`locations` (`supplier_id` ASC);
+CREATE INDEX `fk_locations_user_id_users_id_idx` ON `geo_service`.`locations` (`user_id` ASC);
 
 
 -- -----------------------------------------------------
@@ -203,25 +196,6 @@ DEFAULT CHARACTER SET = latin1;
 CREATE INDEX `idx_title` ON `geo_service`.`pages` (`title` ASC);
 
 CREATE INDEX `fk_pages_users_id_user_id_idx` ON `geo_service`.`pages` (`user_id` ASC);
-
-
--- -----------------------------------------------------
--- Table `geo_service`.`roles`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `geo_service`.`roles` ;
-
-CREATE TABLE IF NOT EXISTS `geo_service`.`roles` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `role` VARCHAR(40) CHARACTER SET 'utf8' NOT NULL,
-  `enabled` TINYINT(1) NOT NULL,
-  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_bin;
-
-CREATE INDEX `idx_role` ON `geo_service`.`roles` (`role` ASC);
 
 
 -- -----------------------------------------------------

@@ -3,13 +3,12 @@
 namespace GeoService\Bundles\Contact\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use GeoService\Bundles\Suppliers\Entity\Suppliers;
 use GeoService\Bundles\Users\Entity\Users;
 
 /**
  * Address
  *
- * @ORM\Table(name="contact", uniqueConstraints={@ORM\UniqueConstraint(name="supplier_id_UNIQUE", columns={"supplier_id"}), @ORM\UniqueConstraint(name="user_id_UNIQUE", columns={"user_id"})}, indexes={@ORM\Index(name="idx_phone", columns={"phone"}), @ORM\Index(name="idx_email", columns={"email"})})
+ * @ORM\Table(name="contact", indexes={@ORM\Index(name="idx_phone", columns={"phone"}), @ORM\Index(name="idx_email", columns={"email"}), @ORM\Index(name="fk_contacts_user_id_user_id_idx", columns={"user_id"})})
  * @ORM\Entity
  */
 
@@ -23,6 +22,20 @@ class Contact
 	* @ORM\GeneratedValue(strategy="IDENTITY")
 	*/
 	private $id;
+
+	/**
+	* @var string
+	*
+	* @ORM\Column(name="username", type="string", length=255, nullable=false)
+	*/
+	private $username;
+
+	/**
+	* @var string
+	*
+	* @ORM\Column(name="usersurname", type="string", length=255, nullable=false)
+	*/
+	private $usersurname;
 
 	/**
 	* @var string
@@ -62,55 +75,6 @@ class Contact
 	/**
 	* @var string
 	*
-	* @ORM\Column(name="logo", type="string", length=255, nullable=true)
-	*/
-	private $logo;
-
-	/**
-	* @var string
-	*
-	* @ORM\Column(name="password", type="string", length=255, nullable=false)
-	*/
-	private $password;
-
-	/**
-	* @var string
-	*
-	* @ORM\Column(name="salt", type="string", length=255, nullable=false)
-	*/
-	private $salt;
-
-	/**
-	* @var boolean
-	*
-	* @ORM\Column(name="enabled", type="boolean", nullable=false)
-	*/
-	private $enabled;
-
-	/**
-	* @var boolean
-	*
-	* @ORM\Column(name="locked", type="boolean", nullable=false)
-	*/
-	private $locked;
-
-	/**
-	* @var \DateTime
-	*
-	* @ORM\Column(name="last_login", type="datetime", nullable=false)
-	*/
-	private $lastLogin;
-
-	/**
-	* @var \DateTime
-	*
-	* @ORM\Column(name="expires_at", type="datetime", nullable=false)
-	*/
-	private $expiresAt;
-
-	/**
-	* @var string
-	*
 	* @ORM\Column(name="website", type="string", length=255, nullable=true)
 	*/
 	private $website;
@@ -130,20 +94,6 @@ class Contact
 	private $twitter;
 
 	/**
-	* @var string
-	*
-	* @ORM\Column(name="token_char", type="string", length=16, nullable=true)
-	*/
-	private $tokenChar;
-
-	/**
-	* @var \DateTime
-	*
-	* @ORM\Column(name="token_expiry", type="datetime", nullable=true)
-	*/
-	private $tokenExpiry;
-
-	/**
 	* @var \DateTime
 	*
 	* @ORM\Column(name="updated_at", type="datetime", nullable=false)
@@ -153,19 +103,9 @@ class Contact
 	/**
 	* @var \DateTime
 	*
-	* @ORM\Column(name="created_at", type="datetime", nullable=false)
+	* @ORM\Column(name="token_expiry", type="datetime", nullable=false)
 	*/
-	private $createdAt = 'CURRENT_TIMESTAMP';
-
-	/**
-	* @var \Suppliers
-	*
-	* @ORM\ManyToOne(targetEntity="\GeoService\Bundles\Suppliers\Entity\Suppliers")
-	* @ORM\JoinColumns({
-	*   @ORM\JoinColumn(name="supplier_id", referencedColumnName="id")
-	* })
-	*/
-	private $supplier;
+	private $tokenExpiry = 'CURRENT_TIMESTAMP';
 
 	/**
 	* @var \Users
@@ -186,6 +126,54 @@ class Contact
 	public function getId()
 	{
 		return $this->id;
+	}
+
+	/**
+	* Set username
+	*
+	* @param string $username
+	*
+	* @return Contact
+	*/
+	public function setUsername($username)
+	{
+		$this->username = $username;
+
+		return $this;
+	}
+
+	/**
+	* Get username
+	*
+	* @return string
+	*/
+	public function getUsername()
+	{
+		return $this->username;
+	}
+
+	/**
+	* Set usersurname
+	*
+	* @param string $usersurname
+	*
+	* @return Contact
+	*/
+	public function setUsersurname($usersurname)
+	{
+		$this->usersurname = $usersurname;
+
+		return $this;
+	}
+
+	/**
+	* Get usersurname
+	*
+	* @return string
+	*/
+	public function getUsersurname()
+	{
+		return $this->usersurname;
 	}
 
 	/**
@@ -309,174 +297,6 @@ class Contact
 	}
 
 	/**
-	* Set logo
-	*
-	* @param string $logo
-	*
-	* @return Contact
-	*/
-	public function setLogo($logo)
-	{
-		$this->logo = $logo;
-
-		return $this;
-	}
-
-	/**
-	* Get logo
-	*
-	* @return string
-	*/
-	public function getLogo()
-	{
-		return $this->logo;
-	}
-
-	/**
-	* Set password
-	*
-	* @param string $password
-	*
-	* @return Contact
-	*/
-	public function setPassword($password)
-	{
-		$this->password = $password;
-
-		return $this;
-	}
-
-	/**
-	* Get password
-	*
-	* @return string
-	*/
-	public function getPassword()
-	{
-		return $this->password;
-	}
-
-	/**
-	* Set salt
-	*
-	* @param string $salt
-	*
-	* @return Contact
-	*/
-	public function setSalt($salt)
-	{
-		$this->salt = $salt;
-
-		return $this;
-	}
-
-	/**
-	* Get salt
-	*
-	* @return string
-	*/
-	public function getSalt()
-	{
-		return $this->salt;
-	}
-
-	/**
-	* Set enabled
-	*
-	* @param boolean $enabled
-	*
-	* @return Contact
-	*/
-	public function setEnabled($enabled)
-	{
-		$this->enabled = $enabled;
-
-		return $this;
-	}
-
-	/**
-	* Get enabled
-	*
-	* @return boolean
-	*/
-	public function getEnabled()
-	{
-		return $this->enabled;
-	}
-
-	/**
-	* Set locked
-	*
-	* @param boolean $locked
-	*
-	* @return Contact
-	*/
-	public function setLocked($locked)
-	{
-		$this->locked = $locked;
-
-		return $this;
-	}
-
-	/**
-	* Get locked
-	*
-	* @return boolean
-	*/
-	public function getLocked()
-	{
-		return $this->locked;
-	}
-
-	/**
-	* Set lastLogin
-	*
-	* @param \DateTime $lastLogin
-	*
-	* @return Contact
-	*/
-	public function setLastLogin($lastLogin)
-	{
-		$this->lastLogin = $lastLogin;
-
-		return $this;
-	}
-
-	/**
-	* Get lastLogin
-	*
-	* @return \DateTime
-	*/
-	public function getLastLogin()
-	{
-		return $this->lastLogin;
-	}
-
-	/**
-	* Set expiresAt
-	*
-	* @param \DateTime $expiresAt
-	*
-	* @return Contact
-	*/
-	public function setExpiresAt($expiresAt)
-	{
-		$this->expiresAt = $expiresAt;
-
-		return $this;
-	}
-
-	/**
-	* Get expiresAt
-	*
-	* @return \DateTime
-	*/
-	public function getExpiresAt()
-	{
-		return $this->expiresAt;
-	}
-
-	/**
 	* Set website
 	*
 	* @param string $website
@@ -549,54 +369,6 @@ class Contact
 	}
 
 	/**
-	* Set tokenChar
-	*
-	* @param string $tokenChar
-	*
-	* @return Contact
-	*/
-	public function setTokenChar($tokenChar)
-	{
-		$this->tokenChar = $tokenChar;
-
-		return $this;
-	}
-
-	/**
-	* Get tokenChar
-	*
-	* @return string
-	*/
-	public function getTokenChar()
-	{
-		return $this->tokenChar;
-	}
-
-	/**
-	* Set tokenExpiry
-	*
-	* @param \DateTime $tokenExpiry
-	*
-	* @return Contact
-	*/
-	public function setTokenExpiry($tokenExpiry)
-	{
-		$this->tokenExpiry = $tokenExpiry;
-
-		return $this;
-	}
-
-	/**
-	* Get tokenExpiry
-	*
-	* @return \DateTime
-	*/
-	public function getTokenExpiry()
-	{
-		return $this->tokenExpiry;
-	}
-
-	/**
 	* Set updatedAt
 	*
 	* @param \DateTime $updatedAt
@@ -621,51 +393,27 @@ class Contact
 	}
 
 	/**
-	* Set createdAt
+	* Set tokenExpiry
 	*
-	* @param \DateTime $createdAt
+	* @param \DateTime $tokenExpiry
 	*
 	* @return Contact
 	*/
-	public function setCreatedAt($createdAt)
+	public function setTokenExpiry($tokenExpiry)
 	{
-		$this->createdAt = $createdAt;
+		$this->tokenExpiry = $tokenExpiry;
 
 		return $this;
 	}
 
 	/**
-	* Get createdAt
+	* Get tokenExpiry
 	*
 	* @return \DateTime
 	*/
-	public function getCreatedAt()
+	public function getTokenExpiry()
 	{
-		return $this->createdAt;
-	}
-
-	/**
-	* Set supplier
-	*
-	* @param \Suppliers $supplier
-	*
-	* @return Contact
-	*/
-	public function setSupplier(Suppliers $supplier = null)
-	{
-		$this->supplier = $supplier;
-
-		return $this;
-	}
-
-	/**
-	* Get supplier
-	*
-	* @return \Suppliers
-	*/
-	public function getSupplier()
-	{
-		return $this->supplier;
+		return $this->tokenExpiry;
 	}
 
 	/**
