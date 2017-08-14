@@ -115,7 +115,7 @@ class Users
 	*
 	* @ORM\ManyToOne(targetEntity="\GeoService\Bundles\Roles\Entity\Roles")
 	* @ORM\JoinColumns({
-	*   @ORM\JoinColumn(name="role_id", referencedColumnName="id")
+	*   @ORM\JoinColumn(name="role_id", referencedColumnName="id", nullable=false)
 	* })
 	*/
 	private $role;

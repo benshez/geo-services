@@ -4,6 +4,8 @@ require 'vendor/autoload.php';
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Console\ConsoleRunner;
+use Doctrine\DBAL\Migrations;
+use Doctrine\Common\ClassLoader;
 use GeoService\Modules\Config\Config;
 
 $config = new \GeoService\Modules\Config\Config();
@@ -18,5 +20,7 @@ $config = Setup::createYAMLMetadataConfiguration(
 );
 
 $entityManager = EntityManager::create($dbParameters, $config);
+
+$helper = ConsoleRunner::createHelperSet($entityManager);
 
 return ConsoleRunner::createHelperSet($entityManager);

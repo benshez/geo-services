@@ -50,6 +50,18 @@ $container['em'] = function ($c) {
 	return \Doctrine\ORM\EntityManager::create($settings['doctrine']['connection'], $config);
 };
 
+$container['bundles'] = function ($c) {
+	$settings = $c->get('settings');
+
+	$isDevMode = ($settings['mode'] == 'development');
+
+	if ($isDevMode) {
+		$bundles[] = new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle();
+	}
+	
+	return $bundles;
+};
+
 //Authentication
 $container['auth'] = function ($c) {
 	return [
