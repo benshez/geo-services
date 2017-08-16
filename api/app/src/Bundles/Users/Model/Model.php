@@ -8,9 +8,11 @@ use Psr\Http\Message\ResponseInterface;
 use GeoService\Bundles\Users\Interfaces\IUsersModel;
 use GeoService\Bundles\Users\Validation\Validation;
 use GeoService\Modules\Base\Model\BaseModel;
+use GeoService\Modules\Config\Config;
 
 class Model extends BaseModel implements IUsersModel
 {
+	const VALIDATORS = 'validators:user:methods:authenticate';
 
 	public function getClass()
 	{
@@ -32,43 +34,41 @@ class Model extends BaseModel implements IUsersModel
 		return $this->criteria;
 	}
 
+	public function setValidator()
+	{
+		$this->validator = null;
+		$this->validator = new Validation();
+	}
+	
 	public function authenticate($email, $password)
 	{
-		if (!$this->userEmailInputIsValid($email)) {
+		if (!$this->formIsValid([$password, $email])) {
+			$x = $this->validator->getMessagesAray();
 			return $this->validator->getMessagesAray();
+			//return $this->validator->getMessages();
 		}
-		
-		if (!$this->userPasswordInputIsValid($password)) {
-			return $this->validator->getMessagesAray();
-		}
-		
-		$this->setCriteria(array(\GeoService\Modules\Base\BaseConstants::$FIND_BY_ONE_KEY_EMAIL => $email));
+		//$this->setCriteria(array('\GeoService\Modules\Base\BaseConstants::$FIND_BY_ONE_KEY_EMAIL' => $email));
 
 		//$token = bin2hex(random_bytes(16));
 
-		$user = parent::get();
+		//$user = parent::get();
 		
-		if ($user) {
-			if (!$this->userPasswordIsValid($password, $user->getSalt(), $user->getPassword())) {
-				return $this->validator->getMessagesAray();
-			}
-			return $user->getEmail();
-		}
+		// if ($user) {
+		// 	if (!$this->userPasswordIsValid($password, $user->getSalt(), $user->getPassword())) {
+		// 		return $this->validator->getMessagesAray();
+		// 	}
+		// 	return $user->getEmail();
+		// }
 		return false;
 	}
 
-	private function userEmailInputIsValid($email)
+	private function formIsValid(array $values)
 	{
+		$config = new Config();
 		$this->setValidator();
-		$this->validator->validateEmailInput($email);
-		return $this->validator->isValid($email);
-	}
+		$validators = $config->getConfigSetting($this->getContainer()->get('settings'), self::VALIDATORS);
 
-	private function userPasswordInputIsValid($password)
-	{
-		$this->setValidator();
-		$this->validator->validateUserPasswordInput($password);
-		return $this->validator->isValid($password);
+		return $this->validator->formIsValid($validators, $values);
 	}
 
 	private function userPasswordIsValid($password, $salt, $hash)

@@ -2,7 +2,7 @@
 
 namespace GeoService\Modules\Base\Interfaces;
 
-use \Interop\Container\ContainerInterface;
+use Interop\Container\ContainerInterface;
 
 interface IBaseModel
 {
@@ -17,8 +17,6 @@ interface IBaseModel
 	public function setEntityManager();
 
 	public function getEntityManager();
-
-	public function setValidator();
 
 	public function getValidator();
 

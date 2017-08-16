@@ -5,4 +5,6 @@ php ./vendor/doctrine/migrations/bin/doctrine-migrations migrations:status
 
 php ./vendor/doctrine/migrations/bin/doctrine-migrations migrations:migrate
 
+php ./vendor/doctrine/migrations/bin/doctrine-migrations migrations:migrate 0
+
 read -p "Press enter to continue"

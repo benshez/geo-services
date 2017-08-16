@@ -1,4 +1,4 @@
-name: Doctrim Migrations
+name: GeoService Migrations
 migrations_namespace: GeoServiceMigrations
-table_name: doctrine_migration_versions
+table_name: geoservice_migration_versions
 migrations_directory: mapping/migrations/

@@ -3,7 +3,6 @@
 namespace GeoService\Modules\Base\Model;
 
 use Interop\Container\ContainerInterface;
-use GeoService\Bundles\Users\Validation\Validation;
 
 class BaseModel
 {
@@ -40,14 +39,7 @@ class BaseModel
 
 	public function getValidator()
 	{
-		$this->setValidator();
 		return $this->validator;
-	}
-
-	public function setValidator()
-	{
-		$this->validator = null;
-		$this->validator = new Validation();
 	}
 
 	/**

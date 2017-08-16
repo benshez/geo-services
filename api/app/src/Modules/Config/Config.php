@@ -21,4 +21,15 @@ class Config
 		$config['settings'] = $reader->fromFile($this->path.$mode['mode'].'/parameters.yaml');
 		return $config;
 	}
+
+	public function getConfigSetting(\Slim\Collection $settings, $path)
+	{
+		$path = explode(':', $path);
+
+		foreach ($path as $key => $part) {
+			$settings = $settings[$part];
+		}
+
+		return $settings;
+	}
 }

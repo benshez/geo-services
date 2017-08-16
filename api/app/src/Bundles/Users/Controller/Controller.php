@@ -17,6 +17,9 @@ final class Controller extends BaseController implements IUsersController
 		$config = $this->model->authenticate($request->getParam('email'), $request->getParam('password'));
 
 		if ($config) {
+			if ($config['error']) {
+				return $response->withStatus(404, $config['message']['stringLengthTooShort']);
+			}
 			return $response->withJSON($config);
 		}
 

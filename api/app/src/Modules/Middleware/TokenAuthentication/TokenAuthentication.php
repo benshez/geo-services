@@ -19,6 +19,7 @@ class TokenAuthentication
 	{
 		$this->container = $container;
 		$this->apiVersion = $container['settings']['version'];
+
 		/**
 			* roles are not dynamic
 			* role with higher access level is higher number
