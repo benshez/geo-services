@@ -1,6 +1,15 @@
 '@include': parameters.routes.yaml
-validation:
+validators:
   user:
-    not_found: 'No user found with that id.'
-  address:
-    not_found: 'No address found with that id.'
+    methods:
+      authentication:
+        - 
+          - ['NotEmpty']
+          - ['StringLength', [min: 6, max: 16], true]
+        - 
+          - ['NotEmpty']
+          - ['StringLength', [min: 2], true]
+          - ['EmailAddress']
+    messages:
+      not_found: {error: true, message: {UserNotFound: 'No user found with that id.'}}
+      invalid_credentials: {error: true, message: {UserInvalidCredentials: 'Invalid user name or password.'}}

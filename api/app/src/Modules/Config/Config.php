@@ -15,7 +15,6 @@ class Config
 
 	public function getConfig()
 	{
-		$path = __DIR__ .'/../../../../config/environments/';
 		$reader = new YamlConfig([\Symfony\Component\Yaml\Yaml::class, 'parse']);
 		$mode = $reader->fromFile($this->path.'parameters.yaml');
 		$config['settings'] = $reader->fromFile($this->path.$mode['mode'].'/parameters.yaml');

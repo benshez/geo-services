@@ -3,13 +3,15 @@
 namespace GeoService\Modules\Base\Model;
 
 use Interop\Container\ContainerInterface;
+use GeoService\Modules\Config\Config;
 
 class BaseModel
 {
 	protected $container = null;
 	protected $manager = null;
+	protected $config = null;
+	protected $settings = null;
 	protected $validator = null;
-	protected $criteria = null;
 
 	public function __construct(ContainerInterface $container)
 	{
@@ -37,9 +39,16 @@ class BaseModel
 		$this->manager = $this->container->get('em');
 	}
 
-	public function getValidator()
+	public function getConfig()
 	{
-		return $this->validator;
+		$this->config = (!$this->config) ? new Config() : $this->config;
+		return $this->config;
+	}
+
+	public function getSettings()
+	{
+		$this->settings = (!$this->settings) ? $this->getContainer()->get('settings') : $this->settings;
+		return $this->settings;
 	}
 
 	/**
@@ -47,12 +56,10 @@ class BaseModel
 		*
 		* @return array
 		*/
-	public function get()
+	public function get($sender, array $args)
 	{
-		$criteria = $this->getCriteria();
-
-		if ($criteria === null) {
-			$configs = $this->getEntityManager()->getRepository($this->getClass())->findAll();
+		if ($args === null) {
+			$configs = $this->getEntityManager()->getRepository($sender)->findAll();
 
 			$configs = array_map(function ($config) {
 				return $config;
@@ -60,7 +67,7 @@ class BaseModel
 
 			return $configs;
 		} else {
-			$config = $this->getEntityManager()->getRepository($this->getClass())->findOneBy($criteria);
+			$config = $this->getEntityManager()->getRepository($sender)->findOneBy($args);
 			
 			if ($config) {
 				return $config;
@@ -68,17 +75,5 @@ class BaseModel
 		}
 
 		return false;
-	}
-
-	public function getNotFoundMessageFromConfig($path)
-	{
-		$path = explode(':', $path);
-    $message = $this->getContainer()->get('settings');
-
-		foreach ($path as $key => $part) {
-			$message = $message[$part];
-		}
-
-		return $message;
 	}
 }

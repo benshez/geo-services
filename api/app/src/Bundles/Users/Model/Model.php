@@ -8,72 +8,49 @@ use Psr\Http\Message\ResponseInterface;
 use GeoService\Bundles\Users\Interfaces\IUsersModel;
 use GeoService\Bundles\Users\Validation\Validation;
 use GeoService\Modules\Base\Model\BaseModel;
-use GeoService\Modules\Config\Config;
 
 class Model extends BaseModel implements IUsersModel
 {
-	const VALIDATORS = 'validators:user:methods:authenticate';
+	const VALIDATORS = 'validators:user:methods:authentication';
+	const NOT_FOUND = 'validators:user:messages:not_found';
+	const ME = '\GeoService\Bundles\Users\Entity\Users';
+	const GET_ARGS = array('username' => '$email');
 
-	public function getClass()
+	protected $validator = null;
+
+	private function getValidator()
 	{
-		return '\GeoService\Bundles\Users\Entity\Users';
+		$this->validator = (!$this->validator) ? new Validation($this) : $this->validator;
+		return $this->validator;
 	}
 
-	public function getMessagePart()
-	{
-		return 'validation:user:not_found';
-	}
-
-	public function setCriteria(array $criteria)
-	{
-		return $this->criteria = $criteria;
-	}
-
-	public function getCriteria()
-	{
-		return $this->criteria;
-	}
-
-	public function setValidator()
-	{
-		$this->validator = null;
-		$this->validator = new Validation();
-	}
-	
 	public function authenticate($email, $password)
 	{
-		if (!$this->formIsValid([$password, $email])) {
-			$x = $this->validator->getMessagesAray();
-			return $this->validator->getMessagesAray();
-			//return $this->validator->getMessages();
+		if (!$this->formIsValid(['password' => $password, 'username' => $email])) {
+			return $this->getValidator()->getMessagesAray();
 		}
-		//$this->setCriteria(array('\GeoService\Modules\Base\BaseConstants::$FIND_BY_ONE_KEY_EMAIL' => $email));
 
-		//$token = bin2hex(random_bytes(16));
-
-		//$user = parent::get();
+		$user = $this->get(static::ME, static::GET_ARGS);
 		
-		// if ($user) {
-		// 	if (!$this->userPasswordIsValid($password, $user->getSalt(), $user->getPassword())) {
-		// 		return $this->validator->getMessagesAray();
-		// 	}
-		// 	return $user->getEmail();
-		// }
-		return false;
+		if ($user) {
+			if (!$this->validateUser($password, $user->getSalt(), $user->getPassword())) {
+				return $this->validator->getMessagesAray();
+			}
+			return $user->getEmail();
+		}
+
+		return $this->getConfig()->getConfigSetting($this->getSettings(), static::NOT_FOUND);
 	}
 
 	private function formIsValid(array $values)
 	{
-		$config = new Config();
-		$this->setValidator();
-		$validators = $config->getConfigSetting($this->getContainer()->get('settings'), self::VALIDATORS);
-
-		return $this->validator->formIsValid($validators, $values);
+		$validators = $this->getConfig()
+		->getConfigSetting($this->getSettings(), static::VALIDATORS);
+		return $this->getValidator()->formIsValid($validators, $values);
 	}
 
-	private function userPasswordIsValid($password, $salt, $hash)
+	private function validateUser($password, $salt, $hash)
 	{
-		$this->setValidator();
-		return $this->validator->validateUserPasswordIsCorrect($password, $salt, $hash);
+		return $this->getValidator()->validateUserPasswordIsCorrect($password, $salt, $hash);
 	}
 }

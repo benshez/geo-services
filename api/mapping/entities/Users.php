@@ -24,6 +24,13 @@ class Users
     /**
      * @var string
      *
+     * @ORM\Column(name="username", type="string", length=255, nullable=false)
+     */
+    private $username;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="password", type="string", length=255, nullable=false)
      */
     private $password;
@@ -87,13 +94,6 @@ class Users
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="username", type="datetime", nullable=false)
-     */
-    private $username = 'CURRENT_TIMESTAMP';
-
-    /**
-     * @var \DateTime
-     *
      * @ORM\Column(name="updated_at", type="datetime", nullable=false)
      */
     private $updatedAt = 'CURRENT_TIMESTAMP';
@@ -127,6 +127,30 @@ class Users
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set username
+     *
+     * @param string $username
+     *
+     * @return Users
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * Get username
+     *
+     * @return string
+     */
+    public function getUsername()
+    {
+        return $this->username;
     }
 
     /**
@@ -343,30 +367,6 @@ class Users
     public function getLogo()
     {
         return $this->logo;
-    }
-
-    /**
-     * Set username
-     *
-     * @param \DateTime $username
-     *
-     * @return Users
-     */
-    public function setUsername($username)
-    {
-        $this->username = $username;
-
-        return $this;
-    }
-
-    /**
-     * Get username
-     *
-     * @return \DateTime
-     */
-    public function getUsername()
-    {
-        return $this->username;
     }
 
     /**

@@ -18,6 +18,12 @@ Users:
             generator:
                 strategy: IDENTITY
     fields:
+        username:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
         password:
             type: string
             nullable: false
@@ -61,11 +67,6 @@ Users:
             length: 255
             options:
                 fixed: false
-        username:
-            type: datetime
-            nullable: false
-            options:
-                default: CURRENT_TIMESTAMP
         updatedAt:
             type: datetime
             nullable: false
