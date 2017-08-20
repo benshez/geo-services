@@ -88,6 +88,13 @@ class TokenAuthentication
 		$next
 	) {
 
+		
+		$isCleanIP = $this->isCleanIP($_SERVER['REMOTE_ADDR']);
+
+		if (!$isCleanIP) {
+//			$this->denyAccess();
+		}
+
 		$token = null;
 
 		if (isset($request->getHeader('token')[0])) {
@@ -120,6 +127,12 @@ class TokenAuthentication
 		}
 
 		$response = $next($request, $response);
+
 		return $response;
+	}
+
+	protected function isCleanIP($ip)
+	{
+
 	}
 }

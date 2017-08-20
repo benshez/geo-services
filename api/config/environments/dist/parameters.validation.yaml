@@ -3,10 +3,10 @@ validators:
   user:
     methods:
       authentication:
-        - 
+        password: 
           - ['NotEmpty']
           - ['StringLength', [min: 6, max: 16], true]
-        - 
+        username:
           - ['NotEmpty']
           - ['StringLength', [min: 2], true]
           - ['EmailAddress']

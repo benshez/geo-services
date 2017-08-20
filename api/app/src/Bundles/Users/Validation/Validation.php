@@ -10,7 +10,7 @@ class Validation extends BaseValidation
 {
 	const INVALID_CREDENTIALS = 'validators:user:messages:invalid_credentials';
 
-	public function validateUserPasswordIsCorrect($password, $salt, $hash) {
+	public function validateUserCredentials($password, $salt, $hash) {
 		$bcrypt = ($salt) ? new Bcrypt(array(
 				'salt' => $salt,
 				'cost' => 10

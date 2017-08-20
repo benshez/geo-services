@@ -7,5 +7,5 @@ use GeoService\Modules\Base\Interfaces\IBaseModel;
 
 interface IRolesModel extends IBaseModel
 {
-;
+
 }

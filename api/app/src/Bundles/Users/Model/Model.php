@@ -36,6 +36,7 @@ class Model extends BaseModel implements IUsersModel
 			if (!$this->validateUser($password, $user->getSalt(), $user->getPassword())) {
 				return $this->validator->getMessagesAray();
 			}
+
 			return $user->getEmail();
 		}
 
@@ -46,11 +47,12 @@ class Model extends BaseModel implements IUsersModel
 	{
 		$validators = $this->getConfig()
 		->getConfigSetting($this->getSettings(), static::VALIDATORS);
+		
 		return $this->getValidator()->formIsValid($validators, $values);
 	}
 
 	private function validateUser($password, $salt, $hash)
 	{
-		return $this->getValidator()->validateUserPasswordIsCorrect($password, $salt, $hash);
+		return $this->getValidator()->validateUserCredentials($password, $salt, $hash);
 	}
 }

@@ -50,15 +50,18 @@ class BaseValidation implements
 			$this->config = (!$this->config) ? new Config() : $this->config;
 			$error = $this->config($this->getModel()->getSettings(), $key);
 		}
+		
 		$this->error = array('error' => true,  'message' => $error);
 	}
 
 	public function isValid($value)
 	{
 		$valid = $this->validator->isValid($value);
+
 		if (!$valid) {
 			$this->setMessagesAray($this->getMessages());
 		}
+
 		return $valid;
 	}
 
