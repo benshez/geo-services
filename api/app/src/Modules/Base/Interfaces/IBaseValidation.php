@@ -13,7 +13,7 @@ interface IBaseValidation {
 	public function getMessagesAray();
 	public function isValid($value);
 	public function formIsValid(array $fields, array $values);
-	public function createValidator();
+	public function create();
 	public function createValidators(array $fields, array $values);
-	public function disposeValidator();
+	public function dispose();
 }
