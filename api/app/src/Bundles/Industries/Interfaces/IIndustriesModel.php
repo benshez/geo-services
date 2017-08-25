@@ -7,5 +7,5 @@ use GeoService\Modules\Base\Interfaces\IBaseModel;
 
 interface IIndustriesModel extends IBaseModel
 {
-	public function autoComplete($description);
+    public function autoComplete($description);
 }

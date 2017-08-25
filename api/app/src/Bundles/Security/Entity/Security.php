@@ -12,91 +12,91 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Security
 {
-	/**
-		* @var integer
-		*
-		* @ORM\Column(name="id", type="integer")
-		* @ORM\Id
-		* @ORM\GeneratedValue(strategy="IDENTITY")
-		*/
-	private $id;
+    /**
+        * @var integer
+        *
+        * @ORM\Column(name="id", type="integer")
+        * @ORM\Id
+        * @ORM\GeneratedValue(strategy="IDENTITY")
+        */
+    private $id;
 
-	/**
-		* @var \Roles
-		*
-		* @ORM\ManyToOne(targetEntity="\GeoService\Bundles\Roles\Entity\Roles")
-		* @ORM\JoinColumns({
-		*   @ORM\JoinColumn(name="role_id", referencedColumnName="id")
-		* })
-		*/
-	private $role;
+    /**
+        * @var \Roles
+        *
+        * @ORM\ManyToOne(targetEntity="\GeoService\Bundles\Roles\Entity\Roles")
+        * @ORM\JoinColumns({
+        *   @ORM\JoinColumn(name="role_id", referencedColumnName="id")
+        * })
+        */
+    private $role;
 
-	/**
-		* @var \Users
-		*
-		* @ORM\ManyToOne(targetEntity="\GeoService\Bundles\Users\Entity\Users")
-		* @ORM\JoinColumns({
-		*   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-		* })
-		*/
-	private $user;
+    /**
+        * @var \Users
+        *
+        * @ORM\ManyToOne(targetEntity="\GeoService\Bundles\Users\Entity\Users")
+        * @ORM\JoinColumns({
+        *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+        * })
+        */
+    private $user;
 
 
-	/**
-		* Get id
-		*
-		* @return integer
-		*/
-	public function getId()
-	{
-			return $this->id;
-	}
+    /**
+        * Get id
+        *
+        * @return integer
+        */
+    public function getId()
+    {
+        return $this->id;
+    }
 
-	/**
-		* Set role
-		*
-		* @param \Roles $role
-		*
-		* @return Security
-		*/
-	public function setRole(Roles $role = null)
-	{
-			$this->role = $role;
+    /**
+        * Set role
+        *
+        * @param \Roles $role
+        *
+        * @return Security
+        */
+    public function setRole(Roles $role = null)
+    {
+        $this->role = $role;
 
-			return $this;
-	}
+        return $this;
+    }
 
-	/**
-		* Get role
-		*
-		* @return \Roles
-		*/
-	public function getRole()
-	{
-			return $this->role;
-	}
+    /**
+        * Get role
+        *
+        * @return \Roles
+        */
+    public function getRole()
+    {
+        return $this->role;
+    }
 
-	/**
-		* Set user
-		*
-		* @param \Users $user
-		*
-		* @return Security
-		*/
-	public function setUser(Users $user = null)
-	{
-			$this->user = $user;
+    /**
+        * Set user
+        *
+        * @param \Users $user
+        *
+        * @return Security
+        */
+    public function setUser(Users $user = null)
+    {
+        $this->user = $user;
 
-			return $this;
-	}
+        return $this;
+    }
 
-	/**
-		* Get user
-		*
-		* @return \Users
-		*/
-	public function getUser()
-	{
-			return $this->user;
-	}
+    /**
+        * Get user
+        *
+        * @return \Users
+        */
+    public function getUser()
+    {
+        return $this->user;
+    }
 }

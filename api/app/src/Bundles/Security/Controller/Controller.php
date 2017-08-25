@@ -7,5 +7,4 @@ use GeoService\Bundles\Security\Interfaces\ISecurityController;
 
 class Controller extends BaseController implements ISecurityController
 {
-
 }

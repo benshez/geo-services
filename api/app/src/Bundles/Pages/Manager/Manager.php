@@ -6,5 +6,4 @@ use GeoService\Modules\Base\BaseResource;
 
 class Manager extends BaseResource
 {
-
 }

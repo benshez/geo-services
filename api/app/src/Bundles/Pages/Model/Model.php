@@ -10,24 +10,23 @@ use GeoService\Modules\Base\Model\BaseModel;
 
 class Model extends BaseModel implements IPagesModel
 {
+    public function getClass()
+    {
+        return '\GeoService\Bundles\Pages\Entity\Pages';
+    }
 
-	public function getClass()
-	{
-		return '\GeoService\Bundles\Pages\Entity\Pages';
-	}
+    public function getMessagePart()
+    {
+        return 'messages:validation:address:not_found';
+    }
 
-	public function getMessagePart()
-	{
-		return 'messages:validation:address:not_found';
-	}
+    public function setCriteria(array $criteria)
+    {
+        return $this->criteria = $criteria;
+    }
 
-	public function setCriteria(array $criteria)
-	{
-		return $this->criteria = $criteria;
-	}
-
-	public function getCriteria()
-	{
-		return $this->criteria;
-	}
+    public function getCriteria()
+    {
+        return $this->criteria;
+    }
 }

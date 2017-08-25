@@ -7,5 +7,4 @@ use GeoService\Modules\Base\Interfaces\IBaseModel;
 
 interface ISecurityModel extends IBaseModel
 {
-
 }

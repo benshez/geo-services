@@ -6,5 +6,4 @@ use GeoService\Modules\Base\Interfaces\IBaseController;
 
 interface ISecurityController extends IBaseController
 {
-
 }

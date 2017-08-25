@@ -7,5 +7,5 @@ use GeoService\Modules\Base\Interfaces\IBaseModel;
 
 interface ILocationsModel extends IBaseModel
 {
-	public function findLocationsByIndustryCode($description);
+    public function findLocationsByIndustryCode($description);
 }

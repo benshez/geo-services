@@ -7,5 +7,4 @@ use GeoService\Bundles\Roles\Interfaces\IRolesController;
 
 final class Controller extends BaseController implements IRolesController
 {
-
 }

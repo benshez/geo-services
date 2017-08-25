@@ -7,11 +7,10 @@ use GeoService\Modules\Base\Validation\BaseValidation;
 
 class Validation extends BaseValidation
 {
-
-	public function validateIndustryCodeInput($value)
-	{
-		$this->validator
-		->attachByName('NotEmpty', [], true)
-		->attachByName('StringLength', ['min' => 1], true);
-	}
+    public function validateIndustryCodeInput($value)
+    {
+        $this->validator
+        ->attachByName('NotEmpty', [], true)
+        ->attachByName('StringLength', ['min' => 1], true);
+    }
 }

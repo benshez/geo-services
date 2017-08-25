@@ -6,7 +6,7 @@
  * something which should probably be served as a static file
  */
 if (PHP_SAPI === 'cli-server' && $_SERVER['SCRIPT_FILENAME'] !== __FILE__) {
-	return false;
+    return false;
 }
 
 require_once(__DIR__ . '/../app/app.php');

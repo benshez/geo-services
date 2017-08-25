@@ -7,5 +7,4 @@ use GeoService\Bundles\Pages\Interfaces\IPagesController;
 
 class Controller extends BaseController implements IPagesController
 {
-
 }

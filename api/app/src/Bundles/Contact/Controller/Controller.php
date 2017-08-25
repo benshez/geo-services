@@ -7,5 +7,4 @@ use GeoService\Bundles\Contact\Interfaces\IContactController;
 
 class Controller extends BaseController implements IContactController
 {
-
 }

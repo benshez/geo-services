@@ -6,5 +6,4 @@ use GeoService\Modules\Base\Entity\BaseEntity;
 
 class Repository extends BaseEntity
 {
-
 }
