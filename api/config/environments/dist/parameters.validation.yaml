@@ -13,3 +13,11 @@ validators:
     messages:
       not_found: {error: true, message: {UserNotFound: 'No user found with that id.'}}
       invalid_credentials: {error: true, message: {UserInvalidCredentials: 'Invalid user name or password.'}}
+  industries:
+      methods:
+        autocomplete:
+            description:
+            - ['NotEmpty']
+            - ['StringLength', [min: 3], true]
+      messages:
+      not_found: {error: true, message: {IndustriesNotFound: 'No industries found with that id.'}}

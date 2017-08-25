@@ -28,7 +28,7 @@
 	"php.validate.executablePath": "C:\\wamp64\\bin\\php\\php7.0.10\\php.exe",
 	// Whether the linter is run on save or on type.
 	"php.validate.run": "onType",
-	"editor.tabSize": 2,
+	"editor.tabSize": 4,
 	"editor.insertSpaces": false,
 	"editor.detectIndentation": false,
 	"editor.fontSize": 13,
@@ -44,11 +44,10 @@
 	"php-cs-fixer.config": "D:\\geo-services\\.vscode\\.php_cs",
 	"php-cs-fixer.autoFixByBracket": true,
 	"php-cs-fixer.autoFixBySemicolon": false,
-	"php-cs-fixer.formatHtml": false,
+	"php-cs-fixer.formatHtml": true,
 	"phpcs.enable": true,
 	"phpcs.standard": "GeoService",
 	"terminal.explorerKind": "integrated",
 	"editor.formatOnSave": true,
-	"php-cs-fixer.formatHtml": true,
 	"php-cs-fixer.documentFormattingProvider": true
 }
