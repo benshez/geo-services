@@ -45,7 +45,7 @@
   "scripts": {
 		"generate-service": "GeoService\\ComposerScript\\Generator::generateService",
 		"generate-entities": "doctrine-generator.sh",
-    "start": "php -S 0.0.0.0:8080 -t public public/index.php",
+    "start": "php -S 0.0.0.0:8000 -t public public/index.php",
     "test": "phpunit"
   }
 }
