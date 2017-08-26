@@ -1,4 +1,4 @@
-'@include': parameters.validation.yaml
+'@include': parameters.entities.yaml
 mail:
   host:
   auth: true

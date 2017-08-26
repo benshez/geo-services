@@ -11,26 +11,31 @@ use GeoService\Modules\Base\Model\BaseModel;
 
 class Model extends BaseModel implements IUsersModel
 {
-    const NOT_FOUND = 'validators:user:messages:not_found';
-    const ME = '\GeoService\Bundles\Users\Entity\Users';
-    const GET_VALIDATORS = 'validators:user:methods:authentication';
-    const GET_ARGS = array('username' => '$email');
 
     protected $validator = null;
+	protected $getArgs = array();
 
     private function getValidator()
     {
         $this->validator = (!$this->validator) ? new Validation($this) : $this->validator;
         return $this->validator;
-    }
-
+	}
+	
     public function authenticate($email, $password)
     {
-        if (!$this->formIsValid(['password' => $password, 'username' => $email], static::GET_VALIDATORS)) {
+		$this->getArgs = $this->getOption('arguments', 'users', 'authenticate');
+
+		$this->getArgs['username'] = $email;
+		$this->getArgs['password'] = $password;
+		
+        if (!$this->formIsValid()) {
             return $this->getValidator()->getMessagesAray();
         }
 
-        $user = $this->get(static::ME, static::GET_ARGS);
+		$user = $this->get($this->getOption(
+			'name',
+			'users'
+		), ['username' => $this->getArgs['username']]);
         
         if ($user) {
             if (!$this->validateUser($password, $user->getSalt(), $user->getPassword())) {
@@ -39,15 +44,14 @@ class Model extends BaseModel implements IUsersModel
             return $user->getEmail();
         }
 
-        return $this->getConfig()->getConfigSetting($this->getSettings(), static::NOT_FOUND);
+        return false;
     }
 
-    private function formIsValid(array $values, String $validators)
+    private function formIsValid()
     {
-        $validators = $this->getConfig()
-        ->getConfigSetting($this->getSettings(), $validators);
+        $validators = $this->getOption('validators', 'users', 'authenticate');
         
-        return $this->getValidator()->formIsValid($validators, $values);
+        return $this->getValidator()->formIsValid($validators, $this->getArgs);
     }
 
     private function validateUser($password, $salt, $hash)

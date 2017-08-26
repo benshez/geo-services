@@ -18,6 +18,10 @@ final class Controller extends BaseController implements IUsersController
             return $response->withJSON($config);
         }
 
-        return $response->withStatus(404, $this->model->getNotFoundMessageFromConfig($this->model->getMessagePart()));
+		return $response->withStatus(404, $this->model->getOption(
+			'messages',
+			'users',
+			'validation:authenticate:message:UserNotFound'
+		));
     }
 }

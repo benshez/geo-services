@@ -49,7 +49,23 @@ class BaseModel
     {
         $this->settings = (!$this->settings) ? $this->getContainer()->get('settings') : $this->settings;
         return $this->settings;
-    }
+	}
+	
+	public function getOptionsPaths()
+	{
+		return array('name' => 'entities:%s:name',
+		'arguments' => 'entities:%s:arguments:',
+		'validators' => 'entities:%s:methods:validation:',
+		'messages' => 'entities:%s:messages:');
+	}
+
+	public function getOption($option, $class, $extention = '')
+	{
+		return $this->getConfig()->getConfigSetting(
+			$this->getSettings(),
+			sprintf($this->getOptionsPaths()[$option], $class).$extention
+		);
+	}
 
     /**
         * @param string|null $id

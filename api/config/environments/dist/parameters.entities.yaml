@@ -1,0 +1,31 @@
+'@include': parameters.routes.yaml
+entities:
+  users:
+    name: '\GeoService\Bundles\Users\Entity\Users'
+    arguments:
+      authenticate:
+        - ['password', '%s', 'username', '%s']
+    methods:
+      validation:
+        authenticate:
+          password: 
+            - ['NotEmpty']
+            - ['StringLength', [min: 6, max: 16], true]
+          username:
+            - ['NotEmpty']
+            - ['StringLength', [min: 2], true]
+            - ['EmailAddress']
+    messages:
+      validation:
+        authenticate: {error: true, message: {UserNotFound: 'No user found with that id.'}}
+        invalid_credentials: {error: true, message: {UserInvalidCredentials: 'Invalid user name or password.'}}
+  industries:
+    methods:
+      validation:
+          autocomplete:
+              description:
+              - ['NotEmpty']
+              - ['StringLength', [min: 3], true]
+    messages:
+      validation:
+        autocomplete: {error: true, message: {IndustriesNotFound: 'No industries found with that id.'}}

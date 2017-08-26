@@ -11,11 +11,12 @@ use GeoService\Modules\Base\Model\BaseModel;
 
 class Model extends BaseModel implements IIndustriesModel
 {
-    const GET_ARGS = array('username' => '$email');
     const ME = '\GeoService\Bundles\Industries\Entity\Industries';
-    const NOT_FOUND = 'validators:industries:messages:not_found';
-	const GET_VALIDATORS = 'validators:industries:methods:autocomplete';
 
+	const NOT_FOUND = 'entities:industries:validation:messages:not_found';
+	const GET_VALIDATORS = 'entities:industries:validation:methods:autocomplete';
+
+	protected $getArgs = array('description' => '$description');
     protected $validator = null;
 
     private function getValidator()
@@ -26,20 +27,22 @@ class Model extends BaseModel implements IIndustriesModel
 	
     public function autoComplete($description)
     {
-		if (!$this->formIsValid(['description' => $description], static::GET_VALIDATORS)) {
+		$this->getArgs['description'] = $description;
+		
+		if (!$this->formIsValid()) {
             return $this->getValidator()->getMessagesAray();
 		}
 		
         return parent::getEntityManager()
-        ->getRepository(static::ME, static::GET_ARGS)
+        ->getRepository(static::ME, $this->getArgs)
         ->getAutoComplete($description);
 	}
 	
-	private function formIsValid(array $values, String $validators)
+	private function formIsValid()
     {
         $validators = $this->getConfig()
-        ->getConfigSetting($this->getSettings(), $validators);
+        ->getConfigSetting($this->getSettings(), static::GET_VALIDATORS);
         
-        return $this->getValidator()->formIsValid($validators, $values);
+        return $this->getValidator()->formIsValid($validators, $this->getArgs);
     }
 }
