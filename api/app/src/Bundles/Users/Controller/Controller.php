@@ -2,26 +2,30 @@
 
 namespace GeoService\Bundles\Users\Controller;
 
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 use GeoService\Modules\Base\Controller\BaseController;
 use GeoService\Bundles\Users\Interfaces\IUsersController;
+use GeoService\Modules\Base\Options\BaseOptions;
 
-final class Controller extends BaseController implements IUsersController
+class Controller extends BaseController implements IUsersController
 {
     public function authenticateOne(
-        \Psr\Http\Message\RequestInterface $request,
-        \Psr\Http\Message\ResponseInterface $response,
+        RequestInterface $request,
+        ResponseInterface $response,
         $args
     ) {
-        $config = $this->model->authenticate($request->getParam('email'), $request->getParam('password'));
-
-        if ($config) {
-            return $response->withJSON($config);
-        }
-
-		return $response->withStatus(404, $this->model->getConfig()->getOption(
-			'messages',
-			'users',
-			'validation:authenticate:message:UserNotFound'
-		));
+		return $this->fetched(
+			$response,
+			$this->model->authenticate(
+				$request->getParam('email'),
+				$request->getParam('password')
+			),
+			new BaseOptions(
+				array('part' => 'messages',
+				'class' => 'users',
+				'extention' => 'validation:authenticate:message:UserNotFound')
+			)
+		);
     }
 }

@@ -2,26 +2,29 @@
 
 namespace GeoService\Bundles\Industries\Controller;
 
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 use GeoService\Modules\Base\Controller\BaseController;
 use GeoService\Bundles\Industries\Interfaces\IIndustriesController;
+use GeoService\Modules\Base\Options\BaseOptions;
 
 class Controller extends BaseController implements IIndustriesController
 {
     public function autoComplete(
-        \Psr\Http\Message\RequestInterface $request,
-        \Psr\Http\Message\ResponseInterface $response,
+        RequestInterface $request,
+        ResponseInterface $response,
         $args
     ) {
-        $config = $this->model->autoComplete($args['description']);
-
-        if ($config) {
-            return $response->withJSON($config);
-        }
-
-		return $response->withStatus(404, $this->model->getConfig()->getOption(
-			'messages',
-			'industries',
-			'validation:autocomplete:message:IndustriesNotFound'
-		));
+		return $this->fetched(
+			$response,
+			$this->model->autoComplete(
+				$args['description']
+			),
+			new BaseOptions(
+				array('part' => 'messages',
+				'class' => 'industries',
+				'extention' => 'validation:autocomplete:message:IndustriesNotFound')
+			)
+		);
     }
 }
