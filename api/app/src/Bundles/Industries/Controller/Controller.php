@@ -7,8 +7,6 @@ use GeoService\Bundles\Industries\Interfaces\IIndustriesController;
 
 class Controller extends BaseController implements IIndustriesController
 {
-		const NOT_FOUND = 'validators:industries:messages:not_found';
-		
     public function autoComplete(
         \Psr\Http\Message\RequestInterface $request,
         \Psr\Http\Message\ResponseInterface $response,
@@ -20,6 +18,10 @@ class Controller extends BaseController implements IIndustriesController
             return $response->withJSON($config);
         }
 
-        return $this->model->getConfig()->getConfigSetting($this->model->getSettings(), static::NOT_FOUND);
+		return $response->withStatus(404, $this->model->getConfig()->getOption(
+			'messages',
+			'industries',
+			'validation:autocomplete:message:IndustriesNotFound'
+		));
     }
 }

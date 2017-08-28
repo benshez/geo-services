@@ -11,13 +11,8 @@ use GeoService\Modules\Base\Model\BaseModel;
 
 class Model extends BaseModel implements IIndustriesModel
 {
-    const ME = '\GeoService\Bundles\Industries\Entity\Industries';
-
-	const NOT_FOUND = 'entities:industries:validation:messages:not_found';
-	const GET_VALIDATORS = 'entities:industries:validation:methods:autocomplete';
-
-	protected $getArgs = array('description' => '$description');
     protected $validator = null;
+	protected $getArgs = array();
 
     private function getValidator()
     {
@@ -27,21 +22,26 @@ class Model extends BaseModel implements IIndustriesModel
 	
     public function autoComplete($description)
     {
+		$this->getArgs = $this->getConfig()
+		->getOption('arguments', 'industries', 'autocomplete');
+
 		$this->getArgs['description'] = $description;
 		
 		if (!$this->formIsValid()) {
             return $this->getValidator()->getMessagesAray();
 		}
 		
-        return parent::getEntityManager()
-        ->getRepository(static::ME, $this->getArgs)
+        return $this->getEntityManager()
+        ->getRepository($this->getConfig()->getOption(
+			'name',
+			'industries'
+		), ['description' => $this->getArgs['description']])
         ->getAutoComplete($description);
 	}
 	
 	private function formIsValid()
     {
-        $validators = $this->getConfig()
-        ->getConfigSetting($this->getSettings(), static::GET_VALIDATORS);
+        $validators = $this->getConfig()->getOption('validators', 'industries', 'autocomplete');
         
         return $this->getValidator()->formIsValid($validators, $this->getArgs);
     }

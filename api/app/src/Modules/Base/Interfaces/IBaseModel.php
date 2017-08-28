@@ -14,6 +14,4 @@ interface IBaseModel
     public function getEntityManager();
     public function getConfig();
 	public function getSettings();
-	public function getOptionsPaths();
-	public function getOption($option, $class, $extention = '');
 }

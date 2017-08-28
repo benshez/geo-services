@@ -23,7 +23,8 @@ class Model extends BaseModel implements IUsersModel
 	
     public function authenticate($email, $password)
     {
-		$this->getArgs = $this->getOption('arguments', 'users', 'authenticate');
+		$this->getArgs = $this->getConfig()
+		->getOption('arguments', 'users', 'authenticate');
 
 		$this->getArgs['username'] = $email;
 		$this->getArgs['password'] = $password;
@@ -32,7 +33,7 @@ class Model extends BaseModel implements IUsersModel
             return $this->getValidator()->getMessagesAray();
         }
 
-		$user = $this->get($this->getOption(
+		$user = $this->get($this->getConfig()->getOption(
 			'name',
 			'users'
 		), ['username' => $this->getArgs['username']]);
@@ -49,7 +50,7 @@ class Model extends BaseModel implements IUsersModel
 
     private function formIsValid()
     {
-        $validators = $this->getOption('validators', 'users', 'authenticate');
+        $validators = $this->getConfig()->getOption('validators', 'users', 'authenticate');
         
         return $this->getValidator()->formIsValid($validators, $this->getArgs);
     }

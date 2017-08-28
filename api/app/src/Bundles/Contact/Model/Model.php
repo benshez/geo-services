@@ -10,23 +10,5 @@ use GeoService\Modules\Base\Model\BaseModel;
 
 class Model extends BaseModel implements IContactModel
 {
-    public function getClass()
-    {
-        return '\GeoService\Bundles\Contact\Entity\Contact';
-    }
-
-    public function getMessagePart()
-    {
-        return 'validation:address:not_found';
-    }
-
-    public function setCriteria(array $criteria)
-    {
-        return $this->criteria = $criteria;
-    }
-
-    public function getCriteria()
-    {
-        return $this->criteria;
-    }
+	protected $getArgs = array();
 }
