@@ -16,6 +16,7 @@ class Controller extends BaseController implements IIndustriesController
         $args
     ) {
 		return $this->fetched(
+			$request,
 			$response,
 			$this->model->autoComplete(
 				$args['description']

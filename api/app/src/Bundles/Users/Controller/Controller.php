@@ -16,6 +16,7 @@ class Controller extends BaseController implements IUsersController
         $args
     ) {
 		return $this->fetched(
+			$request,
 			$response,
 			$this->model->authenticate(
 				$request->getParam('email'),

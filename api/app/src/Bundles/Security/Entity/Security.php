@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="security", indexes={@ORM\Index(name="fk_security_users_id_user_id_idx_idx", columns={"user_id"}), @ORM\Index(name="fk_security_role_id_roles_id_idx", columns={"role_id"})})
  * @ORM\Entity
  */
+
 class Security
 {
     /**

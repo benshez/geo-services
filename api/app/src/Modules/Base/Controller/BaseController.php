@@ -33,31 +33,37 @@ class BaseController implements IBaseController
     }
 	
     public function fetch(
-        RequestInterface $request,
-        ResponseInterface $response,
-        $args
+		RequestInterface $request,
+		ResponseInterface $response,
+		$sender,
+		array $args = null,
+		BaseOptions $options
     ) {
-        $this->getModel()->setCriteria($args);
-        $configs = $this->getModel()->get();
-        return $response->withJSON($configs);
+		return $this->fetched(
+			$request,
+			$response,
+			$this->getModel()->get($sender, $args),
+			$options
+		);
     }
 
     public function fetchOne(
-        RequestInterface $request,
-        ResponseInterface $response,
-        $args
+		RequestInterface $request,
+		ResponseInterface $response,
+		$sender,
+		$args,
+		BaseOptions $options
     ) {
-        $this->getModel()->setCriteria($args);
-
-        $config = $this->getModel()->get();
-
-        if ($config) {
-            return $response->withJSON($config);
-        }
-        return $response->withStatus(404, $this->model->getNotFoundMessageFromConfig($this->model->getMessagePart()));
+		return $this->fetched(
+			$request,
+			$response,
+			$this->getModel()->get($sender, $args),
+			$options
+		);
 	}
 	
 	public function fetched(
+		RequestInterface $request,
 		ResponseInterface $response,
 		$args,
 		BaseOptions $options
