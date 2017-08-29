@@ -5,18 +5,14 @@ namespace GeoService\Bundles\Locations\Entity;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\Expr\Join;
-use Doctrine\Orm\NoResultException;
+use Doctrine\ORM\NoResultException;
 use GeoService\Modules\Base\BaseConstants;
+use GeoService\Modules\Base\Entity\BaseEntity;
 
-class Repository extends EntityRepository
+class Repository extends BaseEntity
 {
     protected $criteria;
     protected $orderBy;
-
-    public function __construct($em, $class)
-    {
-        parent::__construct($em, $class);
-    }
 
     public function findOneBy(array $criteria, array $orderBy = null)
     {

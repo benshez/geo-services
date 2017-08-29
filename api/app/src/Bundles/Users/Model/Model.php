@@ -52,7 +52,14 @@ class Model extends BaseModel implements IUsersModel
     {
         $validators = $this->getConfig()->getOption('validators', 'users', 'authenticate');
         
-        return $this->getValidator()->formIsValid($validators, $this->getArgs);
+        return $this->getValidator()->formIsValid(
+			$validators,
+			[$this->getArgs['username'],
+			$this->getArgs['username'],
+			$this->getArgs['username'],
+			$this->getArgs['password'],
+			$this->getArgs['password']]
+		);
     }
 
     private function validateUser($password, $salt, $hash)

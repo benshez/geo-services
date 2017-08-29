@@ -43,6 +43,10 @@ class Model extends BaseModel implements IIndustriesModel
     {
         $validators = $this->getConfig()->getOption('validators', 'industries', 'autocomplete');
         
-        return $this->getValidator()->formIsValid($validators, $this->getArgs);
+        return $this->getValidator()->formIsValid(
+			$validators,
+			[$this->getArgs['description'],
+			$this->getArgs['description']]
+		);
     }
 }

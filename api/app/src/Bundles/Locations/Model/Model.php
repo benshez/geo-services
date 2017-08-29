@@ -36,24 +36,13 @@ class Model extends BaseModel implements ILocationsModel
 			'locations'
 		), ['industry' => $industry]);
 
-        // $location = parent::getEntityManager()
-        //     ->getRepository(\GeoService\Modules\Base\BaseConstants::$LOCATIONS_ENTITY)
-        //     ->findBy(array(\GeoService\Modules\Base\BaseConstants::$FIND_USERS_BY_INDUSTRY => $industry));
-
         return $location;
     }
 
-    private function userIndustryCodeInput($industry)
-    {
-        $this->setValidator();
-        $this->validator->validateIndustryCodeInput($industry);
-        return $this->validator->isValid($industry);
-	}
-	
 	private function formIsValid()
     {
         $validators = $this->getConfig()->getOption('validators', 'locations', 'locations:industry');
         
-        return $this->getValidator()->formIsValid($validators, $this->getArgs);
+        return $this->getValidator()->formIsValid($validators, [$this->getArgs['industry']]);
     }
 }

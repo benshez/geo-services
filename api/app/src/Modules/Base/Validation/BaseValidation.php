@@ -72,7 +72,7 @@ class BaseValidation implements
         $isValid = true;
 
         foreach ($this->validators as $index => $validator) {
-            $value = (sizeof($values) === 1) ? $values : $values[$index];
+			$value = $values[$index];
             $isValid = $validator->isValid($value);
 
             if (!$isValid) {
@@ -92,9 +92,9 @@ class BaseValidation implements
     public function createValidators(array $fields, array $values)
     {
         foreach ($fields as $index => $validators) {
-            $this->create();
-
             foreach ($validators as $validator) {
+				$this->create();
+
                 $name = (sizeof($validators) === 1) ? $validator : $validator[0];
                 $options = [];
 
@@ -121,11 +121,11 @@ class BaseValidation implements
                     default:
                         $this->validator->attachByName($name);
                         break;
-                }
+				}
+				
+				$this->validators[] = $this->validator;
+				$this->dispose();
             }
-
-            $this->validators[$index] = $this->validator;
-            $this->dispose();
         }
     }
 
