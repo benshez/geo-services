@@ -19,4 +19,11 @@ class Model extends BaseModel implements ISecurityModel
         $this->validator = (!$this->validator) ? new Validation($this) : $this->validator;
         return $this->validator;
 	}
+
+	private function formIsValid()
+    {
+        $validators = $this->getConfig()->getOption('validators', 'users', 'authenticate');
+        
+        return $this->getValidator()->formIsValid($validators, $this->getArgs);
+    }
 }

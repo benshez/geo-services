@@ -20,7 +20,7 @@ class Repository extends EntityRepository
 
     public function findOneBy(array $criteria, array $orderBy = null)
     {
-        $this->criteria = $criteria['industryId'];
+        $this->criteria = $criteria['industry']['industry'];
         $this->orderBy = $orderBy;
 
         $query = $this->getQuery();

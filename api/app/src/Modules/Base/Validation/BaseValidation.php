@@ -72,7 +72,7 @@ class BaseValidation implements
         $isValid = true;
 
         foreach ($this->validators as $index => $validator) {
-            $value = $values[$index];
+            $value = (sizeof($values) === 1) ? $values : $values[$index];
             $isValid = $validator->isValid($value);
 
             if (!$isValid) {
@@ -95,20 +95,22 @@ class BaseValidation implements
             $this->create();
 
             foreach ($validators as $validator) {
-                $name = $validator[0];
+                $name = (sizeof($validators) === 1) ? $validator : $validator[0];
                 $options = [];
 
-                if (isset($validator[1])) {
-                    foreach ($validator[1] as $opt => $option) {
-                        if (isset($option[key($option)])) {
-                            $key = key($option);
-                            $options[$key] = $option[$key];
+                if (sizeof($validators) > 1) {
+                    if (isset($validator[1])) {
+                        foreach ($validator[1] as $opt => $option) {
+                            if (isset($option[key($option)])) {
+                                $key = key($option);
+                                $options[$key] = $option[$key];
+                            }
                         }
                     }
-                }
 
-                $break = isset($validator[2]) ? $validator[2] : null;
-
+                    $break = isset($validator[2]) ? $validator[2] : null;
+				}
+				
                 switch (sizeof($validator)) {
                     case 2:
                         $this->validator->attachByName($name, $options);

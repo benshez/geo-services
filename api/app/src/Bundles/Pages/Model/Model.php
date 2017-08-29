@@ -1,32 +1,29 @@
 <?php
 
-namespace GeoService\Bundles\Locations\Model;
+namespace GeoService\Bundles\Pages\Model;
 
 use Interop\Container\ContainerInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use GeoService\Bundles\Pages\Interfaces\IPagesModel;
+use GeoService\Bundles\Pages\Validation\Validation;
 use GeoService\Modules\Base\Model\BaseModel;
 
 class Model extends BaseModel implements IPagesModel
 {
-    public function getClass()
-    {
-        return '\GeoService\Bundles\Pages\Entity\Pages';
-    }
+	protected $validator = null;
+	protected $getArgs = array();
 
-    public function getMessagePart()
+    private function getValidator()
     {
-        return 'messages:validation:address:not_found';
-    }
+        $this->validator = (!$this->validator) ? new Validation($this) : $this->validator;
+        return $this->validator;
+	}
 
-    public function setCriteria(array $criteria)
+	private function formIsValid()
     {
-        return $this->criteria = $criteria;
-    }
-
-    public function getCriteria()
-    {
-        return $this->criteria;
+        $validators = $this->getConfig()->getOption('validators', 'users', 'authenticate');
+        
+        return $this->getValidator()->formIsValid($validators, $this->getArgs);
     }
 }

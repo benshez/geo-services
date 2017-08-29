@@ -12,7 +12,24 @@ interface IBaseController
     public function __construct(IBaseModel $model);
     public function setModel(IBaseModel $model);
     public function getModel();
-    public function fetch(RequestInterface $request, ResponseInterface $response, $args);
-	public function fetchOne(RequestInterface $request, ResponseInterface $response, $args);
-	public function fetched(ResponseInterface $response, $args, BaseOptions $options);
+    public function fetch(
+		RequestInterface $request,
+		ResponseInterface $response,
+		$sender,
+		array $arg = null,
+		BaseOptions $options
+	);
+	public function fetchOne(
+		RequestInterface $request,
+		ResponseInterface $response,
+		$sender,
+		array $args,
+		BaseOptions $options
+	);
+	public function fetched(
+		RequestInterface $request,
+		ResponseInterface $response,
+		$args,
+		BaseOptions $options
+	);
 }

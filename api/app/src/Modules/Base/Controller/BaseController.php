@@ -36,7 +36,7 @@ class BaseController implements IBaseController
 		RequestInterface $request,
 		ResponseInterface $response,
 		$sender,
-		array $args = null,
+		array $arg = null,
 		BaseOptions $options
     ) {
 		return $this->fetched(
@@ -51,7 +51,7 @@ class BaseController implements IBaseController
 		RequestInterface $request,
 		ResponseInterface $response,
 		$sender,
-		$args,
+		array $args,
 		BaseOptions $options
     ) {
 		return $this->fetched(
