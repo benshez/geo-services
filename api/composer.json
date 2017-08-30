@@ -1,21 +1,27 @@
 {
-  "name": "geoservice/api",
-  "description": "Geo Service Application API",
-  "version": "0.0.1",
-  "license": "BSD-3-Clause",
-  "keywords": [ "geoservice", "slim-framework", "doctrine", "doctrine-migrations", "migrations" ],
-  "authors": [
-    {
-      "name": "Ben van Heerden",
-      "email": "benshez1@gmail.com",
-      "homepage": "https://github.com/benshez/geo-services"
-    }
-  ],
-  "autoload": {
-    "psr-4": {
-      "GeoService\\": "app/src",
-      "GeoService\\ComposerScript\\": "script/composer"
-    }
+	"name": "geoservice/api",
+	"description": "Geo Service Application API",
+	"version": "0.0.1",
+	"license": "BSD-3-Clause",
+	"keywords": [
+		"geoservice",
+		"slim-framework",
+		"doctrine",
+		"doctrine-migrations",
+		"migrations"
+	],
+	"authors": [
+		{
+			"name": "Ben van Heerden",
+			"email": "benshez1@gmail.com",
+			"homepage": "https://github.com/benshez/geo-services"
+		}
+	],
+	"autoload": {
+		"psr-4": {
+			"GeoService\\": "app/src",
+			"GeoService\\ComposerScript\\": "script/composer"
+		}
 	},
 	"autoload-dev": {
 		"psr-4": {
@@ -24,28 +30,28 @@
 			"fixtures\\": "mapping/fixtures"
 		}
 	},
-  "require": {
-    "doctrine/orm": "~2.5",
-    "slim/slim": "^3.5",
-    "monolog/monolog": "^1.17",
+	"require": {
+		"doctrine/orm": "~2.5",
+		"slim/slim": "^3.5",
+		"monolog/monolog": "^1.17",
 		"slim/http-cache": "^0.3.0",
-    "lcobucci/jwt": "^3.1",
-    "jeremykendall/password-validator": "^3.0.4",
-    "doctrine/doctrine-module": "^2.0",
-    "zendframework/zend-crypt": "^3.2.0",
-		"tuupola/cors-middleware":  "^0.5.2",
+		"lcobucci/jwt": "^3.1",
+		"jeremykendall/password-validator": "^3.0.4",
+		"doctrine/doctrine-module": "^2.0",
+		"zendframework/zend-crypt": "^3.2.0",
+		"tuupola/cors-middleware": "^0.5.2",
 		"symfony/config": "^3.3.5",
 		"phpmailer/phpmailer": "^5.2.24"
-  },
-  "require-dev": {
+	},
+	"require-dev": {
 		"doctrine/migrations": "^1.4",
-    "phpunit/phpunit": "^5.4",
-    "doctrine/data-fixtures": "^1.2"
-  },
-  "scripts": {
+		"phpunit/phpunit": "^5.4",
+		"doctrine/data-fixtures": "^1.2"
+	},
+	"scripts": {
 		"generate-service": "GeoService\\ComposerScript\\Generator::generateService",
 		"generate-entities": "doctrine-generator.sh",
-    "start": "php -S 0.0.0.0:8000 -t public public/index.php",
-    "test": "phpunit"
-  }
+		"start": "php -S 0.0.0.0:8000 -t public public/index.php",
+		"test": "phpunit"
+	}
 }

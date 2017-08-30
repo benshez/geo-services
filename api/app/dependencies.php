@@ -112,6 +112,7 @@ $container['GeoService\Bundles\Industries\Controller\Controller'] = function ($c
     return new GeoService\Bundles\Industries\Controller\Controller($resource);
 };
 
+
 $container['GeoService\Bundles\Locations\Controller\Controller'] = function ($c) {
     $resource = new \GeoService\Bundles\Locations\Model\Model($c);
     return new GeoService\Bundles\Locations\Controller\Controller($resource);

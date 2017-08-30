@@ -27,7 +27,10 @@ class Routes
                         break;
                     case 'POST':
                         $this->createPostRoutes($route, $index);
-                        break;
+						break;
+					case 'PUT':
+						$this->createPutRoutes($route, $index);
+						break;
                 }
             }
         }
@@ -35,31 +38,93 @@ class Routes
 
     private function createGetRoutes($route, $index)
     {
-        if ($route['middleware']) {
+        if ($route['middleware'][$index]) {
             $container = $this->app->getContainer();
             $middleware = $container[$route['middleware'][$index]];
 
-            $this->app->get($route['pattern'], $route['actions'][$index])
-                ->add(function ($request, $response, $next) use ($container, $middleware) {
-                    return $middleware($request, $response, $next);
-                });
+            $this->app->get(
+				$route['pattern'][$index],
+				$route['actions'][$index]
+			)
+			->add(function (
+				$request,
+				$response,
+				$next
+			) use (
+				$container,
+				$middleware
+			) {
+				return $middleware(
+					$request,
+					$response,
+					$next
+				);
+			});
         } else {
-            $this->app->get($route['pattern'], $route['actions'][$index]);
+            $this->app->get(
+				$route['pattern'][$index],
+				$route['actions'][$index]
+			);
         }
     }
 
     private function createPostRoutes($route, $index)
     {
-        if ($route['middleware']) {
+        if ($route['middleware'][$index]) {
             $container = $this->app->getContainer();
             $middleware = $container[$route['middleware'][$index]];
 
-            $this->app->post($route['pattern'], $route['actions'][$index])
-                ->add(function ($request, $response, $next) use ($container, $middleware) {
-                    return $middleware($request, $response, $next);
-                });
+            $this->app->post(
+				$route['pattern'][$index],
+				$route['actions'][$index]
+			)
+			->add(function (
+				$request,
+				$response,
+				$next
+			) use (
+				$container,
+				$middleware
+			) {
+				return $middleware($request,
+				$response,
+				$next);
+			});
         } else {
-            $this->app->post($route['pattern'], $route['actions'][$index]);
+            $this->app->post(
+				$route['pattern'][$index],
+				$route['actions'][$index]
+			);
+        }
+	}
+	
+	private function createPutRoutes($route, $index)
+    {
+        if ($route['middleware'][$index]) {
+            $container = $this->app->getContainer();
+            $middleware = $container[$route['middleware'][$index]];
+
+            $this->app->put(
+				$route['pattern'][$index],
+				$route['actions'][$index]
+			)
+			->add(function (
+				$request,
+				$response,
+				$next
+			) use (
+				$container,
+				$middleware
+			) {
+				return $middleware($request,
+				$response,
+				$next);
+			});
+        } else {
+            $this->app->put(
+				$route['pattern'][$index],
+				$route['actions'][$index]
+			);
         }
     }
 }

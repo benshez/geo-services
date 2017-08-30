@@ -27,5 +27,25 @@ class Controller extends BaseController implements IIndustriesController
 				'extention' => 'validation:autocomplete:message:IndustriesNotFound')
 			)
 		);
-    }
+	}
+	
+	public function onAdd(
+		RequestInterface $request,
+        ResponseInterface $response,
+		$args
+	) {
+		return $response->withJSON(
+			$this->model->onAdd($args)
+		);
+	}
+
+	public function onUpdate(
+		RequestInterface $request,
+        ResponseInterface $response,
+		$args
+	) {
+		return $response->withJSON(
+			$this->model->onUpdate($args, $request->getParsedBody())
+		);
+	}
 }

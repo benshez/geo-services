@@ -10,7 +10,7 @@ class BaseEntity extends EntityRepository implements IBaseEntity
 {
     public function __construct($manager, $class)
     {
-        parent::__construct($manager, $class);
+		parent::__construct($manager, $class);
     }
 
     public function findOneBy(array $criteria, array $orderBy = null)

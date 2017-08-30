@@ -6,20 +6,17 @@ use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\NoResultException;
-use GeoService\Modules\Base\BaseConstants;
 use GeoService\Modules\Base\Entity\BaseEntity;
+use GeoService\Bundles\Users\Entity\Users;
+use GeoService\Bundles\Industries\Entity\Industries;
+use GeoService\Bundles\Locations\Entity\Locations;
+use GeoService\Bundles\Contact\Entity\Contact;
 
 class Repository extends BaseEntity
 {
-    protected $criteria;
-    protected $orderBy;
-
     public function findOneBy(array $criteria, array $orderBy = null)
     {
-        $this->criteria = $criteria['industry']['industry'];
-        $this->orderBy = $orderBy;
-
-        $query = $this->getQuery();
+        $query = $this->getQuery($criteria['industry']['industry'], $orderBy);
 
         try {
             return $query->getResult(Query::HYDRATE_ARRAY);
@@ -28,19 +25,19 @@ class Repository extends BaseEntity
         }
     }
 
-    private function getQuery()
+    private function getQuery($criteria, array $orderBy = null)
     {
         $qb = $this->_em->createQueryBuilder();
 
         $qb->select($this->getSelectStatement())
-        ->from(BaseConstants::USERS_ENTITY, 'users')
-        ->innerJoin(BaseConstants::LOCATIONS_ENTITY, 'locations', Join::WITH, '(locations.user = users.id)')
-        ->innerJoin(BaseConstants::CONTACT_ENTITY, 'contact', Join::WITH, '(contact.user = users.id)')
-        ->innerJoin(BaseConstants::INDUSTRIES_ENTITY, 'industries', Join::WITH, '(users.industry = industries.id)')
+        ->from(Users::class, 'users')
+        ->innerJoin(Locations::class, 'locations', Join::WITH, '(locations.user = users.id)')
+        ->innerJoin(Contact::class, 'contact', Join::WITH, '(contact.user = users.id)')
+        ->innerJoin(Industries::class, 'industries', Join::WITH, '(users.industry = industries.id)')
         ->where('industries.id = :identifier')
         ->andWhere('users.enabled = 1')
         ->andWhere('users.expiresAt >= :expires')
-        ->setParameter('identifier', $this->criteria)
+        ->setParameter('identifier', $criteria)
         ->setParameter('expires', $this->getFormattedDate());
 
         return $qb->getQuery();

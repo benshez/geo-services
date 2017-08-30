@@ -6,9 +6,9 @@ use GeoService\Modules\Base\Entity\BaseEntity;
 
 class Repository extends BaseEntity
 {
-    public function getAutoComplete($description = null)
+    public function findOneByAutoComplete(array $criteria, array $orderBy = null)
     {
-        $description = strtolower($description);
+        $description = strtolower($criteria['description']);
 
         $qb = $this->_em->createQueryBuilder('u');
         $qb->select('u.id, u.description')
@@ -19,5 +19,10 @@ class Repository extends BaseEntity
         $query = $qb->getQuery();
 
         return $query->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
-    }
+	}
+	
+	public function post($entity)
+	{
+
+	}
 }
