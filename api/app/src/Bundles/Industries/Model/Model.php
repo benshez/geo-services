@@ -12,8 +12,9 @@ use GeoService\Bundles\Industries\Entity\Industries;
 
 class Model extends BaseModel implements IIndustriesModel
 {
-    protected $validator = null;
-	protected $getArgs = array();
+	protected $validator = null;
+	const KEY = 'id';
+	const DESCRIPTION = 'description';
 
     private function getValidator()
     {
@@ -23,12 +24,13 @@ class Model extends BaseModel implements IIndustriesModel
 	
     public function autoComplete($description)
     {
-		$this->getArgs = $this->getConfig()
-		->getOption('arguments', 'industries', 'autocomplete');
-
-		$this->getArgs['description'] = $description;
-		
-		if (!$this->formIsValid()) {
+		if (!$this->formIsValid(
+			'autocomplete',
+			[
+				$description,
+				$description
+			]
+		)) {
             return $this->getValidator()->getMessagesAray();
 		}
 		
@@ -36,51 +38,104 @@ class Model extends BaseModel implements IIndustriesModel
         ->getRepository($this->getConfig()->getOption(
 			'name',
 			'industries'
-		), [$this->getArgs])
-        ->findOneByAutoComplete($this->getArgs);
+		), [[self::DESCRIPTION => $description]])
+        ->findOneByAutoComplete([self::DESCRIPTION => $description]);
 	}
 	
 	public function onAdd($description)
 	{
-		$this->getArgs = $this->getConfig()
-		->getOption('arguments', 'industries', 'autocomplete');
-
-		$this->getArgs['description'] = $description;
-		
-		if (!$this->formIsValid()) {
+		if (!$this->formIsValid(
+			'add',
+			[
+				$description[self::DESCRIPTION],
+				$description[self::DESCRIPTION]
+			]
+		)) {
             return $this->getValidator()->getMessagesAray();
 		}
 
 		$entity = new Industries();
-		$date = new \DateTime();
-		$entity->setCreatedAt($date);
-		$entity->setUpdatedAt($date);
-		$entity->setDescription($description['description']);
+		$entity->setDescription($description[self::DESCRIPTION]);
+		$this->persistAndFlush($entity);
+		$entity = $this->get($this->getConfig()->getOption(
+			'name',
+			'industries'
+		), [self::KEY => $entity->getId()]);
 
-		$this->getEntityManager()->persist($entity);
-		$this->getEntityManager()->flush($entity);
+		if ($entity) {
+			return $entity;
+		}
+
+		return false;
 	}
 
 	public function onUpdate($id, $description)
 	{
-		$date = new \DateTime();
+		if (!$this->formIsValid(
+			'update',
+			[
+				$id[self::KEY],
+				$description[self::DESCRIPTION],
+				$description[self::DESCRIPTION]
+			]
+		)) {
+            return $this->getValidator()->getMessagesAray();
+		}
+		$entity = $this->get($this->getConfig()->getOption(
+			'name',
+			'industries'
+		), [self::KEY => $id]);
 
-		$entity = $this->getEntityManager()->find(Industries::class, $id);
-		$entity->setDescription($description['description']);
-		$entity->setUpdatedAt($date);
+		if (!$entity) {
+			return false;
+		}
 
-		$this->getEntityManager()->persist($entity);
-		$this->getEntityManager()->flush();
+		$entity->setDescription($description[self::DESCRIPTION]);
+		$this->persistAndFlush($entity);
+		$entity = $this->get($this->getConfig()->getOption(
+			'name',
+			'industries'
+		), [self::KEY => $id]);
+
+        if ($entity) {
+            return $entity;
+		}
+		
+		return false;
 	}
 
-	private function formIsValid()
+	public function onDelete($id)
+	{
+		if (!$this->formIsValid(
+			'delete',
+			[
+				$id[self::KEY]
+			]
+		)) {
+            return $this->getValidator()->getMessagesAray();
+		}
+
+		$entity = $this->get($this->getConfig()->getOption(
+			'name',
+			'industries'
+		), [self::KEY => $id]);
+
+		if (!$entity) {
+			return false;
+		}
+
+		$this->removeAndFlush($entity);
+
+		return true;
+	}
+
+	private function formIsValid($extention, $fields)
     {
-        $validators = $this->getConfig()->getOption('validators', 'industries', 'autocomplete');
+        $validators = $this->getConfig()->getOption('validators', 'industries', $extention);
         
         return $this->getValidator()->formIsValid(
 			$validators,
-			[$this->getArgs['description'],
-			$this->getArgs['description']]
+			$fields
 		);
     }
 }

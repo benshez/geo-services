@@ -81,4 +81,34 @@ class BaseController implements IBaseController
 			)
 		);
 	}
+
+	public function onAdd(
+		RequestInterface $request,
+        ResponseInterface $response,
+		$args
+	) {
+		return $response->withJSON(
+			$this->model->onAdd($args)
+		);
+	}
+
+	public function onUpdate(
+		RequestInterface $request,
+        ResponseInterface $response,
+		$args
+	) {
+		return $response->withJSON(
+			$this->model->onUpdate($args, $request->getParsedBody())
+		);
+	}
+
+	public function onDelete(
+		RequestInterface $request,
+        ResponseInterface $response,
+		$args
+	) {
+		return $response->withJSON(
+			$this->model->onDelete($args)
+		);
+	}
 }

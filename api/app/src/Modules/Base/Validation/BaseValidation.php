@@ -95,7 +95,7 @@ class BaseValidation implements
             foreach ($validators as $validator) {
 				$this->create();
 
-                $name = (sizeof($validators) === 1) ? $validator : $validator[0];
+                $name = (sizeof($validators) === 1) ? (sizeof($fields[$index]) === 1) ? $validator[0] : $validator : $validator[0];
                 $options = [];
 
                 if (sizeof($validators) > 1) {

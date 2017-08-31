@@ -31,6 +31,9 @@ class Routes
 					case 'PUT':
 						$this->createPutRoutes($route, $index);
 						break;
+					case 'DELETE':
+						$this->createDeleteRoutes($route, $index);
+						break;						
                 }
             }
         }
@@ -126,5 +129,35 @@ class Routes
 				$route['actions'][$index]
 			);
         }
-    }
+	}
+
+	private function createDeleteRoutes($route, $index)
+	{
+		if ($route['middleware'][$index]) {
+            $container = $this->app->getContainer();
+            $middleware = $container[$route['middleware'][$index]];
+
+            $this->app->delete(
+				$route['pattern'][$index],
+				$route['actions'][$index]
+			)
+			->add(function (
+				$request,
+				$response,
+				$next
+			) use (
+				$container,
+				$middleware
+			) {
+				return $middleware($request,
+				$response,
+				$next);
+			});
+        } else {
+            $this->app->delete(
+				$route['pattern'][$index],
+				$route['actions'][$index]
+			);
+        }
+	}
 }

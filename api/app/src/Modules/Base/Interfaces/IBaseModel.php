@@ -11,7 +11,9 @@ interface IBaseModel
     public function setContainer(ContainerInterface $container);
     public function getContainer();
     public function setEntityManager();
-    public function getEntityManager();
+	public function getEntityManager();
+	public function persistAndFlush($entity);
+	public function removeAndFlush($entity);
     public function getConfig();
 	public function getSettings();
 }

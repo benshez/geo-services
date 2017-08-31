@@ -18,6 +18,32 @@ class BaseModel
         $this->setContainer($container);
     }
 
+	/**
+	* @param string|null $id
+	*
+	* @return array
+	*/
+	public function get($sender, array $args)
+	{
+		if ($args === null) {
+			$configs = $this->getEntityManager()->getRepository($sender)->findAll();
+
+			$configs = array_map(function ($config) {
+				return $config;
+			}, $configs);
+
+			return $configs;
+		} else {
+			$config = $this->getEntityManager()->getRepository($sender)->findOneBy($args);
+			
+			if ($config) {
+				return $config;
+			}
+		}
+
+		return false;
+	}
+
     public function getContainer()
     {
         return $this->container;
@@ -51,29 +77,33 @@ class BaseModel
         return $this->settings;
     }
 
-    /**
-        * @param string|null $id
-        *
-        * @return array
-        */
-    public function get($sender, array $args)
-    {
-        if ($args === null) {
-            $configs = $this->getEntityManager()->getRepository($sender)->findAll();
+	public function removeAndFlush($entity)
+	{
+		$this->getEntityManager()->remove($entity);
+		$this->flushEntity($entity);
+	}
+	
+	public function persistAndFlush($entity)
+	{
+		$this->updatedTimestamps($entity);
+		$this->getEntityManager()->persist($entity);
+		$this->flushEntity($entity);
+	}
 
-            $configs = array_map(function ($config) {
-                return $config;
-            }, $configs);
+	private function updatedTimestamps($entity)
+	{
+		$date = new \DateTime("now");
 
-            return $configs;
-        } else {
-            $config = $this->getEntityManager()->getRepository($sender)->findOneBy($args);
-            
-            if ($config) {
-                return $config;
-            }
-        }
+		$entity->setUpdatedAt($date);
+	
+		if ($entity->getCreatedAt() === "CURRENT_TIMESTAMP" ||
+		$entity->getCreatedAt() === null) {
+			$entity->setCreatedAt($date);
+		}
+	}
 
-        return false;
-    }
+	private function flushEntity($entity)
+	{
+		$this->getEntityManager()->flush($entity);
+	}
 }

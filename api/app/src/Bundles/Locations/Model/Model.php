@@ -12,7 +12,7 @@ use GeoService\Modules\Base\Model\BaseModel;
 class Model extends BaseModel implements ILocationsModel
 {
 	protected $validator = null;
-	protected $getArgs = array();
+	const INDUSTRY = 'industry';
 
     private function getValidator()
     {
@@ -22,27 +22,30 @@ class Model extends BaseModel implements ILocationsModel
 
     public function findLocationsByIndustryCode($industry)
     {
-		$this->getArgs = $this->getConfig()
-		->getOption('arguments', 'locations', 'locations');
-
-		$this->getArgs['industry'] = $industry;
-		
-		if (!$this->formIsValid()) {
+		if (!$this->formIsValid(
+			'locations',
+			[
+				$industry
+			]
+		)) {
             return $this->getValidator()->getMessagesAray();
 		}
 		
 		$location = $this->get($this->getConfig()->getOption(
 			'name',
 			'locations'
-		), ['industry' => $industry]);
+		), [self::INDUSTRY => $industry]);
 
         return $location;
     }
 
-	private function formIsValid()
+	private function formIsValid($extention, $fields)
     {
-        $validators = $this->getConfig()->getOption('validators', 'locations', 'locations:industry');
+        $validators = $this->getConfig()->getOption('validators', 'locations', $extention);
         
-        return $this->getValidator()->formIsValid($validators, [$this->getArgs['industry']]);
+        return $this->getValidator()->formIsValid(
+			$validators,
+			$fields
+		);
     }
 }

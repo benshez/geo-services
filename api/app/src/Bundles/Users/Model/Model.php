@@ -12,8 +12,9 @@ use GeoService\Modules\Base\Model\BaseModel;
 class Model extends BaseModel implements IUsersModel
 {
 
-    protected $validator = null;
-	protected $getArgs = array();
+	protected $validator = null;
+	
+	const USER_NAME = 'username';
 
     private function getValidator()
     {
@@ -23,20 +24,23 @@ class Model extends BaseModel implements IUsersModel
 	
     public function authenticate($email, $password)
     {
-		$this->getArgs = $this->getConfig()
-		->getOption('arguments', 'users', 'authenticate');
-
-		$this->getArgs['username'] = $email;
-		$this->getArgs['password'] = $password;
-		
-        if (!$this->formIsValid()) {
+        if (!$this->formIsValid(
+			'authenticate',
+			[
+				$email,
+				$email,
+				$email,
+				$password,
+				$password
+			]
+		)) {
             return $this->getValidator()->getMessagesAray();
         }
 
 		$user = $this->get($this->getConfig()->getOption(
 			'name',
 			'users'
-		), ['username' => $this->getArgs['username']]);
+		), [self::USER_NAME => $email]);
         
         if ($user) {
             if (!$this->validateUser($password, $user->getSalt(), $user->getPassword())) {
@@ -48,17 +52,13 @@ class Model extends BaseModel implements IUsersModel
         return false;
     }
 
-    private function formIsValid()
+    private function formIsValid($extention, $fields)
     {
-        $validators = $this->getConfig()->getOption('validators', 'users', 'authenticate');
+        $validators = $this->getConfig()->getOption('validators', 'users', $extention);
         
         return $this->getValidator()->formIsValid(
 			$validators,
-			[$this->getArgs['username'],
-			$this->getArgs['username'],
-			$this->getArgs['username'],
-			$this->getArgs['password'],
-			$this->getArgs['password']]
+			$fields
 		);
     }
 
