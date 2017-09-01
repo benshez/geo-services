@@ -88,7 +88,7 @@ class BaseController implements IBaseController
 		$args
 	) {
 		return $response->withJSON(
-			$this->model->onAdd($args)
+			$this->model->onAdd($request->getParsedBody())
 		);
 	}
 

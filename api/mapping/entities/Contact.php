@@ -94,16 +94,16 @@ class Contact
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="updated_at", type="datetime", nullable=false)
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
-    private $updatedAt = 'CURRENT_TIMESTAMP';
+    private $createdAt = 'CURRENT_TIMESTAMP';
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="token_expiry", type="datetime", nullable=false)
+     * @ORM\Column(name="updated_at", type="datetime", nullable=false)
      */
-    private $tokenExpiry = 'CURRENT_TIMESTAMP';
+    private $updatedAt = 'CURRENT_TIMESTAMP';
 
     /**
      * @var \Users
@@ -367,6 +367,30 @@ class Contact
     }
 
     /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return Contact
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
      * Set updatedAt
      *
      * @param \DateTime $updatedAt
@@ -388,30 +412,6 @@ class Contact
     public function getUpdatedAt()
     {
         return $this->updatedAt;
-    }
-
-    /**
-     * Set tokenExpiry
-     *
-     * @param \DateTime $tokenExpiry
-     *
-     * @return Contact
-     */
-    public function setTokenExpiry($tokenExpiry)
-    {
-        $this->tokenExpiry = $tokenExpiry;
-
-        return $this;
-    }
-
-    /**
-     * Get tokenExpiry
-     *
-     * @return \DateTime
-     */
-    public function getTokenExpiry()
-    {
-        return $this->tokenExpiry;
     }
 
     /**

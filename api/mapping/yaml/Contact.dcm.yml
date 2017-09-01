@@ -81,18 +81,18 @@ Contact:
             length: 255
             options:
                 fixed: false
+        createdAt:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: created_at
         updatedAt:
             type: datetime
             nullable: false
             options:
                 default: CURRENT_TIMESTAMP
             column: updated_at
-        tokenExpiry:
-            type: datetime
-            nullable: false
-            options:
-                default: CURRENT_TIMESTAMP
-            column: token_expiry
     manyToOne:
         user:
             targetEntity: Users

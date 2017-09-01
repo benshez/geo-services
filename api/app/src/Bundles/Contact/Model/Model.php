@@ -11,7 +11,6 @@ use GeoService\Modules\Base\Model\BaseModel;
 class Model extends BaseModel implements IContactModel
 {
 	protected $validator = null;
-	protected $getArgs = array();
 
     private function getValidator()
     {

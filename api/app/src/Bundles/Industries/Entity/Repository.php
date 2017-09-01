@@ -20,9 +20,4 @@ class Repository extends BaseEntity
 
         return $query->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
 	}
-	
-	public function post($entity)
-	{
-
-	}
 }

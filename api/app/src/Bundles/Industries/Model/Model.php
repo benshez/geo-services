@@ -21,14 +21,16 @@ class Model extends BaseModel implements IIndustriesModel
         $this->validator = (!$this->validator) ? new Validation($this) : $this->validator;
         return $this->validator;
     }
-    
-    public function autoComplete($description)
+
+    public function autoComplete($args)
     {
         if (!$this->formIsValid(
+            $this->getValidator(),
+            'industries',
             'autocomplete',
             [
-                $description,
-                $description
+                $args,
+                $args
             ]
         )) {
             return $this->getValidator()->getMessagesAray();
@@ -38,64 +40,63 @@ class Model extends BaseModel implements IIndustriesModel
         ->getRepository($this->getConfig()->getOption(
             'name',
             'industries'
-        ), [[self::DESCRIPTION => $description]])
-        ->findOneByAutoComplete([self::DESCRIPTION => $description]);
+        ), [[self::DESCRIPTION => $args]])
+        ->findOneByAutoComplete([self::DESCRIPTION => $args]);
     }
     
-    public function onAdd($description)
+    public function onAdd($args)
     {
         if (!$this->formIsValid(
+            $this->getValidator(),
+            'industries',
             'add',
             [
-                $description[self::DESCRIPTION],
-                $description[self::DESCRIPTION]
+                $args[self::DESCRIPTION],
+                $args[self::DESCRIPTION]
             ]
         )) {
             return $this->getValidator()->getMessagesAray();
         }
 
         $entity = new Industries();
-        $entity->setDescription($description[self::DESCRIPTION]);
+        $entity->setDescription($args[self::DESCRIPTION]);
         $this->persistAndFlush($entity);
-        $entity = $this->get($this->getConfig()->getOption(
-            'name',
-            'industries'
-        ), [self::KEY => $entity->getId()]);
-
-        if ($entity) {
+        
+        if ($entity->getId()) {
+            $entity = $this->getEntityById('industries', self::KEY, $entity->getId());
+        }
+        
+        if ($entity && $entity->getId()) {
             return $entity;
         }
 
         return false;
     }
 
-    public function onUpdate($id, $description)
+    public function onUpdate($id, $args)
     {
         if (!$this->formIsValid(
+            $this->getValidator(),
+            'industries',
             'update',
             [
                 $id[self::KEY],
-                $description[self::DESCRIPTION],
-                $description[self::DESCRIPTION]
+                $args[self::DESCRIPTION],
+                $args[self::DESCRIPTION]
             ]
         )) {
             return $this->getValidator()->getMessagesAray();
         }
-        $entity = $this->get($this->getConfig()->getOption(
-            'name',
-            'industries'
-        ), [self::KEY => $id]);
+        
+        $entity = $this->getEntityById('industries', self::KEY, $id);
 
         if (!$entity) {
             return false;
         }
 
-        $entity->setDescription($description[self::DESCRIPTION]);
+        $entity->setDescription($args[self::DESCRIPTION]);
         $this->persistAndFlush($entity);
-        $entity = $this->get($this->getConfig()->getOption(
-            'name',
-            'industries'
-        ), [self::KEY => $id]);
+        $entity = $this->getEntityById('industries', self::KEY, $id);
 
         if ($entity) {
             return $entity;
@@ -107,6 +108,8 @@ class Model extends BaseModel implements IIndustriesModel
     public function onDelete($id)
     {
         if (!$this->formIsValid(
+            $this->getValidator(),
+            'industries',
             'delete',
             [
                 $id[self::KEY]
@@ -115,11 +118,8 @@ class Model extends BaseModel implements IIndustriesModel
             return $this->getValidator()->getMessagesAray();
         }
 
-        $entity = $this->get($this->getConfig()->getOption(
-            'name',
-            'industries'
-        ), [self::KEY => $id]);
-
+        $entity = $this->getEntityById('industries', self::KEY, $id);
+        
         if (!$entity) {
             return false;
         }
@@ -127,14 +127,5 @@ class Model extends BaseModel implements IIndustriesModel
         $this->removeAndFlush($entity);
 
         return true;
-    }
-
-    private function formIsValid($extention, $fields)
-    {
-        $validators = $this->getConfig()->getOption('validators', 'industries', $extention);
-        return $this->getValidator()->formIsValid(
-            $validators,
-            $fields
-        );
     }
 }

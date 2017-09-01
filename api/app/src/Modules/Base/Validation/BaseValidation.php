@@ -44,11 +44,15 @@ class BaseValidation implements
         return $this->error;
     }
 
-    public function setMessagesAray($error = null, $key = null)
+    public function setMessagesArray($error = null, $class = null, $key = null)
     {
         if ($key) {
-            $this->config = (!$this->config) ? new Config() : $this->config;
-            $error = $this->config($this->getModel()->getSettings(), $key);
+			$this->config = (!$this->config) ? new Config($this->getModel()->getSettings()) : $this->config;
+			$error = $this->config->getOption(
+				'messages',
+				$class,
+				$key
+			);
         }
         
         $this->error = array('error' => true,  'message' => $error);
@@ -59,7 +63,7 @@ class BaseValidation implements
         $valid = $this->validator->isValid($value);
 
         if (!$valid) {
-            $this->setMessagesAray($this->getMessages());
+            $this->setMessagesArray($this->getMessages());
         }
 
         return $valid;
@@ -76,7 +80,7 @@ class BaseValidation implements
             $isValid = $validator->isValid($value);
 
             if (!$isValid) {
-                $this->setMessagesAray($validator->getMessages());
+                $this->setMessagesArray($validator->getMessages());
                 return $isValid;
             }
         }

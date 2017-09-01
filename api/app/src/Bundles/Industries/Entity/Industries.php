@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Industries
  *
- * @ORM\Table(name="industries", indexes={@ORM\Index(name="idx_description", columns={"description"})})
+ * @ORM\Table(name="industries", uniqueConstraints={@ORM\UniqueConstraint(name="description_UNIQUE", columns={"description"})}, indexes={@ORM\Index(name="description_idx", columns={"description"})})
  * @ORM\Entity
  * @ORM\Entity(repositoryClass="GeoService\Bundles\Industries\Entity\Repository")
  */
@@ -24,11 +24,11 @@ class Industries
     private $id;
 
     /**
-    * @var string
-    *
-    * @ORM\Column(name="description", type="string", length=255, nullable=false)
-    */
-    private $description;
+     * @var string
+     *
+     * @ORM\Column(name="description", type="string", length=255, nullable=false)
+     */
+	private $description;
 
     /**
     * @var \DateTime

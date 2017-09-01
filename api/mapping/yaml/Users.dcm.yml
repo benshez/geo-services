@@ -8,6 +8,10 @@ Users:
         fk_users_industry_id_industries_id_idx:
             columns:
                 - industry_id
+    uniqueConstraints:
+        username_UNIQUE:
+            columns:
+                - username
     id:
         id:
             type: integer
@@ -32,7 +36,7 @@ Users:
                 fixed: false
         salt:
             type: string
-            nullable: false
+            nullable: true
             length: 255
             options:
                 fixed: false
@@ -48,7 +52,7 @@ Users:
             column: expires_at
         lastLogin:
             type: datetime
-            nullable: false
+            nullable: true
             column: last_login
         tokenChar:
             type: string
@@ -67,6 +71,12 @@ Users:
             length: 255
             options:
                 fixed: false
+        createdAt:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: created_at
         updatedAt:
             type: datetime
             nullable: false

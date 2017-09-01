@@ -16,4 +16,6 @@ interface IBaseModel
 	public function removeAndFlush($entity);
     public function getConfig();
 	public function getSettings();
+	public function formIsValid($validator, String $class, String $extention, array $fields);
+	public function getEntityById($class, $key, $id);
 }

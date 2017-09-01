@@ -2,5 +2,6 @@
 determineRouteBeforeAppMiddleware: true
 displayErrorDetails: true
 useSimpleAnnotationReader: false
-version: v1.0
+version: v1
 mode: development
+time_zone: Australia/Brisbane

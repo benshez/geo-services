@@ -100,7 +100,7 @@ class TokenAuthentication
         }
 
         //same format as api route
-        $route = $request->getAttribute('route');
+		$route = $request->getAttribute('route');
         $path = $route->getPattern();
         $method = $request->getMethod();
         $accessRule = $this->ACL($path, $method);

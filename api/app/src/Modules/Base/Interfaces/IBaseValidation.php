@@ -10,7 +10,7 @@ interface IBaseValidation
     public function __construct(IBaseModel $model);
     public function setModel(IBaseModel $model);
     public function getModel();
-    public function setMessagesAray($error = null);
+    public function setMessagesArray($error = null, $class = null, $key = null);
     public function getMessagesAray();
     public function isValid($value);
     public function formIsValid(array $fields, array $values);

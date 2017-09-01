@@ -17,32 +17,49 @@ class BaseModel
     {
         $this->setContainer($container);
     }
+    
+    private function updatedTimestamps($entity)
+    {
+        $date = new \DateTime('now', new \DateTimeZone($this->settings['time_zone']));
 
-	/**
-	* @param string|null $id
-	*
-	* @return array
-	*/
-	public function get($sender, array $args)
-	{
-		if ($args === null) {
-			$configs = $this->getEntityManager()->getRepository($sender)->findAll();
+        $entity->setUpdatedAt($date);
+    
+        if ($entity->getCreatedAt() === 'CURRENT_TIMESTAMP' ||
+            $entity->getCreatedAt() === null) {
+            $entity->setCreatedAt($date);
+        }
+    }
 
-			$configs = array_map(function ($config) {
-				return $config;
-			}, $configs);
+    private function flushEntity($entity)
+    {
+        $this->getEntityManager()->flush($entity);
+    }
 
-			return $configs;
-		} else {
-			$config = $this->getEntityManager()->getRepository($sender)->findOneBy($args);
-			
-			if ($config) {
-				return $config;
-			}
-		}
+    /**
+    * @param string|null $id
+    *
+    * @return array
+    */
+    public function get($sender, array $args)
+    {
+        if ($args === null) {
+            $configs = $this->getEntityManager()->getRepository($sender)->findAll();
 
-		return false;
-	}
+            $configs = array_map(function ($config) {
+                return $config;
+            }, $configs);
+
+            return $configs;
+        } else {
+            $config = $this->getEntityManager()->getRepository($sender)->findOneBy($args);
+            
+            if ($config) {
+                return $config;
+            }
+        }
+
+        return false;
+    }
 
     public function getContainer()
     {
@@ -77,33 +94,38 @@ class BaseModel
         return $this->settings;
     }
 
-	public function removeAndFlush($entity)
-	{
-		$this->getEntityManager()->remove($entity);
-		$this->flushEntity($entity);
-	}
-	
-	public function persistAndFlush($entity)
-	{
-		$this->updatedTimestamps($entity);
-		$this->getEntityManager()->persist($entity);
-		$this->flushEntity($entity);
-	}
+    public function removeAndFlush($entity)
+    {
+        $this->getEntityManager()->remove($entity);
+        $this->flushEntity($entity);
+    }
+    
+    public function persistAndFlush($entity)
+    {
+        $this->updatedTimestamps($entity);
 
-	private function updatedTimestamps($entity)
-	{
-		$date = new \DateTime("now");
+        try {
+            $this->getEntityManager()->persist($entity);
+            $this->flushEntity($entity);
+        } catch (\Doctrine\DBAL\Exception\UniqueConstraintViolationException $e) {
+            return false;
+        }
+    }
 
-		$entity->setUpdatedAt($date);
-	
-		if ($entity->getCreatedAt() === "CURRENT_TIMESTAMP" ||
-		$entity->getCreatedAt() === null) {
-			$entity->setCreatedAt($date);
-		}
-	}
-
-	private function flushEntity($entity)
-	{
-		$this->getEntityManager()->flush($entity);
-	}
+    public function formIsValid($validator, String $class, String $extention, array $fields)
+    {
+        $validators = $this->getConfig()->getOption('validators', $class, $extention);
+        return $validator->formIsValid(
+            $validators,
+            $fields
+        );
+    }
+    
+    public function getEntityById($class, $key, $id)
+    {
+        return $this->get($this->getConfig()->getOption(
+            'name',
+            $class
+        ), [$key => $id]);
+    }
 }

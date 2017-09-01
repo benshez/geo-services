@@ -1,8 +1,8 @@
 Industries:
     type: entity
     table: industries
-    indexes:
-        idx_description:
+    uniqueConstraints:
+        description_UNIQUE:
             columns:
                 - description
     id:

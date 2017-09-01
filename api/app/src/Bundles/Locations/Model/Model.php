@@ -23,6 +23,8 @@ class Model extends BaseModel implements ILocationsModel
     public function findLocationsByIndustryCode($industry)
     {
         if (!$this->formIsValid(
+            $this->getValidator(),
+            'locations',
             'locations',
             [
                 $industry
@@ -37,14 +39,5 @@ class Model extends BaseModel implements ILocationsModel
         ), [self::INDUSTRY => $industry]);
 
         return $location;
-    }
-
-    private function formIsValid($extention, $fields)
-    {
-        $validators = $this->getConfig()->getOption('validators', 'locations', $extention);
-        return $this->getValidator()->formIsValid(
-            $validators,
-            $fields
-        );
     }
 }

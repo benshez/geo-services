@@ -26,10 +26,10 @@ php ./vendor/doctrine/orm/bin/doctrine orm:convert-mapping --namespace="" --forc
 # Generate models to ./src directory
 php ./vendor/doctrine/orm/bin/doctrine orm:generate-entities --generate-annotations=false --update-entities=true --generate-methods=false ./mapping/entities
 
-# Validate schema
-php ./vendor/doctrine/orm/bin/doctrine orm:validate-schema
-
 # Update schema
 php ./vendor/doctrine/orm/bin/doctrine orm:schema-tool:update --force --complete --dump-sql
+
+# Validate schema
+php ./vendor/doctrine/orm/bin/doctrine orm:validate-schema
 
 read -p "Press enter to continue"

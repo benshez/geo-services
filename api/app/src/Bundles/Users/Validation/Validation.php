@@ -8,7 +8,7 @@ use GeoService\Modules\Base\Validation\BaseValidation;
 
 class Validation extends BaseValidation
 {
-    const INVALID_CREDENTIALS = 'validators:user:messages:invalid_credentials';
+    const INVALID_CREDENTIALS = 'validation:invalid_credentials';
 
     public function validateUserCredentials($password, $salt, $hash)
     {
@@ -20,7 +20,7 @@ class Validation extends BaseValidation
         $verified = $bcrypt->verify($password, $hash);
 
         if (!$verified) {
-            $this->setMessagesAray(null, static::INVALID_CREDENTIALS);
+            $this->setMessagesArray(null, 'users', static::INVALID_CREDENTIALS);
         }
 
         return $verified;
