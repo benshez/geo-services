@@ -14,7 +14,7 @@ class Model extends BaseModel implements IRolesModel
 {
     protected $validator = null;
     const KEY = 'id';
-    const DESCRIPTION = 'role';
+    const DESCRIPTION = 'description';
     const ENABLED = 'enabled';
 
     private function getValidator()
@@ -46,8 +46,6 @@ class Model extends BaseModel implements IRolesModel
             [
                 $args[self::DESCRIPTION],
                 $args[self::DESCRIPTION],
-                $args[self::ENABLED],
-                $args[self::ENABLED]
             ]
         )) {
             return $this->getValidator()->getMessagesAray();
@@ -55,7 +53,7 @@ class Model extends BaseModel implements IRolesModel
 
         $entity = new Roles();
         $entity->setRole($args[self::DESCRIPTION]);
-        $entity->setEnabled($args[self::ENABLED]);
+        $entity->setEnabled(1);
         $this->persistAndFlush($entity);
         
         if ($entity->getId()) {

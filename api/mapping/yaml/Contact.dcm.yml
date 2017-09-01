@@ -11,6 +11,13 @@ Contact:
         fk_contacts_user_id_user_id_idx:
             columns:
                 - user_id
+        fk_contact_role_id_roles_id_idx:
+            columns:
+                - role_id
+    uniqueConstraints:
+        email_UNIQUE:
+            columns:
+                - email
     id:
         id:
             type: integer
@@ -33,6 +40,24 @@ Contact:
             length: 255
             options:
                 fixed: false
+        password:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        salt:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        enabled:
+            type: boolean
+            nullable: true
+        locked:
+            type: boolean
+            nullable: false
         address:
             type: text
             nullable: true
@@ -59,7 +84,7 @@ Contact:
                 fixed: false
         email:
             type: string
-            nullable: true
+            nullable: false
             length: 28
             options:
                 fixed: false
@@ -81,19 +106,50 @@ Contact:
             length: 255
             options:
                 fixed: false
-        createdAt:
-            type: datetime
-            nullable: false
+        tokenChar:
+            type: string
+            nullable: true
+            length: 16
             options:
-                default: CURRENT_TIMESTAMP
-            column: created_at
+                fixed: false
+            column: token_char
+        tokenExpiry:
+            type: datetime
+            nullable: true
+            column: token_expiry
+        lastLogin:
+            type: datetime
+            nullable: true
+            column: last_login
+        logo:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
         updatedAt:
             type: datetime
             nullable: false
             options:
                 default: CURRENT_TIMESTAMP
             column: updated_at
+        createdAt:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: created_at
     manyToOne:
+        role:
+            targetEntity: Roles
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                role_id:
+                    referencedColumnName: id
+            orphanRemoval: false
         user:
             targetEntity: Users
             cascade: {  }

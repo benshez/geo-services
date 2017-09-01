@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Contact
  *
- * @ORM\Table(name="contact", indexes={@ORM\Index(name="idx_phone", columns={"phone"}), @ORM\Index(name="idx_email", columns={"email"}), @ORM\Index(name="fk_contacts_user_id_user_id_idx", columns={"user_id"})})
+ * @ORM\Table(name="contact", uniqueConstraints={@ORM\UniqueConstraint(name="email_UNIQUE", columns={"email"})}, indexes={@ORM\Index(name="idx_phone", columns={"phone"}), @ORM\Index(name="idx_email", columns={"email"}), @ORM\Index(name="fk_contacts_user_id_user_id_idx", columns={"user_id"}), @ORM\Index(name="fk_contact_role_id_roles_id_idx", columns={"role_id"})})
  * @ORM\Entity
  */
 class Contact
@@ -34,6 +34,34 @@ class Contact
      * @ORM\Column(name="usersurname", type="string", length=255, nullable=false)
      */
     private $usersurname;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="password", type="string", length=255, nullable=false)
+     */
+    private $password;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="salt", type="string", length=255, nullable=true)
+     */
+    private $salt;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="enabled", type="boolean", nullable=true)
+     */
+    private $enabled;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="locked", type="boolean", nullable=false)
+     */
+    private $locked;
 
     /**
      * @var string
@@ -66,7 +94,7 @@ class Contact
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=28, nullable=true)
+     * @ORM\Column(name="email", type="string", length=28, nullable=false)
      */
     private $email;
 
@@ -92,11 +120,32 @@ class Contact
     private $twitter;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="token_char", type="string", length=16, nullable=true)
+     */
+    private $tokenChar;
+
+    /**
      * @var \DateTime
      *
-     * @ORM\Column(name="created_at", type="datetime", nullable=false)
+     * @ORM\Column(name="token_expiry", type="datetime", nullable=true)
      */
-    private $createdAt = 'CURRENT_TIMESTAMP';
+    private $tokenExpiry;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="last_login", type="datetime", nullable=true)
+     */
+    private $lastLogin;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="logo", type="string", length=255, nullable=true)
+     */
+    private $logo;
 
     /**
      * @var \DateTime
@@ -104,6 +153,23 @@ class Contact
      * @ORM\Column(name="updated_at", type="datetime", nullable=false)
      */
     private $updatedAt = 'CURRENT_TIMESTAMP';
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
+     */
+    private $createdAt = 'CURRENT_TIMESTAMP';
+
+    /**
+     * @var \Roles
+     *
+     * @ORM\ManyToOne(targetEntity="Roles")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="role_id", referencedColumnName="id")
+     * })
+     */
+    private $role;
 
     /**
      * @var \Users
@@ -172,6 +238,102 @@ class Contact
     public function getUsersurname()
     {
         return $this->usersurname;
+    }
+
+    /**
+     * Set password
+     *
+     * @param string $password
+     *
+     * @return Contact
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Get password
+     *
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * Set salt
+     *
+     * @param string $salt
+     *
+     * @return Contact
+     */
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
+
+        return $this;
+    }
+
+    /**
+     * Get salt
+     *
+     * @return string
+     */
+    public function getSalt()
+    {
+        return $this->salt;
+    }
+
+    /**
+     * Set enabled
+     *
+     * @param boolean $enabled
+     *
+     * @return Contact
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
+
+        return $this;
+    }
+
+    /**
+     * Get enabled
+     *
+     * @return boolean
+     */
+    public function getEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * Set locked
+     *
+     * @param boolean $locked
+     *
+     * @return Contact
+     */
+    public function setLocked($locked)
+    {
+        $this->locked = $locked;
+
+        return $this;
+    }
+
+    /**
+     * Get locked
+     *
+     * @return boolean
+     */
+    public function getLocked()
+    {
+        return $this->locked;
     }
 
     /**
@@ -367,27 +529,99 @@ class Contact
     }
 
     /**
-     * Set createdAt
+     * Set tokenChar
      *
-     * @param \DateTime $createdAt
+     * @param string $tokenChar
      *
      * @return Contact
      */
-    public function setCreatedAt($createdAt)
+    public function setTokenChar($tokenChar)
     {
-        $this->createdAt = $createdAt;
+        $this->tokenChar = $tokenChar;
 
         return $this;
     }
 
     /**
-     * Get createdAt
+     * Get tokenChar
+     *
+     * @return string
+     */
+    public function getTokenChar()
+    {
+        return $this->tokenChar;
+    }
+
+    /**
+     * Set tokenExpiry
+     *
+     * @param \DateTime $tokenExpiry
+     *
+     * @return Contact
+     */
+    public function setTokenExpiry($tokenExpiry)
+    {
+        $this->tokenExpiry = $tokenExpiry;
+
+        return $this;
+    }
+
+    /**
+     * Get tokenExpiry
      *
      * @return \DateTime
      */
-    public function getCreatedAt()
+    public function getTokenExpiry()
     {
-        return $this->createdAt;
+        return $this->tokenExpiry;
+    }
+
+    /**
+     * Set lastLogin
+     *
+     * @param \DateTime $lastLogin
+     *
+     * @return Contact
+     */
+    public function setLastLogin($lastLogin)
+    {
+        $this->lastLogin = $lastLogin;
+
+        return $this;
+    }
+
+    /**
+     * Get lastLogin
+     *
+     * @return \DateTime
+     */
+    public function getLastLogin()
+    {
+        return $this->lastLogin;
+    }
+
+    /**
+     * Set logo
+     *
+     * @param string $logo
+     *
+     * @return Contact
+     */
+    public function setLogo($logo)
+    {
+        $this->logo = $logo;
+
+        return $this;
+    }
+
+    /**
+     * Get logo
+     *
+     * @return string
+     */
+    public function getLogo()
+    {
+        return $this->logo;
     }
 
     /**
@@ -412,6 +646,54 @@ class Contact
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return Contact
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set role
+     *
+     * @param \Roles $role
+     *
+     * @return Contact
+     */
+    public function setRole(\Roles $role = null)
+    {
+        $this->role = $role;
+
+        return $this;
+    }
+
+    /**
+     * Get role
+     *
+     * @return \Roles
+     */
+    public function getRole()
+    {
+        return $this->role;
     }
 
     /**

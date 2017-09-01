@@ -7,4 +7,5 @@ use GeoService\Modules\Base\Interfaces\IBaseModel;
 
 interface IContactModel extends IBaseModel
 {
+	public function authenticate($email, $password);
 }
