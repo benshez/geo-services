@@ -5,15 +5,12 @@ Contact:
         idx_phone:
             columns:
                 - phone
-        idx_email:
-            columns:
-                - email
-        fk_contacts_user_id_user_id_idx:
-            columns:
-                - user_id
         fk_contact_role_id_roles_id_idx:
             columns:
                 - role_id
+        fk_contact_entity_id_entities_id_idx:
+            columns:
+                - entity_id
     uniqueConstraints:
         email_UNIQUE:
             columns:
@@ -64,18 +61,25 @@ Contact:
             length: 65535
             options:
                 fixed: false
-        state:
-            type: string
-            nullable: true
-            length: 10
-            options:
-                fixed: false
         city:
             type: string
             nullable: true
             length: 40
             options:
                 fixed: false
+        state:
+            type: string
+            nullable: true
+            length: 10
+            options:
+                fixed: false
+        postCode:
+            type: string
+            nullable: false
+            length: 10
+            options:
+                fixed: false
+            column: post_code
         phone:
             type: string
             nullable: true
@@ -140,6 +144,16 @@ Contact:
                 default: CURRENT_TIMESTAMP
             column: created_at
     manyToOne:
+        entity:
+            targetEntity: Industries
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                entity_id:
+                    referencedColumnName: id
+            orphanRemoval: false
         role:
             targetEntity: Roles
             cascade: {  }
@@ -148,16 +162,6 @@ Contact:
             inversedBy: null
             joinColumns:
                 role_id:
-                    referencedColumnName: id
-            orphanRemoval: false
-        user:
-            targetEntity: Users
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                user_id:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

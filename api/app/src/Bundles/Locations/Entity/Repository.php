@@ -7,7 +7,7 @@ use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\NoResultException;
 use GeoService\Modules\Base\Entity\BaseEntity;
-use GeoService\Bundles\Users\Entity\Users;
+use GeoService\Bundles\Entities\Entity\Entities;
 use GeoService\Bundles\Industries\Entity\Industries;
 use GeoService\Bundles\Locations\Entity\Locations;
 use GeoService\Bundles\Contact\Entity\Contact;
@@ -30,7 +30,7 @@ class Repository extends BaseEntity
         $qb = $this->_em->createQueryBuilder();
 
         $qb->select($this->getSelectStatement())
-        ->from(Users::class, 'users')
+        ->from(Enitites::class, 'entities')
         ->innerJoin(Locations::class, 'locations', Join::WITH, '(locations.user = users.id)')
         ->innerJoin(Contact::class, 'contact', Join::WITH, '(contact.user = users.id)')
         ->innerJoin(Industries::class, 'industries', Join::WITH, '(users.industry = industries.id)')

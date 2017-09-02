@@ -1,10 +1,13 @@
-Users:
+Entities:
     type: entity
-    table: users
+    table: entities
     indexes:
         fk_users_industry_id_industries_id_idx:
             columns:
                 - industry_id
+        entities_name:
+            columns:
+                - name
     id:
         id:
             type: integer
@@ -18,6 +21,43 @@ Users:
         enabled:
             type: boolean
             nullable: false
+        type:
+            type: string
+            nullable: false
+            length: 4
+            options:
+                fixed: false
+        description:
+            type: string
+            nullable: true
+            length: 100
+            options:
+                fixed: false
+        name:
+            type: string
+            nullable: false
+            length: 200
+            options:
+                fixed: false
+        status:
+            type: string
+            nullable: false
+            length: 10
+            options:
+                fixed: false
+        state:
+            type: string
+            nullable: false
+            length: 3
+            options:
+                fixed: false
+        postCode:
+            type: string
+            nullable: false
+            length: 10
+            options:
+                fixed: false
+            column: post_code
         expiresAt:
             type: datetime
             nullable: false

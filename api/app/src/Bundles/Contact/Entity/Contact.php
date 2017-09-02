@@ -3,16 +3,15 @@
 namespace GeoService\Bundles\Contact\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use GeoService\Bundles\Users\Entity\Users;
+use GeoService\Bundles\Entities\Entity\Entities;
+use GeoService\Bundles\Roles\Entity\Roles;
 
 /**
- * Address
+ * Contact
  *
- *
- * @ORM\Table(name="contact", uniqueConstraints={@ORM\UniqueConstraint(name="email_UNIQUE", columns={"email"})}, indexes={@ORM\Index(name="idx_phone", columns={"phone"}), @ORM\Index(name="idx_email", columns={"email"}), @ORM\Index(name="fk_contacts_user_id_user_id_idx", columns={"user_id"}), @ORM\Index(name="fk_contact_role_id_roles_id_idx", columns={"role_id"})})
+ * @ORM\Table(name="contact", uniqueConstraints={@ORM\UniqueConstraint(name="email_UNIQUE", columns={"email"})}, indexes={@ORM\Index(name="idx_phone", columns={"phone"}), @ORM\Index(name="fk_contact_role_id_roles_id_idx", columns={"role_id"}), @ORM\Index(name="fk_contact_entity_id_entities_id_idx", columns={"entity_id"})})
  * @ORM\Entity
  */
-
 class Contact
 {
 	/**
@@ -76,6 +75,13 @@ class Contact
 	/**
 	* @var string
 	*
+	* @ORM\Column(name="city", type="string", length=40, nullable=true)
+	*/
+	private $city;
+
+	/**
+	* @var string
+	*
 	* @ORM\Column(name="state", type="string", length=10, nullable=true)
 	*/
 	private $state;
@@ -83,9 +89,9 @@ class Contact
 	/**
 	* @var string
 	*
-	* @ORM\Column(name="city", type="string", length=40, nullable=true)
+	* @ORM\Column(name="post_code", type="string", length=10, nullable=false)
 	*/
-	private $city;
+	private $postCode;
 
 	/**
 	* @var string
@@ -165,6 +171,16 @@ class Contact
 	private $createdAt = 'CURRENT_TIMESTAMP';
 
 	/**
+	* @var \Industries
+	*
+	* @ORM\ManyToOne(targetEntity="\GeoService\Bundles\Industries\Entity\Industries")
+	* @ORM\JoinColumns({
+	*   @ORM\JoinColumn(name="entity_id", referencedColumnName="id")
+	* })
+	*/
+	private $entity;
+
+	/**
 	* @var \Roles
 	*
 	* @ORM\ManyToOne(targetEntity="\GeoService\Bundles\Roles\Entity\Roles")
@@ -173,16 +189,6 @@ class Contact
 	* })
 	*/
 	private $role;
-
-	/**
-	* @var \Users
-	*
-	* @ORM\ManyToOne(targetEntity="\GeoService\Bundles\Users\Entity\Users")
-	* @ORM\JoinColumns({
-	*   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-	* })
-	*/
-	private $user;
 
 
 	/**
@@ -364,6 +370,30 @@ class Contact
 	}
 
 	/**
+	* Set city
+	*
+	* @param string $city
+	*
+	* @return Contact
+	*/
+	public function setCity($city)
+	{
+		$this->city = $city;
+
+		return $this;
+	}
+
+	/**
+	* Get city
+	*
+	* @return string
+	*/
+	public function getCity()
+	{
+		return $this->city;
+	}
+
+	/**
 	* Set state
 	*
 	* @param string $state
@@ -388,27 +418,27 @@ class Contact
 	}
 
 	/**
-	* Set city
+	* Set postCode
 	*
-	* @param string $city
+	* @param string $postCode
 	*
 	* @return Contact
 	*/
-	public function setCity($city)
+	public function setPostCode($postCode)
 	{
-		$this->city = $city;
+		$this->postCode = $postCode;
 
 		return $this;
 	}
 
 	/**
-	* Get city
+	* Get postCode
 	*
 	* @return string
 	*/
-	public function getCity()
+	public function getPostCode()
 	{
-		return $this->city;
+		return $this->postCode;
 	}
 
 	/**
@@ -676,13 +706,37 @@ class Contact
 	}
 
 	/**
-	* Set role
+	* Set entity
 	*
-	* @param \GeoService\Bundles\Roles\Entity\Roles $role
+	* @param \Industries $entity
 	*
 	* @return Contact
 	*/
-	public function setRole(\GeoService\Bundles\Roles\Entity\Roles $role = null)
+	public function setEntity(Industries $entity = null)
+	{
+		$this->entity = $entity;
+
+		return $this;
+	}
+
+	/**
+	* Get entity
+	*
+	* @return \Industries
+	*/
+	public function getEntity()
+	{
+		return $this->entity;
+	}
+
+	/**
+	* Set role
+	*
+	* @param \Roles $role
+	*
+	* @return Contact
+	*/
+	public function setRole(Roles $role = null)
 	{
 		$this->role = $role;
 
@@ -692,34 +746,10 @@ class Contact
 	/**
 	* Get role
 	*
-	* @return \GeoService\Bundles\Roles\Entity\Roles
+	* @return \Roles
 	*/
 	public function getRole()
 	{
 		return $this->role;
-	}
-
-	/**
-	* Set user
-	*
-	* @param \GeoService\Bundles\Users\Entity\Users $user
-	*
-	* @return Contact
-	*/
-	public function setUser(\GeoService\Bundles\Users\Entity\Users $user = null)
-	{
-		$this->user = $user;
-
-		return $this;
-	}
-
-	/**
-	* Get user
-	*
-	* @return \GeoService\Bundles\Users\Entity\Users
-	*/
-	public function getUser()
-	{
-		return $this->user;
 	}
 }

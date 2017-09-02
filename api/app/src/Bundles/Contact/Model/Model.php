@@ -11,6 +11,7 @@ use GeoService\Bundles\Contact\Entity\Contact;
 use GeoService\Bundles\Users\Entity\Users;
 use GeoService\Bundles\Contact\Validation\Validation;
 use GeoService\Modules\Base\Model\BaseModel;
+use GeoService\Modules\Lookup\ABN\AbnLookup;
 
 class Model extends BaseModel implements IContactModel
 {
@@ -71,6 +72,9 @@ class Model extends BaseModel implements IContactModel
     
     public function onAdd($args)
     {
+		//$this->guid = $guid;
+		//60 943 948 191
+	
         if (!$this->formIsValid(
             $this->getValidator(),
             'contact',
@@ -91,7 +95,7 @@ class Model extends BaseModel implements IContactModel
             return $this->getValidator()->getMessagesAray();
         }
         
-        $date = new \DateTime('now', new \DateTimeZone($this->settings['time_zone']));
+        $date = new \DateTime('now', new \DateTimeZone($this->getSettings()['time_zone']));
         
         $salt = null;
 
@@ -105,7 +109,7 @@ class Model extends BaseModel implements IContactModel
         $role = $this->getEntityById('roles', self::KEY, $args[self::ROLE]);
         $industry = $this->getEntityById('industries', self::KEY, $args[self::INDUSTRY]);
         if ($args[self::USER_ID]) {
-            $user = $this->getEntityById('users', self::KEY, $args[self::USER_ID]);
+            $user = $this->getEntityById('entities', self::KEY, $args[self::USER_ID]);
         }
         
         $entity = new Contact();
@@ -120,7 +124,7 @@ class Model extends BaseModel implements IContactModel
         
         if (($args[self::USER_ID] || $args[self::CREATE_USER]) && ($industry)) {
             if ((!$user || !$user->getId())) {
-                $user = new Users();
+                $user = new Entities();
             }
             $user->setEnabled(1);
             $user->setExpiresAt($date->add(new \DateInterval('P30D')));
@@ -141,7 +145,7 @@ class Model extends BaseModel implements IContactModel
         $this->persistAndFlush($entity);
         
         if ($entity->getId()) {
-            $entity = $this->getEntityById('users', self::KEY, $entity->getId());
+            $entity = $this->getEntityById('entities', self::KEY, $entity->getId());
         }
         
         if ($entity && $entity->getId()) {

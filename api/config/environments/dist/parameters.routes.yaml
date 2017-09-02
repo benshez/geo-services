@@ -1,12 +1,5 @@
+'@include': parameters.other.yaml
 routes:
-  location:
-    methods:
-    - GET
-    actions:
-    - 'GeoService\Bundles\Locations\Controller\Controller:fetchOne'
-    priority: 0
-    pattern: '/api/user/login/{email}'
-    middleware:
   address:
     methods:
     - GET
@@ -20,7 +13,85 @@ routes:
     methods:
     - POST
     actions:
-    - 'GeoService\Bundles\Users\Controller\Controller:authenticateOne'
+    - 'GeoService\Bundles\Contact\Controller\Controller:authenticateOne'
     priority: 0
-    pattern: '/api/user/login'
+    pattern: 
+    - '/api/v1/user/login'
     middleware:
+    -
+  industries:
+    methods:
+    - GET
+    - POST
+    - PUT
+    - DELETE
+    actions:
+    - 'GeoService\Bundles\Industries\Controller\Controller:autoComplete'
+    - 'GeoService\Bundles\Industries\Controller\Controller:onAdd'
+    - 'GeoService\Bundles\Industries\Controller\Controller:onUpdate'
+    - 'GeoService\Bundles\Industries\Controller\Controller:onDelete'
+    priority: 0
+    pattern: 
+    - '/api/industries/{description}'
+    - '/api/v1/admin/industry'
+    - '/api/v1/admin/industry/{id}'
+    - '/api/v1/admin/industry/{id}'
+    middleware:
+    -
+    -
+    -
+    -
+  location:
+    methods:
+    - GET
+    actions:
+    - 'GeoService\Bundles\Locations\Controller\Controller:findLocationsByIndustryCode'
+    priority: 0
+    pattern: 
+    - '/api/location/{industry}'
+    middleware:
+    -
+  roles:
+    methods:
+    - GET
+    - POST
+    - PUT
+    - DELETE    
+    actions:
+    - 'GeoService\Bundles\Roles\Controller\Controller:onFetch'
+    - 'GeoService\Bundles\Roles\Controller\Controller:onAdd'
+    - 'GeoService\Bundles\Roles\Controller\Controller:onUpdate'
+    - 'GeoService\Bundles\Roles\Controller\Controller:onDelete'            
+    priority: 0
+    pattern: 
+    - '/api/v1/admin/roles'
+    - '/api/v1/admin/role'
+    - '/api/v1/admin/role/{id}'
+    - '/api/v1/admin/role/{id}'
+    middleware:
+    -
+    -
+    -
+    -
+  contact:
+    methods:
+    - GET
+    - POST
+    - PUT
+    - DELETE 
+    actions:
+    - 'GeoService\Bundles\Contact\Controller\Controller:fetch'
+    - 'GeoService\Bundles\Contact\Controller\Controller:onAdd'
+    - 'GeoService\Bundles\Contact\Controller\Controller:onUpdate'
+    - 'GeoService\Bundles\Contact\Controller\Controller:onDelete'
+    priority: 0
+    pattern: 
+    - '/api/v1/admin/users'
+    - '/api/v1/admin/user'
+    - '/api/v1/admin/user/{id}'
+    - '/api/v1/admin/user/{id}'
+    middleware:
+    - 
+    -
+    -
+    -

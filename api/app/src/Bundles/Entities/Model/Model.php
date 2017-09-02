@@ -1,18 +1,18 @@
 <?php
 
-namespace GeoService\Bundles\Users\Model;
+namespace GeoService\Bundles\Entities\Model;
 
 use Zend\Crypt\Password\Bcrypt;
 use Interop\Container\ContainerInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use GeoService\Bundles\Users\Entity\Users;
-use GeoService\Bundles\Roles\Entity\Roles;
-use GeoService\Bundles\Users\Interfaces\IUsersModel;
-use GeoService\Bundles\Users\Validation\Validation;
+use GeoService\Bundles\Entities\Entity\Entities;
+use GeoService\Bundles\Roles\Entities\Roles;
+use GeoService\Bundles\Entities\Interfaces\IEntitiesModel;
+use GeoService\Bundles\Entities\Validation\Validation;
 use GeoService\Modules\Base\Model\BaseModel;
 
-class Model extends BaseModel implements IUsersModel
+class Model extends BaseModel implements IEntitiesModel
 {
     protected $validator = null;
     

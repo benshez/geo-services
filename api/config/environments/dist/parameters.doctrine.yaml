@@ -9,12 +9,12 @@ doctrine:
     entity_path:
     - mapping/entities
     auto_generate_proxies: true
-    proxy_dir:
+    proxy_dir: /../cache/proxies
     cache: null
   connection:
     driver: pdo_mysql
     host: localhost
-    dbname:
-    user:
+    dbname: geo_service
+    user: root
     port: '3306'
-    password:
+    password: ''

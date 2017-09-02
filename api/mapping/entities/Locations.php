@@ -106,9 +106,9 @@ class Locations
     private $updatedAt = 'CURRENT_TIMESTAMP';
 
     /**
-     * @var \Users
+     * @var \Entities
      *
-     * @ORM\ManyToOne(targetEntity="Users")
+     * @ORM\ManyToOne(targetEntity="Entities")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * })
@@ -417,11 +417,11 @@ class Locations
     /**
      * Set user
      *
-     * @param \Users $user
+     * @param \Entities $user
      *
      * @return Locations
      */
-    public function setUser(\Users $user = null)
+    public function setUser(\Entities $user = null)
     {
         $this->user = $user;
 
@@ -431,7 +431,7 @@ class Locations
     /**
      * Get user
      *
-     * @return \Users
+     * @return \Entities
      */
     public function getUser()
     {

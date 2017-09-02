@@ -1,6 +1,6 @@
 <?php
 
-namespace GeoService\Bundles\Users\Validation;
+namespace GeoService\Bundles\Entities\Validation;
 
 use Zend\Crypt\Password\Bcrypt;
 use Zend\Validator\ValidatorChain;

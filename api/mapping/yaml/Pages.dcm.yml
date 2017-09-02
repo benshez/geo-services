@@ -47,7 +47,7 @@ Pages:
             column: updated_at
     manyToOne:
         user:
-            targetEntity: Users
+            targetEntity: Entities
             cascade: {  }
             fetch: LAZY
             mappedBy: null

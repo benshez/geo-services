@@ -57,9 +57,9 @@ class Pages
     private $updatedAt = 'CURRENT_TIMESTAMP';
 
     /**
-     * @var \Users
+     * @var \Entities
      *
-     * @ORM\ManyToOne(targetEntity="Users")
+     * @ORM\ManyToOne(targetEntity="Entities")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * })
@@ -200,11 +200,11 @@ class Pages
     /**
      * Set user
      *
-     * @param \Users $user
+     * @param \Entities $user
      *
      * @return Pages
      */
-    public function setUser(\Users $user = null)
+    public function setUser(\Entities $user = null)
     {
         $this->user = $user;
 
@@ -214,7 +214,7 @@ class Pages
     /**
      * Get user
      *
-     * @return \Users
+     * @return \Entities
      */
     public function getUser()
     {
