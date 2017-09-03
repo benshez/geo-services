@@ -25,7 +25,8 @@ class AbnLookup extends \SoapClient
         $params = new \stdClass();
         $params->searchString = $abn;
         $params->includeHistoricalDetails = $historical;
-        $params->authenticationGuid = $this->guid;
+		$params->authenticationGuid = $this->guid;
+		
         return $this->ABRSearchByABN($params);
     }
 }

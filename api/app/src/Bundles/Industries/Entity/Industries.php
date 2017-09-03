@@ -23,6 +23,13 @@ class Industries
     */
     private $id;
 
+	/**
+     * @var string
+     *
+     * @ORM\Column(name="type", type="string", length=10, nullable=false)
+     */
+    private $type;
+	
     /**
      * @var string
      *
@@ -56,8 +63,31 @@ class Industries
     }
 
     /**
-    * Set description
-    *
+     * Set type
+     *
+     * @param string $type
+     *
+     * @return Industries
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+	/**
+	 * Set description
     * @param string $description
     *
     * @return Industries

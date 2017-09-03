@@ -8,14 +8,20 @@ use Psr\Http\Message\ResponseInterface;
 use Zend\Crypt\Password\Bcrypt;
 use GeoService\Bundles\Contact\Interfaces\IContactModel;
 use GeoService\Bundles\Contact\Entity\Contact;
-use GeoService\Bundles\Users\Entity\Users;
+use GeoService\Bundles\Entities\Entity\Entities;
+use GeoService\Bundles\Industries\Entity\Industries;
 use GeoService\Bundles\Contact\Validation\Validation;
 use GeoService\Modules\Base\Model\BaseModel;
 use GeoService\Modules\Lookup\ABN\AbnLookup;
 
 class Model extends BaseModel implements IContactModel
 {
-    protected $validator = null;
+	protected $validator = null;
+	protected $roles = null;
+	protected $industries = null;
+	protected $entities = null;
+	protected $result = null;
+
     const KEY = 'id';
     const ROLE = 'role';
     const CONTACT_NAME = 'username';
@@ -23,8 +29,8 @@ class Model extends BaseModel implements IContactModel
     const PASSWORD = 'password';
     const EMAIL = 'email';
     const LOGO = 'logo';
-    const CREATE_USER = 'addUser';
-    const USER_ID = 'userId';
+    const CREATE_ENTITY = 'addEntity';
+    const ABN = 'abn';
     const INDUSTRY = 'industry';
 
     private function getValidator()
@@ -36,7 +42,48 @@ class Model extends BaseModel implements IContactModel
     private function validateUser($password, $salt, $hash)
     {
         return $this->getValidator()->validateUserCredentials($password, $salt, $hash);
-    }
+	}
+	
+	private function validateAbn($abn)
+    {
+        return $this->getValidator()->isValidAbn($abn);
+	}
+
+	private function onAddRole()
+	{
+		$this->roles = $this->getEntityById('roles', self::KEY, $args[self::ROLE]);
+		return $this->roles;
+	}
+
+	private function onAddIndustry()
+	{
+		$this->industries = $this->getEntityById('industries', 'type', $args[self::INDUSTRY]);
+
+        if (!$this->industries) {
+			$this->entities = new Industries();
+		}
+		
+		return $this->industries;
+	}
+
+	private function onAddEntity()
+	{
+		$this->entities = $this->getEntityById('entities', 'identifier', $args[self::ABN]);
+		
+		if (!$this->entities) {
+			$this->entities = new Entities();
+			$this->entities->setEnabled(1);
+			$this->entities->setExpiresAt($date->add(new \DateInterval('P30D')));
+
+			$abnlookup = new AbnLookup($this->getSettings());
+
+			$this->result = $abnlookup->searchByAbn($args[self::ABN]);
+
+			$this->entities->setIndustry($this->onAddIndustry());
+		}
+
+		return $this->entities;
+	}
             
     public function authenticate($email, $password)
     {
@@ -94,7 +141,13 @@ class Model extends BaseModel implements IContactModel
         )) {
             return $this->getValidator()->getMessagesAray();
         }
-        
+		
+		if ($args[self::ABN] && !$this->validateAbn($args[self::ABN])) {
+			return $this->getValidator()->getMessagesAray();
+		}
+			
+			
+		
         $date = new \DateTime('now', new \DateTimeZone($this->getSettings()['time_zone']));
         
         $salt = null;
@@ -106,14 +159,16 @@ class Model extends BaseModel implements IContactModel
 
         $password = $bcrypt->create($args[self::PASSWORD]);
 
-        $role = $this->getEntityById('roles', self::KEY, $args[self::ROLE]);
-        $industry = $this->getEntityById('industries', self::KEY, $args[self::INDUSTRY]);
-        if ($args[self::USER_ID]) {
-            $user = $this->getEntityById('entities', self::KEY, $args[self::USER_ID]);
-        }
+		$role = $this->getEntityById('roles', self::KEY, $args[self::ROLE]);
+		
+		$industry = $this->getEntityById('industries', self::KEY, $args[self::INDUSTRY]);
+		
+		$entities = null;
+
+
         
         $entity = new Contact();
-        $entity->setRole($role);
+        $entity->setRole($this->onAddRole());
         $entity->setUsername($args[self::CONTACT_NAME]);
         $entity->setUsersurname($args[self::CONTACT_SURNAME]);
         $entity->setEmail($args[self::EMAIL]);
@@ -122,19 +177,21 @@ class Model extends BaseModel implements IContactModel
         $entity->setEnabled(1);
         $entity->setLocked(0);
         
-        if (($args[self::USER_ID] || $args[self::CREATE_USER]) && ($industry)) {
-            if ((!$user || !$user->getId())) {
-                $user = new Entities();
+        if (($args[self::ABN] || $args[self::CREATE_ENTITY]) && ($industry)) {
+            if ((!$entities || !$entities->getId())) {
+				//$entities = new Entities();
+				//$entities = new \GeoService\Bundles\Entities\Model\Model($this->getContainer());
+				//$entities->onAdd(array('abn'=>$args[self::ABN], 'industry' => $industry));
             }
-            $user->setEnabled(1);
-            $user->setExpiresAt($date->add(new \DateInterval('P30D')));
+            $entities->setEnabled(1);
+            $entities->setExpiresAt($date->add(new \DateInterval('P30D')));
 
             if ($industry->getId()) {
-                $user->setIndustry($industry);
+                $entities->setIndustry($industry);
             }
             
-            $this->persistAndFlush($user);
-            $entity->setUser($user);
+            //$this->persistAndFlush($entities);
+            $entity->setEntity($this->onAddEntity());
         }
         
         

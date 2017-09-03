@@ -5,6 +5,7 @@ namespace GeoService\Bundles\Contact\Validation;
 use Zend\Crypt\Password\Bcrypt;
 use Zend\Validator\ValidatorChain;
 use GeoService\Modules\Base\Validation\BaseValidation;
+use GeoService\Modules\Validators\ABN\AbnOrAcnValidator;
 
 class Validation extends BaseValidation
 {
@@ -24,5 +25,18 @@ class Validation extends BaseValidation
         }
     
         return $verified;
-    }
+	}
+	
+	public function isValidAbn($abn)
+	{
+		$abnValidator = new AbnOrAcnValidator();
+
+		$isValid = $abnValidator->isValidAbn($abn);
+
+        if (!$isValid) {
+            $this->setMessagesArray(null, 'contact', static::INVALID_CREDENTIALS);
+		}
+		
+		return $isValid;
+	}
 }

@@ -8,6 +8,9 @@ Entities:
         entities_name:
             columns:
                 - name
+        entities_identifier:
+            columns:
+                - identifier
     id:
         id:
             type: integer
@@ -18,21 +21,14 @@ Entities:
             generator:
                 strategy: IDENTITY
     fields:
+        identifier:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
         enabled:
             type: boolean
             nullable: false
-        type:
-            type: string
-            nullable: false
-            length: 4
-            options:
-                fixed: false
-        description:
-            type: string
-            nullable: true
-            length: 100
-            options:
-                fixed: false
         name:
             type: string
             nullable: false

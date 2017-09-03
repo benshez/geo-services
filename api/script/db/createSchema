@@ -25,16 +25,19 @@ DROP TABLE IF EXISTS `geo_service`.`industries` ;
 
 CREATE TABLE IF NOT EXISTS `geo_service`.`industries` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `type` VARCHAR(10) CHARACTER SET 'utf8' NOT NULL,
   `description` VARCHAR(255) CHARACTER SET 'utf8' NOT NULL,
   `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 2
+AUTO_INCREMENT = 3
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
 CREATE UNIQUE INDEX `description_UNIQUE` ON `geo_service`.`industries` (`description` ASC);
+
+CREATE UNIQUE INDEX `type_UNIQUE` ON `geo_service`.`industries` (`type` ASC);
 
 
 -- -----------------------------------------------------
@@ -50,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `geo_service`.`roles` (
   `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 5
+AUTO_INCREMENT = 6
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
@@ -119,10 +122,9 @@ DROP TABLE IF EXISTS `geo_service`.`entities` ;
 
 CREATE TABLE IF NOT EXISTS `geo_service`.`entities` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `identifier` INT(11) NOT NULL,
   `industry_id` INT(11) NULL DEFAULT NULL,
   `enabled` TINYINT(1) NOT NULL,
-  `type` VARCHAR(4) CHARACTER SET 'utf8' NOT NULL,
-  `description` VARCHAR(100) CHARACTER SET 'utf8' NULL DEFAULT NULL,
   `name` VARCHAR(200) CHARACTER SET 'utf8' NOT NULL,
   `status` VARCHAR(10) CHARACTER SET 'utf8' NOT NULL,
   `state` VARCHAR(3) CHARACTER SET 'utf8' NOT NULL,
@@ -144,6 +146,8 @@ COLLATE = utf8_bin;
 CREATE INDEX `fk_users_industry_id_industries_id_idx` ON `geo_service`.`entities` (`industry_id` ASC);
 
 CREATE INDEX `entities_name` ON `geo_service`.`entities` (`name` ASC);
+
+CREATE INDEX `entities_identifier` ON `geo_service`.`entities` (`identifier` ASC);
 
 
 -- -----------------------------------------------------

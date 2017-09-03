@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Industries
  *
- * @ORM\Table(name="industries", uniqueConstraints={@ORM\UniqueConstraint(name="description_UNIQUE", columns={"description"})})
+ * @ORM\Table(name="industries", uniqueConstraints={@ORM\UniqueConstraint(name="description_UNIQUE", columns={"description"}), @ORM\UniqueConstraint(name="type_UNIQUE", columns={"type"})})
  * @ORM\Entity
  */
 class Industries
@@ -20,6 +20,13 @@ class Industries
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type", type="string", length=10, nullable=false)
+     */
+    private $type;
 
     /**
      * @var string
@@ -51,6 +58,30 @@ class Industries
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set type
+     *
+     * @param string $type
+     *
+     * @return Industries
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 
     /**

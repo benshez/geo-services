@@ -7,5 +7,5 @@ use GeoService\Modules\Base\Interfaces\IBaseModel;
 
 interface IEntitiesModel extends IBaseModel
 {
-	public function authenticate($email, $password);
+
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace GeoService\Bundles\Entity\Entities;
+namespace GeoService\Bundles\Entities\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use GeoService\Bundles\Industries\Entity\Industries;
@@ -9,7 +9,7 @@ use GeoService\Bundles\Roles\Entity\Roles;
 /**
  * Entities
  *
- * @ORM\Table(name="entities", indexes={@ORM\Index(name="fk_users_industry_id_industries_id_idx", columns={"industry_id"}), @ORM\Index(name="entities_name", columns={"name"})})
+ * @ORM\Table(name="entities", indexes={@ORM\Index(name="fk_users_industry_id_industries_id_idx", columns={"industry_id"}), @ORM\Index(name="entities_name", columns={"name"}), @ORM\Index(name="entities_identifier", columns={"identifier"})})
  * @ORM\Entity
  */
 class Entities
@@ -24,25 +24,18 @@ class Entities
 	private $id;
 
 	/**
+	* @var integer
+	*
+	* @ORM\Column(name="identifier", type="integer", nullable=false)
+	*/
+	private $identifier;
+
+	/**
 	* @var boolean
 	*
 	* @ORM\Column(name="enabled", type="boolean", nullable=false)
 	*/
 	private $enabled;
-
-	/**
-	* @var string
-	*
-	* @ORM\Column(name="type", type="string", length=4, nullable=false)
-	*/
-	private $type;
-
-	/**
-	* @var string
-	*
-	* @ORM\Column(name="description", type="string", length=100, nullable=true)
-	*/
-	private $description;
 
 	/**
 	* @var string
@@ -115,6 +108,30 @@ class Entities
 	}
 
 	/**
+	* Set identifier
+	*
+	* @param integer $identifier
+	*
+	* @return Entities
+	*/
+	public function setIdentifier($identifier)
+	{
+		$this->identifier = $identifier;
+
+		return $this;
+	}
+
+	/**
+	* Get identifier
+	*
+	* @return integer
+	*/
+	public function getIdentifier()
+	{
+		return $this->identifier;
+	}
+
+	/**
 	* Set enabled
 	*
 	* @param boolean $enabled
@@ -136,54 +153,6 @@ class Entities
 	public function getEnabled()
 	{
 		return $this->enabled;
-	}
-
-	/**
-	* Set type
-	*
-	* @param string $type
-	*
-	* @return Entities
-	*/
-	public function setType($type)
-	{
-		$this->type = $type;
-
-		return $this;
-	}
-
-	/**
-	* Get type
-	*
-	* @return string
-	*/
-	public function getType()
-	{
-		return $this->type;
-	}
-
-	/**
-	* Set description
-	*
-	* @param string $description
-	*
-	* @return Entities
-	*/
-	public function setDescription($description)
-	{
-		$this->description = $description;
-
-		return $this;
-	}
-
-	/**
-	* Get description
-	*
-	* @return string
-	*/
-	public function getDescription()
-	{
-		return $this->description;
 	}
 
 	/**

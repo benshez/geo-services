@@ -20,5 +20,10 @@ class Model extends BaseModel implements IEntitiesModel
     {
         $this->validator = (!$this->validator) ? new Validation($this) : $this->validator;
         return $this->validator;
-    }
+	}
+	
+	public function onAdd($args)
+	{
+		
+	}
 }

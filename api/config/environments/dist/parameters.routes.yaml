@@ -1,4 +1,3 @@
-'@include': parameters.other.yaml
 routes:
   address:
     methods:
