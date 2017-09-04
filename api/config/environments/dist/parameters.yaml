@@ -5,7 +5,7 @@ useSimpleAnnotationReader: false
 version: v1
 mode: development
 time_zone: Australia/Brisbane
-time_zone: Australia/Brisbane
+trial_period: 30
 abr:
   url: 'http://abr.business.gov.au/abrxmlsearch/ABRXMLSearch.asmx?WSDL'
   guid: 

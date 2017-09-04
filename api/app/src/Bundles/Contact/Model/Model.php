@@ -14,13 +14,11 @@ use GeoService\Bundles\Industries\Entity\Industries;
 use GeoService\Bundles\Contact\Validation\Validation;
 use GeoService\Modules\Base\Model\BaseModel;
 use GeoService\Modules\Lookup\ABN\AbnLookup;
+use GeoService\Modules\Config\Config;
 
 class Model extends BaseModel implements IContactModel
 {
     protected $validator = null;
-    protected $roles = null;
-    protected $industries = null;
-    protected $entities = null;
     protected $business = null;
 
     const KEY = 'id';
@@ -50,66 +48,68 @@ class Model extends BaseModel implements IContactModel
 
     private function onAddRole($args)
     {
-        $this->roles = $this->getEntityById('roles', self::KEY, $args[self::ROLE]);
+        $roles = $this->getEntityById('roles', self::KEY, $args[self::ROLE]);
 
-        if (!$this->roles) {
-            $this->roles = new Roles();
-            $this->roles->setRole('User');
-            $this->roles->setEnabled(1);
+        if (!$roles) {
+            $roles = new Roles();
+            $roles->setRole('User');
+            $roles->setEnabled(1);
 
-            $this->persistAndFlush($this->roles);
+            $this->persistAndFlush($roles);
 
-            $this->roles = $this->getEntityById('roles', self::KEY, $this->roles->getId());
+            $roles = $this->getEntityById('roles', self::KEY, $roles->getId());
         }
 
-        return $this->roles;
+        return $roles;
     }
 
     private function onAddIndustry($args)
     {
 		//TODO: Change 00012 to data return from ABN Lookup;
-        $this->industries = $this->getEntityById('industries', 'type', '00012');
+        $industries = $this->getEntityById('industries', 'type', '00012');
 
-        if (!$this->industries) {
-            $this->industries = new Industries();
-            $this->industries->setEnabled(1);
-            $this->industries->setType('00012');
-            $this->industries->setDescription('Individual/Sole Trader');
+        if (!$industries) {
+            $industries = new Industries();
+            $industries->setEnabled(1);
+            $industries->setType('00012');
+            $industries->setDescription('Individual/Sole Trader');
 
-            $this->persistAndFlush($this->industries);
+            $this->persistAndFlush($industries);
 
-            $this->industries = $this->getEntityById('industries', self::KEY, $this->industries->getId());
+            $industries = $this->getEntityById('industries', self::KEY, $industries->getId());
         }
         
-        return $this->industries;
+        return $industries;
     }
 
     private function onAddEntity($args)
     {
-        $this->entities = $this->getEntityById('entities', 'identifier', $args[self::ABN]);
-        
-        if (!$this->entities) {
-			$date = new \DateTime('now', new \DateTimeZone($this->getSettings()['time_zone']));
+        $entities = $this->getEntityById('entities', 'identifier', $args[self::ABN]);
+
+        if (!$entities) {
 			//$abnlookup = new AbnLookup($this->getSettings());
 			//$this->business = $abnlookup->searchByAbn($args[self::ABN]);
 			
-            $this->entities = new Entities();
-			$this->entities->setEnabled(1);
-			$this->entities->setIdentifier('12 345 678 911');
-            $this->entities->setName('VAN HEERDEN, SHERYL');
-            $this->entities->setStatus('Active');
-            $this->entities->setState('QLD');
-            $this->entities->setPostCode('4551');
-            $this->entities->setExpiresAt($date->add(new \DateInterval('P30D')));
+			$config = new Config($this->getSettings());
+			$days = $this->getSettings()['trial_period'];
 
-            $this->entities->setIndustry($this->onAddIndustry($args));
+            $entities = new Entities();
+			$entities->setEnabled(1);
+			$entities->setIdentifier('12 345 678 911');
+            $entities->setName('VAN HEERDEN, SHERYL');
+            $entities->setStatus('Active');
+            $entities->setState('QLD');
+            $entities->setPostCode('4551');
+            $entities->setExpiresAt($config->getDateTimeFuture($days));
 
-			$this->persistAndFlush($this->entities);
+            $entities->setIndustry($this->onAddIndustry($args));
 
-            $this->entities = $this->getEntityById('entities', self::KEY, $this->entities->getId());
+			$this->persistAndFlush($entities);
+
+            $entities = $this->getEntityById('entities', self::KEY, $entities->getId());
         }
 
-        return $this->entities;
+        return $entities;
     }
             
     public function authenticate($email, $password)

@@ -53,7 +53,17 @@ class Config
             sprintf($this->getOptionsPaths()[$option], $class).$extention
         );
 	}
-	
+
+	public function getDateTimeNow()
+	{
+		return new \DateTime('now', new \DateTimeZone($this->getSettings()['time_zone']));
+	}
+
+	public function getDateTimeFuture(String $days)
+	{
+		return $this->getDateTimeNow()->add(new \DateInterval('P'.$days.'D'));
+	}
+
 	private function getSettings()
 	{
 		return $this->settings;
