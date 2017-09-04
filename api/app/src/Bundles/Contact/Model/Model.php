@@ -89,7 +89,7 @@ class Model extends BaseModel implements IContactModel
         if (!$entities) {
 			//$abnlookup = new AbnLookup($this->getSettings());
 			//$this->business = $abnlookup->searchByAbn($args[self::ABN]);
-			
+
 			$config = new Config($this->getSettings());
 			$days = $this->getSettings()['trial_period'];
 
@@ -146,8 +146,13 @@ class Model extends BaseModel implements IContactModel
     
     public function onAdd($args)
     {
-        //$this->guid = $guid;
-    
+		$entity = $this->getEntityById('contact', 'email', $args[self::EMAIL]);
+
+		if ($entity) {
+			$this->getValidator()->setMessagesArray('A user with this email already exists.');
+			return $this->getValidator()->getMessagesAray();
+		}
+
         if (!$this->formIsValid(
             $this->getValidator(),
             'contact',
@@ -171,11 +176,7 @@ class Model extends BaseModel implements IContactModel
         if ($args[self::ABN] && !$this->validateAbn($args[self::ABN])) {
             return $this->getValidator()->getMessagesAray();
         }
-            
-            
-        
-        $date = new \DateTime('now', new \DateTimeZone($this->getSettings()['time_zone']));
-        
+			
         $salt = null;
 
         $bcrypt = ($salt) ? new Bcrypt(array(
