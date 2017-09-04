@@ -26,18 +26,54 @@ DROP TABLE IF EXISTS `geo_service`.`industries` ;
 CREATE TABLE IF NOT EXISTS `geo_service`.`industries` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `type` VARCHAR(10) CHARACTER SET 'utf8' NOT NULL,
+  `enabled` TINYINT(1) NOT NULL,
   `description` VARCHAR(255) CHARACTER SET 'utf8' NOT NULL,
   `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 3
+AUTO_INCREMENT = 10
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
 CREATE UNIQUE INDEX `description_UNIQUE` ON `geo_service`.`industries` (`description` ASC);
 
 CREATE UNIQUE INDEX `type_UNIQUE` ON `geo_service`.`industries` (`type` ASC);
+
+
+-- -----------------------------------------------------
+-- Table `geo_service`.`entities`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `geo_service`.`entities` ;
+
+CREATE TABLE IF NOT EXISTS `geo_service`.`entities` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `identifier` VARCHAR(15) CHARACTER SET 'utf8' NOT NULL,
+  `industry_id` INT(11) NULL DEFAULT NULL,
+  `enabled` TINYINT(1) NOT NULL,
+  `name` VARCHAR(200) CHARACTER SET 'utf8' NOT NULL,
+  `status` VARCHAR(10) CHARACTER SET 'utf8' NOT NULL,
+  `state` VARCHAR(3) CHARACTER SET 'utf8' NOT NULL,
+  `post_code` VARCHAR(10) CHARACTER SET 'utf8' NOT NULL,
+  `expires_at` DATETIME NOT NULL,
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_users_industry_id_industries_id`
+    FOREIGN KEY (`industry_id`)
+    REFERENCES `geo_service`.`industries` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 6
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin;
+
+CREATE INDEX `fk_users_industry_id_industries_id_idx` ON `geo_service`.`entities` (`industry_id` ASC);
+
+CREATE INDEX `entities_name` ON `geo_service`.`entities` (`name` ASC);
+
+CREATE INDEX `entities_identifier` ON `geo_service`.`entities` (`identifier` ASC);
 
 
 -- -----------------------------------------------------
@@ -53,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `geo_service`.`roles` (
   `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 6
+AUTO_INCREMENT = 18
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
@@ -93,7 +129,7 @@ CREATE TABLE IF NOT EXISTS `geo_service`.`contact` (
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_contact_entity_id_entities_id`
     FOREIGN KEY (`entity_id`)
-    REFERENCES `geo_service`.`industries` (`id`)
+    REFERENCES `geo_service`.`entities` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_contact_role_id_roles_id`
@@ -102,7 +138,7 @@ CREATE TABLE IF NOT EXISTS `geo_service`.`contact` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 7
+AUTO_INCREMENT = 9
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_bin;
 
@@ -113,41 +149,6 @@ CREATE INDEX `idx_phone` ON `geo_service`.`contact` (`phone` ASC);
 CREATE INDEX `fk_contact_role_id_roles_id_idx` ON `geo_service`.`contact` (`role_id` ASC);
 
 CREATE INDEX `fk_contact_entity_id_entities_id_idx` ON `geo_service`.`contact` (`entity_id` ASC);
-
-
--- -----------------------------------------------------
--- Table `geo_service`.`entities`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `geo_service`.`entities` ;
-
-CREATE TABLE IF NOT EXISTS `geo_service`.`entities` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `identifier` INT(11) NOT NULL,
-  `industry_id` INT(11) NULL DEFAULT NULL,
-  `enabled` TINYINT(1) NOT NULL,
-  `name` VARCHAR(200) CHARACTER SET 'utf8' NOT NULL,
-  `status` VARCHAR(10) CHARACTER SET 'utf8' NOT NULL,
-  `state` VARCHAR(3) CHARACTER SET 'utf8' NOT NULL,
-  `post_code` VARCHAR(10) CHARACTER SET 'utf8' NOT NULL,
-  `expires_at` DATETIME NOT NULL,
-  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `fk_users_industry_id_industries_id`
-    FOREIGN KEY (`industry_id`)
-    REFERENCES `geo_service`.`industries` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-AUTO_INCREMENT = 5
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_bin;
-
-CREATE INDEX `fk_users_industry_id_industries_id_idx` ON `geo_service`.`entities` (`industry_id` ASC);
-
-CREATE INDEX `entities_name` ON `geo_service`.`entities` (`name` ASC);
-
-CREATE INDEX `entities_identifier` ON `geo_service`.`entities` (`identifier` ASC);
 
 
 -- -----------------------------------------------------

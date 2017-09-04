@@ -24,6 +24,9 @@ Industries:
             length: 10
             options:
                 fixed: false
+        enabled:
+            type: boolean
+            nullable: false
         description:
             type: string
             nullable: false

@@ -22,9 +22,9 @@ class Entities
     private $id;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="identifier", type="integer", nullable=false)
+     * @ORM\Column(name="identifier", type="string", length=15, nullable=false)
      */
     private $identifier;
 
@@ -108,7 +108,7 @@ class Entities
     /**
      * Set identifier
      *
-     * @param integer $identifier
+     * @param string $identifier
      *
      * @return Entities
      */
@@ -122,7 +122,7 @@ class Entities
     /**
      * Get identifier
      *
-     * @return integer
+     * @return string
      */
     public function getIdentifier()
     {

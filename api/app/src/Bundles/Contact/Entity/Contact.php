@@ -171,9 +171,9 @@ class Contact
 	private $createdAt = 'CURRENT_TIMESTAMP';
 
 	/**
-	* @var \Industries
+	* @var \GeoService\Bundles\Entities\Entity\Entities
 	*
-	* @ORM\ManyToOne(targetEntity="\GeoService\Bundles\Industries\Entity\Industries")
+	* @ORM\ManyToOne(targetEntity="\GeoService\Bundles\Entities\Entity\Entities")
 	* @ORM\JoinColumns({
 	*   @ORM\JoinColumn(name="entity_id", referencedColumnName="id")
 	* })
@@ -708,11 +708,11 @@ class Contact
 	/**
 	* Set entity
 	*
-	* @param \Industries $entity
+	* @param \GeoService\Bundles\Entities\Entity\Entities $entity
 	*
 	* @return Contact
 	*/
-	public function setEntity(Industries $entity = null)
+	public function setEntity(Entities $entity = null)
 	{
 		$this->entity = $entity;
 
@@ -722,7 +722,7 @@ class Contact
 	/**
 	* Get entity
 	*
-	* @return \Industries
+	* @return \Entities
 	*/
 	public function getEntity()
 	{

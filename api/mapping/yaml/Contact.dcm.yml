@@ -145,7 +145,7 @@ Contact:
             column: created_at
     manyToOne:
         entity:
-            targetEntity: Industries
+            targetEntity: Entities
             cascade: {  }
             fetch: LAZY
             mappedBy: null

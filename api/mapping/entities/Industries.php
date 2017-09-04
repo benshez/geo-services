@@ -29,6 +29,13 @@ class Industries
     private $type;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="enabled", type="boolean", nullable=false)
+     */
+    private $enabled;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=255, nullable=false)
@@ -82,6 +89,30 @@ class Industries
     public function getType()
     {
         return $this->type;
+    }
+
+    /**
+     * Set enabled
+     *
+     * @param boolean $enabled
+     *
+     * @return Industries
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
+
+        return $this;
+    }
+
+    /**
+     * Get enabled
+     *
+     * @return boolean
+     */
+    public function getEnabled()
+    {
+        return $this->enabled;
     }
 
     /**

@@ -169,9 +169,9 @@ class Contact
     private $createdAt = 'CURRENT_TIMESTAMP';
 
     /**
-     * @var \Industries
+     * @var \Entities
      *
-     * @ORM\ManyToOne(targetEntity="Industries")
+     * @ORM\ManyToOne(targetEntity="Entities")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="entity_id", referencedColumnName="id")
      * })
@@ -706,11 +706,11 @@ class Contact
     /**
      * Set entity
      *
-     * @param \Industries $entity
+     * @param \Entities $entity
      *
      * @return Contact
      */
-    public function setEntity(\Industries $entity = null)
+    public function setEntity(\Entities $entity = null)
     {
         $this->entity = $entity;
 
@@ -720,7 +720,7 @@ class Contact
     /**
      * Get entity
      *
-     * @return \Industries
+     * @return \Entities
      */
     public function getEntity()
     {

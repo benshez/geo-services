@@ -22,10 +22,11 @@ Entities:
                 strategy: IDENTITY
     fields:
         identifier:
-            type: integer
+            type: string
             nullable: false
+            length: 15
             options:
-                unsigned: false
+                fixed: false
         enabled:
             type: boolean
             nullable: false
