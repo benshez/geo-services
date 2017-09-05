@@ -15,6 +15,7 @@ use GeoService\Bundles\Contact\Validation\Validation;
 use GeoService\Modules\Base\Model\BaseModel;
 use GeoService\Modules\Lookup\ABN\AbnLookup;
 use GeoService\Modules\Config\Config;
+use GeoService\Modules\Base\Options\BaseOptions;
 
 class Model extends BaseModel implements IContactModel
 {
@@ -65,14 +66,13 @@ class Model extends BaseModel implements IContactModel
 
     private function onAddIndustry($args)
     {
-		//TODO: Change 00012 to data return from ABN Lookup;
-        $industries = $this->getEntityById('industries', 'type', '00012');
+        $industries = $this->getEntityById('industries', 'type', $this->business->entityType->entityTypeCode);
 
         if (!$industries) {
             $industries = new Industries();
             $industries->setEnabled(1);
-            $industries->setType('00012');
-            $industries->setDescription('Individual/Sole Trader');
+            $industries->setType($this->business->entityType->entityTypeCode);
+            $industries->setDescription($this->business->entityType->entityDescription);
 
             $this->persistAndFlush($industries);
 
@@ -87,26 +87,41 @@ class Model extends BaseModel implements IContactModel
         $entities = $this->getEntityById('entities', 'identifier', $args[self::ABN]);
 
         if (!$entities) {
-			//$abnlookup = new AbnLookup($this->getSettings());
-			//$this->business = $abnlookup->searchByAbn($args[self::ABN]);
+			$abnlookup = new AbnLookup($this->getSettings());
+			$this->business = $abnlookup->searchByAbn($args[self::ABN]);
+			$this->business = $this->business->ABRPayloadSearchResults->response->businessEntity201408;
 
 			$config = new Config($this->getSettings());
 			$days = $this->getSettings()['trial_period'];
 
-            $entities = new Entities();
-			$entities->setEnabled(1);
-			$entities->setIdentifier('12 345 678 911');
-            $entities->setName('VAN HEERDEN, SHERYL');
-            $entities->setStatus('Active');
-            $entities->setState('QLD');
-            $entities->setPostCode('4551');
-            $entities->setExpiresAt($config->getDateTimeFuture($days));
+            if (isset($this->business->legalName) || isset($this->business->mainName)) {
+				$entitiesName = isset($this->business->legalName) ?
+				$this->business->legalName->givenName.','. $this->business->legalName->familyName :
+				$this->business->mainName->organisationName;
 
-            $entities->setIndustry($this->onAddIndustry($args));
+                $entities = new Entities();
+                $entities->setEnabled(1);
+                $entities->setIdentifier($this->business->ABN->identifierValue);
+                $entities->setStatus($this->business->entityStatus->entityStatusCode);
+                $entities->setExpiresAt($config->getDateTimeFuture($days));
+				$entities->setName($entitiesName);
+               
+                if (isset($this->business->mainBusinessPhysicalAddress)) {
+                    $entities->setState($this->business->mainBusinessPhysicalAddress->stateCode);
+                    $entities->setPostCode($this->business->mainBusinessPhysicalAddress->postcode);
+                } else {
+                    $entities->setState('N/A');
+                    $entities->setPostCode('N/A');
+                }
 
-			$this->persistAndFlush($entities);
+                if ($this->business->entityType->entityTypeCode) {
+                    $entities->setIndustry($this->onAddIndustry($args));
+                }
+            
+                $this->persistAndFlush($entities);
 
-            $entities = $this->getEntityById('entities', self::KEY, $entities->getId());
+                $entities = $this->getEntityById('entities', self::KEY, $entities->getId());
+            }
         }
 
         return $entities;
@@ -149,7 +164,15 @@ class Model extends BaseModel implements IContactModel
 		$entity = $this->getEntityById('contact', 'email', $args[self::EMAIL]);
 
 		if ($entity) {
-			$this->getValidator()->setMessagesArray('A user with this email already exists.');
+			$this->getValidator()->setMessagesArray(
+				null,
+				'contact',
+				'validation:add:message:UserExists'
+			);
+			$abnlookup = new AbnLookup($this->getSettings());
+			$this->business = $abnlookup->searchByAbn('34 241 177 887');
+
+			return $this->business;
 			return $this->getValidator()->getMessagesAray();
 		}
 
@@ -199,7 +222,10 @@ class Model extends BaseModel implements IContactModel
         $entity->setPostCode('4551');
         
         if ($args[self::ABN]) {
-            $entity->setEntity($this->onAddEntity($args));
+			$entities = $this->onAddEntity($args);
+			if ($entities) {
+				$entity->setEntity($entities);
+			}
         }
         
         if (isset($args[self::LOGO])) {
@@ -216,11 +242,84 @@ class Model extends BaseModel implements IContactModel
         return false;
     }
 
-    public function onUpdate($id, $args)
+    public function onUpdate($args)
     {
+		if (!$this->formIsValid(
+            $this->getValidator(),
+            'contact',
+            'update',
+            [
+                $id[self::KEY],
+                $args[self::DESCRIPTION],
+                $args[self::DESCRIPTION],
+                $args[self::ENABLED],
+                $args[self::ENABLED]
+            ]
+        )) {
+            return $this->getValidator()->getMessagesAray();
+        }
+		$entity = $this->getEntityById('contact', self::KEY, $args[self::KEY]);
+
+		if ($entity && $entity->getId()) {
+			$entity->setUsername();
+			$entity->setUsersurname();
+			$entity->setPassword();
+			$entity->setSalt();
+			$entity->setEnabled();
+			$entity->setLocked();
+			$entity->setAddress();
+			$entity->setCity();
+			$entity->setState();
+			$entity->setPostCode();
+			$entity->setPhone();
+			$entity->setEmail();
+			$entity->setWebsite();
+			$entity->setFacebook();
+			$entity->setTwitter();
+			$entity->setTokenChar();
+			$entity->setTokenExpiry();
+			$entity->setLastLogin();
+
+			if (isset($args[self::LOGO])) {
+				$entity->setLogo($args[self::LOGO]);
+			}
+
+			$this->persistAndFlush($entity);
+		}
+
+        
+        if ($entity->getId()) {
+            $entity = $this->getEntityById('contact', self::KEY, $entity->getId());
+            return $entity;
+        }
+
+        return false;
     }
 
     public function onDelete($id)
     {
+		if (!$this->formIsValid(
+            $this->getValidator(),
+            'contact',
+            'delete',
+            [
+                $id[self::KEY]
+            ]
+        )) {
+            return $this->getValidator()->getMessagesAray();
+		}
+		
+		$entity = $this->getEntityById('contact', self::KEY, $id);
+        
+        if (!$entity) {
+            return false;
+        }
+
+        if (!$entity->getEnabled()) {
+            $this->removeAndFlush($entity);
+        } else {
+            $entity->setEnabled(false);
+            $this->persistAndFlush($entity);
+        }
     }
 }

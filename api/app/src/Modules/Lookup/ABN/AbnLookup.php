@@ -8,7 +8,7 @@ class AbnLookup extends \SoapClient
     
     public function __construct($settings)
     {
-        $this->guid = $settings['guid'];
+        $this->guid = $settings['abr']['guid'];
 
         $params = array(
             'soap_version' => SOAP_1_1,
@@ -17,7 +17,7 @@ class AbnLookup extends \SoapClient
             'cache_wsdl' => WSDL_CACHE_NONE
         );
 
-        parent::__construct($settings['url'], $params);
+        parent::__construct($settings['abr']['url'], $params);
     }
 
     public function searchByAbn($abn, $historical = 'N')
@@ -27,6 +27,16 @@ class AbnLookup extends \SoapClient
         $params->includeHistoricalDetails = $historical;
 		$params->authenticationGuid = $this->guid;
 		
-        return $this->ABRSearchByABN($params);
+        return $this->SearchByABNv201408($params);
+	}
+	
+	public function searchByAsic($acn, $historical = 'N')
+    {
+        $params = new \stdClass();
+        $params->searchString = $acn;
+        $params->includeHistoricalDetails = $historical;
+		$params->authenticationGuid = $this->guid;
+		
+        return $this->SearchByASICv201408($params);
     }
 }
