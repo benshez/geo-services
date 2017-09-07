@@ -169,10 +169,10 @@ class Model extends BaseModel implements IContactModel
 				'contact',
 				'validation:add:message:UserExists'
 			);
-			$abnlookup = new AbnLookup($this->getSettings());
-			$this->business = $abnlookup->searchByAbn('34 241 177 887');
+			// $abnlookup = new AbnLookup($this->getSettings());
+			// $this->business = $abnlookup->searchByAbn('34 241 177 887');
 
-			return $this->business;
+			// return $this->business;
 			return $this->getValidator()->getMessagesAray();
 		}
 
@@ -196,10 +196,6 @@ class Model extends BaseModel implements IContactModel
             return $this->getValidator()->getMessagesAray();
         }
         
-        if ($args[self::ABN] && !$this->validateAbn($args[self::ABN])) {
-            return $this->getValidator()->getMessagesAray();
-        }
-			
         $salt = null;
 
         $bcrypt = ($salt) ? new Bcrypt(array(
@@ -221,12 +217,19 @@ class Model extends BaseModel implements IContactModel
         $entity->setState('QLD');
         $entity->setPostCode('4551');
         
-        if ($args[self::ABN]) {
+        if ($args[self::ABN] && $this->formIsValid(
+            $this->getValidator(),
+            'contact',
+            'abn',
+			[$args[self::ABN]]
+		)) {
 			$entities = $this->onAddEntity($args);
 			if ($entities) {
 				$entity->setEntity($entities);
 			}
-        }
+        } else {
+			return $this->getValidator()->getMessagesAray();
+		}
         
         if (isset($args[self::LOGO])) {
             $entity->setLogo($args[self::LOGO]);

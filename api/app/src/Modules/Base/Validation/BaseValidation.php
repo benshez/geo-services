@@ -8,6 +8,7 @@ use Zend\Validator\ValidatorInterface;
 use GeoService\Modules\Base\Interfaces\IBaseValidation;
 use GeoService\Modules\Base\Interfaces\IBaseModel;
 use GeoService\Modules\Config\Config;
+use GeoService\Modules\Validators\ABN\AbnOrAcnValidator;
 
 class BaseValidation implements
     ValidatorInterface,

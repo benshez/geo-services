@@ -2,24 +2,51 @@
 
 namespace GeoService\Modules\Validators\ABN;
 
-class AbnOrAcnValidator
+use Zend\Validator\AbstractValidator;
+use Interop\Container\ContainerInterface;
+
+class AbnOrAcnValidator extends AbstractValidator
 {
-	public static function isValidAbnOrAcn($number)
+	
+	const ABN = 'abn';
+	const ACN = 'acn';
+
+	protected $messageTemplates = array(
+        self::ABN => "'%value%' is not a vaild abn.",
+        self::ACN  => "'%value%' is not a vaild acn.",
+	);
+	
+    public function __construct(array $options = array())
+    {
+       parent::__construct($options);
+    }
+
+	public function isValid($value)
+    {
+		$isValid = true;
+		$isValid = $this->isValidAbnOrAcn($value);
+		return $isValid;
+	}
+
+	private function isValidAbnOrAcn($number)
 	{
 		$number = preg_replace('/\s/', '', $number);
 
 		if (strlen($number) == 9) {
-			return self::isValidAcn($number);
+			//$this->error(self::ACN);
+			return $this->isValidAcn($number);
 		}
 
 		if (strlen($number) == 11) {
-			return self::isValidAbn($number);
+			//$this->error(self::ABN);
+			return $this->isValidAbn($number);
 		}
 
+		$this->error(self::ABN);
 		return false;
 	}
 
-	public static function isValidAbn($abn)
+	private function isValidAbn($abn)
 	{
 		$weights = array(10, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19);
 
@@ -42,7 +69,7 @@ class AbnOrAcnValidator
 		return true;
 	}
 
-	public static function isValidAcn($acn)
+	private function isValidAcn($acn)
 	{
 		$weights = array(8, 7, 6, 5, 4, 3, 2, 1, 0);
 
@@ -67,6 +94,11 @@ class AbnOrAcnValidator
 		return ($acn[8] === $complement);
 	}
 }
+
+//$sm = new AbnOrAcnValidator();
+//$sm->setInvokableClass('chocolate', 'AbnOrAcnValidator');
+//$sm->setInvokableClass('butter', 'ButterCookie');
+//$sm->setInvokableClass('not-a-cookie', 'Car');
 /**
 * AbnValidator::isValidAbn('53 004 085 616'); // -> true
 * AbnValidator::isValidAbn('0'); // -> false
