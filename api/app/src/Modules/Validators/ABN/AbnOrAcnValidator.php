@@ -3,7 +3,6 @@
 namespace GeoService\Modules\Validators\ABN;
 
 use Zend\Validator\AbstractValidator;
-use Interop\Container\ContainerInterface;
 
 class AbnOrAcnValidator extends AbstractValidator
 {
@@ -12,8 +11,8 @@ class AbnOrAcnValidator extends AbstractValidator
 	const ACN = 'acn';
 
 	protected $messageTemplates = array(
-        self::ABN => "'%value%' is not a vaild abn.",
-        self::ACN  => "'%value%' is not a vaild acn.",
+        self::ABN => '\'%value%\'  is not a vaild abn.',
+        self::ACN  => '\'%value%\'  is not a vaild acn.',
 	);
 	
     public function __construct(array $options = array())
@@ -33,16 +32,15 @@ class AbnOrAcnValidator extends AbstractValidator
 		$number = preg_replace('/\s/', '', $number);
 
 		if (strlen($number) == 9) {
-			//$this->error(self::ACN);
 			return $this->isValidAcn($number);
 		}
 
 		if (strlen($number) == 11) {
-			//$this->error(self::ABN);
 			return $this->isValidAbn($number);
 		}
 
-		$this->error(self::ABN);
+		$this->error(self::ABN, $number);
+
 		return false;
 	}
 

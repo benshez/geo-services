@@ -126,7 +126,61 @@ class Model extends BaseModel implements IContactModel
 
         return $entities;
     }
-            
+		   
+	public static function onAddContact($args)
+	{
+		$entity = $this->getEntityById('contact', self::KEY, $args[self::KEY]);
+		
+		if ($entity && $entity->getId()) {
+			$entity->setUsername();
+			$entity->setUsersurname();
+			$entity->setPassword();
+			$entity->setSalt();
+			$entity->setEnabled();
+			$entity->setLocked();
+			$entity->setAddress();
+			$entity->setCity();
+			$entity->setState();
+			$entity->setPostCode();
+			$entity->setPhone();
+			$entity->setEmail();
+			$entity->setWebsite();
+			$entity->setFacebook();
+			$entity->setTwitter();
+			$entity->setTokenChar();
+			$entity->setTokenExpiry();
+			$entity->setLastLogin();
+			$entity->setRole($this->onAddRole($args));
+
+			if (isset($args[self::LOGO])) {
+				$entity->setLogo($args[self::LOGO]);
+			}
+
+			if ($args[self::ABN] && $this->formIsValid(
+				$this->getValidator(),
+				'contact',
+				'abn',
+				[$args[self::ABN]]
+			)) {
+				$entities = $this->onAddEntity($args);
+				if ($entities) {
+					$entity->setEntity($entities);
+				}
+			} else {
+				return $this->getValidator()->getMessagesAray();
+			}
+		}
+
+		$this->persistAndFlush($entity);
+        
+        if ($entity->getId()) {
+            $entity = $this->getEntityById('contact', self::KEY, $entity->getId());
+            return $entity;
+        }
+
+        return false;
+	}
+
     public function authenticate($email, $password)
     {
         if (!$this->formIsValid(
@@ -148,9 +202,15 @@ class Model extends BaseModel implements IContactModel
             'name',
             'contact'
         ), [self::EMAIL => $email]);
-        
+		
+
         if ($contact) {
-            if (!$this->validateUser($password, null, $contact->getPassword())) {
+            if (!$this->formIsValid(
+				$this->getValidator(),
+				'contact',
+				'authentication',
+				[['password' => $password, 'hash' => $contact->getPassword()]]
+			)) {
                 return $this->validator->getMessagesAray();
             }
             return $contact;
@@ -195,13 +255,8 @@ class Model extends BaseModel implements IContactModel
         )) {
             return $this->getValidator()->getMessagesAray();
         }
-        
-        $salt = null;
 
-        $bcrypt = ($salt) ? new Bcrypt(array(
-            'salt' => $salt,
-            'cost' => 10
-        )) : new Bcrypt();
+        $bcrypt = new Bcrypt();
 
         $password = $bcrypt->create($args[self::PASSWORD]);
         
@@ -282,15 +337,29 @@ class Model extends BaseModel implements IContactModel
 			$entity->setTokenChar();
 			$entity->setTokenExpiry();
 			$entity->setLastLogin();
+			$entity->setRole($this->onAddRole($args));
 
 			if (isset($args[self::LOGO])) {
 				$entity->setLogo($args[self::LOGO]);
 			}
 
+			if ($args[self::ABN] && $this->formIsValid(
+				$this->getValidator(),
+				'contact',
+				'abn',
+				[$args[self::ABN]]
+			)) {
+				$entities = $this->onAddEntity($args);
+				if ($entities) {
+					$entity->setEntity($entities);
+				}
+			} else {
+				return $this->getValidator()->getMessagesAray();
+			}
+
 			$this->persistAndFlush($entity);
 		}
 
-        
         if ($entity->getId()) {
             $entity = $this->getEntityById('contact', self::KEY, $entity->getId());
             return $entity;

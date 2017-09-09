@@ -9,35 +9,5 @@ use GeoService\Modules\Validators\ABN\AbnOrAcnValidator;
 
 class Validation extends BaseValidation
 {
-    const INVALID_CREDENTIALS = 'validation:invalid_credentials';
-	const INVALID_ABN = 'validation:invalid_abn';
-	
-    public function validateUserCredentials($password, $salt, $hash)
-    {
-        $bcrypt = ($salt) ? new Bcrypt(array(
-                    'salt' => $salt,
-                    'cost' => 10
-            )) : new Bcrypt();
-    
-        $verified = $bcrypt->verify($password, $hash);
-    
-        if (!$verified) {
-            $this->setMessagesArray(null, 'contact', static::INVALID_CREDENTIALS);
-        }
-    
-        return $verified;
-	}
-	
-	public function isValidAbn($abn)
-	{
-		$abnValidator = new AbnOrAcnValidator();
-
-		$isValid = $abnValidator->isValidAbn($abn);
-
-        if (!$isValid) {
-            $this->setMessagesArray(null, 'contact', static::INVALID_ABN);
-		}
-		
-		return $isValid;
-	}
+   
 }
