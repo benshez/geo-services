@@ -2,6 +2,9 @@
 
 namespace GeoService\Modules\Base\Model;
 
+use \ReflectionObject;
+use Doctrine\Common\Annotations\AnnotationReader;
+use Doctrine\Common\Util\Inflector;
 use Interop\Container\ContainerInterface;
 use GeoService\Modules\Config\Config;
 
@@ -33,13 +36,8 @@ class BaseModel
     private function flushEntity($entity)
     {
         $this->getEntityManager()->flush($entity);
-    }
-
-    /**
-    * @param string|null $id
-    *
-    * @return array
-    */
+	}
+	
     public function get($sender, array $args)
     {
         if ($args === null) {
@@ -127,5 +125,30 @@ class BaseModel
             'name',
             $class
         ), [$key => $id]);
-    }
+	}
+	
+	public function hydrateEntity($entityClass, array $data)
+	{
+		$object = $entityClass;
+		$refObj = new \ReflectionObject($object);
+		$reader = new AnnotationReader();
+		$columns = array_column($refObj->getProperties(), 'name');
+		
+		foreach ($data as $key => $property) {
+			$setter = sprintf('set%s', ucfirst(Inflector::camelize($key)));
+			$column = array_search($key, $columns);
+			$annotation = $reader->getPropertyAnnotation(
+				$refObj->getProperties()[$column],
+				'Doctrine\ORM\Mapping\Column'
+			);
+			
+			if ($annotation && method_exists($object, $setter)) {
+				if (isset($data[$key])) {
+					$object->$setter($data[Inflector::tableize($annotation->name)]);
+				}
+            }
+		}
+
+		return $object;
+	}
 }

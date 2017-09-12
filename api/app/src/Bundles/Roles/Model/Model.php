@@ -12,10 +12,13 @@ use GeoService\Modules\Base\Model\BaseModel;
 
 class Model extends BaseModel implements IRolesModel
 {
-    protected $validator = null;
-    const KEY = 'id';
+	protected $validator = null;
+
+	const KEY = 'id';
+	const ROLE = 'role';
     const DESCRIPTION = 'description';
-    const ENABLED = 'enabled';
+	const ENABLED = 'enabled';
+	const TABLE = 'roles';
 
     private function getValidator()
     {
@@ -27,7 +30,7 @@ class Model extends BaseModel implements IRolesModel
     {
         $roles = $this->get($this->getConfig()->getOption(
             'name',
-            'roles'
+            self::TABLE
         ), []);
         
         if ($roles) {
@@ -41,7 +44,7 @@ class Model extends BaseModel implements IRolesModel
     {
         if (!$this->formIsValid(
             $this->getValidator(),
-            'roles',
+            self::TABLE,
             'add',
             [
                 $args[self::DESCRIPTION],
@@ -51,27 +54,14 @@ class Model extends BaseModel implements IRolesModel
             return $this->getValidator()->getMessagesAray();
         }
 
-        $entity = new Roles();
-        $entity->setRole($args[self::DESCRIPTION]);
-        $entity->setEnabled(1);
-        $this->persistAndFlush($entity);
-        
-        if ($entity->getId()) {
-            $entity = $this->getEntityById('roles', self::KEY, $entity->getId());
-        }
-        
-        if ($entity && $entity->getId()) {
-            return $entity;
-        }
-
-        return false;
+        return onAddOrUpdate($args, true);
     }
 
     public function onUpdate($id, $args)
     {
         if (!$this->formIsValid(
             $this->getValidator(),
-            'roles',
+            self::TABLE,
             'update',
             [
                 $id[self::KEY],
@@ -84,29 +74,14 @@ class Model extends BaseModel implements IRolesModel
             return $this->getValidator()->getMessagesAray();
         }
         
-        $entity = $this->getEntityById('roles', self::KEY, $id);
-
-        if (!$entity) {
-            return false;
-        }
-
-        $entity->setRole($args[self::DESCRIPTION]);
-        $entity->setEnabled($args[self::ENABLED]);
-        $this->persistAndFlush($entity);
-        $entity = $this->getEntityById('roles', self::KEY, $id);
-
-        if ($entity) {
-            return $entity;
-        }
-        
-        return false;
+        return onAddOrUpdate($args);
     }
 
     public function onDelete($id)
     {
         if (!$this->formIsValid(
             $this->getValidator(),
-            'roles',
+            self::TABLE,
             'delete',
             [
                 $id[self::KEY]
@@ -115,7 +90,7 @@ class Model extends BaseModel implements IRolesModel
             return $this->getValidator()->getMessagesAray();
         }
 
-        $entity = $this->getEntityById('roles', self::KEY, $id);
+        $entity = $this->getEntityById(self::TABLE, self::KEY, $id);
         
         if (!$entity) {
             return false;
@@ -128,6 +103,29 @@ class Model extends BaseModel implements IRolesModel
             $this->persistAndFlush($entity);
         }
 
-        return true;
+        return false;
+	}
+	
+	public function onAddOrUpdate($role, $isAdding = false)
+    {
+        $entity = $this->getEntityById(self::TABLE, self::KEY, $role[self::KEY]);
+
+        if (!$entity) {
+			$isAdding = true;
+            $entity = new Roles();
+		}
+		
+		if ($isAdding) {
+			$entity->setRole($role[self::DESCRIPTION]);
+			$entity->setEnabled($role[self::ENABLED]);
+			$this->persistAndFlush($entity);
+			return $this->getEntityById(self::TABLE, self::KEY, $entity->getId());
+		}
+ 
+        if ($entity && $entity->getId()) {
+            return $this->getEntityById(self::TABLE, self::KEY, $entity->getId());
+        }
+
+        return false;
     }
 }

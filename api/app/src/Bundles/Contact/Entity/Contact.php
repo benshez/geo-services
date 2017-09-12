@@ -752,4 +752,6 @@ class Contact
 	{
 		return $this->role;
 	}
+
+	
 }

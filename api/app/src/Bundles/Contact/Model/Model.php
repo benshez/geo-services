@@ -7,7 +7,7 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Zend\Crypt\Password\Bcrypt;
 use GeoService\Bundles\Contact\Interfaces\IContactModel;
-use GeoService\Bundles\Roles\Entity\Roles;
+use GeoService\Bundles\Roles\Model\Roles;
 use GeoService\Bundles\Contact\Entity\Contact;
 use GeoService\Bundles\Entities\Entity\Entities;
 use GeoService\Bundles\Industries\Entity\Industries;
@@ -25,7 +25,7 @@ class Model extends BaseModel implements IContactModel
     const KEY = 'id';
     const ROLE = 'role';
     const CONTACT_NAME = 'username';
-    const CONTACT_SURNAME = 'surname';
+    const CONTACT_SURNAME = 'usersurname';
     const PASSWORD = 'password';
     const EMAIL = 'email';
     const LOGO = 'logo';
@@ -52,9 +52,14 @@ class Model extends BaseModel implements IContactModel
         $roles = $this->getEntityById('roles', self::KEY, $args[self::ROLE]);
 
         if (!$roles) {
-            $roles = new Roles();
-            $roles->setRole('User');
-            $roles->setEnabled(1);
+			$roles = new Roles();
+			$roles = $this->hydrateEntity(
+				$roles,
+				array(
+					'role' => 'User',
+					'enabled' => 1
+					)
+			);
 
             $this->persistAndFlush($roles);
 
@@ -132,6 +137,7 @@ class Model extends BaseModel implements IContactModel
 		$entity = $this->getEntityById('contact', self::KEY, $args[self::KEY]);
 		
 		if ($entity && $entity->getId()) {
+			new Roles($args);
 			$entity->setUsername();
 			$entity->setUsersurname();
 			$entity->setPassword();
@@ -183,6 +189,7 @@ class Model extends BaseModel implements IContactModel
 
     public function authenticate($email, $password)
     {
+		$x = array_keys($this->getEntityManager()->getMetadataFactory()->getMetadataFor('\GeoService\Bundles\Contact\Entity\Contact')->reflFields);
         if (!$this->formIsValid(
             $this->getValidator(),
             'contact',
@@ -203,7 +210,6 @@ class Model extends BaseModel implements IContactModel
             'contact'
         ), [self::EMAIL => $email]);
 		
-
         if ($contact) {
             if (!$this->formIsValid(
 				$this->getValidator(),
@@ -256,6 +262,8 @@ class Model extends BaseModel implements IContactModel
             return $this->getValidator()->getMessagesAray();
         }
 
+		return $this->onAddOrUpdate($args);
+
         $bcrypt = new Bcrypt();
 
         $password = $bcrypt->create($args[self::PASSWORD]);
@@ -300,62 +308,48 @@ class Model extends BaseModel implements IContactModel
         return false;
     }
 
-    public function onUpdate($args)
+	//public function onAddOrUpdate($args)
+	public function onUpdate($s, $args)
     {
-		if (!$this->formIsValid(
-            $this->getValidator(),
-            'contact',
-            'update',
-            [
-                $id[self::KEY],
-                $args[self::DESCRIPTION],
-                $args[self::DESCRIPTION],
-                $args[self::ENABLED],
-                $args[self::ENABLED]
-            ]
-        )) {
-            return $this->getValidator()->getMessagesAray();
-        }
+		// if (!$this->formIsValid(
+        //     $this->getValidator(),
+        //     'contact',
+        //     'update',
+        //     [
+        //         $args[self::KEY],
+        //         $args[self::DESCRIPTION],
+        //         $args[self::DESCRIPTION],
+        //         $args[self::ENABLED],
+        //         $args[self::ENABLED]
+        //     ]
+        // )) {
+        //     return $this->getValidator()->getMessagesAray();
+		// }
+
 		$entity = $this->getEntityById('contact', self::KEY, $args[self::KEY]);
 
 		if ($entity && $entity->getId()) {
-			$entity->setUsername();
-			$entity->setUsersurname();
-			$entity->setPassword();
-			$entity->setSalt();
-			$entity->setEnabled();
-			$entity->setLocked();
-			$entity->setAddress();
-			$entity->setCity();
-			$entity->setState();
-			$entity->setPostCode();
-			$entity->setPhone();
-			$entity->setEmail();
-			$entity->setWebsite();
-			$entity->setFacebook();
-			$entity->setTwitter();
-			$entity->setTokenChar();
-			$entity->setTokenExpiry();
-			$entity->setLastLogin();
+			$entity = $this->hydrateEntity($entity, $args);
+		
 			$entity->setRole($this->onAddRole($args));
 
-			if (isset($args[self::LOGO])) {
-				$entity->setLogo($args[self::LOGO]);
-			}
+			// if (isset($args[self::LOGO])) {
+			// 	$entity->setLogo($args[self::LOGO]);
+			// }
 
-			if ($args[self::ABN] && $this->formIsValid(
-				$this->getValidator(),
-				'contact',
-				'abn',
-				[$args[self::ABN]]
-			)) {
-				$entities = $this->onAddEntity($args);
-				if ($entities) {
-					$entity->setEntity($entities);
-				}
-			} else {
-				return $this->getValidator()->getMessagesAray();
-			}
+			// if ($args[self::ABN] && $this->formIsValid(
+			// 	$this->getValidator(),
+			// 	'contact',
+			// 	'abn',
+			// 	[$args[self::ABN]]
+			// )) {
+			// 	$entities = $this->onAddEntity($args);
+			// 	if ($entities) {
+			// 		$entity->setEntity($entities);
+			// 	}
+			// } else {
+			// 	return $this->getValidator()->getMessagesAray();
+			// }
 
 			$this->persistAndFlush($entity);
 		}

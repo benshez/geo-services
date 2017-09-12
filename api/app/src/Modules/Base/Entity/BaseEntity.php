@@ -21,5 +21,5 @@ class BaseEntity extends EntityRepository implements IBaseEntity
     public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
     {
         return parent::findBy($criteria, $orderBy, $limit, $offset);
-    }
+	}
 }
