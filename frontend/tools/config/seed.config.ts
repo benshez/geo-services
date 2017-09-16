@@ -539,7 +539,7 @@ export class SeedConfig {
             'rxjs': {
                 main: 'Rx.js',
                 defaultExtension: 'js'
-            }
+			}
         }
     };
 

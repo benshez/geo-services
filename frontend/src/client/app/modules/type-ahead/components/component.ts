@@ -1,12 +1,17 @@
 ﻿// libs
 import {
-    Component,
-    OnDestroy,
-    ViewChild, ViewChildren,
-    ElementRef, Query, QueryList,
-    Renderer, Input,
-    EventEmitter, Output,
-    ChangeDetectionStrategy
+	Component,
+	OnDestroy,
+	ViewChild,
+	ViewChildren,
+	ElementRef,
+	Query,
+	QueryList,
+	Renderer,
+	Input,
+	EventEmitter,
+	Output,
+	ChangeDetectionStrategy
 } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
@@ -16,150 +21,167 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { Config } from '../../core/index';
 import { ILocationArguments } from '../../map/index';
-import { IKeyValue, IKeyValueDictionary, ISelectedKeyValue } from '../../core/collections/KeyValuePairs/interfaces';
-import { KeyValueDictionary, KeyValueArray } from '../../core/collections/index';
+import {
+	IKeyValue,
+	IKeyValueDictionary,
+	ISelectedKeyValue
+} from '../../core/collections/KeyValuePairs/interfaces';
+import {
+	KeyValueDictionary,
+	KeyValueArray
+} from '../../core/collections/index';
 
 @Component({
-    moduleId: module.id,
-    selector: 'sd-typeahead',
-    templateUrl: Config.COMPONENT_ITEMS.TEMPLATE,
-    styleUrls: [Config.COMPONENT_ITEMS.CSS],
-    changeDetection: ChangeDetectionStrategy.OnPush
+	moduleId: module.id,
+	selector: 'sd-typeahead',
+	templateUrl: Config.COMPONENT_ITEMS.TEMPLATE,
+	styleUrls: [Config.COMPONENT_ITEMS.CSS],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TypeAheadComponent {
-    
-    public typeAheadSource: Array<any>;
-    public typeAheadKeyword: string;
+export class TypeAheadComponent implements OnDestroy {
+	public typeAheadSource: Array<any>;
+	public typeAheadKeyword: string;
+	@Output()
+	public typeAheadShownChange: EventEmitter<boolean> = new EventEmitter();
+	@Input() public minlength: number = 2;
+	@Input() public source: any;
+	@Output() onTypeAheadIndexChanged: any = new EventEmitter();
+	@ViewChild('typeAheadList') typeAheadList: ElementRef;
+	@ViewChild('typeAheadInput') typeAheadInput: ElementRef;
 
-    private typeAheadDictionary: KeyValueDictionary
-    private typeAheadPlaceHolder: string = '';
-    private typeAheadErrorMessage: string = '';
-    private typeAheadValueChange: Subscription;
-    private typeAheadSelectedIndex: number = -1;
-    private _typeAheadShown: boolean;
+	private typeAheadDictionary: KeyValueDictionary;
+	private typeAheadPlaceHolder: string = '';
+	private typeAheadErrorMessage: string = '';
+	private typeAheadValueChange: Subscription;
+	private typeAheadSelectedIndex: number = -1;
+	private _typeAheadShown: boolean;
 
-    @Output() public typeAheadShownChange: EventEmitter<boolean> = new EventEmitter();
+	@Input()
+	public get typeAheadShown(): boolean {
+		return this._typeAheadShown;
+	}
 
-    @Input()
-    public get typeAheadShown(): boolean {
-        return this._typeAheadShown;
-    }
+	public set typeAheadShown(value) {
+		this._typeAheadShown = !!value;
+		this.typeAheadShownChange.emit(this.typeAheadShown);
+	}
 
-    public set typeAheadShown(value) {
-        this._typeAheadShown = !!value;
-        this.typeAheadShownChange.emit(this.typeAheadShown);
-    }
+	private _keyword = new BehaviorSubject<string>('');
 
-    private _keyword = new BehaviorSubject<string>('');
+	@Input()
+	set keyword(value) {
+		this._keyword.next(value);
+	}
 
-    @Input()
-    set keyword(value) {
-        this._keyword.next(value);
-    };
+	get keyword() {
+		return this._keyword.getValue();
+	}
 
-    get keyword() {
-        return this._keyword.getValue();
-    }
+	@Input()
+	set placeholder(placeholder: string) {
+		this.typeAheadPlaceHolder =
+			(placeholder && placeholder.trim()) || '<no placeholder text set>';
+	}
+	get placeholder(): string {
+		return this.typeAheadPlaceHolder;
+	}
 
-    @Input() minlength: number = 2;
-    @Input() source: any;
+	constructor(private renderer: Renderer) { }
 
-    @Input()
-    set placeholder(placeholder: string) {
-        this.typeAheadPlaceHolder = (placeholder && placeholder.trim()) || '<no placeholder text set>';
-    }
-    get placeholder(): string { return this.typeAheadPlaceHolder; }
+	public ngOnDestroy() {
+		debugger;
+	}
 
-    @Output() onTypeAheadIndexChanged: any = new EventEmitter();
+	onKeyDownArrow(event: string) {
+		this.typeAheadShown = true;
+		this.typeAheadListElementScroll(event);
+	}
 
-    @ViewChild('typeAheadList') typeAheadList: ElementRef;
-    @ViewChild('typeAheadInput') typeAheadInput: ElementRef;
+	onTextChange(evt: any) {
+		this.subscribeTypeAheadSource(evt.value);
+	}
 
-    constructor(private renderer: Renderer) { }
+	onInput(evt: any) {
+		this.subscribeTypeAheadSource(evt.target.value);
+	}
 
-    onKeyDownArrow(event: string) {
-        this.typeAheadShown = true;
-        this.typeAheadListElementScroll(event);
-    }
+	subscribeTypeAheadSource(value: any) {
+		if ((value && value.length <= this.minlength) || this.typeAheadShown) {
+			return;
+		}
+		this.keyword = value;
 
-    onTextChange(evt: any) {
-        this.subscribeTypeAheadSource(evt.value);
-    }
+		this.source(this._keyword).subscribe(results => {
+			if (typeof results === 'undefined') {
+				this.typeAheadSource = [] as any;
+			} else {
+				this.typeAheadShown = true;
+				this.typeAheadDictionary = results;
+				this.typeAheadSource = this.typeAheadDictionary.toArray();
+				console.log(JSON.stringify(this.typeAheadDictionary));
+			}
+		});
+	}
 
-    onInput(evt: any) {
-        this.subscribeTypeAheadSource(evt.target.value);
-    }
+	onItemTap(args: any) {
+		let item: ISelectedKeyValue = this.typeAheadDictionary.getItemByKey(
+			args.index
+		);
+		let input: any = this.typeAheadInput.nativeElement;
+		input.text = item.value;
+		input.value = item.value;
+		input.focus();
+		this.typeAheadShown = false;
+		this.onTypeAheadIndexChanged.emit(item.key);
+	}
 
-    subscribeTypeAheadSource(value) {
-        if (value.length <= this.minlength || this.typeAheadShown) return;
-        this.keyword = value;       
-        this.source(this._keyword).subscribe(results => {
-            if (typeof (results) === 'undefined') {
-                this.typeAheadSource = [] as any;
-            } else {
-                this.typeAheadShown = true;
-                this.typeAheadDictionary = results;
-                this.typeAheadSource = this.typeAheadDictionary.toArray();
-                console.log(JSON.stringify(this.typeAheadDictionary));
-            }
-        }).unsubscribe;
-    }
+	onKeyDownEnter(args: any) {
+		let input: any = this.typeAheadInput.nativeElement;
+		this.resetTypeAheadSelectedIndex();
+		this.setTypeAheadInputValue(args, input, true);
+	}
 
-    onItemTap(args: any) {
-        let item: ISelectedKeyValue = this.typeAheadDictionary.getItemByKey(args.index);
-        let input: any = this.typeAheadInput.nativeElement;
-        input.text = item.value;
-        input.value = item.value;
-        input.focus();
-        this.typeAheadShown = false;
-        this.onTypeAheadIndexChanged.emit(item.key);
-    }
+	setTypeAheadInputValue(args: any, input: any, setFocus: boolean = false) {
+		let item: ISelectedKeyValue = this.typeAheadDictionary.getItemByKey(args);
+		input.value = item.value;
+		if (setFocus) {
+			input.focus();
+			this.typeAheadShown = false;
+			this.onTypeAheadIndexChanged.emit(item.key);
+		}
+	}
 
-    onKeyDownEnter(args: any) {
-        let input: any = this.typeAheadInput.nativeElement;
-        this.resetTypeAheadSelectedIndex();
-        this.setTypeAheadInputValue(args, input, true);
-    }
+	typeAheadListElementScroll(event: string) {
+		let tal = this.typeAheadList;
+		if (typeof tal === 'undefined') return;
+		let ul = tal.nativeElement;
+		let elems: Array<HTMLUListElement> = ul.getElementsByTagName('li');
+		if (elems.length === 0) return;
 
-    setTypeAheadInputValue(args: any, input: any, setFocus: boolean = false) {
-        let item: ISelectedKeyValue = this.typeAheadDictionary.getItemByKey(args);
-        input.value = item.value;
-        if (setFocus) {
-            input.focus();
-            this.typeAheadShown = false;
-            this.onTypeAheadIndexChanged.emit(item.key);
-        }
-    }
+		switch (<string>event) {
+			case Config.EVENTS.ARROW_DOWN:
+				if (this.typeAheadSelectedIndex + 1 >= elems.length)
+					this.resetTypeAheadSelectedIndex();
+				this.typeAheadSelectedIndex++;
+				break;
+			case Config.EVENTS.ARROW_UP:
+				this.typeAheadSelectedIndex--;
+				if (this.typeAheadSelectedIndex < 0)
+					this.typeAheadSelectedIndex = elems.length - 1;
+				break;
+		}
 
-    typeAheadListElementScroll(event: string) {
-        let tal = this.typeAheadList;
-        if (typeof (tal) === 'undefined') return;
-        let ul = tal.nativeElement;
-        let elems: Array<HTMLUListElement> = ul.getElementsByTagName('li');
-        if (elems.length === 0) return;
+		let elem = elems[this.typeAheadSelectedIndex];
+		this.setTypeAheadInputValue(elem.id, this.typeAheadInput.nativeElement);
+		elem.focus();
+	}
 
-        switch (<string>event) {
-            case Config.EVENTS.ARROW_DOWN:
-                if((this.typeAheadSelectedIndex + 1) >= elems.length) this.resetTypeAheadSelectedIndex();
-                this.typeAheadSelectedIndex++;
-                break
-            case Config.EVENTS.ARROW_UP:
-                this.typeAheadSelectedIndex--;
-                if (this.typeAheadSelectedIndex < 0) this.typeAheadSelectedIndex = (elems.length - 1);
-                break
-        }
+	resetTypeAheadSelectedIndex() {
+		this.typeAheadSelectedIndex = -1;
+	}
 
-        let elem = elems[this.typeAheadSelectedIndex];
-        this.setTypeAheadInputValue(elem.id, this.typeAheadInput.nativeElement);
-        elem.focus();
-    }
-
-    resetTypeAheadSelectedIndex() {
-        this.typeAheadSelectedIndex = -1;
-    }
-
-    public templateShown = (): string => {
-        let show: any = (this.typeAheadSource && this.typeAheadShown);
-        return <string>show;
-    }
+	public templateShown = (): string => {
+		let show: any = this.typeAheadSource && this.typeAheadShown;
+		return <string>show;
+	}
 }

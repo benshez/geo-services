@@ -10,31 +10,31 @@ import { MultilingualModule } from '../i18n/multilingual.module';
 import { WEB_MAP_PROVIDERS, WEB_MAP_COMPONENTS } from './index';
 
 export const WEB_MAP_IMPORTS: any[] = [
-    CommonModule,
-    HttpModule,
-    FormsModule,
-    ReactiveFormsModule,
-    RouterModule,
-    MultilingualModule
+	CommonModule,
+	HttpModule,
+	FormsModule,
+	ReactiveFormsModule,
+	RouterModule,
+	MultilingualModule
 ];
 
 @NgModule({
-    imports: [
-        ...WEB_MAP_IMPORTS
-    ],
-    declarations: [
-        ...WEB_MAP_COMPONENTS
-    ],
-    schemas: [
-        NO_ERRORS_SCHEMA,
-        CUSTOM_ELEMENTS_SCHEMA
-    ],
-    exports: [
-        ...WEB_MAP_IMPORTS,
-        ...WEB_MAP_COMPONENTS
-    ],
-    providers: [
-        ...WEB_MAP_PROVIDERS
-    ]
+	imports: [
+		...WEB_MAP_IMPORTS
+	],
+	declarations: [
+		...WEB_MAP_COMPONENTS
+	],
+	schemas: [
+		NO_ERRORS_SCHEMA,
+		CUSTOM_ELEMENTS_SCHEMA
+	],
+	exports: [
+		...WEB_MAP_IMPORTS,
+		...WEB_MAP_COMPONENTS
+	],
+	providers: [
+		...WEB_MAP_PROVIDERS
+	]
 })
 export class WebMapModule { }
