@@ -62,7 +62,7 @@ export class ApiService {
         this.showLoader();
 
         //let api: string = (parameters.concatApi) ? Config.ENVIRONMENT().API.concat(parameters.url) : parameters.url;
-        let api: string = (parameters.concatApi) ? 'http://192.168.0.14:8000/api/'.concat(parameters.url) : parameters.url;
+        let api: string = (parameters.concatApi) ? 'http://localhost:8000/api/v1/'.concat(parameters.url) : parameters.url;
 
         this.logger.info(api);
 

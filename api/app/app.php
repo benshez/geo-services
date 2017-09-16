@@ -10,8 +10,6 @@ $settings = $config->getConfig();
 
 $app = new \Slim\App($settings);
 
-
-
 // Set up dependencies
 require_once 'dependencies.php';
 

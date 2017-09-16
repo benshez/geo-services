@@ -28,10 +28,7 @@ class Model extends BaseModel implements IIndustriesModel
             $this->getValidator(),
             'industries',
             'autocomplete',
-            [
-                $args,
-                $args
-            ]
+            array(self::DESCRIPTION => $args)
         )) {
             return $this->getValidator()->getMessagesAray();
         }

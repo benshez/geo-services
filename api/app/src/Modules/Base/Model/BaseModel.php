@@ -110,12 +110,21 @@ class BaseModel
         }
     }
 
-    public function formIsValid($validator, String $class, String $extention, array $fields)
+    public function formIsValid($validator, String $class, String $extention, array $args)
     {
-        $validators = $this->getConfig()->getOption('validators', $class, $extention);
+		$fields = $this->getConfig()->getOption('validators', $class, $extention);
+		
+		$values = array();
+
+		foreach ($fields as $key => $field) {
+			foreach ($field as $value) {
+				$values[] = $args[$key];
+			}
+		}
+
         return $validator->formIsValid(
-            $validators,
-            $fields
+            $fields,
+            $values
         );
     }
     
@@ -127,14 +136,13 @@ class BaseModel
         ), [$key => $id]);
 	}
 	
-	public function hydrateEntity($entityClass, array $data)
+	public function hydrateEntity($entity, array $args)
 	{
-		$object = $entityClass;
-		$refObj = new \ReflectionObject($object);
+		$refObj = new \ReflectionObject($entity);
 		$reader = new AnnotationReader();
 		$columns = array_column($refObj->getProperties(), 'name');
 		
-		foreach ($data as $key => $property) {
+		foreach ($args as $key => $property) {
 			$setter = sprintf('set%s', ucfirst(Inflector::camelize($key)));
 			$column = array_search($key, $columns);
 			$annotation = $reader->getPropertyAnnotation(
@@ -142,13 +150,13 @@ class BaseModel
 				'Doctrine\ORM\Mapping\Column'
 			);
 			
-			if ($annotation && method_exists($object, $setter)) {
-				if (isset($data[$key])) {
-					$object->$setter($data[Inflector::tableize($annotation->name)]);
+			if ($annotation && method_exists($entity, $setter)) {
+				if (isset($args[$key])) {
+					$entity->$setter($args[Inflector::tableize($annotation->name)]);
 				}
             }
 		}
 
-		return $object;
+		return $entity;
 	}
 }
