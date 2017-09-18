@@ -10,13 +10,11 @@
 		"doctrine-migrations",
 		"migrations"
 	],
-	"authors": [
-		{
-			"name": "Ben van Heerden",
-			"email": "benshez1@gmail.com",
-			"homepage": "https://github.com/benshez/geo-services"
-		}
-	],
+	"authors": [{
+		"name": "Ben van Heerden",
+		"email": "benshez1@gmail.com",
+		"homepage": "https://github.com/benshez/geo-services"
+	}],
 	"autoload": {
 		"psr-4": {
 			"GeoService\\": "app/src",
@@ -39,8 +37,10 @@
 		"jeremykendall/password-validator": "^3.0.4",
 		"doctrine/doctrine-module": "^2.0",
 		"zendframework/zend-crypt": "^3.2.0",
+		"zendframework/zend-permissions-acl": "^2.6.0",
 		"tuupola/cors-middleware": "^0.5.2",
 		"symfony/config": "^3.3.5",
+		"symfony/options-resolver": "^3.3.9",
 		"phpmailer/phpmailer": "^5.2.24"
 	},
 	"require-dev": {
