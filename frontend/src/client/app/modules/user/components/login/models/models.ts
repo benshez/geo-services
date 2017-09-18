@@ -1,30 +1,30 @@
 ﻿import { IUser } from '../../../index';
-//import { Locker } from '../../../../modules/core/services/locker/index';
+import { StorageService, StorageKey } from '../../../../core/index';
 
 export class User implements IUser {
-    id: number;
-    addressId: number;
-    industryId: number;
-    username: string;
-    usersurname: string;
-    logo: string;
-    enabled: boolean;
-    locked: boolean;
-    lastLogin: any;
-    expiresAt: any;
-    email: string;
-    about: string;
-    website: string;
-    facebook: string;
-    twitter: string;
-    error: boolean;
-    message: string;
-    roles: any;
+	id: number;
+	addressId: number;
+	industryId: number;
+	username: string;
+	usersurname: string;
+	logo: string;
+	enabled: boolean;
+	locked: boolean;
+	email: string;
+	about: string;
+	website: string;
+	facebook: string;
+	twitter: string;
+	error: boolean;
+	message: string;
+	roles: any;
+	token: any;
+	
+	constructor(
+		private storage: StorageService
+	) { }
 
-    //constructor(private locker: Locker) { }
-    constructor() { }
-
-    getStoredUser() {
-        //return JSON.parse(this.locker.get('USER_DETAIL'));
-    }
+	getStoredUser() {
+		this.storage.getItem(StorageKey.USER_DETAIL);
+	}
 }

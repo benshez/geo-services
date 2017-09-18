@@ -1,6 +1,7 @@
 ﻿import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions, RequestMethod, URLSearchParams } from '@angular/http';
+import { Http, Response, Headers, RequestOptions, RequestOptionsArgs, RequestMethod, URLSearchParams } from '@angular/http';
 import { Observable, Subject } from 'rxjs/Rx';
+import * as _ from 'lodash';
 
 import { Config } from '../../utils/index';
 
@@ -9,132 +10,253 @@ import { ApiServiceOptions, ApiServiceParametersOptions } from './models';
 import { StorageService, StorageKey } from '../../../core/index';
 import { LogService } from '../logging/index';
 import { LoaderService } from '../../../shared/components/loader/services/services';
+import { IUser } from '../../../../../../../src/client/app/modules/user/components/login/interfaces/interfaces';
 
 @Injectable()
 export class ApiService {
 
-    constructor(private http: Http,
-        private logger: LogService,
-        private storage: StorageService,
-        private apiServiceOptions: ApiServiceOptions,
-        private loaderService: LoaderService) { }
+	private api: string = Config.ENVIRONMENT().API;
+	private user: IUser = this.storage.getItem(StorageKey.USER_DETAIL);
 
-    get(parameters: ApiServiceParametersOptions): Observable<Response> {
-        this.showLoader();
+	// private headers: Headers = new Headers({
+	// 	'Content-Type': 'application/json;charset=utf-8',
+	// 	'X-CSRF-Token': 'erwerwe'
+	// });
+	private options: RequestOptions = new RequestOptions({
+		withCredentials: true,
+		//headers: this.headers
+	});
 
-        //if (this.storage.hasItem(parameters.url)) {
-        //    return (Observable.of(this.storage.getItem(parameters.url))) as any;
-        //}
+	constructor(private http: Http,
+		private logger: LogService,
+		private storage: StorageService,
+		private apiServiceOptions: ApiServiceOptions,
+		private loaderService: LoaderService) { }
 
-        this.apiServiceOptions.method = RequestMethod.Get;
-        this.apiServiceOptions.parameters = parameters;
-        this.apiServiceOptions.parameters.url = (parameters.concatApi) ? Config.ENVIRONMENT().API.concat(parameters.url) : parameters.url;
-        this.apiServiceOptions.parameters.parameters = parameters.parameters;
-        this.apiServiceOptions.parameters.cacheKey = parameters.cacheKey;
-        this.apiServiceOptions.headers = new Headers({ 'Content-Type': 'application/json' });
-        this.apiServiceOptions.pendingCommandCount = 0;
-        this.apiServiceOptions.pendingCommandsSubject = new Subject<number>();
-        this.apiServiceOptions.pendingCommands$ = this.apiServiceOptions.pendingCommandsSubject.asObservable();
+	// get(parameters: ApiServiceParametersOptions): Observable<Response> {
+	// 	this.showLoader();
 
-        return (this.request(this.apiServiceOptions)) as any;
-    }
+	// 	//if (this.storage.hasItem(parameters.url)) {
+	// 	//    return (Observable.of(this.storage.getItem(parameters.url))) as any;
+	// 	//}
 
-    post(parameters: ApiServiceParametersOptions): Observable<Response> {
+	// 	this.apiServiceOptions.method = RequestMethod.Get;
+	// 	this.apiServiceOptions.parameters = parameters;
+	// 	this.apiServiceOptions.parameters.url = (parameters.concatApi) ? Config.ENVIRONMENT().API.concat(parameters.url) : parameters.url;
+	// 	this.apiServiceOptions.parameters.parameters = parameters.parameters;
+	// 	this.apiServiceOptions.parameters.cacheKey = parameters.cacheKey;
+	// 	this.apiServiceOptions.headers = new Headers({ 'Content-Type': 'application/json' });
+	// 	this.apiServiceOptions.pendingCommandCount = 0;
+	// 	this.apiServiceOptions.pendingCommandsSubject = new Subject<number>();
+	// 	this.apiServiceOptions.pendingCommands$ = this.apiServiceOptions.pendingCommandsSubject.asObservable();
 
-        this.apiServiceOptions.method = RequestMethod.Post;
-        this.apiServiceOptions.parameters = parameters;
-        this.apiServiceOptions.parameters.url = Config.ENVIRONMENT().API.concat(parameters.url);
-        this.apiServiceOptions.pendingCommandCount = 0;
-        this.apiServiceOptions.pendingCommandsSubject = new Subject<number>();
-        this.apiServiceOptions.pendingCommands$ = this.apiServiceOptions.pendingCommandsSubject.asObservable();
+	// 	return (this.request(this.apiServiceOptions)) as any;
+	// }
+
+	// post(parameters: ApiServiceParametersOptions): Observable<Response> {
+
+	// 	this.apiServiceOptions.method = RequestMethod.Post;
+	// 	this.apiServiceOptions.parameters = parameters;
+	// 	this.apiServiceOptions.parameters.url = Config.ENVIRONMENT().API.concat(parameters.url);
+	// 	this.apiServiceOptions.pendingCommandCount = 0;
+	// 	this.apiServiceOptions.pendingCommandsSubject = new Subject<number>();
+	// 	this.apiServiceOptions.pendingCommands$ = this.apiServiceOptions.pendingCommandsSubject.asObservable();
 
 
-        let isCommand = (this.apiServiceOptions.method !== RequestMethod.Post);
+	// 	let isCommand = (this.apiServiceOptions.method !== RequestMethod.Post);
 
-        if (isCommand) {
-            this.apiServiceOptions.pendingCommandsSubject.next(++this.apiServiceOptions.pendingCommandCount);
-        }
+	// 	if (isCommand) {
+	// 		this.apiServiceOptions.pendingCommandsSubject.next(++this.apiServiceOptions.pendingCommandCount);
+	// 	}
 
-        return this.request(this.apiServiceOptions);
-    }
+	// 	return this.request(this.apiServiceOptions);
+	// }
 
-    mapper(parameters: ApiServiceParametersOptions): Observable<any> {
-        this.showLoader();
+	mapper(endpoint: string, params?: any, options: RequestOptionsArgs = {}): Observable<any> {
+		this.showLoader();
 
-        //let api: string = (parameters.concatApi) ? Config.ENVIRONMENT().API.concat(parameters.url) : parameters.url;
-        let api: string = (parameters.concatApi) ? 'http://localhost:8000/api/v1/'.concat(parameters.url) : parameters.url;
+		//let api: string = (parameters.concatApi) ? Config.ENVIRONMENT().API.concat(parameters.url) : parameters.url;
+		//let api: string = (parameters.concatApi) ? 'http://localhost:8000/api/v1/'.concat(parameters.url) : parameters.url;
+		params = {};
 
-        this.logger.info(api);
 
-        return this.http.get(api)
-            .catch(this.onCatch)
-            .finally(() => {
-                this.onEnd();
-            });
-    }
+		if (params) {
+			const urlSearchParams: URLSearchParams = new URLSearchParams();
+			_.forEach(params, (value: any, key: string): void => urlSearchParams.set(key, value));
+			options.search = !options.search ? urlSearchParams : options.search;
+			options.method = 'Get';
+			//options.headers = this.headers;
+			options.url = `${this.api}/${endpoint}`;
+		}
 
-    private request(options: ApiServiceOptions): Observable<any> {
-        let requestOptions = null;
+		//this.logger.info(api);
+		let headers: Headers = new Headers({ 'Content-Type': 'application/json' });
+		//headers.set('Content-Type', 'application/json');
+		//headers.append('Cache-Control', 'no-cache');
+		//headers.set('Cache-Control', 'no-store');
+		//headers.set('If-Modified-Since', 'Mon, 26 Jul 1997 05:00:00 GMT');
+		//headers.append('authentication', 'dfsdfsd');
 
-        if (options.parameters.allowRequestOption) {
-            requestOptions = new RequestOptions();
-            requestOptions.method = options.method;
-            requestOptions.url = options.parameters.url;
-            requestOptions.headers = options.headers;
-            requestOptions.search = ((this.buildUrlSearchParams(options.parameters.parameters)) as any);
-            requestOptions.body = options.parameters.parameters;
-        }
+		const urlSearchParams: URLSearchParams = new URLSearchParams();
+		_.forEach(headers, (value: any, key: string): void => urlSearchParams.set(key, value));
 
-        let isCommand = (options.method !== RequestMethod.Get);
+		let requestOptions: RequestOptions = new RequestOptions({
+			headers: headers,
+			search: !options.search ? urlSearchParams : options.search
+		});
 
-        if (isCommand) {
-            options.pendingCommandsSubject.next(++options.pendingCommandCount);
-        }
+		return this.http
+			.request(`${this.api}/${endpoint}`, requestOptions)
+			//.get(`${this.api}/${endpoint}`, requestOptions)
+			.catch(this.onCatch)
+			.finally(() => {
+				this.onEnd();
+			});
+	}
 
-        return (this.http.request(options.parameters.url, requestOptions)
-            .map((res: Response) => res.json())
-            .catch(this.onCatch)
-            .do((res: Response) => {
-                this.onSuccess(res);
-                //if (options.parameters.cacheKey !== '') this.storage.setItem(options.parameters.cacheKey, res);
-            }, (error: any) => {
-                this.onError(error);
-            })
-            .finally(() => {
-                this.onEnd();
-                if (isCommand) options.pendingCommandsSubject.next(--options.pendingCommandCount);
-            })) as any;
-    }
+	get(endpoint: string, params?: any, options: RequestOptionsArgs = {}): Observable<Response> {
 
-    private buildUrlSearchParams(params: any): URLSearchParams {
-        let searchParams = new URLSearchParams();
-        for (var key in params) {
-            searchParams.append(key, params[key]);
-        }
-        return searchParams;
-    }
+		if (params) {
+			const urlSearchParams: URLSearchParams = new URLSearchParams();
+			_.forEach(params, (value: any, key: string): void => urlSearchParams.set(key, value));
+			options.search = !options.search ? urlSearchParams : options.search;
+		}
 
-    private onCatch(error: any, caught: Observable<any>): Observable<any> {
-        return Observable.throw(error);
-    }
+		return this.http
+			.get(`${this.api}/${endpoint}`, this.options.merge(options))
+			.map((res: Response) => res.json())
+			.catch(this.onCatch)
+			.do((res: Response) => {
+				this.onSuccess(res);
+			}, (error: any) => {
+				this.onError(error);
+			})
+			.finally(() => {
+				this.onEnd();
+			});
+	}
 
-    private onSuccess(res: Response): void {
-        this.logger.info('Request successful');
-    }
+	post(endpoint: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
+		return this.http
+			.post(`${this.api}/${endpoint}`, body, this.options.merge(options))
+			.map((res: Response) => res.json())
+			.catch(this.onCatch)
+			.do((res: Response) => {
+				this.onSuccess(res);
+			}, (error: any) => {
+				this.onError(error);
+			})
+			.finally(() => {
+				this.onEnd();
+			});
+	}
 
-    private onError(res: Response): void {
-        this.logger.error('Error, status code: '.concat(res.status.toString()));
-    }
+	put(endpoint: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
+		return this.http
+			.put(`${this.api}/${endpoint}`, body, this.options.merge(options))
+			.map((res: Response) => res.json())
+			.catch(this.onCatch)
+			.do((res: Response) => {
+				this.onSuccess(res);
+			}, (error: any) => {
+				this.onError(error);
+			})
+			.finally(() => {
+				this.onEnd();
+			});
+	}
 
-    private onEnd(): void {
-        this.hideLoader();
-    }
+	delete(endpoint: string, options?: RequestOptionsArgs): Observable<Response> {
+		return this.http
+			.delete(`${this.api}/${endpoint}`, this.options.merge(options))
+			.map((res: Response) => res.json())
+			.catch(this.onCatch)
+			.do((res: Response) => {
+				this.onSuccess(res);
+			}, (error: any) => {
+				this.onError(error);
+			})
+			.finally(() => {
+				this.onEnd();
+			});
+	}
 
-    private showLoader(): void {
-        this.loaderService.show();
-    }
+	patch(endpoint: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
+		return this.http
+			.patch(`${this.api}/${endpoint}`, body, this.options.merge(options))
+			.map((res: Response) => res.json())
+			.catch(this.onCatch)
+			.do((res: Response) => {
+				this.onSuccess(res);
+			}, (error: any) => {
+				this.onError(error);
+			})
+			.finally(() => {
+				this.onEnd();
+			});
+	}
 
-    private hideLoader(): void {
-        this.loaderService.hide();
-    }
+
+	private request(options: ApiServiceOptions): Observable<any> {
+		let requestOptions = null;
+
+		if (options.parameters.allowRequestOption) {
+			requestOptions = new RequestOptions();
+			requestOptions.method = options.method;
+			requestOptions.url = options.parameters.url;
+			requestOptions.headers = options.headers;
+			requestOptions.search = ((this.buildUrlSearchParams(options.parameters.parameters)) as any);
+			requestOptions.body = options.parameters.parameters;
+		}
+
+		let isCommand = (options.method !== RequestMethod.Get);
+
+		if (isCommand) {
+			options.pendingCommandsSubject.next(++options.pendingCommandCount);
+		}
+
+		return (this.http.request(options.parameters.url, requestOptions)
+			.map((res: Response) => res.json())
+			.catch(this.onCatch)
+			.do((res: Response) => {
+				this.onSuccess(res);
+				//if (options.parameters.cacheKey !== '') this.storage.setItem(options.parameters.cacheKey, res);
+			}, (error: any) => {
+				this.onError(error);
+			})
+			.finally(() => {
+				this.onEnd();
+				if (isCommand) options.pendingCommandsSubject.next(--options.pendingCommandCount);
+			})) as any;
+	}
+
+	private buildUrlSearchParams(params: any): URLSearchParams {
+		const searchParams: URLSearchParams = new URLSearchParams();
+		_.forEach(params, (value: any, key: string): void => searchParams.append(key, value));
+		return searchParams;
+	}
+
+	private onCatch(error: any, caught: Observable<any>): Observable<any> {
+		return Observable.throw(error);
+	}
+
+	private onSuccess(res: Response): void {
+		this.logger.info('Request successful');
+	}
+
+	private onError(res: Response): void {
+		this.logger.error('Error, status code: '.concat(res.status.toString()));
+	}
+
+	private onEnd(): void {
+		this.hideLoader();
+	}
+
+	private showLoader(): void {
+		this.loaderService.show();
+	}
+
+	private hideLoader(): void {
+		this.loaderService.hide();
+	}
 }

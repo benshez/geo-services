@@ -9,14 +9,14 @@ import { ApiService } from './api/services';
 import { ApiServiceOptions, ApiServiceParametersOptions } from './api/models';
 
 export const CORE_PROVIDERS: any[] = [
-    WindowService,
-    StorageService,
-    ConsoleService,
-    LogService,
-    AppService,
-    RouterExtensions,
-    ApiServiceOptions,
-    ApiServiceParametersOptions
+	WindowService,
+	StorageService,
+	ConsoleService,
+	LogService,
+	AppService,
+	RouterExtensions,
+	ApiServiceOptions,
+	ApiServiceParametersOptions
 ];
 
 export * from './console.service';

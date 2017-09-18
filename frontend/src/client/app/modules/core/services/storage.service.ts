@@ -7,20 +7,20 @@ import { IStorage, StorageKey } from '../interfaces/istorage';
 @Injectable()
 export class StorageService implements IStorage {
 
-    setItem(key: StorageKey, value: any): void {
-        localStorage.setItem('' + key, value === null ? null : JSON.stringify(value));
-    }
+	setItem(key: StorageKey, value: any): void {
+		localStorage.setItem('' + key, value === null ? null : JSON.stringify(value));
+	}
 
-    getItem(key: StorageKey): any {
-        const value = localStorage.getItem('' + key);
-        return value === null ? null : JSON.parse(value);
-    }
+	getItem(key: StorageKey): any {
+		const value = localStorage.getItem('' + key);
+		return value === null ? null : JSON.parse(value);
+	}
 
-    removeItem(key: StorageKey): void {
-        localStorage.removeItem('' + key);
-    }
+	removeItem(key: StorageKey): void {
+		localStorage.removeItem('' + key);
+	}
 
-    hasItem = (key: StorageKey): boolean => {
-        return this.getItem(key) !== null;
-    }
+	hasItem = (key: StorageKey): boolean => {
+		return this.getItem(key) !== null;
+	}
 }

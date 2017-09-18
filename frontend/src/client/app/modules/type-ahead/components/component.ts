@@ -31,6 +31,7 @@ import {
 	KeyValueArray
 } from '../../core/collections/index';
 
+import * as _ from 'lodash';  
 @Component({
 	moduleId: module.id,
 	selector: 'sd-typeahead',
@@ -88,9 +89,7 @@ export class TypeAheadComponent implements OnDestroy {
 
 	constructor(private renderer: Renderer) { }
 
-	public ngOnDestroy() {
-		debugger;
-	}
+	public ngOnDestroy() { return null; }
 
 	onKeyDownArrow(event: string) {
 		this.typeAheadShown = true;
@@ -109,6 +108,7 @@ export class TypeAheadComponent implements OnDestroy {
 		if ((value && value.length <= this.minlength) || this.typeAheadShown) {
 			return;
 		}
+
 		this.keyword = value;
 
 		this.source(this._keyword).subscribe(results => {
@@ -137,7 +137,7 @@ export class TypeAheadComponent implements OnDestroy {
 
 	onKeyDownEnter(args: any) {
 		let input: any = this.typeAheadInput.nativeElement;
-		this.resetTypeAheadSelectedIndex();
+		this.resetSelectedIndex();
 		this.setTypeAheadInputValue(args, input, true);
 	}
 
@@ -155,19 +155,26 @@ export class TypeAheadComponent implements OnDestroy {
 		let tal = this.typeAheadList;
 		if (typeof tal === 'undefined') return;
 		let ul = tal.nativeElement;
-		let elems: Array<HTMLUListElement> = ul.getElementsByTagName('li');
-		if (elems.length === 0) return;
+		let elems: Array<HTMLUListElement> = ul.getElementsByTagName('li') || null;
 
-		switch (<string>event) {
+		if (!elems || elems.length === 0) return;
+
+		let counter: number = elems.length || 0;
+
+		switch (event as string) {
 			case Config.EVENTS.ARROW_DOWN:
-				if (this.typeAheadSelectedIndex + 1 >= elems.length)
-					this.resetTypeAheadSelectedIndex();
+				if (this.typeAheadSelectedIndex + 1 >= counter) {
+					this.resetSelectedIndex();
+				}
 				this.typeAheadSelectedIndex++;
 				break;
 			case Config.EVENTS.ARROW_UP:
 				this.typeAheadSelectedIndex--;
-				if (this.typeAheadSelectedIndex < 0)
-					this.typeAheadSelectedIndex = elems.length - 1;
+				if (this.typeAheadSelectedIndex < 0) {
+					this.typeAheadSelectedIndex = counter - 1;
+				}	
+				break;
+			default:
 				break;
 		}
 
@@ -176,7 +183,7 @@ export class TypeAheadComponent implements OnDestroy {
 		elem.focus();
 	}
 
-	resetTypeAheadSelectedIndex() {
+	resetSelectedIndex() {
 		this.typeAheadSelectedIndex = -1;
 	}
 
