@@ -8,73 +8,55 @@ use Psr\Http\Message\ResponseInterface;
 use Zend\Permissions\Acl\Acl as ZendAcl;
 use Zend\Permissions\Acl\Role\GenericRole as Role;
 use Zend\Permissions\Acl\Resource\GenericResource as Resource;
+use GeoService\Modules\Base\Model\BaseModel;
+use GeoService\Bundles\Contact\Model\Model as Contact;
+use GeoService\Bundles\Roles\Model\Model as Roles;
 
 class TokenAuthentication extends ZendAcl
 {
     protected $container;
     protected $apiVersion;
+    protected $roles;
+    protected $route;
+    protected $routeIndex;
+    protected $defaultRole = 'Guest';
 
-    //roles
-    protected $userRole;
-    protected $adminRole;
-
-    public function __construct(ContainerInterface $container)
+    public function __construct(ContainerInterface $container, array $route, int $routeIndex)
     {
         $this->container = $container;
         $this->apiVersion = $container['settings']['version'];
-
-        /**
-            * roles are not dynamic
-            * role with higher access level is higher number
-        **/
-        ///$this->userRole = 1;
-		//$this->adminRole = 2;
-		$this->addRole(new Role('guest'))
-			->addRole(new Role('member'))
-			->addRole(new Role('admin'));
-
-		$parents = array('guest', 'member', 'admin');
-		
-		//$this->addResource('/');
-		//$this->addResource(sprintf('/api/"%s"/industries', $this->apiVersion));
-		$this->addResource(new Resource(sprintf('/api/%s/industries', $this->apiVersion)));
-
-		$this->allow('guest', sprintf('/api/%s/industries', $this->apiVersion), 'GET');
+        $this->route = $route;
+        $this->routeIndex = $routeIndex;
+    }
+    
+    private function setRoles()
+    {
+        $roles = new Roles($this->container);
+        $this->roles = $roles->onFindAll(null);
     }
 
-    // private function ACL($path, $method)
-    // {
-    //     //init access list
-    //     $accessList = array(
-    //         array(
-    //             'role' => $this->userRole,
-    //             'path' => '/api/'. $this->apiVersion . '/address/{id}',
-    //             'method' => ['GET', 'POST']
-    //         ),
+    private function createAccesslist()
+    {
+        $this->setRoles();
 
-    //         array(
-    //             'role' => $this->adminRole,
-    //             'path' => $this->apiVersion . '/users',
-    //             'method' => ['GET']
-    //         ),
-
-    //         array(
-    //             'role' => $this->adminRole,
-    //             'path' => $this->apiVersion . '/products',
-    //             'method' => ['POST']
-    //         ),
-
-    //     );
-
-    //     //search access list
-    //     foreach ($accessList as $value) {
-    //         foreach ($value['method'] as $valueMethod) {
-    //             if ($value['path'] == $path && $valueMethod == $method) {
-    //                 return $value;
-    //             }
-    //         }
-    //     }
-    // }
+        $allowedResource = $this->route['pattern'][$this->routeIndex];
+        $allowedMethod = $this->route['methods'][$this->routeIndex];
+        $allowedRoles = $this->route['roles'][$this->routeIndex];
+        $resourceAdded = false;
+        
+        foreach ($this->roles as $role) {
+            $this->addRole(new Role($role->getRole()));
+            
+            if (!$resourceAdded) {
+                $this->addResource(new Resource($allowedResource));
+                $resourceAdded = true;
+            }
+            
+            if (in_array($role->getRole(), $allowedRoles)) {
+                $this->allow($role->getRole(), $allowedResource, $allowedMethod);
+            }
+        }
+    }
 
     private function denyAccess()
     {
@@ -82,18 +64,10 @@ class TokenAuthentication extends ZendAcl
         exit;
     }
 
-    private function checkUserRole($accessRule, $_userRole)
+    private function isCleanIP($ip)
     {
-        if ($_userRole == 'user') {
-            $_userRole = $this->userRole;
-        } elseif ($_userRole == 'admin') {
-            $_userRole = $this->adminRole;
-        }
-        
-        //check the role access
-        if ($_userRole >= $accessRule) {
-            return true;
-        }
+        $whiteList = ['127.0.0.1', '192.168.1.7'];
+        return in_array($ip, $whiteList);
     }
 
     public function __invoke(
@@ -101,61 +75,45 @@ class TokenAuthentication extends ZendAcl
         ResponseInterface $response,
         $next
     ) {
+        $this->createAccesslist();
 
-		if ($request->getMethod() === 'OPTIONS') {
-			return false;
-		}
+        $routeInfo = $request->getAttribute('routeInfo');
 
-		$ver = $this->apiVersion;
+        $router = $this->container->get('router');
 
-		if (!$this->isAllowed('guest', sprintf('/api/%s/industries', $ver), $request->getMethod())) {
-			return $this->denyAccess();
-		}
-		
-		$isCleanIP = $this->isCleanIP($_SERVER['REMOTE_ADDR']);
-
-        if (!$isCleanIP) {
-			$this->denyAccess();
+        if (null === $routeInfo || ($routeInfo['request'] !== [$request->getMethod(), (string) $request->getUri()])) {
+            $request = $this->dispatchRouterAndPrepareRoute($request, $router);
+            $routeInfo = $request->getAttribute('routeInfo');
         }
 
-        // $token = null;
+        $route = $request->getAttribute('route')->getPattern();
+        $method = $request->getMethod();
 
-        // if (isset($request->getHeader('token')[0])) {
-        //     $token = $request->getHeader('token')[0];
-        // }
+        $token = (isset($request->getHeader('authorization')[0])) ? $request->getHeader('authorization')[0]: null;
+        $user = null;
+        $role = $this->defaultRole;
 
-        // //same format as api route
-        // $route = $request->getAttribute('route');
-        // $path = $route->getPattern();
-        // $method = $request->getMethod();
-        // $accessRule = $this->ACL($path, $method);
+        if ($token != null) {
+            $user = new Contact($this->container);
+            $role = $user->onGetActiveUserRoleByToken($token);
+            
+            if (!$role) {
+                $role = $this->defaultRole;
+            }
+        }
 
-        // if (isset($accessRule) && $token != null) {
-        //     $checkToken = $this->container->UsersCtrl->validateToken($token);
-        //     if ($checkToken != null) {
-        //         /**
-        //                 * accessRule defined by dev
-        //                 * checkToken retrieve from db
-        //         **/
-        //         if ($this->checkUserRole($accessRule['role'], $checkToken['role'])) {
-        //             $this->container->UsersCtrl->updateUserToken($token);
-        //         } else {
-        //             $this->denyAccess();
-        //         }
-        //     } else {
-        //         $this->denyAccess();
-        //     }
-        // } elseif (isset($accessRule) && $token == null) {
-        //     $this->denyAccess();
-        // }
+        if (!$this->isAllowed($role, $route, $method)) {
+            return $this->denyAccess();
+        }
+
+        $isCleanIP = $this->isCleanIP($_SERVER['REMOTE_ADDR']);
+
+        if (!$isCleanIP) {
+            $this->denyAccess();
+        }
 
         $response = $next($request, $response);
 
         return $response;
-    }
-
-    protected function isCleanIP($ip)
-    {
-		return $ip === '127.0.0.1';
     }
 }

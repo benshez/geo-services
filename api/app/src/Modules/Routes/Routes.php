@@ -3,6 +3,7 @@
 namespace GeoService\Modules\Routes;
 
 use Interop\Container\ContainerInterface;
+use GeoService\Modules\Middleware\TokenAuthentication\TokenAuthentication as TokenAuthentication;
 
 class Routes
 {
@@ -27,13 +28,13 @@ class Routes
                         break;
                     case 'POST':
                         $this->createPostRoutes($route, $index);
-						break;
-					case 'PUT':
-						$this->createPutRoutes($route, $index);
-						break;
-					case 'DELETE':
-						$this->createDeleteRoutes($route, $index);
-						break;						
+                        break;
+                    case 'PUT':
+                        $this->createPutRoutes($route, $index);
+                        break;
+                    case 'DELETE':
+                        $this->createDeleteRoutes($route, $index);
+                        break;
                 }
             }
         }
@@ -43,31 +44,31 @@ class Routes
     {
         if ($route['middleware'][$index]) {
             $container = $this->app->getContainer();
-            $middleware = $container[$route['middleware'][$index]];
-
+            $middleware = $this->createMiddleware($container, $route, $index);
+                
             $this->app->get(
-				$route['pattern'][$index],
-				$route['actions'][$index]
-			)
-			->add(function (
-				$request,
-				$response,
-				$next
-			) use (
-				$container,
-				$middleware
-			) {
-				return $middleware(
-					$request,
-					$response,
-					$next
-				);
-			});
+                $route['pattern'][$index],
+                $route['actions'][$index]
+            )
+            ->add(function (
+                $request,
+                $response,
+                $next
+            ) use (
+                $container,
+                $middleware
+            ) {
+                return $middleware(
+                    $request,
+                    $response,
+                    $next
+                );
+            });
         } else {
             $this->app->get(
-				$route['pattern'][$index],
-				$route['actions'][$index]
-			);
+                $route['pattern'][$index],
+                $route['actions'][$index]
+            );
         }
     }
 
@@ -75,89 +76,102 @@ class Routes
     {
         if ($route['middleware'][$index]) {
             $container = $this->app->getContainer();
-            $middleware = $container[$route['middleware'][$index]];
-
+            $middleware = $this->createMiddleware($container, $route, $index);
+            
             $this->app->post(
-				$route['pattern'][$index],
-				$route['actions'][$index]
-			)
-			->add(function (
-				$request,
-				$response,
-				$next
-			) use (
-				$container,
-				$middleware
-			) {
-				return $middleware($request,
-				$response,
-				$next);
-			});
+                $route['pattern'][$index],
+                $route['actions'][$index]
+            )
+            ->add(function (
+                $request,
+                $response,
+                $next
+            ) use (
+                $container,
+                $middleware
+            ) {
+                return $middleware($request,
+                $response,
+                $next);
+            });
         } else {
             $this->app->post(
-				$route['pattern'][$index],
-				$route['actions'][$index]
-			);
+                $route['pattern'][$index],
+                $route['actions'][$index]
+            );
         }
-	}
-	
-	private function createPutRoutes($route, $index)
+    }
+    
+    private function createPutRoutes($route, $index)
     {
         if ($route['middleware'][$index]) {
             $container = $this->app->getContainer();
-            $middleware = $container[$route['middleware'][$index]];
-
+            $middleware = $this->createMiddleware($container, $route, $index);
+            
             $this->app->put(
-				$route['pattern'][$index],
-				$route['actions'][$index]
-			)
-			->add(function (
-				$request,
-				$response,
-				$next
-			) use (
-				$container,
-				$middleware
-			) {
-				return $middleware($request,
-				$response,
-				$next);
-			});
+                $route['pattern'][$index],
+                $route['actions'][$index]
+            )
+            ->add(function (
+                $request,
+                $response,
+                $next
+            ) use (
+                $container,
+                $middleware
+            ) {
+                return $middleware($request,
+                $response,
+                $next);
+            });
         } else {
             $this->app->put(
-				$route['pattern'][$index],
-				$route['actions'][$index]
-			);
+                $route['pattern'][$index],
+                $route['actions'][$index]
+            );
         }
-	}
-
-	private function createDeleteRoutes($route, $index)
-	{
-		if ($route['middleware'][$index]) {
+    }
+    
+    private function createDeleteRoutes($route, $index)
+    {
+        if ($route['middleware'][$index]) {
             $container = $this->app->getContainer();
-            $middleware = $container[$route['middleware'][$index]];
+            $middleware = $this->createMiddleware($container, $route, $index);
 
             $this->app->delete(
-				$route['pattern'][$index],
-				$route['actions'][$index]
-			)
-			->add(function (
-				$request,
-				$response,
-				$next
-			) use (
-				$container,
-				$middleware
-			) {
-				return $middleware($request,
-				$response,
-				$next);
-			});
+                $route['pattern'][$index],
+                $route['actions'][$index]
+            )
+            ->add(function (
+                $request,
+                $response,
+                $next
+            ) use (
+                $container,
+                $middleware
+            ) {
+                return $middleware($request,
+                $response,
+                $next);
+            });
         } else {
             $this->app->delete(
-				$route['pattern'][$index],
-				$route['actions'][$index]
-			);
+                $route['pattern'][$index],
+                $route['actions'][$index]
+            );
         }
-	}
+    }
+    
+    private function createMiddleware($container, $route, $index)
+    {
+        $middleware = '';
+
+        switch ($route['middleware'][$index]) {
+            case 'TokenAuthentication':
+                $middleware = [new TokenAuthentication($container, $route, $index), '__invoke'];
+                break;
+        }
+
+        return $middleware;
+    }
 }

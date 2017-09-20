@@ -36,9 +36,9 @@ class BaseModel
     private function flushEntity($entity)
     {
         $this->getEntityManager()->flush($entity);
-	}
-	
-    public function get($sender, array $args)
+    }
+    
+    public function get($sender, array $args = null)
     {
         if ($args === null) {
             $configs = $this->getEntityManager()->getRepository($sender)->findAll();
@@ -112,15 +112,15 @@ class BaseModel
 
     public function formIsValid($validator, String $class, String $extention, array $args)
     {
-		$fields = $this->getConfig()->getOption('validators', $class, $extention);
-		
-		$values = array();
+        $fields = $this->getConfig()->getOption('validators', $class, $extention);
+        
+        $values = array();
 
-		foreach ($fields as $key => $field) {
-			foreach ($field as $value) {
-				$values[] = $args[$key];
-			}
-		}
+        foreach ($fields as $key => $field) {
+            foreach ($field as $value) {
+                $values[] = $args[$key];
+            }
+        }
 
         return $validator->formIsValid(
             $fields,
@@ -134,29 +134,29 @@ class BaseModel
             'name',
             $class
         ), [$key => $id]);
-	}
-	
-	public function hydrateEntity($entity, array $args)
-	{
-		$refObj = new \ReflectionObject($entity);
-		$reader = new AnnotationReader();
-		$columns = array_column($refObj->getProperties(), 'name');
-		
-		foreach ($args as $key => $property) {
-			$setter = sprintf('set%s', ucfirst(Inflector::camelize($key)));
-			$column = array_search($key, $columns);
-			$annotation = $reader->getPropertyAnnotation(
-				$refObj->getProperties()[$column],
-				'Doctrine\ORM\Mapping\Column'
-			);
-			
-			if ($annotation && method_exists($entity, $setter)) {
-				if (isset($args[$key])) {
-					$entity->$setter($args[Inflector::tableize($annotation->name)]);
-				}
+    }
+    
+    public function hydrateEntity($entity, array $args)
+    {
+        $refObj = new \ReflectionObject($entity);
+        $reader = new AnnotationReader();
+        $columns = array_column($refObj->getProperties(), 'name');
+        
+        foreach ($args as $key => $property) {
+            $setter = sprintf('set%s', ucfirst(Inflector::camelize($key)));
+            $column = array_search($key, $columns);
+            $annotation = $reader->getPropertyAnnotation(
+                $refObj->getProperties()[$column],
+                'Doctrine\ORM\Mapping\Column'
+            );
+            
+            if ($annotation && method_exists($entity, $setter)) {
+                if (isset($args[$key])) {
+                    $entity->$setter($args[Inflector::tableize($annotation->name)]);
+                }
             }
-		}
+        }
 
-		return $entity;
-	}
+        return $entity;
+    }
 }

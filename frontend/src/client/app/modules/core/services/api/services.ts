@@ -18,13 +18,12 @@ export class ApiService {
 	private api: string = Config.ENVIRONMENT().API;
 	private user: IUser = this.storage.getItem(StorageKey.USER_DETAIL);
 
-	// private headers: Headers = new Headers({
-	// 	'Content-Type': 'application/json;charset=utf-8',
-	// 	'X-CSRF-Token': 'erwerwe'
-	// });
+	private headers: Headers = new Headers({
+		'Authorization': 'xxxx'
+	});
 	private options: RequestOptions = new RequestOptions({
-		withCredentials: true,
-		//headers: this.headers
+		headers: this.headers,
+		method: 'Get'
 	});
 
 	constructor(private http: Http,
@@ -78,36 +77,18 @@ export class ApiService {
 		//let api: string = (parameters.concatApi) ? Config.ENVIRONMENT().API.concat(parameters.url) : parameters.url;
 		//let api: string = (parameters.concatApi) ? 'http://localhost:8000/api/v1/'.concat(parameters.url) : parameters.url;
 		params = {};
-
-
 		if (params) {
 			const urlSearchParams: URLSearchParams = new URLSearchParams();
 			_.forEach(params, (value: any, key: string): void => urlSearchParams.set(key, value));
 			options.search = !options.search ? urlSearchParams : options.search;
-			options.method = 'Get';
-			//options.headers = this.headers;
 			options.url = `${this.api}/${endpoint}`;
+			options.method = 'Get';
 		}
 
 		//this.logger.info(api);
-		let headers: Headers = new Headers({ 'Content-Type': 'application/json' });
-		//headers.set('Content-Type', 'application/json');
-		//headers.append('Cache-Control', 'no-cache');
-		//headers.set('Cache-Control', 'no-store');
-		//headers.set('If-Modified-Since', 'Mon, 26 Jul 1997 05:00:00 GMT');
-		//headers.append('authentication', 'dfsdfsd');
-
-		const urlSearchParams: URLSearchParams = new URLSearchParams();
-		_.forEach(headers, (value: any, key: string): void => urlSearchParams.set(key, value));
-
-		let requestOptions: RequestOptions = new RequestOptions({
-			headers: headers,
-			search: !options.search ? urlSearchParams : options.search
-		});
 
 		return this.http
-			.request(`${this.api}/${endpoint}`, requestOptions)
-			//.get(`${this.api}/${endpoint}`, requestOptions)
+			.get(`${this.api}/${endpoint}`, this.options.merge(options))
 			.catch(this.onCatch)
 			.finally(() => {
 				this.onEnd();

@@ -12,13 +12,13 @@ use GeoService\Modules\Base\Model\BaseModel;
 
 class Model extends BaseModel implements IRolesModel
 {
-	protected $validator = null;
+    protected $validator = null;
 
-	const KEY = 'id';
-	const ROLE = 'role';
+    const KEY = 'id';
+    const ROLE = 'role';
     const DESCRIPTION = 'description';
-	const ENABLED = 'enabled';
-	const TABLE = 'roles';
+    const ENABLED = 'enabled';
+    const TABLE = 'roles';
 
     private function getValidator()
     {
@@ -26,12 +26,12 @@ class Model extends BaseModel implements IRolesModel
         return $this->validator;
     }
     
-    public function onFindAll($args)
+    public function onFindAll($args = null)
     {
         $roles = $this->get($this->getConfig()->getOption(
             'name',
             self::TABLE
-        ), []);
+        ), $args);
         
         if ($roles) {
             return $roles;
@@ -104,23 +104,23 @@ class Model extends BaseModel implements IRolesModel
         }
 
         return false;
-	}
-	
-	public function onAddOrUpdate($role, $isAdding = false)
+    }
+    
+    public function onAddOrUpdate($role, $isAdding = false)
     {
         $entity = $this->getEntityById(self::TABLE, self::KEY, $role[self::KEY]);
 
         if (!$entity) {
-			$isAdding = true;
+            $isAdding = true;
             $entity = new Roles();
-		}
-		
-		if ($isAdding) {
-			$entity->setRole($role[self::DESCRIPTION]);
-			$entity->setEnabled($role[self::ENABLED]);
-			$this->persistAndFlush($entity);
-			return $this->getEntityById(self::TABLE, self::KEY, $entity->getId());
-		}
+        }
+        
+        if ($isAdding) {
+            $entity->setRole($role[self::DESCRIPTION]);
+            $entity->setEnabled($role[self::ENABLED]);
+            $this->persistAndFlush($entity);
+            return $this->getEntityById(self::TABLE, self::KEY, $entity->getId());
+        }
  
         if ($entity && $entity->getId()) {
             return $this->getEntityById(self::TABLE, self::KEY, $entity->getId());
