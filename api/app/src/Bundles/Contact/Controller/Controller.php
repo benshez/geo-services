@@ -4,9 +4,9 @@ namespace GeoService\Bundles\Contact\Controller;
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use GeoService\Modules\Base\Options\BaseOptions;
 use GeoService\Modules\Base\Controller\BaseController;
 use GeoService\Bundles\Contact\Interfaces\IContactController;
-use GeoService\Modules\Base\Options\BaseOptions;
 
 class Controller extends BaseController implements IContactController
 {
@@ -15,7 +15,8 @@ class Controller extends BaseController implements IContactController
         ResponseInterface $response,
         $args
     ) {
-        return $this->fetched(
+    
+        $fetched = $this->fetched(
             $request,
             $response,
             $this->model->authenticate(
@@ -28,5 +29,10 @@ class Controller extends BaseController implements IContactController
                 'extention' => 'validation:authenticate:message:UserNotFound')
             )
         );
+        
+        if ($fetched) {
+            return $fetched;
+        }
+        return false;
     }
 }

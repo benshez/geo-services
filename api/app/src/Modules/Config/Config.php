@@ -9,15 +9,15 @@ use Zend\Config\Reader\Yaml as YamlConfig;
 class Config
 {
     protected $path = __DIR__ .'/../../../../config/environments/';
-	protected $settings;
+    protected $settings;
 
     public function __construct(\Slim\Collection $settings = null)
     {
         if ($settings != null) {
             $this->settings = $settings;
         }
-	}
-	
+    }
+    
     public function getConfig()
     {
         $reader = new YamlConfig([\Symfony\Component\Yaml\Yaml::class, 'parse']);
@@ -52,20 +52,32 @@ class Config
             $this->getSettings(),
             sprintf($this->getOptionsPaths()[$option], $class).$extention
         );
-	}
+    }
 
-	public function getDateTimeNow()
-	{
-		return new \DateTime('now', new \DateTimeZone($this->getSettings()['time_zone']));
-	}
 
-	public function getDateTimeFuture(String $days)
-	{
-		return $this->getDateTimeNow()->add(new \DateInterval('P'.$days.'D'));
-	}
+    /**
+     * Today Formatted To Year Month Day
+     *
+     * @return Today Formatted
+     */
+    public static function currentDateYearMonthDay()
+    {
+        $curr_date = date('Y-m-d');
+        return $curr_date;
+    }
+    
+    public function getDateTimeNow()
+    {
+        return new \DateTime('now', new \DateTimeZone($this->getSettings()['time_zone']));
+    }
 
-	private function getSettings()
-	{
-		return $this->settings;
-	}
+    public function getDateTimeFuture(String $days)
+    {
+        return $this->getDateTimeNow()->add(new \DateInterval('P'.$days.'D'));
+    }
+
+    private function getSettings()
+    {
+        return $this->settings;
+    }
 }

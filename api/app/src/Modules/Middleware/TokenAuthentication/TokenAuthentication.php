@@ -78,7 +78,7 @@ class TokenAuthentication extends ZendAcl
         $this->createAccesslist();
 
         $routeInfo = $request->getAttribute('routeInfo');
-
+        
         $router = $this->container->get('router');
 
         if (null === $routeInfo || ($routeInfo['request'] !== [$request->getMethod(), (string) $request->getUri()])) {
@@ -96,10 +96,7 @@ class TokenAuthentication extends ZendAcl
         if ($token != null) {
             $user = new Contact($this->container);
             $role = $user->onGetActiveUserRoleByToken($token);
-            
-            if (!$role) {
-                $role = $this->defaultRole;
-            }
+            $role = ($role) ? $role : $this->defaultRole;
         }
 
         if (!$this->isAllowed($role, $route, $method)) {
