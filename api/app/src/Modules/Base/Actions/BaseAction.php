@@ -1,31 +1,41 @@
 <?php
+/**
+ * BaseAction File Doc Comment
+ *
+ * PHP Version 7.0.10
+ *
+ * @category  BaseAction
+ * @package   GeoService
+ * @author    Ben van Heerden <benshez1@gmail.com>
+ * @copyright 2017-2018 GeoService
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU General Public License
+ * @link      https://github.com/benshez/geo-services
+ */
 
 namespace GeoService\Modules\Base\Actions;
 
+use \ReflectionObject;
 use GeoService\Modules\Config\Config;
 use Interop\Container\ContainerInterface;
+use GeoService\Modules\Base\Interfaces\IBaseAction;
 
-/**
- * Base Class For All Get Actions
- * Ben van Heerden
- * 1
- * 0
- * 0
- * BaseAction
- * benshez1@gmail.com
- */
-class BaseAction
+class BaseAction implements IBaseAction
 {
-    protected $container = null;
-    protected $manager = null;
-    protected $config = null;
-    protected $settings = null;
+    const SETTINGS = 'settings';
+    const ENTITY_MANAGER = 'em';
+    const VALIDATORS = 'validators';
+
+    private $_container = null;
+    private $_manager = null;
+    private $_config = null;
+    private $_settings = null;
 
     /**
      * Initialise BaseAction To Set Container
      *
      * @param ContainerInterface $container ContainerInterface.
      *
+     * @return void
      */
     public function __construct(ContainerInterface $container)
     {
@@ -39,7 +49,7 @@ class BaseAction
      */
     public function getContainer()
     {
-        return $this->container;
+        return $this->_container;
     }
     
     /**
@@ -51,7 +61,7 @@ class BaseAction
      */
     public function setContainer(ContainerInterface $container)
     {
-        $this->container = $container;
+        $this->_container = $container;
         $this->setEntityManager();
     }
 
@@ -62,7 +72,7 @@ class BaseAction
      */
     public function getEntityManager()
     {
-        return $this->manager;
+        return $this->_manager;
     }
 
     /**
@@ -72,7 +82,7 @@ class BaseAction
      */
     public function setEntityManager()
     {
-        $this->manager = $this->container->get('em');
+        $this->_manager = $this->_container->get(self::ENTITY_MANAGER);
     }
 
     /**
@@ -82,8 +92,10 @@ class BaseAction
      */
     public function getConfig()
     {
-        $this->config = (!$this->config) ? new Config($this->getSettings()) : $this->config;
-        return $this->config;
+        $this->_config = (!$this->_config) ?
+        new Config($this->getSettings()) :
+        $this->_config;
+        return $this->_config;
     }
 
     /**
@@ -93,7 +105,45 @@ class BaseAction
      */
     public function getSettings()
     {
-        $this->settings = (!$this->settings) ? $this->getContainer()->get('settings') : $this->settings;
-        return $this->settings;
+        $this->_settings = (!$this->_settings) ?
+        $this->getContainer()->get(self::SETTINGS) :
+        $this->_settings;
+        return $this->_settings;
+    }
+    
+    /**
+     * Get FormIsValid
+     *
+     * @param ReflectionObject $validator Validator.
+     * @param string           $class     Class.
+     * @param string           $extention Class Extention.
+     * @param array            $args      Args.
+     *
+     * @return IsValid
+     */
+    public function formIsValid(
+        $validator,
+        string $class,
+        string $extention,
+        array $args
+    ) {
+    
+        $fields = $this->getConfig()
+            ->getOption(self::VALIDATORS, $class, $extention);
+        
+        $values = array();
+
+        foreach ($fields as $key => $field) {
+            foreach ($field as $value) {
+                $values[] = $args[$key];
+            }
+        }
+
+        $isValid = $validator->formIsValid(
+            $fields,
+            $values
+        );
+        
+        return $isValid;
     }
 }

@@ -1,22 +1,26 @@
 <?php
+/**
+ * BaseHydrate File Doc Comment
+ *
+ * PHP Version 7.0.10
+ *
+ * @category  BaseHydrate
+ * @package   GeoService
+ * @author    Ben van Heerden <benshez1@gmail.com>
+ * @copyright 2017-2018 GeoService
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU General Public License
+ * @link      https://github.com/benshez/geo-services
+ */
 
 namespace GeoService\Modules\Base\Actions;
 
 use \ReflectionObject;
+use Doctrine\Common\Util\Inflector;
 use Interop\Container\ContainerInterface;
 use GeoService\Modules\Base\Actions\BaseAction;
 use Doctrine\Common\Annotations\AnnotationReader;
 
-/**
- * Base Class For All Get Actions
- * Ben van Heerden
- * 1
- * 0
- * 0
- * BaseGet
- * benshez1@gmail.com
- */
-class BasePost extends BaseActions
+class BaseHydrate extends BaseAction
 {
     const PROP_NAME = 'name';
     const ANNOTATION_NAME = 'Doctrine\ORM\Mapping\Column';
@@ -36,13 +40,13 @@ class BasePost extends BaseActions
     /**
      * Base Ghydrate Entity Action
      *
-     * @param string $entity Sender Is Entity Class.
+     * @param       $entity Sender Is Entity Class.
      *
-     * @param array  $args   Args Is Arguments To Pass.
+     * @param array $args Args Is Arguments To Pass.
      *
      * @return Entity Object
      */
-    public function hydrateEntity(string $entity, array $args)
+    public function hydrate($entity, array $args)
     {
         $refObj = new \ReflectionObject($entity);
         $reader = new AnnotationReader();

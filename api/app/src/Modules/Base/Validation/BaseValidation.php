@@ -6,7 +6,7 @@ use Zend\Validator;
 use Zend\Validator\ValidatorChain;
 use Zend\Validator\ValidatorInterface;
 use GeoService\Modules\Base\Interfaces\IBaseValidation;
-use GeoService\Modules\Base\Interfaces\IBaseModel;
+use GeoService\Modules\Base\Interfaces\IBaseAction;
 use GeoService\Modules\Config\Config;
 use GeoService\Modules\Validators\ABN\AbnOrAcnValidator;
 
@@ -19,20 +19,21 @@ class BaseValidation implements
     protected $error = null;
     protected $settings = null;
     protected $config = null;
+    private $_action = null;
 
-    public function __construct(IBaseModel $model)
+    public function __construct(IBaseAction $action)
     {
-        $this->setModel($model);
+        $this->setAction($action);
     }
 
-    public function setModel(IBaseModel $model)
+    public function setAction(IBaseAction $action)
     {
-        $this->model = $model;
+        $this->_action = $action;
     }
 
-    public function getModel()
+    public function getAction()
     {
-        return $this->model;
+        return $this->_action;
     }
 
     public function getMessages()
@@ -48,12 +49,12 @@ class BaseValidation implements
     public function setMessagesArray($error = null, $class = null, $key = null)
     {
         if ($key) {
-			$this->config = (!$this->config) ? new Config($this->getModel()->getSettings()) : $this->config;
-			$error = $this->config->getOption(
-				'messages',
-				$class,
-				$key
-			);
+            $this->config = (!$this->config) ? new Config($this->getModel()->getSettings()) : $this->config;
+            $error = $this->config->getOption(
+                'messages',
+                $class,
+                $key
+            );
         }
         
         $this->error = array('error' => true,  'message' => $error);
@@ -77,7 +78,7 @@ class BaseValidation implements
         $isValid = true;
 
         foreach ($this->validators as $index => $validator) {
-			$value = $values[$index];
+            $value = $values[$index];
             $isValid = $validator->isValid($value);
 
             if (!$isValid) {
@@ -98,7 +99,7 @@ class BaseValidation implements
     {
         foreach ($fields as $index => $validators) {
             foreach ($validators as $validator) {
-				$this->create();
+                $this->create();
 
                 $name = (sizeof($validators) === 1) ? (sizeof($fields[$index]) === 1) ? $validator[0] : $validator : $validator[0];
                 $options = [];
@@ -114,8 +115,8 @@ class BaseValidation implements
                     }
 
                     $break = isset($validator[2]) ? $validator[2] : null;
-				}
-				
+                }
+                
                 switch (sizeof($validator)) {
                     case 2:
                         $this->validator->attachByName($name, $options);
@@ -126,10 +127,10 @@ class BaseValidation implements
                     default:
                         $this->validator->attachByName($name);
                         break;
-				}
-				
-				$this->validators[] = $this->validator;
-				$this->dispose();
+                }
+                
+                $this->validators[] = $this->validator;
+                $this->dispose();
             }
         }
     }

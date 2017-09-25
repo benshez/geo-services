@@ -9,7 +9,7 @@ use Zend\Permissions\Acl\Acl as ZendAcl;
 use Zend\Permissions\Acl\Role\GenericRole as Role;
 use Zend\Permissions\Acl\Resource\GenericResource as Resource;
 use GeoService\Modules\Base\Model\BaseModel;
-use GeoService\Bundles\Contact\Model\Model as Contact;
+use GeoService\Bundles\Contact\Actions\Get as Contact;
 use GeoService\Bundles\Roles\Model\Model as Roles;
 
 class TokenAuthentication extends ZendAcl

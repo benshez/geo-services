@@ -1,114 +1,141 @@
 <?php
+/**
+ * BaseController File Doc Comment
+ *
+ * PHP Version 7.0.10
+ *
+ * @category  BaseController
+ * @package   GeoService
+ * @author    Ben van Heerden <benshez1@gmail.com>
+ * @copyright 2017-2018 GeoService
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU General Public License
+ * @link      https://github.com/benshez/geo-services
+ */
 
 namespace GeoService\Modules\Base\Controller;
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use GeoService\Modules\Base\Interfaces\IBaseModel;
-use GeoService\Modules\Base\Interfaces\IBaseController;
 use GeoService\Modules\Base\Options\BaseOptions;
+use GeoService\Modules\Base\Interfaces\IBaseAction;
+use GeoService\Modules\Base\Interfaces\IBaseController;
 
 class BaseController implements IBaseController
 {
-	protected $parameters = array();
+    private $_parameters = array();
+    private $_action = array();
 
-    public function __construct(IBaseModel $model)
+    /**
+     * Base Controller
+     *
+     * @param IBaseAction $action Action.
+     *
+     * @return void
+     */
+    public function __construct(IBaseAction $action)
     {
-        $this->setModel($model);
+        $this->setAction($action);
     }
 
-    public function setModel(IBaseModel $model)
+    /**
+     * Set Action
+     *
+     * @param IBaseAction $action Action.
+     *
+     * @return void
+     */
+    public function setAction(IBaseAction $action)
     {
-        $this->model = $model;
+        $this->_action = $action;
     }
 
-    public function getModel()
+    /**
+     * Get Action
+     *
+     * @return action
+     */
+    public function getAction()
     {
-        return $this->model;
+        return $this->_action;
     }
-
-	public function setParameters(IBaseModel $parameters)
-    {
-        $this->parameters = $parameters;
-    }
-	
+    
     public function fetch(
-		RequestInterface $request,
-		ResponseInterface $response,
-		$sender,
-		array $arg = null,
-		BaseOptions $options
+        RequestInterface $request,
+        ResponseInterface $response,
+        $sender,
+        array $arg = null,
+        BaseOptions $options
     ) {
-		return $this->fetched(
-			$request,
-			$response,
-			$this->getModel()->get($sender, $args),
-			$options
-		);
+        return $this->fetched(
+            $request,
+            $response,
+            $this->getAction()->get($sender, $args),
+            $options
+        );
     }
 
     public function fetchOne(
-		RequestInterface $request,
-		ResponseInterface $response,
-		$sender,
-		array $args,
-		BaseOptions $options
+        RequestInterface $request,
+        ResponseInterface $response,
+        $sender,
+        array $args,
+        BaseOptions $options
     ) {
-		return $this->fetched(
-			$request,
-			$response,
-			$this->getModel()->get($sender, $args),
-			$options
-		);
-	}
-	
-	public function fetched(
-		RequestInterface $request,
-		ResponseInterface $response,
-		$args,
-		BaseOptions $options
-	) {
-		if ($args) {
+        return $this->fetched(
+            $request,
+            $response,
+            $this->getAction()->get($sender, $args),
+            $options
+        );
+    }
+    
+    public function fetched(
+        RequestInterface $request,
+        ResponseInterface $response,
+        $args,
+        BaseOptions $options
+    ) {
+        if ($args) {
             return $response->withJSON($args);
-		}
-		
-		return $response->withStatus(
-			404,
-			$this->model->getConfig()->getOption(
-				$options->getOptions('part'),
-				$options->getOptions('class'),
-				$options->getOptions('extention')
-			)
-		);
-	}
+        }
+        
+        return $response->withStatus(
+            404,
+            $this->getAction()->getConfig()->getOption(
+                $options->getOptions('part'),
+                $options->getOptions('class'),
+                $options->getOptions('extention')
+            )
+        );
+    }
 
-	public function onAdd(
-		RequestInterface $request,
+    public function onAdd(
+        RequestInterface $request,
         ResponseInterface $response,
-		$args
-	) {
-		return $response->withJSON(
-			$this->model->onAdd($request->getParsedBody())
-		);
-	}
+        $args
+    ) {
+        return $response->withJSON(
+            $this->getAction()->onAdd($request->getParsedBody())
+        );
+    }
 
-	public function onUpdate(
-		RequestInterface $request,
+    public function onUpdate(
+        RequestInterface $request,
         ResponseInterface $response,
-		$args
-	) {
-		return $response->withJSON(
-			$this->model->onUpdate($args, $request->getParsedBody())
-		);
-	}
+        $args
+    ) {
+        return $response->withJSON(
+            $this->getAction()->onUpdate($request->getParsedBody())
+        );
+    }
 
-	public function onDelete(
-		RequestInterface $request,
+    public function onDelete(
+        RequestInterface $request,
         ResponseInterface $response,
-		$args
-	) {
-		return $response->withJSON(
-			$this->model->onDelete($args)
-		);
-	}
+        $args
+    ) {
+        return $response->withJSON(
+            $this->getAction()->onDelete($args)
+        );
+    }
 }

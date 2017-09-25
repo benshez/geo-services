@@ -19,7 +19,7 @@ class Controller extends BaseController implements IContactController
         $fetched = $this->fetched(
             $request,
             $response,
-            $this->model->authenticate(
+            $this->getAction()->authenticate(
                 $request->getParam('email'),
                 $request->getParam('password')
             ),

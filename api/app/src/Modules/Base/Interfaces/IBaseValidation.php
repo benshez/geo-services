@@ -3,13 +3,13 @@
 namespace GeoService\Modules\Base\Interfaces;
 
 use Zend\Validator\ValidatorChain;
-use GeoService\Modules\Base\Interfaces\IBaseModel;
+use GeoService\Modules\Base\Interfaces\IBaseAction;
 
 interface IBaseValidation
 {
-    public function __construct(IBaseModel $model);
-    public function setModel(IBaseModel $model);
-    public function getModel();
+    public function __construct(IBaseAction $action);
+    public function setAction(IBaseAction $action);
+    public function getAction();
     public function setMessagesArray($error = null, $class = null, $key = null);
     public function getMessagesAray();
     public function isValid($value);

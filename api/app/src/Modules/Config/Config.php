@@ -62,8 +62,19 @@ class Config
      */
     public static function currentDateYearMonthDay()
     {
-        $curr_date = date('Y-m-d');
-        return $curr_date;
+        $currDate = date('Y-m-d');
+        return $currDate;
+    }
+ 
+    /**
+     * Current Time Zone
+     *
+     * @return Current Time Zone
+     */
+    public static function getDateTimeForZone()
+    {
+        $timeZone = new \DateTime('now', new \DateTimeZone($this->settings['time_zone']));
+        return $timeZone;
     }
     
     public function getDateTimeNow()
