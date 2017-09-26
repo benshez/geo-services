@@ -1,19 +1,22 @@
 ﻿export interface IUser {
 	id: number;
-	addressId: number;
-	industryId: number;
-	username: string;
-	usersurname: string;
-	logo: string;
+	entity: number;
+	role: number;
 	enabled: boolean;
 	locked: boolean;
+	username: string;
+	usersurname: string;
+	address: string;
+	city: string;
+	state: string;
+	post_code: string;
+	phone: string;
 	email: string;
-	about: string;
 	website: string;
 	facebook: string;
 	twitter: string;
-	error: boolean;
-	message: string;
-	roles: any;
-	token: any;
+	logo: string;
+	abn: string;
+	token_char: string;
+	token_expiry: string;
 }

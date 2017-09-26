@@ -1,16 +1,14 @@
 ﻿import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions, RequestOptionsArgs, RequestMethod, URLSearchParams } from '@angular/http';
-import { Observable, Subject } from 'rxjs/Rx';
+import { Headers, Http, RequestMethod, RequestOptions, RequestOptionsArgs, Response, URLSearchParams } from '@angular/http';
 import * as _ from 'lodash';
+import { Observable } from 'rxjs/Rx';
 
-import { Config } from '../../utils/index';
-
-import { ApiServiceOptions, ApiServiceParametersOptions } from './models';
-
-import { StorageService, StorageKey } from '../../../core/index';
-import { LogService } from '../logging/index';
-import { LoaderService } from '../../../shared/components/loader/services/services';
 import { IUser } from '../../../../../../../src/client/app/modules/user/components/login/interfaces/interfaces';
+import { StorageKey, StorageService } from '../../../core/index';
+import { LoaderService } from '../../../shared/components/loader/services/services';
+import { Config } from '../../utils/index';
+import { LogService } from '../logging/index';
+import { ApiServiceOptions } from './models';
 
 @Injectable()
 export class ApiService {
@@ -19,7 +17,7 @@ export class ApiService {
 	private user: IUser = this.storage.getItem(StorageKey.USER_DETAIL);
 
 	private headers: Headers = new Headers({
-		'Authorization': 'xxxx'
+		'Authorization': this.user.token_char
 	});
 	private options: RequestOptions = new RequestOptions({
 		headers: this.headers,

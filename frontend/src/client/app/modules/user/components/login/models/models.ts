@@ -1,25 +1,9 @@
-﻿import { IUser } from '../../../index';
-import { StorageService, StorageKey } from '../../../../core/index';
+﻿import { StorageKey, StorageService } from '../../../../core/index';
+import { IUser } from '../../../index';
 
-export class User implements IUser {
-	id: number;
-	addressId: number;
-	industryId: number;
-	username: string;
-	usersurname: string;
-	logo: string;
-	enabled: boolean;
-	locked: boolean;
-	email: string;
-	about: string;
-	website: string;
-	facebook: string;
-	twitter: string;
-	error: boolean;
-	message: string;
-	roles: any;
-	token: any;
-	
+export class User {
+	private user: IUser;
+
 	constructor(
 		private storage: StorageService
 	) { }
