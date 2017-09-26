@@ -123,6 +123,6 @@ $container['GeoService\Bundles\Roles\Controller\Controller'] = function ($c) {
 };
 
 $container['GeoService\Bundles\Contact\Controller\Controller'] = function ($c) {
-    $resource = new \GeoService\Bundles\Contact\Actions\Actions($c);
+    $resource = new \GeoService\Bundles\Contact\Actions\Action($c);
     return new GeoService\Bundles\Contact\Controller\Controller($resource);
 };

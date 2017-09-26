@@ -15,10 +15,10 @@
 namespace GeoService\Bundles\Contact\Actions;
 
 use GeoService\Modules\Config\Config;
-use GeoService\Bundles\Contact\Actions\Actions;
+use GeoService\Bundles\Contact\Actions\Action;
 use GeoService\Bundles\Contact\Validation\Validation;
 
-class Get extends Actions
+class Get extends Action
 {
     const REFERENCE = 'contact';
     const TOKEN = 'tokenChar';
@@ -48,7 +48,7 @@ class Get extends Actions
     public function authenticate(string $email, string $password)
     {
         if (!$this->formIsValid(
-            $this->getValidator(),
+            $this->getValidator(new Validation($this)),
             self::REFERENCE,
             self::AUTHENTICATE,
             [self::CONTACT_NAME => $email, self::PASSWORD => $password]
@@ -57,14 +57,14 @@ class Get extends Actions
             return $message;
         }
 
-        $contact = $this->get()->get(
+        $contact = $this->onBaseActionGet()->get(
             $this->getReference(),
             [self::EMAIL => $email]
         );
         
         if ($contact) {
             if (!$this->formIsValid(
-                $this->getValidator(),
+                $this->getValidator(new Validation($this)),
                 self::REFERENCE,
                 self::AUTHENTICATION,
                 [self::USER => [
@@ -90,11 +90,8 @@ class Get extends Actions
      */
     public function onGetActiveUserRoleByToken(string $token)
     {
-        $user = $this->get()->get(
-            $this->getConfig()->getOption(
-                self::REFERENCE_OBJECT,
-                self::REFERENCE
-            ),
+        $user = $this->onBaseActionGet()->get(
+            $this->getReference(self::REFERENCE),
             [self::TOKEN => $token]
         );
         

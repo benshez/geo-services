@@ -16,13 +16,12 @@ namespace GeoService\Bundles\Contact\Actions;
 
 use Zend\Crypt\Password\Bcrypt;
 use GeoService\Modules\Config\Config;
-use GeoService\Bundles\Contact\Actions\Actions;
+use GeoService\Bundles\Contact\Actions\Action;
 use GeoService\Bundles\Contact\Validation\Validation;
 use GeoService\Modules\Base\Actions\BaseHydrate;
 
-class Save extends Actions
+class Save extends Action
 {
-    const REFERENCE_OBJECT = 'name';
     const REFERENCE = 'contact';
     const KEY = 'id';
     const PASSWORD = 'password';
@@ -38,7 +37,7 @@ class Save extends Actions
     public function onUpdate(array $args)
     {
         if (!$this->formIsValid(
-            $this->getValidator(),
+            $this->getValidator(new Validation($this)),
             self::REFERENCE,
             'update',
             $args
@@ -47,12 +46,12 @@ class Save extends Actions
             return $messages;
         }
 
-        $entity = $this->get()->get(
-            $this->getReference(),
+        $contact = $this->onBaseActionGet()->get(
+            $this->getReference(self::REFERENCE),
             [self::KEY => $args[self::KEY]]
         );
 
-        if ($entity && $entity->getId()) {
+        if ($contact && $contact->getId()) {
             if (isset($args[self::PASSWORD])) {
                 $bcrypt = new Bcrypt();
                 $password = $bcrypt->create($args[self::PASSWORD]);
@@ -61,12 +60,17 @@ class Save extends Actions
 
             $hydrate = new BaseHydrate($this->getContainer());
             
-            $entity = $hydrate->hydrate($entity, $args);
+            $contact = $hydrate->hydrate($contact, $args);
+            
+            $role = $this->onBaseActionGet()->get(
+                $this->getReference('roles'),
+                [self::KEY => $args['role']]
+            );
         
-            $entity->setRole($this->onAddRole($args));
+            $contact->setRole($role);
 
             if ($args[self::ABN] && $this->formIsValid(
-                $this->getValidator(),
+                $this->getValidator(new Validation($this)),
                 self::REFERENCE,
                 'abn',
                 $args
@@ -74,19 +78,22 @@ class Save extends Actions
                 $entities = $this->onAddEntity($args);
                 
                 if ($entities) {
-                    $entity->setEntity($entities);
+                    $contact->setEntity($entities);
                 }
             } else {
                 $messages = $this->getValidator()->getMessagesAray();
                 return $messages;
             }
 
-            $this->persistAndFlush($entity);
+            $this->persistAndFlush($contact);
         }
 
-        if ($entity->getId()) {
-            $entity = $this->getEntityById(self::REFERENCE, self::KEY, $entity->getId());
-            return $entity;
+        if ($contact->getId()) {
+            $contact = $this->onBaseActionGet()->get(
+                $this->getReference(self::REFERENCE),
+                [self::KEY => $contact->getId()]
+            );
+            return $contact;
         }
 
         return false;

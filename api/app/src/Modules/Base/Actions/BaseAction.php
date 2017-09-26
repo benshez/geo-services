@@ -24,12 +24,17 @@ class BaseAction implements IBaseAction
     const SETTINGS = 'settings';
     const ENTITY_MANAGER = 'em';
     const VALIDATORS = 'validators';
-
+    const REFERENCE_OBJECT = 'name';
+    
+    private $_validator = null;
     private $_container = null;
     private $_manager = null;
     private $_config = null;
     private $_settings = null;
-
+    private $_baseReference = null;
+    private $_baseGet = null;
+    private $_baseSave = null;
+    
     /**
      * Initialise BaseAction To Set Container
      *
@@ -92,7 +97,7 @@ class BaseAction implements IBaseAction
      */
     public function getConfig()
     {
-        $this->_config = (!$this->_config) ?
+        $this->_config = (null === $this->_config) ?
         new Config($this->getSettings()) :
         $this->_config;
         return $this->_config;
@@ -105,12 +110,44 @@ class BaseAction implements IBaseAction
      */
     public function getSettings()
     {
-        $this->_settings = (!$this->_settings) ?
+        $this->_settings = (null === $this->_settings) ?
         $this->getContainer()->get(self::SETTINGS) :
         $this->_settings;
         return $this->_settings;
     }
     
+    /**
+     * Base Get
+     *
+     * @return BaseGet
+     */
+    public function onBaseActionGet()
+    {
+        $this->_baseGet = (null === $this->_baseGet) ?
+        new \GeoService\Modules\Base\Actions\BaseGet(
+            $this->getContainer()
+        ) :
+        $this->_baseGet;
+        
+        return $this->_baseGet;
+    }
+     
+    /**
+     * Base Save
+     *
+     * @return BaseSave
+     */
+    public function onBaseActionSave()
+    {
+        $this->_baseSave = (null === $this->_baseSave) ?
+        new \GeoService\Modules\Base\Actions\BaseSave(
+            $this->getContainer()
+        ) :
+        $this->_baseSave;
+        
+        return $this->_baseSave;
+    }
+        
     /**
      * Get FormIsValid
      *
@@ -145,5 +182,38 @@ class BaseAction implements IBaseAction
         );
         
         return $isValid;
+    }
+    
+    /**
+     * Validator
+     *
+    * @param \ReflectionObject $validatorClass Class.
+     *
+     * @return validator
+     */
+    public function getValidator($validatorClass)
+    {
+        $this->_validator = (!$this->_validator) ?
+        $validatorClass :
+        $this->_validator;
+        
+        return $this->_validator;
+    }
+    
+    /**
+     * Base Get Reference
+     *
+     * @param string $reference Reference.
+     *
+     * @return BaseReference
+     */
+    public function getReference(string $reference)
+    {
+        $this->_baseReference = $this->getConfig()->getOption(
+            self::REFERENCE_OBJECT,
+            $reference
+        );
+
+        return $this->_baseReference;
     }
 }
