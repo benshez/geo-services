@@ -26,7 +26,7 @@ class Save extends Action
     const KEY = 'id';
     const PASSWORD = 'password';
     const ABN = 'abn';
-    
+
     /**
      * Save User
      *
@@ -75,17 +75,85 @@ class Save extends Action
                 'abn',
                 $args
             )) {
-                $entities = $this->onAddEntity($args);
+                $entity = $this->onBaseActionGet()->get(
+                    $this->getReference('entities'),
+                    ['identifier' => (int) str_replace(' ', '', $args['abn'])]
+                );
                 
-                if ($entities) {
-                    $contact->setEntity($entities);
+                if (!$entity) {
+                    $abnlookup = new \GeoService\Modules\Lookup\ABN\AbnLookup($this->getSettings());
+                    $business = $abnlookup->searchByAbn($args['abn']);
+                    $business = $business->ABRPayloadSearchResults
+                    ->response->businessEntity201408;
+                    
+                    $config = new Config($this->getSettings());
+
+                    $days = $this->getSettings()['trial_period'];
+
+                    if (isset($business->legalName) || isset($business->mainName)) {
+                        $entitiesName = isset($business->legalName) ?
+                        $business->legalName->givenName.', '. $business->legalName->familyName :
+                        $business->mainName->organisationName;
+
+                        $state = 'N/A';
+                        $poCode = 'N/A';
+
+                        if (isset($this->business->mainBusinessPhysicalAddress)) {
+                            $state = $this->business->mainBusinessPhysicalAddress->stateCode;
+                            $poCode = $this->business->mainBusinessPhysicalAddress->postcode;
+                        }
+
+                        $industry = null;
+                        
+                        if ($business->entityType->entityTypeCode) {
+                            $industry = $this->onBaseActionGet()->get(
+                                $this->getReference('industries'),
+                                ['type' => $business->entityType->entityTypeCode]
+                            );
+                            
+                            if (null === $industry) {
+                                $industry = new \GeoService\Bundles\Industries\Actions\Add(
+                                    $this->getContainer()
+                                );
+
+                                $industryArgs = [
+                                    'enabled' => 1,
+                                    'type' => $business->entityType->entityTypeCode,
+                                    'description' => $business->entityType->entityDescription,
+                                ];
+                                
+                                $industry->onAdd($industryArgs);
+                            }
+                        }
+                        
+                        $entity = new \GeoService\Bundles\Entities\Actions\Add(
+                            $this->getContainer()
+                        );
+                           
+                        $entityArgs = [
+                            'identifier' => $business->ABN->identifierValue,
+                            'enabled' => 1,
+                            'name' => $entitiesName,
+                            'status' => $business->entityStatus->entityStatusCode,
+                            'state' => $state,
+                            'postCode' => $poCode,
+                            'expiresAt' => $config->getDateTimeFuture($days),
+                            'industry' => $industry,
+                        ];
+                        
+                        $entity->onAdd($entityArgs);
+                    }
+                }
+
+                if ($entity) {
+                    $contact->setEntity($entity);
                 }
             } else {
                 $messages = $this->getValidator()->getMessagesAray();
                 return $messages;
             }
-
-            $this->persistAndFlush($contact);
+            
+            $contact = $this->onBaseActionSave()->save($contact);
         }
 
         if ($contact->getId()) {

@@ -12,14 +12,14 @@
  * @link      https://github.com/benshez/geo-services
  */
 
-namespace GeoService\Bundles\Industries\Actions;
+namespace GeoService\Bundles\Entities\Actions;
 
 use GeoService\Modules\Config\Config;
-use GeoService\Bundles\Industries\Actions\Action;
+use GeoService\Bundles\Entities\Actions\Action;
 use GeoService\Modules\Base\Actions\BaseHydrate;
-use GeoService\Bundles\Industries\Validation\Validation;
+use GeoService\Bundles\Entities\Validation\Validation;
 
-class Save extends Action
+class Add extends Action
 {
     const REFERENCE_OBJECT = 'name';
     const REFERENCE = 'entities';
@@ -32,22 +32,19 @@ class Save extends Action
      *
      * @return Role
      */
-    public function onUpdate(array $args)
+    public function onAdd(array $args)
     {
         if (!$this->formIsValid(
             $this->getValidator(new Validation($this)),
             self::REFERENCE,
-            'update',
+            'add',
             $args
         )) {
             $messages = $this->getValidator()->getMessagesAray();
             return $messages;
         }
 
-        $industry = $this->onBaseActionGet()->get(
-            $this->getReference(self::REFERENCE),
-            [self::KEY => $args[self::KEY]]
-        );
+        $industry = new \GeoService\Bundles\Entities\Entity\Entities();
         
         $hydrate = new BaseHydrate($this->getContainer());
         

@@ -54,7 +54,7 @@ class Save extends Action
         $location = $hydrate->hydrate($location, $args);
         
         if ($location->getId()) {
-            $location = $this->get()->get(
+            $location = $this->onBaseActionGet()->get(
                 $this->getReference(self::REFERENCE),
                 [self::KEY => $location->getId()]
             );

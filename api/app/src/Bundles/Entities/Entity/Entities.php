@@ -14,336 +14,336 @@ use GeoService\Bundles\Roles\Entity\Roles;
  */
 class Entities
 {
-	/**
-	* @var integer
-	*
-	* @ORM\Column(name="id", type="integer")
-	* @ORM\Id
-	* @ORM\GeneratedValue(strategy="IDENTITY")
-	*/
-	private $id;
+    /**
+    * @var integer
+    *
+    * @ORM\Column(name="id", type="integer")
+    * @ORM\Id
+    * @ORM\GeneratedValue(strategy="IDENTITY")
+    */
+    private $id;
 
-	/**
-	* @var string
-	*
-	* @ORM\Column(name="identifier", type="string", length=15, nullable=false)
-	*/
-	private $identifier;
+    /**
+    * @var string
+    *
+    * @ORM\Column(name="identifier", type="string", length=15, nullable=false)
+    */
+    private $identifier;
 
-	/**
-	* @var boolean
-	*
-	* @ORM\Column(name="enabled", type="boolean", nullable=false)
-	*/
-	private $enabled;
+    /**
+    * @var boolean
+    *
+    * @ORM\Column(name="enabled", type="boolean", nullable=false)
+    */
+    private $enabled;
 
-	/**
-	* @var string
-	*
-	* @ORM\Column(name="name", type="string", length=200, nullable=false)
-	*/
-	private $name;
+    /**
+    * @var string
+    *
+    * @ORM\Column(name="name", type="string", length=200, nullable=false)
+    */
+    private $name;
 
-	/**
-	* @var string
-	*
-	* @ORM\Column(name="status", type="string", length=10, nullable=false)
-	*/
-	private $status;
+    /**
+    * @var string
+    *
+    * @ORM\Column(name="status", type="string", length=10, nullable=false)
+    */
+    private $status;
 
-	/**
-	* @var string
-	*
-	* @ORM\Column(name="state", type="string", length=3, nullable=false)
-	*/
-	private $state;
+    /**
+    * @var string
+    *
+    * @ORM\Column(name="state", type="string", length=3, nullable=false)
+    */
+    private $state;
 
-	/**
-	* @var string
-	*
-	* @ORM\Column(name="post_code", type="string", length=10, nullable=false)
-	*/
-	private $postCode;
+    /**
+    * @var string
+    *
+    * @ORM\Column(name="post_code", type="string", length=10, nullable=false)
+    */
+    private $postCode;
 
-	/**
-	* @var \DateTime
-	*
-	* @ORM\Column(name="expires_at", type="datetime", nullable=false)
-	*/
-	private $expiresAt;
+    /**
+    * @var \DateTime
+    *
+    * @ORM\Column(name="expires_at", type="datetime", nullable=false)
+    */
+    private $expiresAt;
 
-	/**
-	* @var \DateTime
-	*
-	* @ORM\Column(name="created_at", type="datetime", nullable=false)
-	*/
-	private $createdAt = 'CURRENT_TIMESTAMP';
+    /**
+    * @var \DateTime
+    *
+    * @ORM\Column(name="created_at", type="datetime", nullable=false)
+    */
+    private $createdAt = 'CURRENT_TIMESTAMP';
 
-	/**
-	* @var \DateTime
-	*
-	* @ORM\Column(name="updated_at", type="datetime", nullable=false)
-	*/
-	private $updatedAt = 'CURRENT_TIMESTAMP';
+    /**
+    * @var \DateTime
+    *
+    * @ORM\Column(name="updated_at", type="datetime", nullable=false)
+    */
+    private $updatedAt = 'CURRENT_TIMESTAMP';
 
-	/**
-	* @var \GeoService\Bundles\Industries\Entity\Industries
-	*
-	* @ORM\ManyToOne(targetEntity="\GeoService\Bundles\Industries\Entity\Industries")
-	* @ORM\JoinColumns({
-	*   @ORM\JoinColumn(name="industry_id", referencedColumnName="id")
-	* })
-	*/
-	private $industry;
+    /**
+    * @var \GeoService\Bundles\Industries\Entity\Industries
+    *
+    * @ORM\ManyToOne(targetEntity="\GeoService\Bundles\Industries\Entity\Industries")
+    * @ORM\JoinColumns({
+    *   @ORM\JoinColumn(name="industry_id", referencedColumnName="id")
+    * })
+    */
+    private $industry;
 
 
-	/**
-	* Get id
-	*
-	* @return integer
-	*/
-	public function getId()
-	{
-		return $this->id;
-	}
+    /**
+    * Get id
+    *
+    * @return integer
+    */
+    public function getId()
+    {
+        return $this->id;
+    }
 
-	/**
-	* Set identifier
-	*
-	* @param string $identifier
-	*
-	* @return Entities
-	*/
-	public function setIdentifier($identifier)
-	{
-		$this->identifier = $identifier;
+    /**
+    * Set identifier
+    *
+    * @param string $identifier
+    *
+    * @return Entities
+    */
+    public function setIdentifier($identifier)
+    {
+        $this->identifier = $identifier;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	* Get identifier
-	*
-	* @return string
-	*/
-	public function getIdentifier()
-	{
-		return $this->identifier;
-	}
+    /**
+    * Get identifier
+    *
+    * @return string
+    */
+    public function getIdentifier()
+    {
+        return $this->identifier;
+    }
 
-	/**
-	* Set enabled
-	*
-	* @param boolean $enabled
-	*
-	* @return Entities
-	*/
-	public function setEnabled($enabled)
-	{
-		$this->enabled = $enabled;
+    /**
+    * Set enabled
+    *
+    * @param boolean $enabled
+    *
+    * @return Entities
+    */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	* Get enabled
-	*
-	* @return boolean
-	*/
-	public function getEnabled()
-	{
-		return $this->enabled;
-	}
+    /**
+    * Get enabled
+    *
+    * @return boolean
+    */
+    public function getEnabled()
+    {
+        return $this->enabled;
+    }
 
-	/**
-	* Set name
-	*
-	* @param string $name
-	*
-	* @return Entities
-	*/
-	public function setName($name)
-	{
-		$this->name = $name;
+    /**
+    * Set name
+    *
+    * @param string $name
+    *
+    * @return Entities
+    */
+    public function setName($name)
+    {
+        $this->name = $name;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	* Get name
-	*
-	* @return string
-	*/
-	public function getName()
-	{
-		return $this->name;
-	}
+    /**
+    * Get name
+    *
+    * @return string
+    */
+    public function getName()
+    {
+        return $this->name;
+    }
 
-	/**
-	* Set status
-	*
-	* @param string $status
-	*
-	* @return Entities
-	*/
-	public function setStatus($status)
-	{
-		$this->status = $status;
+    /**
+    * Set status
+    *
+    * @param string $status
+    *
+    * @return Entities
+    */
+    public function setStatus($status)
+    {
+        $this->status = $status;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	* Get status
-	*
-	* @return string
-	*/
-	public function getStatus()
-	{
-		return $this->status;
-	}
+    /**
+    * Get status
+    *
+    * @return string
+    */
+    public function getStatus()
+    {
+        return $this->status;
+    }
 
-	/**
-	* Set state
-	*
-	* @param string $state
-	*
-	* @return Entities
-	*/
-	public function setState($state)
-	{
-		$this->state = $state;
+    /**
+    * Set state
+    *
+    * @param string $state
+    *
+    * @return Entities
+    */
+    public function setState($state)
+    {
+        $this->state = $state;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	* Get state
-	*
-	* @return string
-	*/
-	public function getState()
-	{
-		return $this->state;
-	}
+    /**
+    * Get state
+    *
+    * @return string
+    */
+    public function getState()
+    {
+        return $this->state;
+    }
 
-	/**
-	* Set postCode
-	*
-	* @param string $postCode
-	*
-	* @return Entities
-	*/
-	public function setPostCode($postCode)
-	{
-		$this->postCode = $postCode;
+    /**
+    * Set postCode
+    *
+    * @param string $postCode
+    *
+    * @return Entities
+    */
+    public function setPostCode($postCode)
+    {
+        $this->postCode = $postCode;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	* Get postCode
-	*
-	* @return string
-	*/
-	public function getPostCode()
-	{
-		return $this->postCode;
-	}
+    /**
+    * Get postCode
+    *
+    * @return string
+    */
+    public function getPostCode()
+    {
+        return $this->postCode;
+    }
 
-	/**
-	* Set expiresAt
-	*
-	* @param \DateTime $expiresAt
-	*
-	* @return Entities
-	*/
-	public function setExpiresAt($expiresAt)
-	{
-		$this->expiresAt = $expiresAt;
+    /**
+    * Set expiresAt
+    *
+    * @param \DateTime $expiresAt
+    *
+    * @return Entities
+    */
+    public function setExpiresAt($expiresAt)
+    {
+        $this->expiresAt = $expiresAt;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	* Get expiresAt
-	*
-	* @return \DateTime
-	*/
-	public function getExpiresAt()
-	{
-		return $this->expiresAt;
-	}
+    /**
+    * Get expiresAt
+    *
+    * @return \DateTime
+    */
+    public function getExpiresAt()
+    {
+        return $this->expiresAt;
+    }
 
-	/**
-	* Set createdAt
-	*
-	* @param \DateTime $createdAt
-	*
-	* @return Entities
-	*/
-	public function setCreatedAt($createdAt)
-	{
-		$this->createdAt = $createdAt;
+    /**
+    * Set createdAt
+    *
+    * @param \DateTime $createdAt
+    *
+    * @return Entities
+    */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	* Get createdAt
-	*
-	* @return \DateTime
-	*/
-	public function getCreatedAt()
-	{
-		return $this->createdAt;
-	}
+    /**
+    * Get createdAt
+    *
+    * @return \DateTime
+    */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
 
-	/**
-	* Set updatedAt
-	*
-	* @param \DateTime $updatedAt
-	*
-	* @return Entities
-	*/
-	public function setUpdatedAt($updatedAt)
-	{
-		$this->updatedAt = $updatedAt;
+    /**
+    * Set updatedAt
+    *
+    * @param \DateTime $updatedAt
+    *
+    * @return Entities
+    */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	* Get updatedAt
-	*
-	* @return \DateTime
-	*/
-	public function getUpdatedAt()
-	{
-		return $this->updatedAt;
-	}
+    /**
+    * Get updatedAt
+    *
+    * @return \DateTime
+    */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
 
-	/**
-	* Set industry
-	*
-	* @param \GeoService\Bundles\Industries\Entity\Industries $industry
-	*
-	* @return Entities
-	*/
-	public function setIndustry(Industries $industry = null)
-	{
-		$this->industry = $industry;
+    /**
+    * Set industry
+    *
+    * @param \GeoService\Bundles\Industries\Entity\Industries $industry
+    *
+    * @return Entities
+    */
+    public function setIndustry(Industries $industry = null)
+    {
+        $this->industry = $industry;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	* Get industry
-	*
-	* @return \GeoService\Bundles\Industries\Entity\Industries
-	*/
-	public function getIndustry()
-	{
-		return $this->industry;
-	}
+    /**
+    * Get industry
+    *
+    * @return \GeoService\Bundles\Industries\Entity\Industries
+    */
+    public function getIndustry()
+    {
+        return $this->industry;
+    }
 }

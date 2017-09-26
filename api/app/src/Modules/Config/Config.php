@@ -71,7 +71,7 @@ class Config
      *
      * @return Current Time Zone
      */
-    public static function getDateTimeForZone()
+    public function getDateTimeForZone()
     {
         $timeZone = new \DateTime('now', new \DateTimeZone($this->settings['time_zone']));
         return $timeZone;

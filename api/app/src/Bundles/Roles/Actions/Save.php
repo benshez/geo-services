@@ -54,7 +54,7 @@ class Save extends Action
         $role = $hydrate->hydrate($role, $args);
         
         if ($role->getId()) {
-            $role = $this->get()->get(
+            $role = $this->onBaseActionGet()->get(
                 $this->getReference(self::REFERENCE),
                 [self::KEY => $role->getId()]
             );

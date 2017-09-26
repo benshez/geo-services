@@ -36,14 +36,15 @@ class BaseSave extends BaseAction
     /**
      * Base Updated At And Created Date Action
      *
-     * @param \ReflectionObject $entity Entity Class.
+     * @param $entity Entity Class.
      *
      * @return void
      */
-    private function _setTimestamps(\ReflectionObject $entity)
+    private function _setTimestamps($entity)
     {
-        $date = $this->getDateTimeForZone();
-
+        $date = new \GeoService\Modules\Config\Config($this->getSettings());
+        $date = $date->getDateTimeForZone();
+        
         $entity->setUpdatedAt($date);
     
         if ($entity->getCreatedAt() === self::CURRENT_TIMESTAMP ||
@@ -56,13 +57,13 @@ class BaseSave extends BaseAction
     /**
      * Base Save Action
      *
-     * @param \ReflectionObject $entity Entity Class.
+     * @param $entity Entity Class.
      *
      * @return Entity Object
      */
-    public function save(\ReflectionObject $entity)
+    public function save($entity)
     {
-        $this->_setTimestamps();
+        $this->_setTimestamps($entity);
         
         try {
             $manager = $this->getEntityManager();
@@ -71,16 +72,18 @@ class BaseSave extends BaseAction
         } catch (UniqueConstraintViolationException $e) {
             return false;
         }
+        
+        return $entity;
     }
     
     /**
      * Base Disable Action
      *
-     * @param \ReflectionObject $entity Entity Class.
+     * @param $entity Entity Class.
      *
      * @return void
      */
-    public function disable(\ReflectionObject $entity)
+    public function disable($entity)
     {
         $entity->setEnabled(false);
         $this->save($entity);
@@ -89,11 +92,11 @@ class BaseSave extends BaseAction
     /**
      * Base Enable Action
      *
-     * @param \ReflectionObject $entity Entity Class.
+     * @param $entity Entity Class.
      *
      * @return void
      */
-    public function enable(\ReflectionObject $entity)
+    public function enable($entity)
     {
         $entity->setEnabled(true);
         $this->save($entity);

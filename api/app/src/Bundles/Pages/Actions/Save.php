@@ -54,7 +54,7 @@ class Save extends Action
         $page = $hydrate->hydrate($page, $args);
         
         if ($page->getId()) {
-            $page = $this->get()->get(
+            $page = $this->onBaseActionGet()->get(
                 $this->getReference(self::REFERENCE),
                 [self::KEY => $page->getId()]
             );
