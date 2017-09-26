@@ -26,11 +26,11 @@ class Add extends Action
     const KEY = 'id';
     
     /**
-     * Save Role
+     * Save Entity
      *
-     * @param array $args Role.
+     * @param array $args Entity.
      *
-     * @return Role
+     * @return Entity
      */
     public function onAdd(array $args)
     {
@@ -44,18 +44,104 @@ class Add extends Action
             return $messages;
         }
 
-        $industry = new \GeoService\Bundles\Entities\Entity\Entities();
+        $entity = new \GeoService\Bundles\Entities\Entity\Entities();
         
         $hydrate = new BaseHydrate($this->getContainer());
         
-        $industry = $hydrate->hydrate($industry, $args);
+        $entity = $hydrate->hydrate($industry, $args);
         
-        if ($industry->getId()) {
-            $industry = $this->onBaseActionGet()->get(
+        if ($entity->getId()) {
+            $entity = $this->onBaseActionGet()->get(
                 $this->getReference(self::REFERENCE),
                 [self::KEY => $industry->getId()]
             );
-            return $industry;
+            
+            return $entity;
+        }
+
+        return false;
+    }
+    
+    /**
+     * Add Entity By ABR Lookup
+     *
+     * @param string $abn ABR Lookup Entity Code.
+     *
+     * @return Entity
+     */
+    public function onAddByABRLookup(string $abn)
+    {
+        $entity = false;
+
+        $entity = $this->onBaseActionGet()->get(
+            $this->getReference('entities'),
+            ['identifier' => (int) str_replace(' ', '', $abn)]
+        );
+
+        if ($entity && $entity->getId()) {
+            return $entity;
+        }
+        
+        if (!$entity) {
+            $abnlookup = new \GeoService\Modules\Lookup\ABN\AbnLookup($this->getSettings());
+            $business = $abnlookup->searchByAbn($args['abn']);
+            $business = $business->ABRPayloadSearchResults
+            ->response->businessEntity201408;
+
+            $config = new Config($this->getSettings());
+            
+            $days = $this->getSettings()['trial_period'];
+            
+            if (isset($business->legalName) || isset($business->mainName)) {
+                $entitiesName = isset($business->legalName) ?
+                $business->legalName->givenName.', '. $business->legalName->familyName :
+                $business->mainName->organisationName;
+            
+                $state = 'N/A';
+                $poCode = 'N/A';
+            
+                if (isset($this->business->mainBusinessPhysicalAddress)) {
+                    $state = $this->business->mainBusinessPhysicalAddress->stateCode;
+                    $poCode = $this->business->mainBusinessPhysicalAddress->postcode;
+                }
+            
+                $industry = false;
+                                    
+                if ($business->entityType->entityTypeCode) {
+                    $industry = new \GeoService\Bundles\Industries\Actions\Add(
+                        $this->getContainer()
+                    );
+                    
+                    if ($abn != '') {
+                        $industry = $industry->onAddByABRLookup(
+                            $abn,
+                            $business->entityType->entityTypeCode
+                        );
+                    } else {
+                        $industry = $industry->onAddByABRLookup(
+                            '',
+                            $business->entityType->entityTypeCode
+                        );
+                    }
+                }
+                
+                $entityArgs = array(
+                    'identifier' => $business->ABN->identifierValue,
+                    'enabled' => 1,
+                    'name' => $entitiesName,
+                    'status' => $business->entityStatus->entityStatusCode,
+                    'state' => $state,
+                    'postCode' => $poCode,
+                    'expiresAt' => $config->getDateTimeFuture($days),
+                    'industry' => ($industry) ? $industry : null,
+                );
+                
+                $entity = $this->onAdd($entityArgs);
+
+                if ($entity) {
+                    return $entity;
+                }
+            }
         }
 
         return false;

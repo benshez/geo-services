@@ -58,7 +58,7 @@ class Get extends Action
         }
 
         $contact = $this->onBaseActionGet()->get(
-            $this->getReference(),
+            $this->getReference(self::REFERENCE),
             [self::EMAIL => $email]
         );
         
@@ -75,7 +75,29 @@ class Get extends Action
                 $message = $this->getValidator()->getMessagesAray();
                 return $message;
             }
-            return $contact;
+
+            return array(
+                'id' => $contact->getId(),
+                'entity' => $contact->getEntity()->getId(),
+                'role' => $contact->getRole()->getId(),
+                'enabled' => $contact->getEnabled(),
+                'locked' => $contact->getLocked(),
+                'username'=> $contact->getUsername(),
+                'usersurname'=> $contact->getUsersurname(),
+                'address'=> $contact->getAddress(),
+                'city'=> $contact->getCity(),
+                'state'=> $contact->getState(),
+                'post_code'=> $contact->getPostCode(),
+                'phone'=> $contact->getPhone(),
+                'email'=> $contact->getEmail(),
+                'website'=> $contact->getWebsite(),
+                'facebook'=> $contact->getFacebook(),
+                'twitter'=> $contact->getTwitter(),
+                'logo'=> $contact->getLogo(),
+                'abn'=> $contact->getEntity()->getIdentifier(),
+                'token_char' => $contact->getTokenChar(),
+                'token_expiry' => $contact->getTokenExpiry(),
+            );
         }
 
         return false;

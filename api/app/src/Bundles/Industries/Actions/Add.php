@@ -26,11 +26,11 @@ class Add extends Action
     const KEY = 'id';
     
     /**
-     * Save Role
+     * Add Industry
      *
-     * @param array $args Role.
+     * @param array $args Industry.
      *
-     * @return Role
+     * @return Industry
      */
     public function onAdd(array $args)
     {
@@ -58,6 +58,54 @@ class Add extends Action
             return $industry;
         }
 
+        return false;
+    }
+    
+    /**
+     * Add Industry By ABN Or ABR Lookup
+     *
+     * @param string $abn      ABR Lookup Entity Code.
+     *
+     * @param array  $business ABR Lookup Entity Code.
+     *
+     * @return Industry
+     */
+    public function onAddByABRLookup(string $abn, array $business)
+    {
+        $industry = false;
+
+        if ($abn != '') {
+            $industry = $this->onBaseActionGet()->get(
+                $this->getReference(self::REFERENCE),
+                [self::KEY => $abn]
+            );
+
+            if ($industry && $industry->getId()) {
+                return $industry;
+            }
+        }
+        
+        if (!$industry) {
+            $industry = $this->onBaseActionGet()->get(
+                $this->getReference(self::REFERENCE),
+                [self::KEY => $business->entityType->entityTypeCode]
+            );
+        
+            if ($industry && $industry->getId()) {
+                return $industry;
+            }
+            
+            $industryArgs = array(
+                'enabled' => 1,
+                'type' => $business->entityType->entityTypeCode,
+                'description' => $business->entityType->entityDescription,
+            );
+            
+            $industry = $this->onAdd($industryArgs);
+
+            return $industry;
+        }
+        
         return false;
     }
 }

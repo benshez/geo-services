@@ -75,75 +75,11 @@ class Save extends Action
                 'abn',
                 $args
             )) {
-                $entity = $this->onBaseActionGet()->get(
-                    $this->getReference('entities'),
-                    ['identifier' => (int) str_replace(' ', '', $args['abn'])]
+                $entity = new \GeoService\Bundles\Entities\Actions\Add(
+                    $this->getContainer()
                 );
-                
-                if (!$entity) {
-                    $abnlookup = new \GeoService\Modules\Lookup\ABN\AbnLookup($this->getSettings());
-                    $business = $abnlookup->searchByAbn($args['abn']);
-                    $business = $business->ABRPayloadSearchResults
-                    ->response->businessEntity201408;
-                    
-                    $config = new Config($this->getSettings());
 
-                    $days = $this->getSettings()['trial_period'];
-
-                    if (isset($business->legalName) || isset($business->mainName)) {
-                        $entitiesName = isset($business->legalName) ?
-                        $business->legalName->givenName.', '. $business->legalName->familyName :
-                        $business->mainName->organisationName;
-
-                        $state = 'N/A';
-                        $poCode = 'N/A';
-
-                        if (isset($this->business->mainBusinessPhysicalAddress)) {
-                            $state = $this->business->mainBusinessPhysicalAddress->stateCode;
-                            $poCode = $this->business->mainBusinessPhysicalAddress->postcode;
-                        }
-
-                        $industry = null;
-                        
-                        if ($business->entityType->entityTypeCode) {
-                            $industry = $this->onBaseActionGet()->get(
-                                $this->getReference('industries'),
-                                ['type' => $business->entityType->entityTypeCode]
-                            );
-                            
-                            if (null === $industry) {
-                                $industry = new \GeoService\Bundles\Industries\Actions\Add(
-                                    $this->getContainer()
-                                );
-
-                                $industryArgs = [
-                                    'enabled' => 1,
-                                    'type' => $business->entityType->entityTypeCode,
-                                    'description' => $business->entityType->entityDescription,
-                                ];
-                                
-                                $industry->onAdd($industryArgs);
-                            }
-                        }
-                        
-                        $entity = new \GeoService\Bundles\Entities\Actions\Add(
-                            $this->getContainer()
-                        );
-                           
-                        $entityArgs = [
-                            'identifier' => $business->ABN->identifierValue,
-                            'enabled' => 1,
-                            'name' => $entitiesName,
-                            'status' => $business->entityStatus->entityStatusCode,
-                            'state' => $state,
-                            'postCode' => $poCode,
-                            'expiresAt' => $config->getDateTimeFuture($days),
-                            'industry' => $industry,
-                        ];
-                        
-                        $entity->onAdd($entityArgs);
-                    }
-                }
+                $entity = $entity->onAddByABRLookup($args['abn']);
 
                 if ($entity) {
                     $contact->setEntity($entity);
@@ -161,7 +97,29 @@ class Save extends Action
                 $this->getReference(self::REFERENCE),
                 [self::KEY => $contact->getId()]
             );
-            return $contact;
+            
+            return array(
+                'id' => $contact->getId(),
+                'entity' => $contact->getEntity()->getId(),
+                'role' => $contact->getRole()->getId(),
+                'enabled' => $contact->getEnabled(),
+                'locked' => $contact->getLocked(),
+                'username'=> $contact->getUsername(),
+                'usersurname'=> $contact->getUsersurname(),
+                'address'=> $contact->getAddress(),
+                'city'=> $contact->getCity(),
+                'state'=> $contact->getState(),
+                'post_code'=> $contact->getPostCode(),
+                'phone'=> $contact->getPhone(),
+                'email'=> $contact->getEmail(),
+                'website'=> $contact->getWebsite(),
+                'facebook'=> $contact->getFacebook(),
+                'twitter'=> $contact->getTwitter(),
+                'logo'=> $contact->getLogo(),
+                'abn'=> $contact->getEntity()->getIdentifier(),
+                'token_char' => $contact->getTokenChar(),
+                'token_expiry' => $contact->getTokenExpiry(),
+            );
         }
 
         return false;
