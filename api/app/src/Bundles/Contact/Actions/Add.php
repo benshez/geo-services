@@ -18,7 +18,7 @@ use Zend\Crypt\Password\Bcrypt;
 use GeoService\Modules\Config\Config;
 use GeoService\Bundles\Contact\Actions\Action;
 use GeoService\Modules\Base\Actions\BaseHydrate;
-use GeoService\Bundles\Entities\Validation\Validation;
+use GeoService\Bundles\Contact\Validation\Validation;
 
 class Add extends Action
 {
@@ -38,28 +38,36 @@ class Add extends Action
      */
     public function onAdd(array $args)
     {
+        if (isset($args[self::KEY])) {
+            $contact = $this->exists(
+                null,
+                [self::KEY => $args[self::KEY]],
+                $args[self::KEY]
+            );
+    
+            if ($contact) {
+                $contact = $this->contactToArray($contact);
+                return $contact;
+            }
+        }
+
+        $validator = new Validation($this);
+
         if (!$this->formIsValid(
-            $this->getValidator(new Validation($this)),
+            $this->getValidator($validator),
             self::REFERENCE,
             'add',
             $args
         ) || $this->exists(
-            new Validation($this),
+            $validator,
             [self::EMAIL => $args[self::EMAIL]],
             $args[self::KEY]
         )) {
-            $messages = $this->getValidator(new Validation($this))->getMessagesAray();
+            $messages = $this->getValidator($validator)->getMessagesAray();
             return $messages;
         }
         
-        $contact = $this->onBaseActionGet()->get(
-            $this->getReference(self::REFERENCE),
-            [self::KEY => $args[self::KEY]]
-        );
-
-        if (!$contact) {
-            $contact = new \GeoService\Bundles\Contact\Entity\Contact();
-        }
+        $contact = new \GeoService\Bundles\Contact\Entity\Contact();
 
         if (isset($args[self::PASSWORD])) {
             $bcrypt = new Bcrypt();

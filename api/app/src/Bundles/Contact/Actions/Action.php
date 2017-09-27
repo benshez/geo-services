@@ -108,7 +108,7 @@ class Action extends BaseAction
      *
      * @return boolean
      */
-    public function exists(Validation $validator, array $args, string $id)
+    public function exists(Validation $validator = null, array $args, string $id)
     {
         $contact = $this->onBaseActionGet()->get(
             $this->getReference(self::REFERENCE),
@@ -118,18 +118,25 @@ class Action extends BaseAction
         $exits = false;
 
         $exits = ($id) ?
-        $contact && ($contact->getId() !== (int) $id) :
+        $contact && (($validator) ?
+            $contact->getId() !== (int) $id :
+            $contact->getId() === (int) $id
+            ) :
         $contact && $contact->getId();
 
         if ($exits) {
-            $this->getValidator($validator)
-            ->setMessagesArray(
-                null,
-                self::REFERENCE,
-                self::EXISTS_MESSAGE
-            );
+            if ($validator) {
+                $this->getValidator($validator)
+                ->setMessagesArray(
+                    null,
+                    self::REFERENCE,
+                    self::EXISTS_MESSAGE
+                );
+                
+                return true;
+            }
 
-            return true;
+            return $contact;
         }
         
         return false;

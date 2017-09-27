@@ -36,17 +36,19 @@ class Save extends Action
      */
     public function onUpdate(array $args)
     {
+        $validator = new Validation($this);
+
         if (!$this->formIsValid(
-            $this->getValidator(new Validation($this)),
+            $this->getValidator($validator),
             self::REFERENCE,
             'update',
             $args
         ) || $this->exists(
-            new Validation($this),
+            $validator,
             [self::EMAIL => $args[self::EMAIL]],
             $args[self::KEY]
         )) {
-            $messages = $this->getValidator(new Validation($this))->getMessagesAray();
+            $messages = $this->getValidator($validator)->getMessagesAray();
             return $messages;
         }
         
