@@ -15,11 +15,16 @@
 namespace GeoService\Bundles\Contact\Actions;
 
 use GeoService\Modules\Config\Config;
+use GeoService\Bundles\Contact\Entity\Contact;
 use GeoService\Modules\Base\Actions\BaseAction;
+use GeoService\Modules\Base\Interfaces\IBaseAction;
 use GeoService\Bundles\Contact\Validation\Validation;
 
 class Action extends BaseAction
 {
+    const REFERENCE = 'contact';
+    const EXISTS_MESSAGE = 'validation:add:message:UserExists';
+    
     /**
      * Authenticate User
      *
@@ -54,5 +59,112 @@ class Action extends BaseAction
         $contact = $save->onUpdate($args);
 
         return $contact;
+    }
+    
+    /**
+     * Add User
+     *
+     * @param array $args User.
+     *
+     * @return User
+     */
+    public function onAdd(array $args)
+    {
+        $add = new \GeoService\Bundles\Contact\Actions\Add(
+            $this->getContainer()
+        );
+        
+        $contact = $add->onAdd($args);
+
+        return $contact;
+    }
+    
+    /**
+     * Delete User
+     *
+     * @param array $args User ID.
+     *
+     * @return User
+     */
+    public function onDelete(array $args)
+    {
+        $delete = new \GeoService\Bundles\Contact\Actions\Delete(
+            $this->getContainer()
+        );
+        
+        $contact = $delete->onDelete($args);
+
+        return $delete;
+    }
+
+    /**
+     * User Already Exits
+     *
+     * @param Validation $validator Validator.
+     *
+     * @param array      $args      User ID.
+     *
+     * @param string     $id        User ID.
+     *
+     * @return boolean
+     */
+    public function exists(Validation $validator, array $args, string $id)
+    {
+        $contact = $this->onBaseActionGet()->get(
+            $this->getReference(self::REFERENCE),
+            $args
+        );
+
+        $exits = false;
+
+        $exits = ($id) ?
+        $contact && ($contact->getId() !== (int) $id) :
+        $contact && $contact->getId();
+
+        if ($exits) {
+            $this->getValidator($validator)
+            ->setMessagesArray(
+                null,
+                self::REFERENCE,
+                self::EXISTS_MESSAGE
+            );
+
+            return true;
+        }
+        
+        return false;
+    }
+        
+    /**
+     * Contact To Array
+     *
+     * @param Contact $args Contact.
+     *
+     * @return Contact
+     */
+    public function contactToArray(Contact $args)
+    {
+        return array(
+            'id' => $args->getId(),
+            'entity' => $args->getEntity()->getId(),
+            'role' => $args->getRole()->getId(),
+            'enabled' => $args->getEnabled(),
+            'locked' => $args->getLocked(),
+            'username'=> $args->getUsername(),
+            'usersurname'=> $args->getUsersurname(),
+            'address'=> $args->getAddress(),
+            'city'=> $args->getCity(),
+            'state'=> $args->getState(),
+            'post_code'=> $args->getPostCode(),
+            'phone'=> $args->getPhone(),
+            'email'=> $args->getEmail(),
+            'website'=> $args->getWebsite(),
+            'facebook'=> $args->getFacebook(),
+            'twitter'=> $args->getTwitter(),
+            'logo'=> $args->getLogo(),
+            'abn'=> $args->getEntity()->getIdentifier(),
+            'token_char' => $args->getTokenChar(),
+            'token_expiry' => $args->getTokenExpiry(),
+        );
     }
 }

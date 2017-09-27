@@ -49,7 +49,7 @@ class BaseValidation implements
     public function setMessagesArray($error = null, $class = null, $key = null)
     {
         if ($key) {
-            $this->config = (!$this->config) ? new Config($this->getModel()->getSettings()) : $this->config;
+            $this->config = (!$this->config) ? new Config($this->getAction()->getSettings()) : $this->config;
             $error = $this->config->getOption(
                 'messages',
                 $class,

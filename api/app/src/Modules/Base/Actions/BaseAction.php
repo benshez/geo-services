@@ -34,6 +34,7 @@ class BaseAction implements IBaseAction
     private $_baseReference = null;
     private $_baseGet = null;
     private $_baseSave = null;
+    private $_baseDelete = null;
     
     /**
      * Initialise BaseAction To Set Container
@@ -147,7 +148,22 @@ class BaseAction implements IBaseAction
         
         return $this->_baseSave;
     }
+  
+    /**
+     * Base Delete
+     *
+     * @return BaseDelete
+     */
+    public function onBaseActionDelete()
+    {
+        $this->_baseDelete = (null === $this->_baseDelete) ?
+        new \GeoService\Modules\Base\Actions\BaseDelete(
+            $this->getContainer()
+        ) :
+        $this->_baseDelete;
         
+        return $this->_baseDelete;
+    }
     /**
      * Get FormIsValid
      *

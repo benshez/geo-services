@@ -98,7 +98,7 @@ $container['TokenAuthentication'] = function ($c) {
 // Action factories
 // -----------------------------------------------------------------------------
 $container['GeoService\Bundles\Users\Controller\Controller'] = function ($c) {
-    $resource = new \GeoService\Bundles\Users\Model\Model($c);
+    $resource = new \GeoService\Bundles\Users\Actions\Action($c);
     return new GeoService\Bundles\Users\Controller\Controller($resource);
 };
 
@@ -108,7 +108,7 @@ $container['GeoService\Bundles\Address\Controller\Controller'] = function ($c) {
 };
 
 $container['GeoService\Bundles\Industries\Controller\Controller'] = function ($c) {
-    $resource = new \GeoService\Bundles\Industries\Model\Model($c);
+    $resource = new \GeoService\Bundles\Industries\Actions\Action($c);
     return new GeoService\Bundles\Industries\Controller\Controller($resource);
 };
 

@@ -8,7 +8,7 @@ use Interop\Container\ContainerInterface;
 use GeoService\Modules\Base\Actions\BaseAction;
 use GeoService\Modules\Base\Actions\BaseSave;
 
-class BaseSave extends BaseAction
+class BaseDelete extends BaseAction
 {
     /**
      * Initialise BaseAction To Set Container
@@ -24,11 +24,11 @@ class BaseSave extends BaseAction
     /**
      * Base Delete Action
      *
-     * @param \ReflectionObject $entity Entity Class.
+     * @param $entity Entity Class.
      *
      * @return void
      */
-    public function delete(\ReflectionObject $entity)
+    public function delete($entity)
     {
         $manager = $this->getEntityManager();
         $manager->remove($entity);

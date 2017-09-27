@@ -17,29 +17,31 @@ namespace GeoService\Bundles\Contact\Actions;
 use Zend\Crypt\Password\Bcrypt;
 use GeoService\Modules\Config\Config;
 use GeoService\Bundles\Contact\Actions\Action;
-use GeoService\Bundles\Contact\Validation\Validation;
 use GeoService\Modules\Base\Actions\BaseHydrate;
+use GeoService\Bundles\Entities\Validation\Validation;
 
-class Save extends Action
+class Add extends Action
 {
+    const REFERENCE_OBJECT = 'name';
     const REFERENCE = 'contact';
     const KEY = 'id';
     const PASSWORD = 'password';
     const ABN = 'abn';
     const EMAIL = 'email';
+    
     /**
-     * Save User
+     * Save Contact
      *
-     * @param array $args User Password.
+     * @param array $args Contact.
      *
-     * @return User
+     * @return Contact
      */
-    public function onUpdate(array $args)
+    public function onAdd(array $args)
     {
         if (!$this->formIsValid(
             $this->getValidator(new Validation($this)),
             self::REFERENCE,
-            'update',
+            'add',
             $args
         ) || $this->exists(
             new Validation($this),
@@ -55,20 +57,56 @@ class Save extends Action
             [self::KEY => $args[self::KEY]]
         );
 
-        if ($contact && $contact->getId()) {
-            if (isset($args[self::PASSWORD])) {
-                $bcrypt = new Bcrypt();
-                $password = $bcrypt->create($args[self::PASSWORD]);
-                $args[self::PASSWORD] = $password;
-            }
-
-            $hydrate = new BaseHydrate($this->getContainer());
-            
-            $contact = $hydrate->hydrate($contact, $args);
-
-            $contact = $this->onBaseActionSave()->save($contact);
+        if (!$contact) {
+            $contact = new \GeoService\Bundles\Contact\Entity\Contact();
         }
 
+        if (isset($args[self::PASSWORD])) {
+            $bcrypt = new Bcrypt();
+            $password = $bcrypt->create($args[self::PASSWORD]);
+            $args[self::PASSWORD] = $password;
+        }
+
+        $hydrate = new BaseHydrate($this->getContainer());
+        
+        $contact = $hydrate->hydrate($contact, $args);
+
+        $role = $this->onBaseActionGet()->get(
+            $this->getReference('roles'),
+            [self::KEY => $args['role']]
+        );
+    
+        $contact->setRole($role);
+
+        if ($args[self::ABN] && $this->formIsValid(
+            $this->getValidator(new Validation($this)),
+            self::REFERENCE,
+            'abn',
+            $args
+        )) {
+            $entity = new \GeoService\Bundles\Entities\Actions\Add(
+                $this->getContainer()
+            );
+
+            $entity = $entity->onAddByABRLookup($args['abn']);
+
+            if ($entity) {
+                $contact->setEntity($entity);
+            }
+        } else {
+            $messages = $this->getValidator()->getMessagesAray();
+            return $messages;
+        }
+        
+        try {
+            $contact = $this->onBaseActionSave()->save($contact);
+        } catch (\PDOException $e) {
+            return false;
+        } catch (\UniqueConstraintViolationException $e) {
+            return false;
+        }
+        
+        
         if ($contact->getId()) {
             $contact = $this->onBaseActionGet()->get(
                 $this->getReference(self::REFERENCE),

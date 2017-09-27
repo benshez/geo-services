@@ -75,29 +75,13 @@ class Get extends Action
                 $message = $this->getValidator()->getMessagesAray();
                 return $message;
             }
-
-            return array(
-                'id' => $contact->getId(),
-                'entity' => $contact->getEntity()->getId(),
-                'role' => $contact->getRole()->getId(),
-                'enabled' => $contact->getEnabled(),
-                'locked' => $contact->getLocked(),
-                'username'=> $contact->getUsername(),
-                'usersurname'=> $contact->getUsersurname(),
-                'address'=> $contact->getAddress(),
-                'city'=> $contact->getCity(),
-                'state'=> $contact->getState(),
-                'post_code'=> $contact->getPostCode(),
-                'phone'=> $contact->getPhone(),
-                'email'=> $contact->getEmail(),
-                'website'=> $contact->getWebsite(),
-                'facebook'=> $contact->getFacebook(),
-                'twitter'=> $contact->getTwitter(),
-                'logo'=> $contact->getLogo(),
-                'abn'=> $contact->getEntity()->getIdentifier(),
-                'token_char' => $contact->getTokenChar(),
-                'token_expiry' => $contact->getTokenExpiry(),
-            );
+            //$contact->setTokenChar(bin2hex(openssl_random_pseudo_bytes(8)));
+            $x = new \Doctrine\ORM\Id\UuidGenerator();
+            //$x = $x->generate($this->getEntityManager(), $contact);
+            $contact->setTokenChar($x->generate($this->getEntityManager(), $contact));
+            $contact = $this->onBaseActionSave()->save($contact);
+            
+            return $this->contactToArray($contact);
         }
 
         return false;

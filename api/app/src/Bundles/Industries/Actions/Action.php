@@ -21,6 +21,24 @@ use GeoService\Bundles\Industries\Validation\Validation;
 class Action extends BaseAction
 {
     /**
+     * Find Industries
+     *
+     * @param array $args Industry.
+     *
+     * @return Industry
+     */
+    public function autoComplete($args)
+    {
+        $industry = new \GeoService\Bundles\Industries\Actions\Get(
+            $this->getContainer()
+        );
+        
+        $industry = $industry->autoComplete($args);
+
+        return $industry;
+    }
+        
+    /**
      * Save Entities
      *
      * @param array $args Entities.

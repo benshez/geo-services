@@ -22,4 +22,31 @@ class Get extends Action
 {
     const REFERENCE = 'industries';
     const REFERENCE_OBJECT = 'name';
+    const DESCRIPTION = 'description';
+    
+    /**
+     * Find Industries
+     *
+     * @param array $args Industry.
+     *
+     * @return Industry
+     */
+    public function autoComplete($args)
+    {
+        if (!$this->formIsValid(
+            $this->getValidator(new Validation($this)),
+            self::REFERENCE,
+            'autocomplete',
+            [self::DESCRIPTION => $args]
+        )) {
+            return $this->getValidator()->getMessagesAray();
+        }
+        
+        return $this->getEntityManager()
+        ->getRepository($this->getConfig()->getOption(
+            'name',
+            self::REFERENCE
+        ), [[self::DESCRIPTION => $args]])
+        ->findOneByAutoComplete([self::DESCRIPTION => $args]);
+    }
 }
