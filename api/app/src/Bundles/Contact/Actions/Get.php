@@ -65,27 +65,17 @@ class Get extends Action
         );
         
         if ($contact) {
-            // $validator = new Validation($this);
-            // if (!$this->formIsValid(
-            //     $this->getValidator($validator),
-            //     self::REFERENCE,
-            //     self::AUTHENTICATION,
-            //     [self::USER => [
-            //         self::PASSWORD => $password,
-            //         self::HASH => $contact->getPassword()]
-            //     ]
-            // )) {
-            //     $message = $this->getValidator($validator)->getMessagesAray();
-            //     return $message;
-            // }
-            
             $tokenGenerator = new \Doctrine\ORM\Id\UuidGenerator();
-            $tokenChar = $tokenGenerator->generate($this->getEntityManager(), $contact);
+            $tokenChar = $tokenGenerator->generate(
+                $this->getEntityManager(), $contact
+            );
             $contact->setTokenChar($tokenChar);
             
-            $contact = $this->onBaseActionSave()->save($contact);
-            
-            return $this->contactToArray($contact);
+            $contact = $this->contactToArray(
+                $this->onBaseActionSave()->save($contact)
+            );
+
+            return $contact;
         }
 
         return false;

@@ -37,4 +37,40 @@ class Action extends BaseAction
 
         return $page;
     }
+    
+    /**
+     * Add Locations
+     *
+     * @param array $args Pages.
+     *
+     * @return Pages
+     */
+    public function onAdd(array $args)
+    {
+        $add = new \GeoService\Bundles\Pages\Actions\Add(
+            $this->getContainer()
+        );
+        
+        $page = $add->onAdd($args);
+
+        return $page;
+    }
+    
+    /**
+     * Delete Pages
+     *
+     * @param array $args Pages ID.
+     *
+     * @return Pages
+     */
+    public function onDelete(array $args)
+    {
+        $delete = new \GeoService\Bundles\Pages\Actions\Delete(
+            $this->getContainer()
+        );
+        
+        $page = $delete->onDelete($args);
+
+        return $page;
+    }
 }

@@ -5,19 +5,17 @@ entities:
     methods:
       validation:
         authenticate:
-          username:
+          email:
             - ['NotEmpty']
             - ['StringLength', [min: 2], true]
             - ['EmailAddress']
+            - ['GeoService', 'GeoService\Modules\Validators\Authentication\AuthenticationValidator', true, ['email', 'password']]
           password: 
             - ['NotEmpty']
             - ['StringLength', [min: 6, max: 16], true]
-        authentication:
-          user:
-            - ['GeoService\Modules\Validators\Authentication\AuthenticationValidator']
         add:
           id:
-            - ['IDExists', 'GeoService\Modules\Validators\Contact\ContactExistsValidator', true, null]
+            - ['GeoService', 'GeoService\Modules\Validators\Contact\ContactExistsValidator', true, null]
           role: 
             - ['NotEmpty']
           username:
@@ -34,7 +32,7 @@ entities:
             - ['NotEmpty']
             - ['StringLength', [min: 2], true]
           abn:
-            - ['ValidABNOrACN','GeoService\Modules\Validators\ABN\AbnOrAcnValidator', true, null]
+            - ['GeoService','GeoService\Modules\Validators\ABN\AbnOrAcnValidator', true, null]
         update:
           id:
             - ['NotEmpty']
@@ -50,7 +48,7 @@ entities:
             - ['NotEmpty']
             - ['StringLength', [min: 7], true]
             - ['EmailAddress']
-            - ['EmailExists', 'GeoService\Modules\Validators\Contact\EmailExistsValidator', true, ['id', 'email']]
+            - ['GeoService', 'GeoService\Modules\Validators\Contact\EmailExistsValidator', true, ['id', 'email']]
           usersurname:
             - ['NotEmpty']
             - ['StringLength', [min: 2], true]

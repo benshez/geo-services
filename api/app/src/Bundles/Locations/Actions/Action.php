@@ -21,11 +21,11 @@ use GeoService\Bundles\Locations\Validation\Validation;
 class Action extends BaseAction
 {
     /**
-     * Save Entities
+     * Save Locations
      *
      * @param array $args Locations.
      *
-     * @return Entities
+     * @return Locations
      */
     public function onUpdate(array $args)
     {
@@ -34,6 +34,42 @@ class Action extends BaseAction
         );
         
         $location = $save->onUpdate($args);
+
+        return $location;
+    }
+    
+    /**
+     * Add Locations
+     *
+     * @param array $args Locations.
+     *
+     * @return Locations
+     */
+    public function onAdd(array $args)
+    {
+        $add = new \GeoService\Bundles\Locations\Actions\Add(
+            $this->getContainer()
+        );
+        
+        $location = $add->onAdd($args);
+
+        return $location;
+    }
+    
+    /**
+     * Delete Locations
+     *
+     * @param array $args Locations ID.
+     *
+     * @return Locations
+     */
+    public function onDelete(array $args)
+    {
+        $delete = new \GeoService\Bundles\Locations\Actions\Delete(
+            $this->getContainer()
+        );
+        
+        $location = $delete->onDelete($args);
 
         return $location;
     }

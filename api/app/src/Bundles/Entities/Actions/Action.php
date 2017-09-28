@@ -33,8 +33,44 @@ class Action extends BaseAction
             $this->getContainer()
         );
         
-        $entities = $save->onUpdate($args);
+        $entity = $save->onUpdate($args);
 
-        return $entities;
+        return $entity;
+    }
+    
+    /**
+     * Add Entities
+     *
+     * @param array $args Entities.
+     *
+     * @return Entities
+     */
+    public function onAdd(array $args)
+    {
+        $add = new \GeoService\Bundles\Entities\Actions\Add(
+            $this->getContainer()
+        );
+        
+        $entity = $add->onAdd($args);
+
+        return $entity;
+    }
+    
+    /**
+     * Delete Entities
+     *
+     * @param array $args User ID.
+     *
+     * @return Entities
+     */
+    public function onDelete(array $args)
+    {
+        $delete = new \GeoService\Bundles\Entities\Actions\Delete(
+            $this->getContainer()
+        );
+        
+        $entity = $delete->onDelete($args);
+
+        return $entity;
     }
 }

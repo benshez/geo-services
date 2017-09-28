@@ -94,7 +94,7 @@ class Action extends BaseAction
         
         $contact = $delete->onDelete($args);
 
-        return $delete;
+        return $contact;
     }
         
     /**

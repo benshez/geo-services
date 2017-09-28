@@ -39,11 +39,11 @@ class Action extends BaseAction
     }
         
     /**
-     * Save Entities
+     * Save Industry
      *
-     * @param array $args Entities.
+     * @param array $args Industry.
      *
-     * @return Entities
+     * @return Industry
      */
     public function onUpdate(array $args)
     {
@@ -52,6 +52,42 @@ class Action extends BaseAction
         );
         
         $industry = $save->onUpdate($args);
+
+        return $industry;
+    }
+    
+    /**
+     * Add Industry
+     *
+     * @param array $args Industry.
+     *
+     * @return Industry
+     */
+    public function onAdd(array $args)
+    {
+        $add = new \GeoService\Bundles\Industries\Actions\Add(
+            $this->getContainer()
+        );
+        
+        $industry = $add->onAdd($args);
+
+        return $industry;
+    }
+    
+    /**
+     * Delete Industry
+     *
+     * @param array $args Industry ID.
+     *
+     * @return Industry
+     */
+    public function onDelete(array $args)
+    {
+        $delete = new \GeoService\Bundles\Industries\Actions\Delete(
+            $this->getContainer()
+        );
+        
+        $industry = $delete->onDelete($args);
 
         return $industry;
     }

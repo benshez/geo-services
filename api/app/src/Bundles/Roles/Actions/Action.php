@@ -37,4 +37,40 @@ class Action extends BaseAction
 
         return $role;
     }
+    
+    /**
+     * Add Role
+     *
+     * @param array $args Role.
+     *
+     * @return Role
+     */
+    public function onAdd(array $args)
+    {
+        $add = new \GeoService\Bundles\Role\Actions\Add(
+            $this->getContainer()
+        );
+        
+        $role = $add->onAdd($args);
+
+        return $role;
+    }
+    
+    /**
+     * Delete Role
+     *
+     * @param array $args Role ID.
+     *
+     * @return Role
+     */
+    public function onDelete(array $args)
+    {
+        $delete = new \GeoService\Bundles\Role\Actions\Delete(
+            $this->getContainer()
+        );
+        
+        $role = $delete->onDelete($args);
+
+        return $role;
+    }
 }

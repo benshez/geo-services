@@ -12,24 +12,24 @@
  * @link      https://github.com/benshez/geo-services
  */
 
-namespace GeoService\Bundles\Contact\Actions;
+namespace GeoService\Bundles\Pages\Actions;
 
 use GeoService\Modules\Config\Config;
-use GeoService\Bundles\Contact\Actions\Action;
-use GeoService\Bundles\Contact\Validation\Validation;
+use GeoService\Bundles\Pages\Actions\Action;
+use GeoService\Bundles\Pages\Validation\Validation;
 
 class Delete extends Action
 {
-    const REFERENCE = 'contact';
+    const REFERENCE = 'pages';
     const REFERENCE_OBJECT = 'name';
     const KEY = 'id';
 
     /**
-     * Delete Industries
+     * Delete Pages
      *
-     * @param array $args Industry.
+     * @param array $args Pages.
      *
-     * @return Industry
+     * @return Pages
      */
     public function onDelete(array $args)
     {
@@ -43,19 +43,19 @@ class Delete extends Action
             return $messages;
         }
         
-        $contact = $this->onBaseActionGet()->get(
+        $page = $this->onBaseActionGet()->get(
             $this->getReference(self::REFERENCE),
             [self::KEY => $args]
         );
   
-        if (!$contact) {
+        if (!$page) {
             return false;
         }
 
-        if (!$contact->getEnabled()) {
-            $this->onBaseActionDelete()->delete($contact);
+        if (!$page->getEnabled()) {
+            $this->onBaseActionDelete()->delete($page);
         } else {
-            $this->onBaseActionSave()->disable($contact);
+            $this->onBaseActionSave()->disable($page);
         }
         
         return false;
