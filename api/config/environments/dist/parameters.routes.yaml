@@ -1,4 +1,4 @@
-routes:
+routesv1:
   address:
     methods:
     - GET
@@ -8,6 +8,8 @@ routes:
     pattern: '/api/v1/address/{id}'
     middleware:
     - 'TokenAuthentication'
+    roles:
+    - ['User', 'Admin']
   login:
     methods:
     - POST
@@ -31,15 +33,20 @@ routes:
     - 'GeoService\Bundles\Industries\Controller\Controller:onDelete'
     priority: 0
     pattern: 
-    - '/api/industries/{description}'
+    - '/api/v1/industries/{description}'
     - '/api/v1/admin/industry'
     - '/api/v1/admin/industry/{id}'
     - '/api/v1/admin/industry/{id}'
     middleware:
-    -
-    -
-    -
-    -
+    - 'TokenAuthentication'
+    - 'TokenAuthentication'
+    - 'TokenAuthentication'
+    - 'TokenAuthentication'
+    roles:
+    - ['User', 'Admin']
+    - ['Admin']
+    - ['Admin']
+    - ['Admin']   
   location:
     methods:
     - GET
@@ -47,9 +54,10 @@ routes:
     - 'GeoService\Bundles\Locations\Controller\Controller:findLocationsByIndustryCode'
     priority: 0
     pattern: 
-    - '/api/location/{industry}'
+    - '/api/v1/location/{industry}'
     middleware:
     -
+    roles:
   roles:
     methods:
     - GET
@@ -68,10 +76,15 @@ routes:
     - '/api/v1/admin/role/{id}'
     - '/api/v1/admin/role/{id}'
     middleware:
-    -
-    -
-    -
-    -
+    - 'TokenAuthentication'
+    - 'TokenAuthentication'
+    - 'TokenAuthentication'
+    - 'TokenAuthentication'
+    roles:
+    - ['User', 'Admin']
+    - ['User', 'Admin']
+    - ['User', 'Admin']
+    - ['Admin']  
   contact:
     methods:
     - GET
@@ -87,10 +100,15 @@ routes:
     pattern: 
     - '/api/v1/admin/users'
     - '/api/v1/admin/user'
-    - '/api/v1/admin/user/{id}'
+    - '/api/v1/admin/user'
     - '/api/v1/admin/user/{id}'
     middleware:
-    - 
-    -
-    -
-    -
+    - 'TokenAuthentication'
+    - 'TokenAuthentication'
+    - 'TokenAuthentication'
+    - 'TokenAuthentication'
+    roles:
+    - ['User', 'Admin']
+    - ['User', 'Admin']
+    - ['User', 'Admin']
+    - ['Admin']  

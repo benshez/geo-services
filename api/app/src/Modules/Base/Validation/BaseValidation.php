@@ -4,11 +4,10 @@ namespace GeoService\Modules\Base\Validation;
 
 use Zend\Validator;
 use Zend\Validator\ValidatorChain;
-use Zend\Validator\ValidatorInterface;
-use GeoService\Modules\Base\Interfaces\IBaseValidation;
-use GeoService\Modules\Base\Interfaces\IBaseAction;
 use GeoService\Modules\Config\Config;
-use GeoService\Modules\Validators\ABN\AbnOrAcnValidator;
+use Zend\Validator\ValidatorInterface;
+use GeoService\Modules\Base\Interfaces\IBaseAction;
+use GeoService\Modules\Base\Interfaces\IBaseValidation;
 
 class BaseValidation implements
     ValidatorInterface,
@@ -105,7 +104,7 @@ class BaseValidation implements
                 $options = [];
 
                 if (sizeof($validators) > 1) {
-                    if (isset($validator[1])) {
+                    if (isset($validator[1]) && is_array($validator[1])) {
                         foreach ($validator[1] as $opt => $option) {
                             if (isset($option[key($option)])) {
                                 $key = key($option);
@@ -118,11 +117,19 @@ class BaseValidation implements
                 }
                 
                 switch (sizeof($validator)) {
-                    case 2:
-                        $this->validator->attachByName($name, $options);
+                    case 4:
+                        $params = array('action' => $this->getAction());
+                        $this->validator->attachByName(
+                            $validator[1],
+                            $params,
+                            $validator[2]
+                        );
                         break;
                     case 3:
                         $this->validator->attachByName($name, $options, $break);
+                        break;
+                    case 2:
+                        $this->validator->attachByName($name, $options);
                         break;
                     default:
                         $this->validator->attachByName($name);

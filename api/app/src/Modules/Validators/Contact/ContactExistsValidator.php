@@ -11,33 +11,33 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU General Public License
  * @link      https://github.com/benshez/geo-services
  */
-namespace GeoService\Modules\Validators\Authentication;
+
+namespace GeoService\Modules\Validators\Contact;
 
 use Zend\Validator\AbstractValidator;
-use Zend\Crypt\Password\Bcrypt;
+use GeoService\Modules\Base\Interfaces\IBaseAction;
 
-class AuthenticationValidator extends AbstractValidator
+class ContactExistsValidator extends AbstractValidator
 {
-
-    const USER = 'user';
     const REFERENCE = 'contact';
+    const CONTACT_EXISTS = 'email';
 
     protected $messageTemplates = array(
-        self::USER  => 'Not not a valid user name or password.'
+        self::CONTACT_EXISTS  => 'A user with this id already exists.'
     );
 
     /**
-     * Ctor AuthenticationValidator
+     * Ctor EmailExistsValidator
      *
      * @param array $options Validator options.
      *
-     * @return void
+     * @return User
      */
     public function __construct(array $options = array())
     {
         parent::__construct($options);
     }
-    
+
     /**
      * IsValid
      *
@@ -48,23 +48,22 @@ class AuthenticationValidator extends AbstractValidator
     public function isValid($value)
     {
         $isValid = true;
-        
+
         $action = $this->getOption('action');
-        
+
         $contact = $action->onBaseActionGet()->get(
             $action->getReference(self::REFERENCE),
-            ['email' => $value['email']]
+            ['id' => $value]
         );
-                
-        if ($contact) {
-            $bcrypt = new Bcrypt();
-            $isValid = $bcrypt->verify($value['password'], $contact->getPassword());
-        } else {
+
+        $exists = $contact && ($contact->getId() === (int) $value);
+
+        if ($exists) {
             $isValid = false;
         }
-        
+
         if (!$isValid) {
-            $this->error(self::USER);
+            $this->error(self::CONTACT_EXISTS, $value);
         }
 
         return $isValid;

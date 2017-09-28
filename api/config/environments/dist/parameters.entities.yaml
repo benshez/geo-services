@@ -12,7 +12,32 @@ entities:
           password: 
             - ['NotEmpty']
             - ['StringLength', [min: 6, max: 16], true]
+        authentication:
+          user:
+            - ['GeoService\Modules\Validators\Authentication\AuthenticationValidator']
         add:
+          id:
+            - ['IDExists', 'GeoService\Modules\Validators\Contact\ContactExistsValidator', true, null]
+          role: 
+            - ['NotEmpty']
+          username:
+            - ['NotEmpty']
+            - ['StringLength', [min: 2], true]
+          password: 
+            - ['NotEmpty']
+            - ['StringLength', [min: 6, max: 16], true]
+          email:
+            - ['NotEmpty']
+            - ['StringLength', [min: 7], true]
+            - ['EmailAddress']    
+          usersurname:
+            - ['NotEmpty']
+            - ['StringLength', [min: 2], true]
+          abn:
+            - ['ValidABNOrACN','GeoService\Modules\Validators\ABN\AbnOrAcnValidator', true, null]
+        update:
+          id:
+            - ['NotEmpty']
           role: 
             - ['NotEmpty']       
           username:
@@ -24,26 +49,21 @@ entities:
           email:
             - ['NotEmpty']
             - ['StringLength', [min: 7], true]
-            - ['EmailAddress']    
-          surname:
+            - ['EmailAddress']
+            - ['EmailExists', 'GeoService\Modules\Validators\Contact\EmailExistsValidator', true, ['id', 'email']]
+          usersurname:
             - ['NotEmpty']
             - ['StringLength', [min: 2], true]
-        update:
-          id:
-            - ['NotEmpty']
-          role: 
-            - ['NotEmpty']       
-          username:
-            - ['NotEmpty']
-            - ['StringLength', [min: 2], true] 
-          delete:
-              id:
-                - ['NotEmpty']                         
+        delete:
+            id:
+              - ['NotEmpty']
+              - ['StringLength', [min: 2], true]
     messages:
       validation:
         authenticate: {error: true, message: {UserNotFound: 'No user found with that id.'}}
         invalid_credentials: {error: true, message: {UserInvalidCredentials: 'Invalid user name or password.'}}
-        add: {error: true, message: {UserNotAdded: 'That user could not be added.'}} 
+        invalid_abn: {error: true, message: {ABNInvalidCredentials: 'Invalid ABN.'}}
+        add: {error: true, message: {UserNotAdded: 'That user could not be added.', UserExists: 'A user with this email address already exists.'}} 
         update: {error: true, message: {UserNotUpdated: 'The user with that id could not be updated.'}} 
         delete: {error: true, message: {UserNotDeleted: 'The user with that id could not be deleted.'}}         
   industries:
@@ -110,6 +130,11 @@ entities:
         add: {error: true, message: {RoleNotAdded: 'That role could not be added.'}} 
         update: {error: true, message: {RoleNotUpdated: 'The role with that id could not be updated.'}} 
         delete: {error: true, message: {RoleNotDeleted: 'The role with that id could not be deleted.'}}
-  users:
-    name: '\GeoService\Bundles\Users\Entity\Users'
-        
+  entities:
+    name: '\GeoService\Bundles\Entities\Entity\Entities'
+    methods:
+      validation:
+          add:    
+              name:
+                - ['NotEmpty']
+                - ['StringLength', [min: 3], true]        

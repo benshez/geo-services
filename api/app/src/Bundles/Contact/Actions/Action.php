@@ -96,51 +96,6 @@ class Action extends BaseAction
 
         return $delete;
     }
-
-    /**
-     * User Already Exits
-     *
-     * @param Validation $validator Validator.
-     *
-     * @param array      $args      User ID.
-     *
-     * @param string     $id        User ID.
-     *
-     * @return boolean
-     */
-    public function exists(Validation $validator = null, array $args, string $id)
-    {
-        $contact = $this->onBaseActionGet()->get(
-            $this->getReference(self::REFERENCE),
-            $args
-        );
-
-        $exits = false;
-
-        $exits = ($id) ?
-        $contact && (($validator) ?
-            $contact->getId() !== (int) $id :
-            $contact->getId() === (int) $id
-            ) :
-        $contact && $contact->getId();
-
-        if ($exits) {
-            if ($validator) {
-                $this->getValidator($validator)
-                ->setMessagesArray(
-                    null,
-                    self::REFERENCE,
-                    self::EXISTS_MESSAGE
-                );
-                
-                return true;
-            }
-
-            return $contact;
-        }
-        
-        return false;
-    }
         
     /**
      * Contact To Array

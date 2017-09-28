@@ -38,19 +38,6 @@ class Add extends Action
      */
     public function onAdd(array $args)
     {
-        if (isset($args[self::KEY])) {
-            $contact = $this->exists(
-                null,
-                [self::KEY => $args[self::KEY]],
-                $args[self::KEY]
-            );
-    
-            if ($contact) {
-                $contact = $this->contactToArray($contact);
-                return $contact;
-            }
-        }
-
         $validator = new Validation($this);
 
         if (!$this->formIsValid(
@@ -58,10 +45,6 @@ class Add extends Action
             self::REFERENCE,
             'add',
             $args
-        ) || $this->exists(
-            $validator,
-            [self::EMAIL => $args[self::EMAIL]],
-            $args[self::KEY]
         )) {
             $messages = $this->getValidator($validator)->getMessagesAray();
             return $messages;
@@ -86,12 +69,14 @@ class Add extends Action
     
         $contact->setRole($role);
 
-        if ($args[self::ABN] && $this->formIsValid(
-            $this->getValidator(new Validation($this)),
-            self::REFERENCE,
-            'abn',
-            $args
-        )) {
+        // && $this->formIsValid(
+        //     $this->getValidator(new Validation($this)),
+        //     self::REFERENCE,
+        //     'abn',
+        //     $args
+        // )
+            
+        if ($args[self::ABN]) {
             $entity = new \GeoService\Bundles\Entities\Actions\Add(
                 $this->getContainer()
             );

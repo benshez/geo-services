@@ -47,13 +47,15 @@ class Get extends Action
      */
     public function authenticate(string $email, string $password)
     {
+        $validator = new Validation($this);
+
         if (!$this->formIsValid(
-            $this->getValidator(new Validation($this)),
+            $this->getValidator($validator),
             self::REFERENCE,
             self::AUTHENTICATE,
-            [self::CONTACT_NAME => $email, self::PASSWORD => $password]
+            [self::EMAIL => $email, self::PASSWORD => $password]
         )) {
-            $message = $this->getValidator()->getMessagesAray();
+            $message = $this->getValidator($validator)->getMessagesAray();
             return $message;
         }
 
@@ -63,22 +65,24 @@ class Get extends Action
         );
         
         if ($contact) {
-            if (!$this->formIsValid(
-                $this->getValidator(new Validation($this)),
-                self::REFERENCE,
-                self::AUTHENTICATION,
-                [self::USER => [
-                    self::PASSWORD => $password,
-                    self::HASH => $contact->getPassword()]
-                ]
-            )) {
-                $message = $this->getValidator()->getMessagesAray();
-                return $message;
-            }
-            //$contact->setTokenChar(bin2hex(openssl_random_pseudo_bytes(8)));
-            $x = new \Doctrine\ORM\Id\UuidGenerator();
-            //$x = $x->generate($this->getEntityManager(), $contact);
-            $contact->setTokenChar($x->generate($this->getEntityManager(), $contact));
+            // $validator = new Validation($this);
+            // if (!$this->formIsValid(
+            //     $this->getValidator($validator),
+            //     self::REFERENCE,
+            //     self::AUTHENTICATION,
+            //     [self::USER => [
+            //         self::PASSWORD => $password,
+            //         self::HASH => $contact->getPassword()]
+            //     ]
+            // )) {
+            //     $message = $this->getValidator($validator)->getMessagesAray();
+            //     return $message;
+            // }
+            
+            $tokenGenerator = new \Doctrine\ORM\Id\UuidGenerator();
+            $tokenChar = $tokenGenerator->generate($this->getEntityManager(), $contact);
+            $contact->setTokenChar($tokenChar);
+            
             $contact = $this->onBaseActionSave()->save($contact);
             
             return $this->contactToArray($contact);

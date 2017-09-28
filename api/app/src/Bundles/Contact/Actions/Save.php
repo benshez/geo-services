@@ -43,14 +43,16 @@ class Save extends Action
             self::REFERENCE,
             'update',
             $args
-        ) || $this->exists(
-            $validator,
-            [self::EMAIL => $args[self::EMAIL]],
-            $args[self::KEY]
         )) {
             $messages = $this->getValidator($validator)->getMessagesAray();
             return $messages;
         }
+        
+        $updatingArgs = array(
+            self::EMAIL => $args[self::EMAIL],
+            self::KEY => $args[self::KEY],
+            'action' => $this
+        );
         
         $contact = $this->onBaseActionGet()->get(
             $this->getReference(self::REFERENCE),

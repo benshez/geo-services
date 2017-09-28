@@ -19,6 +19,7 @@ use Doctrine\Common\Util\Inflector;
 use Interop\Container\ContainerInterface;
 use GeoService\Modules\Base\Actions\BaseAction;
 use Doctrine\Common\Annotations\AnnotationReader;
+use Doctrine\ORM\EntityRepository;
 
 class BaseHydrate extends BaseAction
 {
@@ -38,7 +39,7 @@ class BaseHydrate extends BaseAction
     }
     
     /**
-     * Base Ghydrate Entity Action
+     * Base Hydrate Entity Action
      *
      * @param       $entity Sender Is Entity Class.
      *
@@ -68,5 +69,22 @@ class BaseHydrate extends BaseAction
         }
 
         return $entity;
+    }
+    
+    /**
+     * Base Hydrate Entity Action
+     *
+     * @param       $entity Sender Is Entity Class.
+     *
+     * @param array $args Args Is Arguments To Pass.
+     *
+     * @return Entity To Array
+     */
+    public function extract(EntityRepository $entity, array $args)
+    {
+        $hydrator = new \DoctrineModule\Stdlib\Hydrator\DoctrineObject($this->getEntityManager());
+        $entityArray = $hydrator->extract($entity);
+        
+        return $entityArray;
     }
 }

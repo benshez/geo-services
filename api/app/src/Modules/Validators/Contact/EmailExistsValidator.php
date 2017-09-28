@@ -11,60 +11,57 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU General Public License
  * @link      https://github.com/benshez/geo-services
  */
-namespace GeoService\Modules\Validators\Authentication;
+
+namespace GeoService\Modules\Validators\Contact;
 
 use Zend\Validator\AbstractValidator;
-use Zend\Crypt\Password\Bcrypt;
+use GeoService\Modules\Base\Interfaces\IBaseAction;
 
-class AuthenticationValidator extends AbstractValidator
+class EmailExistsValidator extends AbstractValidator
 {
-
-    const USER = 'user';
     const REFERENCE = 'contact';
+    const EMAIL_EXISTS = 'email';
 
     protected $messageTemplates = array(
-        self::USER  => 'Not not a valid user name or password.'
+        self::EMAIL_EXISTS  => 'Email %value% already in use.'
     );
 
     /**
-     * Ctor AuthenticationValidator
+     * Ctor EmailExistsValidator
      *
-     * @param array $options Validator options.
+     * @param array       $options Validator options.
      *
-     * @return void
+     * @param IBaseAction $action  Action.
+     *
+     * @return User
      */
     public function __construct(array $options = array())
     {
         parent::__construct($options);
     }
-    
+
     /**
      * IsValid
      *
-     * @param $value Values.
+     * @param array $value Values.
      *
      * @return boolean
      */
     public function isValid($value)
     {
         $isValid = true;
-        
+
         $action = $this->getOption('action');
-        
+
         $contact = $action->onBaseActionGet()->get(
             $action->getReference(self::REFERENCE),
             ['email' => $value['email']]
         );
-                
-        if ($contact) {
-            $bcrypt = new Bcrypt();
-            $isValid = $bcrypt->verify($value['password'], $contact->getPassword());
-        } else {
-            $isValid = false;
-        }
-        
+
+        $isValid = $contact && ($contact->getId() !== (int) $value['id']);
+
         if (!$isValid) {
-            $this->error(self::USER);
+            $this->error(self::EMAIL_EXISTS, $value['email']);
         }
 
         return $isValid;
