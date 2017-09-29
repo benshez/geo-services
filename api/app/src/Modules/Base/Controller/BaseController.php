@@ -109,6 +109,17 @@ class BaseController implements IBaseController
         );
     }
 
+    
+    public function onGet(
+        RequestInterface $request,
+        ResponseInterface $response,
+        $args
+    ) {
+        return $response->withJSON(
+            $this->getAction()->onGet($args)
+        );
+    }
+        
     public function onAdd(
         RequestInterface $request,
         ResponseInterface $response,

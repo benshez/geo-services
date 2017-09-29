@@ -44,9 +44,11 @@ class BaseGet extends BaseAction
         if ($args === null) {
             $objects = $this->getEntityManager()->getRepository($entity)->findAll();
 
-            $objects = array_map(function ($object) {
-                return $object;
-            }, $objects);
+            $objects = array_map(
+                function ($object) {
+                    return $object;
+                }, $objects
+            );
 
             return $objects;
         } else {

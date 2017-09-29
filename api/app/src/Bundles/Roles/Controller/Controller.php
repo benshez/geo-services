@@ -10,22 +10,27 @@ use GeoService\Modules\Base\Options\BaseOptions;
 
 final class Controller extends BaseController implements IRolesController
 {
+    const REFERENCE_OBJECT = 'name';
+    const REFERENCE = 'roles';
+    const KEY = 'id';
+    
+    /**
+     * Get Roles
+     *
+     * @param array $args Roles.
+     *
+     * @return Roles
+     */
     public function onFetch(
         RequestInterface $request,
         ResponseInterface $response,
         $args
     ) {
-		return $this->fetched(
-			$request,
-			$response,
-			$this->model->onFindAll(
-				$args
-			),
-			new BaseOptions(
-				array('part' => 'messages',
-				'class' => 'roles',
-				'extention' => 'validation:fetch:message:RolesNotFound')
-			)
-		);
-	}
+        $roles = $this->getAction()->onBaseActionGet(
+            $this->getAction()->getReference(self::REFERENCE),
+            [self::KEY => $args]
+        );
+        
+        return $roles;
+    }
 }

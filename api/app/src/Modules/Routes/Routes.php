@@ -50,20 +50,22 @@ class Routes
                 $route['pattern'][$index],
                 $route['actions'][$index]
             )
-            ->add(function (
-                $request,
-                $response,
-                $next
-            ) use (
-                $container,
-                $middleware
-            ) {
-                return $middleware(
+            ->add(
+                function (
                     $request,
                     $response,
                     $next
-                );
-            });
+                ) use (
+                    $container,
+                    $middleware
+                ) {
+                    return $middleware(
+                        $request,
+                        $response,
+                        $next
+                    );
+                }
+            );
         } else {
             $this->app->get(
                 $route['pattern'][$index],
@@ -82,18 +84,22 @@ class Routes
                 $route['pattern'][$index],
                 $route['actions'][$index]
             )
-            ->add(function (
-                $request,
-                $response,
-                $next
-            ) use (
-                $container,
-                $middleware
-            ) {
-                return $middleware($request,
-                $response,
-                $next);
-            });
+            ->add(
+                function (
+                    $request,
+                    $response,
+                    $next
+                ) use (
+                    $container,
+                    $middleware
+                ) {
+                    return $middleware(
+                        $request,
+                        $response,
+                        $next
+                    );
+                }
+            );
         } else {
             $this->app->post(
                 $route['pattern'][$index],
@@ -112,18 +118,22 @@ class Routes
                 $route['pattern'][$index],
                 $route['actions'][$index]
             )
-            ->add(function (
-                $request,
-                $response,
-                $next
-            ) use (
-                $container,
-                $middleware
-            ) {
-                return $middleware($request,
-                $response,
-                $next);
-            });
+            ->add(
+                function (
+                    $request,
+                    $response,
+                    $next
+                ) use (
+                    $container,
+                    $middleware
+                ) {
+                    return $middleware(
+                        $request,
+                        $response,
+                        $next
+                    );
+                }
+            );
         } else {
             $this->app->put(
                 $route['pattern'][$index],
@@ -141,19 +151,22 @@ class Routes
             $this->app->delete(
                 $route['pattern'][$index],
                 $route['actions'][$index]
-            )
-            ->add(function (
-                $request,
-                $response,
-                $next
-            ) use (
-                $container,
-                $middleware
-            ) {
-                return $middleware($request,
-                $response,
-                $next);
-            });
+            )->add(
+                function (
+                    $request,
+                    $response,
+                    $next
+                ) use (
+                    $container,
+                    $middleware
+                ) {
+                    return $middleware(
+                        $request,
+                        $response,
+                        $next
+                    );
+                }
+            );
         } else {
             $this->app->delete(
                 $route['pattern'][$index],

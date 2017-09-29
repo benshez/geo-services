@@ -20,6 +20,25 @@ use GeoService\Bundles\Contact\Validation\Validation;
 
 class Action extends BaseAction
 {
+    
+    /**
+     * Get Role
+     *
+     * @param array $args Role.
+     *
+     * @return Role
+     */
+    public function onGet(array $args)
+    {
+        $get = new \GeoService\Bundles\Roles\Actions\Get(
+            $this->getContainer()
+        );
+        
+        $role = $get->onGet($args);
+
+        return $role;
+    }
+        
     /**
      * Save Role
      *
@@ -72,5 +91,21 @@ class Action extends BaseAction
         $role = $delete->onDelete($args);
 
         return $role;
+    }
+    
+    /**
+     * Role To Array
+     *
+     * @param \GeoService\Bundles\Roles\Entity\Roles $args Role.
+     *
+     * @return Role
+     */
+    public function roleToArray(\GeoService\Bundles\Roles\Entity\Roles $args)
+    {
+        return array(
+            'id' => $args->getId(),
+            'role' => $args->getRole(),
+            'enabled' => $args->getEnabled()
+        );
     }
 }
