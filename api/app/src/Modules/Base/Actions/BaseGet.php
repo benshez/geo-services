@@ -15,7 +15,10 @@
 namespace GeoService\Modules\Base\Actions;
 
 use Interop\Container\ContainerInterface;
+use Doctrine\Common\Collections\Criteria;
 use GeoService\Modules\Base\Actions\BaseAction;
+use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
+use DoctrineModule\Paginator\Adapter\Selectable as SelectableAdapter;
 
 class BaseGet extends BaseAction
 {
@@ -60,5 +63,42 @@ class BaseGet extends BaseAction
         }
 
         return false;
+    }
+    
+    /**
+     * Base Get Paged Action
+     *
+     * @param string $entity Entity Class.
+     *
+     * @param array  $args   Args Is Arguments To Pass.
+     *
+     * @return Entity Object
+     */
+    public function getPaged(string $entity, array $args = null)
+    {
+        $offset = isset($args['offset']) ? $args['offset'] : 1;
+        $limit = isset($args['limit']) ? $args['limit'] : 10;
+        $offset = (($offset > 0) ? ($offset - 1): 0) * $limit;
+        $key = isset($args['value']) ? $args['value'] : null;
+        
+        $criteria = null;
+
+        if ($key !== null) {
+            $criteria = Criteria::create()
+            ->where(Criteria::expr()->eq($args['key'], $key));
+        }
+        
+        $adapter = new SelectableAdapter(
+            $this->getEntityManager()->getRepository(
+                $entity
+            ),
+            $criteria
+        );
+
+        $paginator = new ORMPaginator($adapter->getItems($offset, $limit));
+        
+        $paginator = $paginator->getQuery();
+
+        return ($paginator);
     }
 }

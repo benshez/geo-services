@@ -22,6 +22,7 @@ export interface IRouteParameters {
 }
 
 export interface IRouteRoutes {
+	ADMIN: string;
 	LOGIN: string;
 	MAP_PLACES: string;
 	MAP: string;
@@ -84,6 +85,7 @@ export class Config {
 	};
 
 	public static ROUTE_ROUTES: IRouteRoutes = {
+		ADMIN: 'admin',
 		LOGIN: 'login',
 		MAP_PLACES: 'map-places',
 		MAP: 'map'

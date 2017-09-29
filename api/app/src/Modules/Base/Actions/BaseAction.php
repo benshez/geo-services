@@ -132,7 +132,7 @@ class BaseAction implements IBaseAction
         
         return $this->_baseGet;
     }
-     
+    
     /**
      * Base Save
      *

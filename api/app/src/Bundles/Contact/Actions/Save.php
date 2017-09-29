@@ -48,12 +48,6 @@ class Save extends Action
             return $messages;
         }
         
-        $updatingArgs = array(
-            self::EMAIL => $args[self::EMAIL],
-            self::KEY => $args[self::KEY],
-            'action' => $this
-        );
-        
         $contact = $this->onBaseActionGet()->get(
             $this->getReference(self::REFERENCE),
             [self::KEY => $args[self::KEY]]
@@ -74,12 +68,14 @@ class Save extends Action
         }
 
         if ($contact->getId()) {
-            $contact = $this->onBaseActionGet()->get(
-                $this->getReference(self::REFERENCE),
-                [self::KEY => $contact->getId()]
+            $contact = $this->contactToArray(
+                $this->onBaseActionGet()->get(
+                    $this->getReference(self::REFERENCE),
+                    [self::KEY => $contact->getId()]
+                )
             );
-            
-            return $this->contactToArray($contact);
+
+            return $contact;
         }
 
         return false;

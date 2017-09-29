@@ -1,7 +1,7 @@
 ﻿import { LoginComponent } from './components/login/component';
 
 export const USER_COMPONENTS: any[] = [
-    LoginComponent
+	LoginComponent
 ];
 
 export const USER_PROVIDERS: any[] = [
