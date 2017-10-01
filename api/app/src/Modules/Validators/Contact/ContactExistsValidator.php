@@ -20,7 +20,7 @@ use GeoService\Modules\Base\Interfaces\IBaseAction;
 class ContactExistsValidator extends AbstractValidator
 {
     const REFERENCE = 'contact';
-    const CONTACT_EXISTS = 'email';
+    const CONTACT_EXISTS = 'user';
 
     protected $messageTemplates = array(
         self::CONTACT_EXISTS  => 'A user with this id already exists.'

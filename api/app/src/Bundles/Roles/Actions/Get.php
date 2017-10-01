@@ -39,8 +39,7 @@ class Get extends Action
             $this->getReference(self::REFERENCE),
             ['key' => self::KEY,
             'value' => $key,
-            'offset' => $role['offset'],
-            'limit' => $role['limit']]
+            'offset' => $role['offset']]
         );
 
         return ($role);

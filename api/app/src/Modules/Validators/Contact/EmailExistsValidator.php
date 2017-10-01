@@ -58,7 +58,7 @@ class EmailExistsValidator extends AbstractValidator
             ['email' => $value['email']]
         );
 
-        $isValid = $contact && ($contact->getId() !== (int) $value['id']);
+        $isValid = $contact && ($contact->getId() === (int) $value['id']);
 
         if (!$isValid) {
             $this->error(self::EMAIL_EXISTS, $value['email']);

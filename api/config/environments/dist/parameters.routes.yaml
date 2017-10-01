@@ -5,7 +5,7 @@ routesv1:
     actions:
     - 'GeoService\Bundles\Address\Controller\Controller:fetchOne'
     priority: 0
-    pattern: '/api/v1/address/{id}'
+    pattern: '/api/v1/address[/{id}]'
     middleware:
     - 'TokenAuthentication'
     roles:
@@ -35,8 +35,8 @@ routesv1:
     pattern: 
     - '/api/v1/industries/{description}'
     - '/api/v1/admin/industry'
-    - '/api/v1/admin/industry/{id}'
-    - '/api/v1/admin/industry/{id}'
+    - '/api/v1/admin/industry[/{id}]'
+    - '/api/v1/admin/industry[/{id}]'
     middleware:
     - 'TokenAuthentication'
     - 'TokenAuthentication'
@@ -65,16 +65,16 @@ routesv1:
     - PUT
     - DELETE    
     actions:
-    - 'GeoService\Bundles\Roles\Controller\Controller:onFetch'
+    - 'GeoService\Bundles\Roles\Controller\Controller:onGet'
     - 'GeoService\Bundles\Roles\Controller\Controller:onAdd'
     - 'GeoService\Bundles\Roles\Controller\Controller:onUpdate'
     - 'GeoService\Bundles\Roles\Controller\Controller:onDelete'            
     priority: 0
     pattern: 
-    - '/api/v1/admin/roles'
+    - '/api/v1/admin/roles/{offset}[/{id}]'
     - '/api/v1/admin/role'
-    - '/api/v1/admin/role/{id}'
-    - '/api/v1/admin/role/{id}'
+    - '/api/v1/admin/role[/{id}]'
+    - '/api/v1/admin/role[/{id}]'
     middleware:
     - 'TokenAuthentication'
     - 'TokenAuthentication'
@@ -82,8 +82,8 @@ routesv1:
     - 'TokenAuthentication'
     roles:
     - ['User', 'Admin']
-    - ['User', 'Admin']
-    - ['User', 'Admin']
+    - ['Admin']
+    - ['Admin']
     - ['Admin']  
   contact:
     methods:
@@ -101,7 +101,7 @@ routesv1:
     - '/api/v1/admin/users'
     - '/api/v1/admin/user'
     - '/api/v1/admin/user'
-    - '/api/v1/admin/user/{id}'
+    - '/api/v1/admin/user[/{id}]'
     middleware:
     - 'TokenAuthentication'
     - 'TokenAuthentication'

@@ -16,7 +16,7 @@ interface IBaseController
         RequestInterface $request,
         ResponseInterface $response,
         $sender,
-        array $arg = null,
+        array $args = null,
         BaseOptions $options
     );
     public function fetchOne(

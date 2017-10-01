@@ -58,22 +58,54 @@ class BaseController implements IBaseController
     {
         return $this->_action;
     }
-    
+
+    /**
+     * Fetch
+     *
+     * @param RequestInterface  $request  Request.
+     *
+     * @param ResponseInterface $response Response.
+     *
+     * @param                   $sender   Sender.
+     *
+     * @param array             $args     Arguments.
+     *
+     * @param BaseOptions       $options  Arguments.
+     *
+     * @return boolean
+     */
     public function fetch(
         RequestInterface $request,
         ResponseInterface $response,
         $sender,
-        array $arg = null,
+        array $args = null,
         BaseOptions $options
     ) {
-        return $this->fetched(
+        $data = $this->fetched(
             $request,
             $response,
             $this->getAction()->get($sender, $args),
             $options
         );
+        
+        return $data;
     }
 
+    /**
+     * Fetch
+     *
+     * @param RequestInterface  $request  Request.
+     *
+     * @param ResponseInterface $response Response.
+     *
+     * @param                   $sender   Sender.
+     *
+     * @param array             $args     Arguments.
+     *
+     * @param BaseOptions       $options  Arguments.
+     *
+     * @return boolean
+     */
     public function fetchOne(
         RequestInterface $request,
         ResponseInterface $response,
@@ -81,25 +113,41 @@ class BaseController implements IBaseController
         array $args,
         BaseOptions $options
     ) {
-        return $this->fetched(
+        $data = $this->fetched(
             $request,
             $response,
             $this->getAction()->get($sender, $args),
             $options
         );
+        
+        return $data;
     }
     
+    /**
+     * Authenticate Contact
+     *
+     * @param RequestInterface  $request  Request.
+     *
+     * @param ResponseInterface $response Response.
+     *
+     * @param array             $args     Arguments.
+     *
+     * @param BaseOptions       $options  Arguments.
+     *
+     * @return boolean
+     */
     public function fetched(
         RequestInterface $request,
         ResponseInterface $response,
-        $args,
+        array $args,
         BaseOptions $options
     ) {
         if ($args) {
-            return $response->withJSON($args);
+            $data = $response->withJSON($args);
+            return $data;
         }
         
-        return $response->withStatus(
+        $data = $response->withStatus(
             404,
             $this->getAction()->getConfig()->getOption(
                 $options->getOptions('part'),
@@ -107,46 +155,99 @@ class BaseController implements IBaseController
                 $options->getOptions('extention')
             )
         );
+        
+        return $data;
     }
 
-    
+    /**
+     * Authenticate Contact
+     *
+     * @param RequestInterface  $request  Request.
+     *
+     * @param ResponseInterface $response Response.
+     *
+     * @param array             $args     Arguments.
+     *
+     * @return boolean
+     */
     public function onGet(
         RequestInterface $request,
         ResponseInterface $response,
-        $args
+        array $args
     ) {
-        return $response->withJSON(
+        $data = $response->withJSON(
             $this->getAction()->onGet($args)
         );
-    }
         
+        return $data;
+    }
+    
+    /**
+     * Authenticate Contact
+     *
+     * @param RequestInterface  $request  Request.
+     *
+     * @param ResponseInterface $response Response.
+     *
+     * @param array             $args     Arguments.
+     *
+     * @return boolean
+     */
     public function onAdd(
         RequestInterface $request,
         ResponseInterface $response,
-        $args
+        array $args
     ) {
-        return $response->withJSON(
+        $data = $response->withJSON(
             $this->getAction()->onAdd($request->getParsedBody())
         );
+        
+        return $data;
     }
 
+    /**
+     * Authenticate Contact
+     *
+     * @param RequestInterface  $request  Request.
+     *
+     * @param ResponseInterface $response Response.
+     *
+     * @param array             $args     Arguments.
+     *
+     * @return boolean
+     */
     public function onUpdate(
         RequestInterface $request,
         ResponseInterface $response,
-        $args
+        array $args
     ) {
-        return $response->withJSON(
+        $data = $response->withJSON(
             $this->getAction()->onUpdate($request->getParsedBody())
         );
+        
+        return $data;
     }
 
+    /**
+     * Authenticate Contact
+     *
+     * @param RequestInterface  $request  Request.
+     *
+     * @param ResponseInterface $response Response.
+     *
+     * @param array             $args     Arguments.
+     *
+     * @return boolean
+     */
     public function onDelete(
         RequestInterface $request,
         ResponseInterface $response,
-        $args
+        array $args
     ) {
-        return $response->withJSON(
+        $data = $response->withJSON(
             $this->getAction()->onDelete($args)
         );
+        
+        return $data;
     }
 }

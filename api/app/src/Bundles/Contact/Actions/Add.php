@@ -17,6 +17,7 @@ namespace GeoService\Bundles\Contact\Actions;
 use Zend\Crypt\Password\Bcrypt;
 use GeoService\Modules\Config\Config;
 use GeoService\Bundles\Contact\Actions\Action;
+use GeoService\Bundles\Contact\Entity\Contact;
 use GeoService\Modules\Base\Actions\BaseHydrate;
 use GeoService\Bundles\Contact\Validation\Validation;
 
@@ -50,7 +51,7 @@ class Add extends Action
             return $messages;
         }
         
-        $contact = new \GeoService\Bundles\Contact\Entity\Contact();
+        $contact = new Contact();
 
         if (isset($args[self::PASSWORD])) {
             $bcrypt = new Bcrypt();
@@ -58,23 +59,12 @@ class Add extends Action
             $args[self::PASSWORD] = $password;
         }
 
-        $hydrate = new BaseHydrate($this->getContainer());
-        
-        $contact = $hydrate->hydrate($contact, $args);
-
         $role = $this->onBaseActionGet()->get(
             $this->getReference('roles'),
             [self::KEY => $args['role']]
         );
-    
-        $contact->setRole($role);
-
-        // && $this->formIsValid(
-        //     $this->getValidator(new Validation($this)),
-        //     self::REFERENCE,
-        //     'abn',
-        //     $args
-        // )
+        
+        $args['role'] = $role;
             
         if ($args[self::ABN]) {
             $entity = new \GeoService\Bundles\Entities\Actions\Add(
@@ -84,21 +74,15 @@ class Add extends Action
             $entity = $entity->onAddByABRLookup($args['abn']);
 
             if ($entity) {
-                $contact->setEntity($entity);
+                $args['entity'] = $entity;
             }
-        } else {
-            $messages = $this->getValidator()->getMessagesAray();
-            return $messages;
         }
         
-        try {
-            $contact = $this->onBaseActionSave()->save($contact);
-        } catch (\PDOException $e) {
-            return false;
-        } catch (\UniqueConstraintViolationException $e) {
-            return false;
-        }
+        $hydrate = new BaseHydrate($this->getContainer());
         
+        $contact = $hydrate->hydrate($contact, $args);
+        
+        $contact = $this->onBaseActionSave()->save($contact);
         
         if ($contact->getId()) {
             $contact = $this->onBaseActionGet()->get(
@@ -106,7 +90,9 @@ class Add extends Action
                 [self::KEY => $contact->getId()]
             );
             
-            return $this->contactToArray($contact);
+            $contact = $this->contactToArray($contact);
+
+            return $contact;
         }
 
         return false;

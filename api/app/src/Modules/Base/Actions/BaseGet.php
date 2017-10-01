@@ -72,13 +72,14 @@ class BaseGet extends BaseAction
      *
      * @param array  $args   Args Is Arguments To Pass.
      *
-     * @return Entity Object
+     * @return Entity Paged Object
      */
     public function getPaged(string $entity, array $args = null)
     {
-        $offset = isset($args['offset']) ? $args['offset'] : 1;
-        $limit = isset($args['limit']) ? $args['limit'] : 10;
-        $offset = (($offset > 0) ? ($offset - 1): 0) * $limit;
+        $offset = (isset($args['offset']) && $args['offset'] > 0) ?
+        $args['offset'] : 1;
+        $limit = 10;
+        $offset = ($limit * ($offset - 1));
         $key = isset($args['value']) ? $args['value'] : null;
         
         $criteria = null;
