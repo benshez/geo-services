@@ -15,6 +15,7 @@
 namespace GeoService\Bundles\Roles\Actions;
 
 use GeoService\Modules\Config\Config;
+use GeoService\Bundles\Roles\Entity\Roles;
 use GeoService\Bundles\Roles\Actions\Action;
 use GeoService\Modules\Base\Actions\BaseHydrate;
 use GeoService\Bundles\Roles\Validation\Validation;
@@ -34,17 +35,19 @@ class Add extends Action
      */
     public function onAdd(array $args)
     {
+        $validator = new Validation($this);
+
         if (!$this->formIsValid(
-            $this->getValidator(new Validation($this)),
+            $this->getValidator($validator),
             self::REFERENCE,
             'add',
             $args
         )) {
-            $messages = $this->getValidator()->getMessagesAray();
+            $messages = $this->getValidator($validator)->getMessagesAray();
             return $messages;
         }
 
-        $role = new \GeoService\Bundles\Roles\Entity\Roles();
+        $role = new Roles();
         
         $hydrate = new BaseHydrate($this->getContainer());
         

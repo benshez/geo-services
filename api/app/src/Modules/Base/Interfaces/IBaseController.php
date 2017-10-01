@@ -29,7 +29,7 @@ interface IBaseController
     public function fetched(
         RequestInterface $request,
         ResponseInterface $response,
-        $args,
+        array $args,
         BaseOptions $options
     );
 }

@@ -189,10 +189,11 @@ class BaseAction implements IBaseAction
         foreach ($fields as $key => $field) {
             foreach ($field as $value) {
                 if (isset($value[3]) && is_array($value[3])) {
-                    $values[] = array(
-                        $value[3][0] => $args[$value[3][0]],
-                        $value[3][1] => $args[$value[3][1]]
-                    );
+                    $val = array();
+                    foreach ($value[3] as $index => $passed) {
+                        $val[$passed] = $args[$passed];
+                    }
+                    $values[] = $val;
                 } else {
                     $values[] = $args[$key];
                 }

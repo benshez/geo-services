@@ -15,6 +15,7 @@
 namespace GeoService\Bundles\Pages\Actions;
 
 use GeoService\Modules\Config\Config;
+use GeoService\Bundles\Pages\Entity\Pages;
 use GeoService\Bundles\Pages\Actions\Action;
 use GeoService\Modules\Base\Actions\BaseHydrate;
 use GeoService\Bundles\Pages\Validation\Validation;
@@ -34,17 +35,19 @@ class Add extends Action
      */
     public function onAdd(array $args)
     {
+        $validator = new Validation($this);
+
         if (!$this->formIsValid(
-            $this->getValidator(new Validation($this)),
+            $this->getValidator($validator),
             self::REFERENCE,
             'add',
             $args
         )) {
-            $messages = $this->getValidator()->getMessagesAray();
+            $messages = $this->getValidator($validator)->getMessagesAray();
             return $messages;
         }
 
-        $page = new \GeoService\Bundles\Pages\Entity\Pages();
+        $page = new Pages();
         
         $hydrate = new BaseHydrate($this->getContainer());
         

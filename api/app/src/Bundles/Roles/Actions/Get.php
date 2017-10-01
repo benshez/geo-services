@@ -27,19 +27,38 @@ class Get extends Action
     /**
      * Authenticate Roles
      *
-     * @param array  $role Role.
+     * @param array $role Role.
      *
      * @return Role
      */
     public function onGet(array $role)
     {
+        if (isset($role[self::KEY])) {
+            $validator = new Validation($this);
+            
+            if (!$this->formIsValid(
+                $this->getValidator($validator),
+                self::REFERENCE,
+                'get',
+                array(
+                    self::KEY => $role[self::KEY],
+                    'sender' => 'role'
+                )
+            )) {
+                $messages = $this->getValidator($validator)->getMessagesAray();
+                return $messages;
+            }
+        }
+
         $key = isset($role[self::KEY]) ? $role[self::KEY] : null;
         
         $role = $this->onBaseActionGet()->getPaged(
             $this->getReference(self::REFERENCE),
-            ['key' => self::KEY,
-            'value' => $key,
-            'offset' => $role['offset']]
+            array(
+                'key' => self::KEY,
+                'value' => $key,
+                'offset' => $role['offset']
+            )
         );
 
         return ($role);

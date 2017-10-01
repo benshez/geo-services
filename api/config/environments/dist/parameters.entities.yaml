@@ -1,114 +1,141 @@
-routesv1:
-  address:
-    methods:
-    - GET
-    actions:
-    - 'GeoService\Bundles\Address\Controller\Controller:fetchOne'
-    priority: 0
-    pattern: '/api/v1/address[/{id}]'
-    middleware:
-    - 'TokenAuthentication'
-    roles:
-    - ['User', 'Admin']
-  login:
-    methods:
-    - POST
-    actions:
-    - 'GeoService\Bundles\Contact\Controller\Controller:authenticateOne'
-    priority: 0
-    pattern: 
-    - '/api/v1/user/login'
-    middleware:
-    -
-  industries:
-    methods:
-    - GET
-    - POST
-    - PUT
-    - DELETE
-    actions:
-    - 'GeoService\Bundles\Industries\Controller\Controller:autoComplete'
-    - 'GeoService\Bundles\Industries\Controller\Controller:onAdd'
-    - 'GeoService\Bundles\Industries\Controller\Controller:onUpdate'
-    - 'GeoService\Bundles\Industries\Controller\Controller:onDelete'
-    priority: 0
-    pattern: 
-    - '/api/v1/industries/{description}'
-    - '/api/v1/admin/industry'
-    - '/api/v1/admin/industry[/{id}]'
-    - '/api/v1/admin/industry[/{id}]'
-    middleware:
-    - 'TokenAuthentication'
-    - 'TokenAuthentication'
-    - 'TokenAuthentication'
-    - 'TokenAuthentication'
-    roles:
-    - ['User', 'Admin']
-    - ['Admin']
-    - ['Admin']
-    - ['Admin']   
-  location:
-    methods:
-    - GET
-    actions:
-    - 'GeoService\Bundles\Locations\Controller\Controller:findLocationsByIndustryCode'
-    priority: 0
-    pattern: 
-    - '/api/v1/location/{industry}'
-    middleware:
-    -
-    roles:
-  roles:
-    methods:
-    - GET
-    - POST
-    - PUT
-    - DELETE    
-    actions:
-    - 'GeoService\Bundles\Roles\Controller\Controller:onGet'
-    - 'GeoService\Bundles\Roles\Controller\Controller:onAdd'
-    - 'GeoService\Bundles\Roles\Controller\Controller:onUpdate'
-    - 'GeoService\Bundles\Roles\Controller\Controller:onDelete'            
-    priority: 0
-    pattern: 
-    - '/api/v1/admin/roles[/{id}]'
-    - '/api/v1/admin/role'
-    - '/api/v1/admin/role'
-    - '/api/v1/admin/role/{id}'
-    middleware:
-    - 'TokenAuthentication'
-    - 'TokenAuthentication'
-    - 'TokenAuthentication'
-    - 'TokenAuthentication'
-    roles:
-    - ['Admin']
-    - ['Admin']
-    - ['Admin']
-    - ['Admin']  
+'@include': parameters.routes.yaml
+entities:
   contact:
+    name: '\GeoService\Bundles\Contact\Entity\Contact'
     methods:
-    - GET
-    - POST
-    - PUT
-    - DELETE 
-    actions:
-    - 'GeoService\Bundles\Contact\Controller\Controller:fetch'
-    - 'GeoService\Bundles\Contact\Controller\Controller:onAdd'
-    - 'GeoService\Bundles\Contact\Controller\Controller:onUpdate'
-    - 'GeoService\Bundles\Contact\Controller\Controller:onDelete'
-    priority: 0
-    pattern: 
-    - '/api/v1/admin/users[/{id}]'
-    - '/api/v1/admin/user'
-    - '/api/v1/admin/user'
-    - '/api/v1/admin/user/{id}'
-    middleware:
-    - 'TokenAuthentication'
-    - 'TokenAuthentication'
-    - 'TokenAuthentication'
-    - 'TokenAuthentication'
-    roles:
-    - ['User', 'Admin']
-    - ['User', 'Admin']
-    - ['User', 'Admin']
-    - ['Admin']  
+      validation:
+        authenticate:
+          email:
+            - ['NotEmpty']
+            - ['StringLength', [min: 2], true]
+            - ['EmailAddress']
+            - ['GeoService', 'GeoService\Modules\Validators\Authentication\AuthenticationValidator', true, ['email', 'password']]
+          password: 
+            - ['NotEmpty']
+            - ['StringLength', [min: 6, max: 16], true]
+        add:
+          id:
+            - ['GeoService', 'GeoService\Modules\Validators\Contact\ContactExistsValidator', true, null]
+          role: 
+            - ['NotEmpty']
+            - ['Digits', [min: 1], true]
+          username:
+            - ['NotEmpty']
+            - ['StringLength', [min: 2], true]
+          password: 
+            - ['NotEmpty']
+            - ['StringLength', [min: 6, max: 16], true]
+          email:
+            - ['NotEmpty']
+            - ['StringLength', [min: 7], true]
+            - ['EmailAddress']    
+          usersurname:
+            - ['NotEmpty']
+            - ['StringLength', [min: 2], true]
+          abn:
+            - ['GeoService','GeoService\Modules\Validators\ABN\AbnOrAcnValidator', true, null]
+        update:
+          id:
+            - ['NotEmpty']
+            - ['Digits', [min: 1], true]
+          role: 
+            - ['NotEmpty']
+            - ['Digits', [min: 1], true]
+          username:
+            - ['NotEmpty']
+            - ['StringLength', [min: 2], true]
+          password: 
+            - ['NotEmpty']
+            - ['StringLength', [min: 6, max: 16], true]
+          email:
+            - ['NotEmpty']
+            - ['StringLength', [min: 7], true]
+            - ['EmailAddress']
+            - ['GeoService', 'GeoService\Modules\Validators\Contact\EmailExistsValidator', true, ['id', 'email']]
+          usersurname:
+            - ['NotEmpty']
+            - ['StringLength', [min: 2], true]
+        delete:
+            id:
+              - ['NotEmpty']
+              - ['Digits', [min: 1], true]
+    messages:
+      validation:
+        authenticate: {error: true, message: {UserNotFound: 'No user found with that id.'}}
+        invalid_credentials: {error: true, message: {UserInvalidCredentials: 'Invalid user name or password.'}}
+        invalid_abn: {error: true, message: {ABNInvalidCredentials: 'Invalid ABN.'}}
+        add: {error: true, message: {UserNotAdded: 'That user could not be added.', UserExists: 'A user with this email address already exists.'}} 
+        update: {error: true, message: {UserNotUpdated: 'The user with that id could not be updated.'}} 
+        delete: {error: true, message: {UserNotDeleted: 'The user with that id could not be deleted.'}}         
+  industries:
+    name: '\GeoService\Bundles\Industries\Entity\Industries'
+    methods:
+      validation:
+          autocomplete:
+              description:
+                - ['NotEmpty']
+                - ['StringLength', [min: 3], true]
+          add:
+              description:
+                - ['NotEmpty']
+                - ['StringLength', [min: 3], true]
+          update:
+              id:
+                - ['Digits', [min: 1], true]
+              description:
+                - ['NotEmpty']
+                - ['StringLength', [min: 3], true]
+          delete:
+              id:
+                - ['Digits', [min: 1], true]        
+    messages:
+      validation:
+        autocomplete: {error: true, message: {IndustriesNotFound: 'No industries found with that id.'}}
+        add: {error: true, message: {IndustryNotAdded: 'That industry could not be added.'}} 
+        update: {error: true, message: {IndustryNotUpdated: 'The industry with that id could not be updated.'}} 
+        delete: {error: true, message: {IndustryNotDeleted: 'The industry with that id could not be deleted.'}} 
+  locations:
+    name: '\GeoService\Bundles\Locations\Entity\Locations'
+    arguments:
+      locations: {industry: ''}  
+    methods:
+      validation:
+          locations:
+              industry:
+                - ['NotEmpty']
+    messages:
+      validation:
+        locations: {error: true, message: {IndustriesNotFound: 'No industries of the selected type found in your area.'}}        
+  roles:
+    name: '\GeoService\Bundles\Roles\Entity\Roles'
+    methods:
+      validation:
+          add:
+              description:
+                - ['NotEmpty']
+                - ['StringLength', [min: 3], true]              
+          update:
+              id:
+                - ['Digits', [min: 1], true]
+              description:
+                - ['NotEmpty']
+                - ['StringLength', [min: 3], true]
+              enabled:
+                - ['NotEmpty']                 
+          delete:
+              id:
+                - ['Digits', [min: 1], true]        
+    messages:
+      validation:
+        fetch: {error: true, message: {RolesNotFound: 'No roles found.'}}
+        add: {error: true, message: {RoleNotAdded: 'That role could not be added.'}} 
+        update: {error: true, message: {RoleNotUpdated: 'The role with that id could not be updated.'}} 
+        delete: {error: true, message: {RoleNotDeleted: 'The role with that id could not be deleted.'}}
+  entities:
+    name: '\GeoService\Bundles\Entities\Entity\Entities'
+    methods:
+      validation:
+          add:    
+              name:
+                - ['NotEmpty']
+                - ['StringLength', [min: 3], true]        

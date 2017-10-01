@@ -3,8 +3,8 @@
 namespace GeoService\Modules\Base\Interfaces;
 
 use Doctrine\ORM\EntityRepository;
-use GeoService\Modules\Base\Interfaces\IBaseEntity;
 use GeoService\Modules\Base\Interfaces\IBaseModel;
+use GeoService\Modules\Base\Interfaces\IBaseEntity;
 
 interface IBaseEntity
 {

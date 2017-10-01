@@ -2,15 +2,15 @@
 
 namespace GeoService\Modules\Middleware\TokenAuthentication;
 
-use Interop\Container\ContainerInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Zend\Permissions\Acl\Acl as ZendAcl;
-use Zend\Permissions\Acl\Role\GenericRole as Role;
-use Zend\Permissions\Acl\Resource\GenericResource as Resource;
+use Interop\Container\ContainerInterface;
 use GeoService\Modules\Base\Model\BaseModel;
+use Zend\Permissions\Acl\Role\GenericRole as Role;
+use GeoService\Bundles\Roles\Actions\Get as Roles;
 use GeoService\Bundles\Contact\Actions\Get as Contact;
-use GeoService\Bundles\Roles\Model\Model as Roles;
+use Zend\Permissions\Acl\Resource\GenericResource as Resource;
 
 class TokenAuthentication extends ZendAcl
 {
@@ -32,7 +32,12 @@ class TokenAuthentication extends ZendAcl
     private function setRoles()
     {
         $roles = new Roles($this->container);
-        $this->roles = $roles->onFindAll(null);
+        $this->roles = $roles->onGet(
+            array(
+                'id' => null,
+                'offset' => 1
+            )
+        );
     }
 
     private function createAccesslist()

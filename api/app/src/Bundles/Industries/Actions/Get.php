@@ -31,22 +31,30 @@ class Get extends Action
      *
      * @return Industry
      */
-    public function autoComplete($args)
+    public function autoComplete(array $args)
     {
+        $validator = new Validation($this);
+
         if (!$this->formIsValid(
-            $this->getValidator(new Validation($this)),
+            $this->getValidator($validator),
             self::REFERENCE,
             'autocomplete',
             [self::DESCRIPTION => $args]
         )) {
-            return $this->getValidator()->getMessagesAray();
+            $messages = $this->getValidator($validator)->getMessagesAray();
+            return $messages;
         }
         
-        return $this->getEntityManager()
-        ->getRepository($this->getConfig()->getOption(
-            'name',
-            self::REFERENCE
-        ), [[self::DESCRIPTION => $args]])
+        $industry = $this->getEntityManager()
+            ->getRepository(
+                $this->getConfig()->getOption(
+                    'name',
+                    self::REFERENCE
+                ),
+                [[self::DESCRIPTION => $args]]
+            )
         ->findOneByAutoComplete([self::DESCRIPTION => $args]);
+        
+        return $industry;
     }
 }

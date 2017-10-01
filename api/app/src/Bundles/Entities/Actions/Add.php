@@ -18,6 +18,7 @@ use GeoService\Modules\Config\Config;
 use GeoService\Bundles\Entities\Actions\Action;
 use GeoService\Modules\Base\Actions\BaseHydrate;
 use GeoService\Bundles\Entities\Validation\Validation;
+use GeoService\Bundles\Entities\Entity\Entities;
 
 class Add extends Action
 {
@@ -34,17 +35,19 @@ class Add extends Action
      */
     public function onAdd(array $args)
     {
+        $validator = new Validation($this);
+
         if (!$this->formIsValid(
-            $this->getValidator(new Validation($this)),
+            $this->getValidator($validator),
             self::REFERENCE,
             'add',
             $args
         )) {
-            $messages = $this->getValidator()->getMessagesAray();
+            $messages = $this->getValidator($validator)->getMessagesAray();
             return $messages;
         }
 
-        $entity = new \GeoService\Bundles\Entities\Entity\Entities();
+        $entity = new Entities();
         
         $hydrate = new BaseHydrate($this->getContainer());
         

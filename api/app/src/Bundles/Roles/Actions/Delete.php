@@ -33,8 +33,10 @@ class Delete extends Action
      */
     public function onDelete(array $args)
     {
+        $validator = new Validation($this);
+
         if (!$this->formIsValid(
-            $this->getValidator(new Validation($this)),
+            $this->getValidator($validator),
             self::REFERENCE,
             'delete',
             $args

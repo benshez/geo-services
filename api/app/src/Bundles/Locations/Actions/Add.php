@@ -18,6 +18,7 @@ use Zend\Crypt\Password\Bcrypt;
 use GeoService\Modules\Config\Config;
 use GeoService\Bundles\Locations\Actions\Action;
 use GeoService\Modules\Base\Actions\BaseHydrate;
+use GeoService\Bundles\Locations\Entity\Locations;
 use GeoService\Bundles\Locations\Validation\Validation;
 
 class Add extends Action
@@ -38,17 +39,19 @@ class Add extends Action
      */
     public function onAdd(array $args)
     {
+        $validator = new Validation($this);
+
         if (!$this->formIsValid(
-            $this->getValidator(new Validation($this)),
+            $this->getValidator($validator),
             self::REFERENCE,
             'add',
             $args
         )) {
-            $messages = $this->getValidator()->getMessagesAray();
+            $messages = $this->getValidator($validator)->getMessagesAray();
             return $messages;
         }
 
-        $locations = new \GeoService\Bundles\Locations\Entity\Locations();
+        $locations = new Locations();
         
         $hydrate = new BaseHydrate($this->getContainer());
         

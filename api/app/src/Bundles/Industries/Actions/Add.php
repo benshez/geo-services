@@ -15,8 +15,9 @@
 namespace GeoService\Bundles\Industries\Actions;
 
 use GeoService\Modules\Config\Config;
-use GeoService\Bundles\Industries\Actions\Action;
 use GeoService\Modules\Base\Actions\BaseHydrate;
+use GeoService\Bundles\Industries\Actions\Action;
+use GeoService\Bundles\Industries\Entity\Industries;
 use GeoService\Bundles\Industries\Validation\Validation;
 
 class Add extends Action
@@ -34,17 +35,19 @@ class Add extends Action
      */
     public function onAdd(array $args)
     {
+        $validator = new Validation($this);
+
         if (!$this->formIsValid(
-            $this->getValidator(new Validation($this)),
+            $this->getValidator($validator),
             self::REFERENCE,
             'add',
             $args
         )) {
-            $messages = $this->getValidator()->getMessagesAray();
+            $messages = $this->getValidator($validator)->getMessagesAray();
             return $messages;
         }
 
-        $industry = new \GeoService\Bundles\Industries\Entity\Industries();
+        $industry = new Industries();
         
         $hydrate = new BaseHydrate($this->getContainer());
         
