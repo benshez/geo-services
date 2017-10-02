@@ -1,4 +1,16 @@
 <?php
+/**
+ * Save File Doc Comment
+ *
+ * PHP Version 7.0.10
+ *
+ * @category  Save
+ * @package   GeoService
+ * @author    Ben van Heerden <benshez1@gmail.com>
+ * @copyright 2017-2018 GeoService
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU General Public License
+ * @link      https://github.com/benshez/geo-services
+ */
 
 namespace GeoService\Bundles\Industries\Controller;
 
@@ -10,22 +22,39 @@ use GeoService\Bundles\Industries\Interfaces\IIndustriesController;
 
 class Controller extends BaseController implements IIndustriesController
 {
+    const OPTIONS = array(
+        'part' => 'messages',
+        'class' => 'industries',
+        'extention' => 'validation:autocomplete:message:IndustriesNotFound'
+    );
+
+    /**
+     * Find Industry By Description
+     *
+     * @param RequestInterface  $request  Request Interface.
+     *
+     * @param ResponseInterface $response Response Interface.
+     *
+     * @param array             $args     Args.
+     *
+     * @return Industry
+     */
     public function autoComplete(
         RequestInterface $request,
         ResponseInterface $response,
-        $args
+        array $args
     ) {
-        return $this->fetched(
+        $fetched = $this->fetched(
             $request,
             $response,
             $this->getAction()->autoComplete(
-                $args['description']
+                $args
             ),
             new BaseOptions(
-                array('part' => 'messages',
-                'class' => 'industries',
-                'extention' => 'validation:autocomplete:message:IndustriesNotFound')
+                self::OPTIONS
             )
         );
+        
+        return $fetched;
     }
 }

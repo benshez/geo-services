@@ -25,7 +25,7 @@ class Get extends Action
     const KEY = 'id';
     
     /**
-     * Authenticate Roles
+     * Get Roles
      *
      * @param array $role Role.
      *
@@ -42,7 +42,7 @@ class Get extends Action
                 'get',
                 array(
                     self::KEY => $role[self::KEY],
-                    'sender' => 'role'
+                    'entity' => 'role'
                 )
             )) {
                 $messages = $this->getValidator($validator)->getMessagesAray();

@@ -22,4 +22,25 @@ class Get extends Action
 {
     const REFERENCE = 'locations';
     const REFERENCE_OBJECT = 'name';
+    
+    public function findLocationsByIndustryCode($industry)
+    {
+        if (!$this->formIsValid(
+            $this->getValidator(),
+            'locations',
+            'locations',
+            [
+                $industry
+            ]
+        )) {
+            return $this->getValidator()->getMessagesAray();
+        }
+        
+        $location = $this->get($this->getConfig()->getOption(
+            'name',
+            'locations'
+        ), [self::INDUSTRY => $industry]);
+
+        return $location;
+    }
 }

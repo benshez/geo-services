@@ -45,11 +45,11 @@ class Contact
     private $password;
 
     /**
-    * @var string
+    * @var integer
     *
-    * @ORM\Column(name="salt", type="string", length=255, nullable=true)
+    * @ORM\Column(name="retries", type="integer", length=11, nullable=true)
     */
-    private $salt;
+    private $retries;
 
     /**
     * @var boolean
@@ -274,27 +274,27 @@ class Contact
     }
 
     /**
-    * Set salt
+    * Set retries
     *
-    * @param string $salt
+    * @param integer $retries
     *
     * @return Contact
     */
-    public function setSalt($salt)
+    public function setRetries($retries)
     {
-        $this->salt = $salt;
+        $this->retries = $retries;
 
         return $this;
     }
 
     /**
-    * Get salt
+    * Get retries
     *
-    * @return string
+    * @return integer
     */
-    public function getSalt()
+    public function getRetries()
     {
-        return $this->salt;
+        return $this->retries;
     }
 
     /**

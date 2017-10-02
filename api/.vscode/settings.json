@@ -16,34 +16,5 @@
 		"nativescript/app": true,
 		"nativescript/src/**/*.js": true,
 		"ChromeDebugger-UserData/**/*": true
-	},
-	"typescript.tsdk": "node_modules/typescript/lib",
-	"git.ignoreLimitWarning": true,
-	// Configures if the built-in PHP language suggestions are enabled. The support suggests PHP globals and variables.
-	"php.suggest.basic": true,
-	// Enable/disable built-in PHP validation.
-	"php.validate.enable": true,
-	// Points to the PHP executable.
-	"php.executablePath": "C:\\wamp64\\bin\\php\\php7.0.10\\php.exe",
-	"php.validate.executablePath": "C:\\wamp64\\bin\\php\\php7.0.10\\php.exe",
-	// Whether the linter is run on save or on type.
-	"php.validate.run": "onType",
-	"editor.tabSize": 4,
-	"editor.insertSpaces": false,
-	"editor.detectIndentation": false,
-	"editor.fontSize": 13,
-	"markdown.preview.fontSize": 13,
-	// Whether the php-cs-fixer library has been installed using Composer. If true, the extension will override pharPath and assume you have added Composer to your PATH.
-	"php-cs-fixer.executablePath": "php-cs-fixer.bat",
-	"php-cs-fixer.onsave": false,
-	"php-cs-fixer.rules": "@PSR2",
-	"php-cs-fixer.config": "D:\\geo-services\\.vscode\\.php_cs",
-	"php-cs-fixer.autoFixByBracket": true,
-	"php-cs-fixer.autoFixBySemicolon": false,
-	"php-cs-fixer.formatHtml": true,
-	"phpcs.enable": true,
-	"phpcs.standard": "GeoService",
-	"terminal.explorerKind": "integrated",
-	"editor.formatOnSave": true,
-	"php-cs-fixer.documentFormattingProvider": true
+	}
 }

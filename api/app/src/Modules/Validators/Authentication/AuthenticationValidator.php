@@ -64,6 +64,21 @@ class AuthenticationValidator extends AbstractValidator
         }
         
         if (!$isValid) {
+            if ($contact && !$contact->getLocked()) {
+                $retries = (null === $contact->getRetries()) ?
+                0 :
+                $contact->getRetries();
+                
+                $retries++;
+            
+                if ($retries > 3) {
+                    $contact->setLocked(true);
+                } else {
+                    $contact->setRetries($retries);
+                }
+
+                $contact = $action->onBaseActionSave()->save($contact);
+            }
             $this->error(self::USER);
         }
 

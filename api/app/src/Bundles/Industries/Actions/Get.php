@@ -39,7 +39,9 @@ class Get extends Action
             $this->getValidator($validator),
             self::REFERENCE,
             'autocomplete',
-            [self::DESCRIPTION => $args]
+            array(
+                self::DESCRIPTION => $args[self::DESCRIPTION]
+                )
         )) {
             $messages = $this->getValidator($validator)->getMessagesAray();
             return $messages;
@@ -51,9 +53,17 @@ class Get extends Action
                     'name',
                     self::REFERENCE
                 ),
-                [[self::DESCRIPTION => $args]]
+                array(
+                    array(
+                        self::DESCRIPTION => $args[self::DESCRIPTION]
+                        )
+                    )
             )
-        ->findOneByAutoComplete([self::DESCRIPTION => $args]);
+            ->findAllByDescription(
+                array(
+                    self::DESCRIPTION => $args[self::DESCRIPTION]
+                    )
+            );
         
         return $industry;
     }

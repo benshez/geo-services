@@ -56,9 +56,9 @@ entities:
             - ['NotEmpty']
             - ['StringLength', [min: 2], true]
         delete:
-            id:
-              - ['NotEmpty']
-              - ['Digits', [min: 1], true]
+          id:
+            - ['NotEmpty']
+            - ['Digits', [min: 1], true]
     messages:
       validation:
         authenticate: {error: true, message: {UserNotFound: 'No user found with that id.'}}
@@ -71,23 +71,23 @@ entities:
     name: '\GeoService\Bundles\Industries\Entity\Industries'
     methods:
       validation:
-          autocomplete:
-              description:
-                - ['NotEmpty']
-                - ['StringLength', [min: 3], true]
-          add:
-              description:
-                - ['NotEmpty']
-                - ['StringLength', [min: 3], true]
-          update:
-              id:
-                - ['Digits', [min: 1], true]
-              description:
-                - ['NotEmpty']
-                - ['StringLength', [min: 3], true]
-          delete:
-              id:
-                - ['Digits', [min: 1], true]        
+        autocomplete:
+          description:
+            - ['NotEmpty']
+            - ['StringLength', [min: 3], true]
+        add:
+          description:
+            - ['NotEmpty']
+            - ['StringLength', [min: 3], true]
+        update:
+          id:
+            - ['Digits', [min: 1], true]
+          description:
+            - ['NotEmpty']
+            - ['StringLength', [min: 3], true]
+        delete:
+          id:
+            - ['Digits', [min: 1], true]        
     messages:
       validation:
         autocomplete: {error: true, message: {IndustriesNotFound: 'No industries found with that id.'}}
@@ -100,9 +100,9 @@ entities:
       locations: {industry: ''}  
     methods:
       validation:
-          locations:
-              industry:
-                - ['NotEmpty']
+        locations:
+          industry:
+            - ['NotEmpty']
     messages:
       validation:
         locations: {error: true, message: {IndustriesNotFound: 'No industries of the selected type found in your area.'}}        
@@ -110,21 +110,24 @@ entities:
     name: '\GeoService\Bundles\Roles\Entity\Roles'
     methods:
       validation:
-          add:
-              description:
-                - ['NotEmpty']
-                - ['StringLength', [min: 3], true]              
-          update:
-              id:
-                - ['Digits', [min: 1], true]
-              description:
-                - ['NotEmpty']
-                - ['StringLength', [min: 3], true]
-              enabled:
-                - ['NotEmpty']                 
-          delete:
-              id:
-                - ['Digits', [min: 1], true]        
+        get:
+          id:
+           - ['GeoService', 'GeoService\Modules\Validators\Key\KeyValidator', true, ['id', 'entity']]
+        add:
+          description:
+            - ['NotEmpty']
+            - ['StringLength', [min: 3], true]              
+        update:
+          id:
+            - ['Digits', [min: 1], true]
+          description:
+            - ['NotEmpty']
+            - ['StringLength', [min: 3], true]
+          enabled:
+            - ['NotEmpty']                 
+        delete:
+          id:
+            - ['Digits', [min: 1], true]        
     messages:
       validation:
         fetch: {error: true, message: {RolesNotFound: 'No roles found.'}}
@@ -135,7 +138,7 @@ entities:
     name: '\GeoService\Bundles\Entities\Entity\Entities'
     methods:
       validation:
-          add:    
-              name:
-                - ['NotEmpty']
-                - ['StringLength', [min: 3], true]        
+        add:    
+          name:
+            - ['NotEmpty']
+            - ['StringLength', [min: 3], true]

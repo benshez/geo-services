@@ -56,7 +56,9 @@ class Add extends Action
         if ($industry->getId()) {
             $industry = $this->onBaseActionGet()->get(
                 $this->getReference(self::REFERENCE),
-                [self::KEY => $industry->getId()]
+                array(
+                    self::KEY => $industry->getId()
+                    )
             );
             return $industry;
         }
@@ -80,7 +82,9 @@ class Add extends Action
         if ($abn != '') {
             $industry = $this->onBaseActionGet()->get(
                 $this->getReference(self::REFERENCE),
-                [self::KEY => $abn]
+                array(
+                    self::KEY => $abn
+                    )
             );
 
             if ($industry && $industry->getId()) {
@@ -91,7 +95,9 @@ class Add extends Action
         if (!$industry) {
             $industry = $this->onBaseActionGet()->get(
                 $this->getReference(self::REFERENCE),
-                [self::KEY => $business->entityType->entityTypeCode]
+                array(
+                    self::KEY => $business->entityType->entityTypeCode
+                    )
             );
         
             if ($industry && $industry->getId()) {

@@ -57,7 +57,7 @@ class KeyValidator extends AbstractValidator
         }
 
         if (!$isValid) {
-            $this->error(self::NOT_VALID_KEY, $value['sender']);
+            $this->error(self::NOT_VALID_KEY, $value['entity']);
         }
 
         return $isValid;

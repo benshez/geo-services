@@ -48,7 +48,9 @@ class Save extends Action
 
         $industry = $this->onBaseActionGet()->get(
             $this->getReference(self::REFERENCE),
-            [self::KEY => $args[self::KEY]]
+            array(
+                self::KEY => $args[self::KEY]
+            )
         );
         
         $hydrate = new BaseHydrate($this->getContainer());
@@ -58,7 +60,9 @@ class Save extends Action
         if ($industry->getId()) {
             $industry = $this->onBaseActionGet()->get(
                 $this->getReference(self::REFERENCE),
-                [self::KEY => $industry->getId()]
+                array(
+                    self::KEY => $industry->getId()
+                    )
             );
             return $industry;
         }

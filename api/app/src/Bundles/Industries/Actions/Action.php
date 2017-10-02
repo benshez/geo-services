@@ -17,6 +17,7 @@ namespace GeoService\Bundles\Industries\Actions;
 use GeoService\Modules\Config\Config;
 use GeoService\Modules\Base\Actions\BaseAction;
 use GeoService\Bundles\Industries\Validation\Validation;
+use GeoService\Bundles\Industries\Actions\Get;
 
 class Action extends BaseAction
 {
@@ -27,9 +28,9 @@ class Action extends BaseAction
      *
      * @return Industry
      */
-    public function autoComplete($args)
+    public function autoComplete(array $args)
     {
-        $industry = new \GeoService\Bundles\Industries\Actions\Get(
+        $industry = new Get(
             $this->getContainer()
         );
         

@@ -27,6 +27,7 @@ class Save extends Action
     const PASSWORD = 'password';
     const ABN = 'abn';
     const EMAIL = 'email';
+    
     /**
      * Save User
      *
@@ -79,5 +80,16 @@ class Save extends Action
         }
 
         return false;
+    }
+    
+    /**
+     * Update User Login Attemps
+     *
+     * @param array $args User Password.
+     *
+     * @return User
+     */
+    public function onUpdateAttempts(array $args)
+    {
     }
 }

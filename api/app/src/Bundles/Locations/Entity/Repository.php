@@ -2,15 +2,15 @@
 
 namespace GeoService\Bundles\Locations\Entity;
 
-use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\Expr\Join;
+use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NoResultException;
 use GeoService\Modules\Base\Entity\BaseEntity;
-use GeoService\Bundles\Entities\Entity\Entities;
-use GeoService\Bundles\Industries\Entity\Industries;
-use GeoService\Bundles\Locations\Entity\Locations;
 use GeoService\Bundles\Contact\Entity\Contact;
+use GeoService\Bundles\Entities\Entity\Entities;
+use GeoService\Bundles\Locations\Entity\Locations;
+use GeoService\Bundles\Industries\Entity\Industries;
 
 class Repository extends BaseEntity
 {

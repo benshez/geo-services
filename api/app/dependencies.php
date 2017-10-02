@@ -18,7 +18,13 @@ $container['logger'] = function ($c) {
     
     $logger = new \Monolog\Logger($settings['logger']['name']);
     $logger->pushProcessor(new \Monolog\Processor\UidProcessor());
-    $logger->pushHandler(new \Monolog\Handler\StreamHandler($settings['logger']['path'], \Monolog\Logger::DEBUG));
+    $logger->pushHandler(
+        new \Monolog\Handler\StreamHandler(
+            $settings['logger']['path'],
+            \Monolog\Logger::DEBUG
+        )
+    );
+    
     return $logger;
 };
 
@@ -26,10 +32,16 @@ $container['logger'] = function ($c) {
 $container['csrf'] = function ($c) {
     $guard = new \Slim\Csrf\Guard();
 
-    $guard->setFailureCallable(function ($request, $response, $next) {
-        $request = $request->withAttribute("csrf_status", false);
-        return $next($request, $response);
-    });
+    $guard->setFailureCallable(
+        function (
+            $request,
+            $response,
+            $next
+        ) {
+            $request = $request->withAttribute("csrf_status", false);
+            return $next($request, $response);
+        }
+    );
     return $guard;
 };
 
@@ -62,17 +74,7 @@ $container['bundles'] = function ($c) {
     return $bundles;
 };
 
-//Authentication
-$container['auth'] = function ($c) {
-    return [
-        'factories' => [
-            'Zend\Authentication\AuthenticationService' => function ($c) {
-                return $c->get('settings')['doctrine']['authentication']['orm_default'];
-            },
-        ],
-    ];
-};
-
+//Mailer
 $container['mailer'] = function ($c) {
     $settings = $c->get('settings');
     
@@ -94,35 +96,42 @@ $container['TokenAuthentication'] = function ($c) {
         return $next($request, $response);
     };
 };
+
 // -----------------------------------------------------------------------------
 // Action factories
 // -----------------------------------------------------------------------------
 $container['GeoService\Bundles\Users\Controller\Controller'] = function ($c) {
     $resource = new \GeoService\Bundles\Users\Actions\Action($c);
-    return new GeoService\Bundles\Users\Controller\Controller($resource);
+    $users = new GeoService\Bundles\Users\Controller\Controller($resource);
+    return $users;
 };
 
 $container['GeoService\Bundles\Address\Controller\Controller'] = function ($c) {
     $resource = new \GeoService\Bundles\Address\Model\Model($c);
-    return new GeoService\Bundles\Address\Controller\Controller($resource);
+    $address = new GeoService\Bundles\Address\Controller\Controller($resource);
+    return $address;
 };
 
 $container['GeoService\Bundles\Industries\Controller\Controller'] = function ($c) {
     $resource = new \GeoService\Bundles\Industries\Actions\Action($c);
-    return new GeoService\Bundles\Industries\Controller\Controller($resource);
+    $industries = new GeoService\Bundles\Industries\Controller\Controller($resource);
+    return $industries;
 };
 
 $container['GeoService\Bundles\Locations\Controller\Controller'] = function ($c) {
     $resource = new \GeoService\Bundles\Locations\Model\Model($c);
-    return new GeoService\Bundles\Locations\Controller\Controller($resource);
+    $locations = new GeoService\Bundles\Locations\Controller\Controller($resource);
+    return $locations;
 };
 
 $container['GeoService\Bundles\Roles\Controller\Controller'] = function ($c) {
     $resource = new \GeoService\Bundles\Roles\Actions\Action($c);
-    return new GeoService\Bundles\Roles\Controller\Controller($resource);
+    $roles = new GeoService\Bundles\Roles\Controller\Controller($resource);
+    return $roles;
 };
 
 $container['GeoService\Bundles\Contact\Controller\Controller'] = function ($c) {
     $resource = new \GeoService\Bundles\Contact\Actions\Action($c);
-    return new GeoService\Bundles\Contact\Controller\Controller($resource);
+    $contact = new GeoService\Bundles\Contact\Controller\Controller($resource);
+    return $contact;
 };
