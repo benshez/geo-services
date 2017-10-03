@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Locations
  *
- * @ORM\Table(name="locations", indexes={@ORM\Index(name="idx_ip_from", columns={"ip_from"}), @ORM\Index(name="idx_ip_to", columns={"ip_to"}), @ORM\Index(name="idx_ip_from_to", columns={"ip_from", "ip_to"}), @ORM\Index(name="fk_locations_user_id_users_id_idx", columns={"user_id"})})
+ * @ORM\Table(name="locations", indexes={@ORM\Index(name="idx_ip_from", columns={"ip_from"}), @ORM\Index(name="idx_ip_to", columns={"ip_to"}), @ORM\Index(name="idx_ip_from_to", columns={"ip_from", "ip_to"}), @ORM\Index(name="fk_locations_user_id_contact_id_idx", columns={"user_id"})})
  * @ORM\Entity
  */
 class Locations
@@ -106,9 +106,9 @@ class Locations
     private $updatedAt = 'CURRENT_TIMESTAMP';
 
     /**
-     * @var \Entities
+     * @var \Contact
      *
-     * @ORM\ManyToOne(targetEntity="Entities")
+     * @ORM\ManyToOne(targetEntity="Contact")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * })
@@ -417,11 +417,11 @@ class Locations
     /**
      * Set user
      *
-     * @param \Entities $user
+     * @param \Contact $user
      *
      * @return Locations
      */
-    public function setUser(\Entities $user = null)
+    public function setUser(\Contact $user = null)
     {
         $this->user = $user;
 
@@ -431,7 +431,7 @@ class Locations
     /**
      * Get user
      *
-     * @return \Entities
+     * @return \Contact
      */
     public function getUser()
     {

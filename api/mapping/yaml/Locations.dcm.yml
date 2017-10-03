@@ -12,7 +12,7 @@ Locations:
             columns:
                 - ip_from
                 - ip_to
-        fk_locations_user_id_users_id_idx:
+        fk_locations_user_id_contact_id_idx:
             columns:
                 - user_id
     id:
@@ -103,7 +103,7 @@ Locations:
             column: updated_at
     manyToOne:
         user:
-            targetEntity: Entities
+            targetEntity: Contact
             cascade: {  }
             fetch: LAZY
             mappedBy: null

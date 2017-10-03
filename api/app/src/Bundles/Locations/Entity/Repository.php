@@ -46,7 +46,7 @@ class Repository extends BaseEntity
         $offset = null
     ) {
 
-        $query = $this->getQuery($criteria['industry'], $orderBy);
+        $query = $this->getQuery($criteria['industry'], $orderBy, $limit, $offset);
 
         try {
             $locations = $query->getResult(Query::HYDRATE_ARRAY);
@@ -65,8 +65,13 @@ class Repository extends BaseEntity
      *
      * @return Query
      */
-    private function getQuery(string $criteria, array $orderBy = null)
-    {
+    private function getQuery(
+        string $criteria,
+        array $orderBy = null,
+        $limit = null,
+        $offset = null
+    ) {
+    
         $qb = $this->_em->createQueryBuilder();
 
         $qb->select($this->getSelectStatement())
@@ -81,7 +86,7 @@ class Repository extends BaseEntity
             Locations::class,
             'locations',
             Join::WITH,
-            '(locations.user = entities.id)'
+            '(locations.user = contact.id)'
         )
         ->innerJoin(
             Industries::class,
@@ -90,10 +95,14 @@ class Repository extends BaseEntity
             '(entities.industry = industries.id)'
         )
         ->where('industries.id = :identifier')
+        ->andWhere('entities.enabled = 1')
         ->andWhere('contact.enabled = 1')
         ->andWhere('entities.expiresAt >= :expires')
         ->setParameter('identifier', $criteria)
-        ->setParameter('expires', $this->getFormattedDate());
+        ->setParameter('expires', $this->getFormattedDate())
+        ->orderBy($orderBy[0], 'desc')
+        ->setFirstResult($offset)
+        ->setMaxResults($limit);
 
         $query = $qb->getQuery();
         
@@ -113,13 +122,14 @@ class Repository extends BaseEntity
     }
 
     /**
-     * Generate Select Ststement
+     * Generate Select Statement
      *
      * @return string
      */
     private function getSelectStatement()
     {
-        $statement = 'locations.latitude, locations.longitude, ';
+        $statement = 'locations.id, entities.name, ';
+        $statement .= 'locations.latitude, locations.longitude, ';
         $statement .= 'contact.username, contact.phone, ';
         $statement .= 'contact.logo, contact.email, contact.website, ';
         $statement .= 'contact.facebook, contact.twitter';

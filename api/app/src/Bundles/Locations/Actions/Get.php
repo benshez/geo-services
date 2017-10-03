@@ -49,19 +49,10 @@ class Get extends Action
                 return $messages;
             }
         }
- 
-    
         
         $finder = $this->getEntityManager()->getRepository(
             $this->getReference(self::REFERENCE)
         );
-
-        // $finder = new \GeoService\Modules\Base\Entity\BaseEntity(
-        //     $this->getEntityManager(),
-        //     $this->getEntityManager()->getClassMetadata(
-        //         $this->getReference(self::REFERENCE)
-        //     )
-        // );
         
         $range = $this->getOffsetAndLimit(0, $args['offset']);
         
@@ -69,7 +60,7 @@ class Get extends Action
             isset($args['industry']) ?
             array('industry' => $args['industry']) :
             array(),
-            null,
+            array('locations.createdAt'),
             $range['limit'],
             $range['offset']
         );

@@ -43,11 +43,11 @@ class Contact
     private $password;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="salt", type="string", length=255, nullable=true)
+     * @ORM\Column(name="retries", type="integer", nullable=true)
      */
-    private $salt;
+    private $retries;
 
     /**
      * @var boolean
@@ -87,7 +87,7 @@ class Contact
     /**
      * @var string
      *
-     * @ORM\Column(name="post_code", type="string", length=10, nullable=false)
+     * @ORM\Column(name="post_code", type="string", length=10, nullable=true)
      */
     private $postCode;
 
@@ -101,7 +101,7 @@ class Contact
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=28, nullable=false)
+     * @ORM\Column(name="email", type="string", length=28, nullable=true)
      */
     private $email;
 
@@ -129,7 +129,7 @@ class Contact
     /**
      * @var string
      *
-     * @ORM\Column(name="token_char", type="string", length=16, nullable=true)
+     * @ORM\Column(name="token_char", type="string", length=255, nullable=true)
      */
     private $tokenChar;
 
@@ -272,27 +272,27 @@ class Contact
     }
 
     /**
-     * Set salt
+     * Set retries
      *
-     * @param string $salt
+     * @param integer $retries
      *
      * @return Contact
      */
-    public function setSalt($salt)
+    public function setRetries($retries)
     {
-        $this->salt = $salt;
+        $this->retries = $retries;
 
         return $this;
     }
 
     /**
-     * Get salt
+     * Get retries
      *
-     * @return string
+     * @return integer
      */
-    public function getSalt()
+    public function getRetries()
     {
-        return $this->salt;
+        return $this->retries;
     }
 
     /**
