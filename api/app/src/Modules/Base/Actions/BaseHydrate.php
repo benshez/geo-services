@@ -26,17 +26,6 @@ class BaseHydrate extends BaseAction
     const PROP_NAME = 'name';
     const ANNOTATION_NAME = 'Doctrine\ORM\Mapping\Column';
     const SETTER_START = 'set%s';
-
-    /**
-     * Initialise BaseAction To Set Container
-     *
-     * @param ContainerInterface $container ContainerInterface.
-     *
-     */
-    public function __construct(ContainerInterface $container)
-    {
-        parent::__construct($container);
-    }
     
     /**
      * Base Hydrate Entity Action
@@ -82,7 +71,9 @@ class BaseHydrate extends BaseAction
      */
     public function extract(EntityRepository $entity, array $args)
     {
-        $hydrator = new \DoctrineModule\Stdlib\Hydrator\DoctrineObject($this->getEntityManager());
+        $hydrator = new \DoctrineModule\Stdlib\Hydrator\DoctrineObject(
+            $this->getEntityManager()
+        );
         $entityArray = $hydrator->extract($entity);
         
         return $entityArray;

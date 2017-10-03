@@ -240,4 +240,22 @@ class BaseAction implements IBaseAction
 
         return $this->_baseReference;
     }
+    
+    /**
+     * Base Get Offset AndL imit
+     *
+     * @param integer $offset Offset.
+     *
+     * @param integer $limit  Limit.
+     *
+     * @return array
+     */
+    public function getOffsetAndLimit(int $offset = 0, int $limit = 10)
+    {
+        $offset = ($offset <= 0) ? 1 : $offset;
+        $limit = isset($limit) ? $limit : 10;
+        $offset = ($limit * ($offset - 1));
+        
+        return array('offset' => $offset, 'limit' => $limit);
+    }
 }

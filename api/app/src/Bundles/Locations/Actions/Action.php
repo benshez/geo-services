@@ -20,6 +20,25 @@ use GeoService\Bundles\Locations\Validation\Validation;
 
 class Action extends BaseAction
 {
+
+    /**
+     * Get Locations
+     *
+     * @param array $args Locations.
+     *
+     * @return Locations
+     */
+     public function onGet(array $args)
+     {
+         $get = new \GeoService\Bundles\Locations\Actions\Get(
+             $this->getContainer()
+         );
+         
+         $location = $get->onGet($args);
+ 
+         return $location;
+     }
+
     /**
      * Save Locations
      *

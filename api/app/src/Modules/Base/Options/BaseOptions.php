@@ -41,8 +41,19 @@ class BaseOptions implements IBaseOptions
      */
     public function setOptions(array $options)
     {
-        $this->_options = array_merge($this->options, $options);
+        $this->_options = array_merge($this->_options, $options);
     }
+
+    /**
+     * Get Options
+     *
+     * @return array Options
+	 */		
+     public function getOptions()
+     {
+        $options = $this->_options;
+        return $options;
+     }   
 
     /**
      * Get Options
@@ -51,8 +62,9 @@ class BaseOptions implements IBaseOptions
      *
      * @return Option
      */
-    public function getOptions(string $option)
+    public function getOption(string $option)
     {
-        return $this->_options[$option];
+        $option = $this->_options[$option];
+        return $option;
     }
 }

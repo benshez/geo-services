@@ -22,8 +22,12 @@ use GeoService\Bundles\Locations\Interfaces\ILocationsController;
 
 class Controller extends BaseController implements ILocationsController
 {
-    const OPTIONS = array('part' => 'messages',
-        'class' => 'locations',
+    const REFERENCE_OBJECT = 'name';
+    const REFERENCE = 'locations';
+
+
+    private $_options = array('part' => 'messages',
+        'class' => self::REFERENCE,
         'extention' => 'validation:locations:message:IndustriesNotFound'
     );
     
@@ -46,12 +50,14 @@ class Controller extends BaseController implements ILocationsController
         $fetched = $this->fetched(
             $request,
             $response,
-            $this->getAction()->findLocationsByIndustryCode($args),
-            new BaseOptions(
-                self::OPTIONS
-            )
+            $this->getAction()->onGet($args),
+            new BaseOptions($this->_options)
         );
         
-        return $fetched;
+        if ($fetched) {
+            return $fetched;
+        }
+        
+        return false;
     }
 }

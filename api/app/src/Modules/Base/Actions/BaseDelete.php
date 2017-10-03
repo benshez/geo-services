@@ -10,16 +10,6 @@ use GeoService\Modules\Base\Actions\BaseSave;
 
 class BaseDelete extends BaseAction
 {
-    /**
-     * Initialise BaseAction To Set Container
-     *
-     * @param ContainerInterface $container ContainerInterface.
-     *
-     */
-    public function __construct(ContainerInterface $container)
-    {
-        parent::__construct($container);
-    }
 
     /**
      * Base Delete Action

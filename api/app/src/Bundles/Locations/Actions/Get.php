@@ -22,25 +22,58 @@ class Get extends Action
 {
     const REFERENCE = 'locations';
     const REFERENCE_OBJECT = 'name';
+    const KEY = 'description';
     
-    public function findLocationsByIndustryCode($industry)
+    /**
+     * Get Locations
+     *
+     * @param array $args Locations.
+     *
+     * @return Locations
+     */
+    public function onGet(array $args)
     {
-        if (!$this->formIsValid(
-            $this->getValidator(),
-            'locations',
-            'locations',
-            [
-                $industry
-            ]
-        )) {
-            return $this->getValidator()->getMessagesAray();
+        if (isset($role[self::KEY])) {
+            $validator = new Validation($this);
+             
+            if (!$this->formIsValid(
+                $this->getValidator($validator),
+                self::REFERENCE,
+                'get',
+                array(
+                    self::KEY => $args[self::KEY],
+                    'entity' => 'location'
+                )
+            )) {
+                $messages = $this->getValidator($validator)->getMessagesAray();
+                return $messages;
+            }
         }
+ 
+    
         
-        $location = $this->get($this->getConfig()->getOption(
-            'name',
-            'locations'
-        ), [self::INDUSTRY => $industry]);
+        $finder = $this->getEntityManager()->getRepository(
+            $this->getReference(self::REFERENCE)
+        );
 
-        return $location;
+        // $finder = new \GeoService\Modules\Base\Entity\BaseEntity(
+        //     $this->getEntityManager(),
+        //     $this->getEntityManager()->getClassMetadata(
+        //         $this->getReference(self::REFERENCE)
+        //     )
+        // );
+        
+        $range = $this->getOffsetAndLimit(0, $args['offset']);
+        
+        $locations = $finder->findBy(
+            isset($args['industry']) ?
+            array('industry' => $args['industry']) :
+            array(),
+            null,
+            $range['limit'],
+            $range['offset']
+        );
+        
+        return ($locations);
     }
 }

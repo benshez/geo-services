@@ -150,9 +150,9 @@ class BaseController implements IBaseController
         $data = $response->withStatus(
             404,
             $this->getAction()->getConfig()->getOption(
-                $options->getOptions('part'),
-                $options->getOptions('class'),
-                $options->getOptions('extention')
+                $options->getOption('part'),
+                $options->getOption('class'),
+                $options->getOption('extention')
             )
         );
         

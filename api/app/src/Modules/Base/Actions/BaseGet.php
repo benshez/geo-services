@@ -22,17 +22,7 @@ use DoctrineModule\Paginator\Adapter\Selectable as SelectableAdapter;
 
 class BaseGet extends BaseAction
 {
-    /**
-     * Initialise BaseAction To Set Container
-     *
-     * @param ContainerInterface $container ContainerInterface.
-     *
-     */
-    public function __construct(ContainerInterface $container)
-    {
-        parent::__construct($container);
-    }
-    
+
     /**
      * Base Get Action
      *
@@ -76,7 +66,7 @@ class BaseGet extends BaseAction
      */
     public function getPaged(string $entity, array $args = null)
     {
-        $offset = (isset($args['offset']) && $args['offset'] > 0) ?
+        $offset = (isset($args['offset']) && $args['offset'] < 0) ?
         $args['offset'] : 1;
         $limit = 10;
         $offset = ($limit * ($offset - 1));

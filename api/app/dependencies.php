@@ -58,8 +58,11 @@ $container['em'] = function ($c) {
         $settings['doctrine']['meta']['cache'],
         $settings['useSimpleAnnotationReader']
     );
-    
-    return \Doctrine\ORM\EntityManager::create($settings['doctrine']['connection'], $config);
+    $em = \Doctrine\ORM\EntityManager::create(
+        $settings['doctrine']['connection'],
+        $config
+    );
+    return $em;
 };
 
 $container['bundles'] = function ($c) {
@@ -107,7 +110,7 @@ $container['GeoService\Bundles\Users\Controller\Controller'] = function ($c) {
 };
 
 $container['GeoService\Bundles\Address\Controller\Controller'] = function ($c) {
-    $resource = new \GeoService\Bundles\Address\Model\Model($c);
+    $resource = new \GeoService\Bundles\Address\Actions\Action($c);
     $address = new GeoService\Bundles\Address\Controller\Controller($resource);
     return $address;
 };
@@ -119,7 +122,7 @@ $container['GeoService\Bundles\Industries\Controller\Controller'] = function ($c
 };
 
 $container['GeoService\Bundles\Locations\Controller\Controller'] = function ($c) {
-    $resource = new \GeoService\Bundles\Locations\Model\Model($c);
+    $resource = new \GeoService\Bundles\Locations\Actions\Action($c);
     $locations = new GeoService\Bundles\Locations\Controller\Controller($resource);
     return $locations;
 };

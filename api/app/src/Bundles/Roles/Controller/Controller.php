@@ -13,7 +13,7 @@ final class Controller extends BaseController implements IRolesController
     const REFERENCE_OBJECT = 'name';
     const REFERENCE = 'roles';
     const KEY = 'id';
-    
+
     /**
      * Get Roles
      *
@@ -32,7 +32,7 @@ final class Controller extends BaseController implements IRolesController
     ) {
         $roles = $this->getAction()->onBaseActionGet(
             $this->getAction()->getReference(self::REFERENCE),
-            array(self::KEY => $args)
+            $args
         );
         
         return $roles;

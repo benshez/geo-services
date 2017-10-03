@@ -21,17 +21,6 @@ use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 class BaseSave extends BaseAction
 {
     const CURRENT_TIMESTAMP = 'CURRENT_TIMESTAMP';
-
-    /**
-     * Initialise BaseAction To Set Container
-     *
-     * @param ContainerInterface $container ContainerInterface.
-     *
-     */
-    public function __construct(ContainerInterface $container)
-    {
-        parent::__construct($container);
-    }
     
     /**
      * Base Updated At And Created Date Action

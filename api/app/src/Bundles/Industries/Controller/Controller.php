@@ -22,12 +22,12 @@ use GeoService\Bundles\Industries\Interfaces\IIndustriesController;
 
 class Controller extends BaseController implements IIndustriesController
 {
-    const OPTIONS = array(
+    private $_options = array(
         'part' => 'messages',
         'class' => 'industries',
         'extention' => 'validation:autocomplete:message:IndustriesNotFound'
     );
-
+    
     /**
      * Find Industry By Description
      *
@@ -50,11 +50,13 @@ class Controller extends BaseController implements IIndustriesController
             $this->getAction()->autoComplete(
                 $args
             ),
-            new BaseOptions(
-                self::OPTIONS
-            )
+            new BaseOptions($this->_options)
         );
         
-        return $fetched;
+        if ($fetched) {
+            return $fetched;
+        }
+        
+        return false;
     }
 }

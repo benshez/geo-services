@@ -21,9 +21,11 @@ use GeoService\Bundles\Contact\Interfaces\IContactController;
 
 class Controller extends BaseController implements IContactController
 {
-    const OPTIONS = array('part' => 'messages',
-    'class' => 'contact',
-    'extention' => 'validation:authenticate:message:UserNotFound');
+    private $_options = array(
+        'part' => 'messages',
+        'class' => 'contact',
+        'extention' => 'validation:authenticate:message:UserNotFound'
+    );
     
     /**
      * Authenticate Contact
@@ -48,12 +50,13 @@ class Controller extends BaseController implements IContactController
                 $request->getParam('email'),
                 $request->getParam('password')
             ),
-            new BaseOptions(self::OPTIONS)
+            new BaseOptions($this->_options)
         );
         
         if ($fetched) {
             return $fetched;
         }
+        
         return false;
     }
 }

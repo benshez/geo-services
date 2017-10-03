@@ -4,8 +4,8 @@ namespace GeoService\Modules\Base\Interfaces;
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use GeoService\Modules\Base\Interfaces\IBaseAction;
 use GeoService\Modules\Base\Options\BaseOptions;
+use GeoService\Modules\Base\Interfaces\IBaseAction;
 
 interface IBaseController
 {

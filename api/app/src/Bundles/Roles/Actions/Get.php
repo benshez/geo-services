@@ -27,13 +27,13 @@ class Get extends Action
     /**
      * Get Roles
      *
-     * @param array $role Role.
+     * @param array $args Role.
      *
      * @return Role
      */
-    public function onGet(array $role)
+    public function onGet(array $args)
     {
-        if (isset($role[self::KEY])) {
+        if (isset($args[self::KEY])) {
             $validator = new Validation($this);
             
             if (!$this->formIsValid(
@@ -41,7 +41,7 @@ class Get extends Action
                 self::REFERENCE,
                 'get',
                 array(
-                    self::KEY => $role[self::KEY],
+                    self::KEY => $args[self::KEY],
                     'entity' => 'role'
                 )
             )) {
@@ -49,18 +49,25 @@ class Get extends Action
                 return $messages;
             }
         }
-
-        $key = isset($role[self::KEY]) ? $role[self::KEY] : null;
-        
-        $role = $this->onBaseActionGet()->getPaged(
-            $this->getReference(self::REFERENCE),
-            array(
-                'key' => self::KEY,
-                'value' => $key,
-                'offset' => $role['offset']
+  
+        $finder = new \GeoService\Modules\Base\Entity\BaseEntity(
+            $this->getEntityManager(),
+            $this->getEntityManager()->getClassMetadata(
+                $this->getReference(self::REFERENCE)
             )
         );
+        
+        $range = $this->getOffsetAndLimit(0, $args['offset']);
+        
+        $roles = $finder->findBy(
+            isset($args[self::KEY]) ?
+            array(self::KEY => $args[self::KEY]) :
+            array(),
+            null,
+            $range['limit'],
+            $range['offset']
+        );
 
-        return ($role);
+        return ($roles);
     }
 }
