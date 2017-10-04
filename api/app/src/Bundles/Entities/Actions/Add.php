@@ -50,13 +50,19 @@ class Add extends Action
         $entity = new Entities();
         
         $hydrate = new BaseHydrate($this->getContainer());
-        
-        $entity = $hydrate->hydrate($industry, $args);
-        
+
+        $entity = $this->onBaseActionSave()->save(
+            $hydrate->hydrate($entity, $args)
+        );
+  
+        if (!$entity) {
+            return false;
+        }
+
         if ($entity->getId()) {
             $entity = $this->onBaseActionGet()->get(
                 $this->getReference(self::REFERENCE),
-                [self::KEY => $industry->getId()]
+                array(self::KEY => $industry->getId())
             );
             
             return $entity;
@@ -78,7 +84,7 @@ class Add extends Action
 
         $entity = $this->onBaseActionGet()->get(
             $this->getReference('entities'),
-            ['identifier' => (int) str_replace(' ', '', $abn)]
+            array('identifier' => (int) str_replace(' ', '', $abn))
         );
 
         if ($entity && $entity->getId()) {

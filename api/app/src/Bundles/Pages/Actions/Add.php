@@ -50,13 +50,15 @@ class Add extends Action
         $page = new Pages();
         
         $hydrate = new BaseHydrate($this->getContainer());
-        
-        $page = $hydrate->hydrate($page, $args);
-        
+             
+        $page = $this->onBaseActionSave()->save(
+            $hydrate->hydrate($page, $args)
+        );
+
         if ($page->getId()) {
             $page = $this->onBaseActionGet()->get(
                 $this->getReference(self::REFERENCE),
-                [self::KEY => $page->getId()]
+                array(self::KEY => $page->getId())
             );
             return $page;
         }

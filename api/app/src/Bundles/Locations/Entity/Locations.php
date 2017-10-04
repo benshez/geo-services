@@ -69,14 +69,14 @@ class Locations
     /**
       * @var float
       *
-      * @ORM\Column(name="latitude", type="float", precision=10, scale=0, nullable=true)
+      * @ORM\Column(name="latitude", type="string", length=18, nullable=true)
       */
     private $latitude;
  
     /**
       * @var float
       *
-      * @ORM\Column(name="longitude", type="float", precision=10, scale=0, nullable=true)
+      * @ORM\Column(name="longitude", type="string", length=18, nullable=true)
       */
     private $longitude;
  

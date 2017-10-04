@@ -55,8 +55,14 @@ class Save extends Action
         
         $hydrate = new BaseHydrate($this->getContainer());
         
-        $industry = $hydrate->hydrate($industry, $args);
-        
+        $industry = $this->onBaseActionSave()->save(
+            $hydrate->hydrate($industry, $args)
+        );
+
+        if (!$industry) {
+            return false;
+        }
+
         if ($industry->getId()) {
             $industry = $this->onBaseActionGet()->get(
                 $this->getReference(self::REFERENCE),

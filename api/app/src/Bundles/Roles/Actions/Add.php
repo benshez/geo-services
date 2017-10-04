@@ -51,7 +51,13 @@ class Add extends Action
         
         $hydrate = new BaseHydrate($this->getContainer());
         
-        $role = $hydrate->hydrate($role, $args);
+        $role = $this->onBaseActionSave()->save(
+            $hydrate->hydrate($role, $args)
+        );
+
+        if (!$role) {
+            return false;
+        }
         
         if ($role->getId()) {
             $role = $this->onBaseActionGet()->get(

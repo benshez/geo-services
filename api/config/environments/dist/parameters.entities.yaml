@@ -87,6 +87,7 @@ entities:
             - ['StringLength', [min: 3], true]
         delete:
           id:
+            - ['NotEmpty']
             - ['Digits', [min: 1], true]        
     messages:
       validation:
@@ -96,13 +97,28 @@ entities:
         delete: {error: true, message: {IndustryNotDeleted: 'The industry with that id could not be deleted.'}} 
   locations:
     name: '\GeoService\Bundles\Locations\Entity\Locations'
-    arguments:
-      locations: {industry: ''}  
     methods:
       validation:
         locations:
           industry:
             - ['NotEmpty']
+        add:
+          latitude:
+            - ['NotEmpty']
+            - ['StringLength', [min: 3], true]
+          longitude:
+            - ['NotEmpty']
+            - ['StringLength', [min: 3], true]
+          country_code:
+            - ['NotEmpty']
+            - ['StringLength', [min: 2], true]
+          country_name:
+            - ['NotEmpty']
+            - ['StringLength', [min: 2], true]
+        delete:
+          id:
+            - ['NotEmpty']
+            - ['Digits', [min: 1], true]
     messages:
       validation:
         locations: {error: true, message: {IndustriesNotFound: 'No industries of the selected type found in your area.'}}        
@@ -141,4 +157,4 @@ entities:
         add:    
           name:
             - ['NotEmpty']
-            - ['StringLength', [min: 3], true]
+            - ['StringLength', [min: 3], true]        

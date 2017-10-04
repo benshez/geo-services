@@ -48,17 +48,23 @@ class Save extends Action
 
         $role = $this->onBaseActionGet()->get(
             $this->getReference(self::REFERENCE),
-            [self::KEY => $args[self::KEY]]
+            array(self::KEY => $args[self::KEY])
         );
         
         $hydrate = new BaseHydrate($this->getContainer());
         
-        $role = $hydrate->hydrate($role, $args);
-        
+        $role = $this->onBaseActionSave()->save(
+            $hydrate->hydrate($role, $args)
+        );
+
+        if (!$role) {
+            return false;
+        }
+
         if ($role->getId()) {
             $role = $this->onBaseActionGet()->get(
                 $this->getReference(self::REFERENCE),
-                [self::KEY => $role->getId()]
+                array(self::KEY => $role->getId())
             );
             return $role;
         }

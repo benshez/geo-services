@@ -47,7 +47,7 @@ class Delete extends Action
         
         $entity = $this->onBaseActionGet()->get(
             $this->getReference(self::REFERENCE),
-            [self::KEY => $args]
+            array(self::KEY => $args)
         );
   
         if (!$entity) {

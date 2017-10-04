@@ -48,17 +48,23 @@ class Save extends Action
 
         $entity = $this->onBaseActionGet()->get(
             $this->getReference(self::REFERENCE),
-            [self::KEY => $args[self::KEY]]
+            array(self::KEY => $args[self::KEY])
         );
         
         $hydrate = new BaseHydrate($this->getContainer());
         
-        $entity = $hydrate->hydrate($entity, $args);
+        $entity = $this->onBaseActionSave()->save(
+            $hydrate->hydrate($entity, $args)
+        );
         
+        if (!$entity) {
+            return false;
+        }
+
         if ($entity->getId()) {
             $entity = $this->onBaseActionGet()->get(
                 $this->getReference(self::REFERENCE),
-                [self::KEY => $entity->getId()]
+                array(self::KEY => $entity->getId())
             );
             return $entity;
         }
