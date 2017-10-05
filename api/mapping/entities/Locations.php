@@ -22,16 +22,16 @@ class Locations
     private $id;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="ip_from", type="integer", nullable=true)
+     * @ORM\Column(name="ip_from", type="string", length=18, nullable=true)
      */
     private $ipFrom;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="ip_to", type="integer", nullable=true)
+     * @ORM\Column(name="ip_to", type="string", length=18, nullable=true)
      */
     private $ipTo;
 
@@ -129,7 +129,7 @@ class Locations
     /**
      * Set ipFrom
      *
-     * @param integer $ipFrom
+     * @param string $ipFrom
      *
      * @return Locations
      */
@@ -143,7 +143,7 @@ class Locations
     /**
      * Get ipFrom
      *
-     * @return integer
+     * @return string
      */
     public function getIpFrom()
     {
@@ -153,7 +153,7 @@ class Locations
     /**
      * Set ipTo
      *
-     * @param integer $ipTo
+     * @param string $ipTo
      *
      * @return Locations
      */
@@ -167,7 +167,7 @@ class Locations
     /**
      * Get ipTo
      *
-     * @return integer
+     * @return string
      */
     public function getIpTo()
     {

@@ -87,9 +87,9 @@ class Save extends Action
      *
      * @param array $args User Password.
      *
-     * @return User
+     * @return void
      */
-    public function onUpdateAttempts(array $args)
+    public function onUpdateLoginAttempts(array $args)
     {
     }
 }
