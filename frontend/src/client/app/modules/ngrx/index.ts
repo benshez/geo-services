@@ -1,9 +1,17 @@
 // libs
-import { Observable } from 'rxjs/Observable';
-// import { combineLatest } from 'rxjs/observable/combineLatest';
-import { ActionReducer } from '@ngrx/store';
 import '@ngrx/core/add/operator/select';
 
+import { compose } from '@ngrx/core/compose';
+import { ActionReducer } from '@ngrx/store';
+import { combineReducers } from '@ngrx/store';
+import { storeFreeze } from 'ngrx-store-freeze';
+import { Observable } from 'rxjs/Observable';
+
+import * as fromMultilingual from '../i18n/index';
+import * as fromSample from '../sample/index';
+import * as fromTypAhead from '../type-ahead/index';
+
+// import { combineLatest } from 'rxjs/observable/combineLatest';
 /**
  * The compose function is one of our most handy tools. In basic terms, you give
  * it any number of functions and it returns a function. This new function
@@ -12,15 +20,11 @@ import '@ngrx/core/add/operator/select';
  *
  * More: https://drboolean.gitbooks.io/mostly-adequate-guide/content/ch5.html
  */
-import { compose } from '@ngrx/core/compose';
-
 /**
  * storeFreeze prevents state from being mutated. When mutation occurs, an
  * exception will be thrown. This is useful during development mode to
  * ensure that none of the reducers accidentally mutates the state.
  */
-import { storeFreeze } from 'ngrx-store-freeze';
-
 /**
  * combineReducers is another useful metareducer that takes a map of reducer
  * functions and creates a new reducer that stores the gathers the values
@@ -29,26 +33,20 @@ import { storeFreeze } from 'ngrx-store-freeze';
  *
  * More: https://egghead.io/lessons/javascript-redux-implementing-combinereducers-from-scratch
  */
-import { combineReducers } from '@ngrx/store';
-
 /**
  * Every reducer module's default export is the reducer function itself. In
  * addition, each module should export a type or interface that describes
  * the state of the reducer plus any selector functions. The `* as`
  * notation packages up all of the exports into a single object.
  */
-import * as fromMultilingual from '../i18n/index';
-import * as fromSample from '../sample/index';
-import * as fromTypAhead from '../type-ahead/index';
-
 /**
  * As mentioned, we treat each reducer like a table in a database. This means
  * our top level state interface is just a map of keys to inner state types.
  */
 export interface IAppState {
-    i18n: fromMultilingual.IMultilingualState;
-    sample: fromSample.ISampleState;
-    typeAheadItems: fromTypAhead.IKeyValueDictionary;
+	i18n: fromMultilingual.IMultilingualState;
+	sample: fromSample.ISampleState;
+	typeAheadItems: fromTypAhead.IKeyValueDictionary;
 }
 
 /**
@@ -59,9 +57,9 @@ export interface IAppState {
  * the result from right to left.
  */
 const reducers = {
-    i18n: fromMultilingual.reducer,
-    sample: fromSample.reducer,
-    //typeAheadItems: fromTypAhead.reducer
+	i18n: fromMultilingual.reducer,
+	sample: fromSample.reducer,
+	//typeAheadItems: fromTypAhead.reducer
 };
 
 // ensure state is frozen as extra level of security when developing
@@ -71,19 +69,19 @@ const developmentReducer: ActionReducer<IAppState> = compose(storeFreeze, combin
 const productionReducer: ActionReducer<IAppState> = combineReducers(reducers);
 
 export function AppReducer(state: any, action: any) {
-    if (String('<%= BUILD_TYPE %>') === 'dev') {
-        return developmentReducer(state, action);
-    } else {
-        return productionReducer(state, action);
-    }
+	if (String('<%= BUILD_TYPE %>') === 'dev') {
+		return developmentReducer(state, action);
+	} else {
+		return productionReducer(state, action);
+	}
 }
 
 export function getMultilingualState(state$: Observable<IAppState>): Observable<fromMultilingual.IMultilingualState> {
-    return state$.select(s => s.i18n);
+	return state$.select(s => s.i18n);
 }
 
 export function getNameListState(state$: Observable<IAppState>): Observable<fromSample.ISampleState> {
-    return state$.select(s => s.sample);
+	return state$.select(s => s.sample);
 }
 
 // export function getTypeAheadListState(state$: Observable<IAppState>): Observable<fromTypAhead.IKeyValueDictionary> {

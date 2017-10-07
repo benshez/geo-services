@@ -1,4 +1,16 @@
 <?php
+/**
+ * BaseGet File Doc Comment
+ *
+ * PHP Version 7.0.10
+ *
+ * @category  Routes
+ * @package   GeoService
+ * @author    Ben van Heerden <benshez1@gmail.com>
+ * @copyright 2017-2018 GeoService
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU General Public License
+ * @link      https://github.com/benshez/geo-services
+ */
 
 namespace GeoService\Modules\Routes;
 
@@ -7,48 +19,74 @@ use GeoService\Modules\Middleware\TokenAuthentication\TokenAuthentication as Tok
 
 class Routes
 {
-    protected $app;
+    const PATTERN = 'pattern';
+    const ACTION = 'actions';
+    const MIDDLEWARE = 'middleware';
 
-    protected $routes;
+    private $_app;
+    private $_routes;
 
+    /**
+     * Ctor
+     *
+     * @param \Slim\App $app    App.
+     *
+     * @param array     $routes App Routes.
+     *
+     * @return void
+     */
     public function __construct(\Slim\App $app, array $routes)
     {
-        $this->routes = $routes;
-        $this->app = $app;
-        $this->createRoutes();
+        $this->_routes = $routes;
+        $this->_app = $app;
+        $this->_addRoutes();
     }
 
-    private function createRoutes()
+    /**
+     * Create Routes
+     *
+     * @return void
+     */
+    private function _addRoutes()
     {
-        foreach ($this->routes as $route) {
+        foreach ($this->_routes as $route) {
             foreach ($route['methods'] as $index => $method) {
                 switch ($method) {
                     case 'GET':
-                        $this->createGetRoutes($route, $index);
+                        $this->_addGetRoutes($route, $index);
                         break;
                     case 'POST':
-                        $this->createPostRoutes($route, $index);
+                        $this->_addPostRoutes($route, $index);
                         break;
                     case 'PUT':
-                        $this->createPutRoutes($route, $index);
+                        $this->_addPutRoutes($route, $index);
                         break;
                     case 'DELETE':
-                        $this->createDeleteRoutes($route, $index);
+                        $this->_addDeleteRoutes($route, $index);
                         break;
                 }
             }
         }
     }
 
-    private function createGetRoutes($route, $index)
+    /**
+     * Create Get Routes
+     *
+     * @param array   $route App Route.
+     *
+     * @param integer $index App Route.
+     *
+     * @return void
+     */
+    private function _addGetRoutes(array $route, int $index)
     {
-        if ($route['middleware'][$index]) {
-            $container = $this->app->getContainer();
-            $middleware = $this->createMiddleware($container, $route, $index);
+        if ($route[self::MIDDLEWARE][$index]) {
+            $container = $this->_app->getContainer();
+            $middleware = $this->_addMiddleware($container, $route, $index);
                 
-            $this->app->get(
-                $route['pattern'][$index],
-                $route['actions'][$index]
+            $this->_app->get(
+                $route[self::PATTERN][$index],
+                $route[self::ACTION][$index]
             )
             ->add(
                 function (
@@ -67,22 +105,31 @@ class Routes
                 }
             );
         } else {
-            $this->app->get(
-                $route['pattern'][$index],
-                $route['actions'][$index]
+            $this->_app->get(
+                $route[self::PATTERN][$index],
+                $route[self::ACTION][$index]
             );
         }
     }
 
-    private function createPostRoutes($route, $index)
+    /**
+     * Create Post Routes
+     *
+     * @param array   $route App Route.
+     *
+     * @param integer $index App Route.
+     *
+     * @return void
+     */
+    private function _addPostRoutes(array $route, int $index)
     {
-        if ($route['middleware'][$index]) {
-            $container = $this->app->getContainer();
-            $middleware = $this->createMiddleware($container, $route, $index);
+        if ($route[self::MIDDLEWARE][$index]) {
+            $container = $this->_app->getContainer();
+            $middleware = $this->_addMiddleware($container, $route, $index);
             
-            $this->app->post(
-                $route['pattern'][$index],
-                $route['actions'][$index]
+            $this->_app->post(
+                $route[self::PATTERN][$index],
+                $route[self::ACTION][$index]
             )
             ->add(
                 function (
@@ -101,22 +148,31 @@ class Routes
                 }
             );
         } else {
-            $this->app->post(
-                $route['pattern'][$index],
-                $route['actions'][$index]
+            $this->_app->post(
+                $route[self::PATTERN][$index],
+                $route[self::ACTION][$index]
             );
         }
     }
     
-    private function createPutRoutes($route, $index)
+    /**
+     * Create Put Routes
+     *
+     * @param array   $route App Route.
+     *
+     * @param integer $index App Route.
+     *
+     * @return void
+     */
+    private function _addPutRoutes(array $route, int $index)
     {
-        if ($route['middleware'][$index]) {
-            $container = $this->app->getContainer();
-            $middleware = $this->createMiddleware($container, $route, $index);
+        if ($route[self::MIDDLEWARE][$index]) {
+            $container = $this->_app->getContainer();
+            $middleware = $this->_addMiddleware($container, $route, $index);
             
-            $this->app->put(
-                $route['pattern'][$index],
-                $route['actions'][$index]
+            $this->_app->put(
+                $route[self::PATTERN][$index],
+                $route[self::ACTION][$index]
             )
             ->add(
                 function (
@@ -135,22 +191,31 @@ class Routes
                 }
             );
         } else {
-            $this->app->put(
-                $route['pattern'][$index],
-                $route['actions'][$index]
+            $this->_app->put(
+                $route[self::PATTERN][$index],
+                $route[self::ACTION][$index]
             );
         }
     }
     
-    private function createDeleteRoutes($route, $index)
+    /**
+     * Create Delete Routes
+     *
+     * @param array   $route App Route.
+     *
+     * @param integer $index App Route.
+     *
+     * @return void
+     */
+    private function _addDeleteRoutes(array $route, int $index)
     {
-        if ($route['middleware'][$index]) {
-            $container = $this->app->getContainer();
-            $middleware = $this->createMiddleware($container, $route, $index);
+        if ($route[self::MIDDLEWARE][$index]) {
+            $container = $this->_app->getContainer();
+            $middleware = $this->_addMiddleware($container, $route, $index);
 
-            $this->app->delete(
-                $route['pattern'][$index],
-                $route['actions'][$index]
+            $this->_app->delete(
+                $route[self::PATTERN][$index],
+                $route[self::ACTION][$index]
             )->add(
                 function (
                     $request,
@@ -168,18 +233,29 @@ class Routes
                 }
             );
         } else {
-            $this->app->delete(
-                $route['pattern'][$index],
-                $route['actions'][$index]
+            $this->_app->delete(
+                $route[self::PATTERN][$index],
+                $route[self::ACTION][$index]
             );
         }
     }
     
-    private function createMiddleware($container, $route, $index)
+    /**
+     * Create Middleware
+     *
+     * @param ContainerInterface $container App Container.
+     *
+     * @param array              $route     App Route.
+     *
+     * @param integer            $index     App Route.
+     *
+     * @return middleware
+     */
+    private function _addMiddleware(ContainerInterface $container, array $route, int $index)
     {
         $middleware = '';
 
-        switch ($route['middleware'][$index]) {
+        switch ($route[self::MIDDLEWARE][$index]) {
             case 'TokenAuthentication':
                 $middleware = [new TokenAuthentication($container, $route, $index), '__invoke'];
                 break;

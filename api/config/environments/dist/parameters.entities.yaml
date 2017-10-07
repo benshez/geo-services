@@ -1,4 +1,3 @@
-'@include': parameters.routes.yaml
 entities:
   contact:
     name: '\GeoService\Bundles\Contact\Entity\Contact'

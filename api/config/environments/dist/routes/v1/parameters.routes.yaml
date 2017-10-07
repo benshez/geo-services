@@ -1,4 +1,4 @@
-routesv1:
+routes:
   address:
     methods:
     - GET
@@ -87,9 +87,9 @@ routesv1:
     - 'GeoService\Bundles\Roles\Controller\Controller:onDelete'            
     priority: 0
     pattern: 
-    - '/api/v1/admin/roles/{offset}[/{id}]'
+    - '/api/v1/roles/{offset}[/{id}]'
     - '/api/v1/admin/role'
-    - '/api/v1/admin/role[/{id}]'
+    - '/api/v1/admin/role'
     - '/api/v1/admin/role/{id}'
     middleware:
     - 'TokenAuthentication'
@@ -125,6 +125,33 @@ routesv1:
     - 'TokenAuthentication'
     roles:
     - ['User', 'Admin']
+    - ['User', 'Admin']
+    - ['User', 'Admin']
+    - ['Admin']
+  pages:
+    methods:
+    - GET
+    - POST
+    - PUT
+    - DELETE 
+    actions:
+    - 'GeoService\Bundles\Pages\Controller\Controller:onGet'
+    - 'GeoService\Bundles\Pages\Controller\Controller:onAdd'
+    - 'GeoService\Bundles\Pages\Controller\Controller:onUpdate'
+    - 'GeoService\Bundles\Pages\Controller\Controller:onDelete'
+    priority: 0
+    pattern: 
+    - '/api/v1/pages'
+    - '/api/v1/admin/page'
+    - '/api/v1/admin/page'
+    - '/api/v1/admin/page/{id}'
+    middleware:
+    - 'TokenAuthentication'
+    - 'TokenAuthentication'
+    - 'TokenAuthentication'
+    - 'TokenAuthentication'
+    roles:
+    - ['Guest', 'User', 'Admin']
     - ['User', 'Admin']
     - ['User', 'Admin']
     - ['Admin']  

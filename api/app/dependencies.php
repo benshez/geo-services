@@ -81,23 +81,18 @@ $container['bundles'] = function ($c) {
 $container['mailer'] = function ($c) {
     $settings = $c->get('settings');
     
-    $mailer = new PHPMailer;
+    $options = new \PHPMailer();
 
-    $mailer->Host = 'your.host.com';
-    $mailer->SMTPAuth = true;
-    $mailer->SMTPSecure = 'ssl';
-    $mailer->Port = '';
-    $mailer->Username = 'your@email.address';
-    $mailer->isHTML(true);
+    $options->Host = $settings['mail']['host'];
+    $options->SMTPAuth = $settings['mail']['auth'];
+    $options->SMTPSecure = $settings['mail']['secure'];
+    $options->Port = $settings['mail']['port'];
+    $options->Username = $settings['mail']['username'];
+    $options->isHTML($settings['mail']['is_html']);
 
-    return new \GeoService\Modules\Mailer\Mailer($c->view, $mailer);
-};
-
-$container['TokenAuthentication'] = function ($c) {
-    return function ($request, $response, $next) use ($c) {
-        $settings = $c['settings'];
-        return $next($request, $response);
-    };
+    $mailer = new \GeoService\Modules\Mailer\Mailer($c->view, $options);
+    
+    return $mailer;
 };
 
 // -----------------------------------------------------------------------------
@@ -137,4 +132,10 @@ $container['GeoService\Bundles\Contact\Controller\Controller'] = function ($c) {
     $resource = new \GeoService\Bundles\Contact\Actions\Action($c);
     $contact = new GeoService\Bundles\Contact\Controller\Controller($resource);
     return $contact;
+};
+
+$container['GeoService\Bundles\Pages\Controller\Controller'] = function ($c) {
+    $resource = new \GeoService\Bundles\Pages\Actions\Action($c);
+    $page = new GeoService\Bundles\Pages\Controller\Controller($resource);
+    return $page;
 };
