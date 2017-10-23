@@ -25,11 +25,13 @@ class Config
     const PARAMETER_ENVIRONMENT_FILE = 'parameters.%s.yaml';
     const PARAMETER_SETTINGS = 'settings';
     const PARAMETER_ROUTES = 'routes';
+    const PARAMETER_VERSION = 'version';
+    const PARAMETER_ENVIRONMENT = 'mode';
     
     private $_path = __DIR__ .self::PARAMETER_FILE_PATH;
-    private $_settings;
-    private $_environment;
-    private $_version;
+    private $_settings = null;
+    private $_environment = null;
+    private $_version = null;
     private $_reader = null;
 
     /**
@@ -92,7 +94,8 @@ class Config
         $path .= '/';
         $path .= self::PARAMETER_FILE;
 
-        $this->_settings[self::PARAMETER_SETTINGS] = $this->_reader->fromFile($path);
+        $this->_settings[self::PARAMETER_SETTINGS] =
+        $this->_reader->fromFile($path);
     }
 
     /**
@@ -102,7 +105,8 @@ class Config
      */
     private function _addVersion()
     {
-        $this->_settings[self::PARAMETER_SETTINGS]['version'] = $this->getVersion();
+        $this->_settings[self::PARAMETER_SETTINGS][self::PARAMETER_VERSION] =
+        $this->getVersion();
     }
     
     /**
@@ -151,7 +155,7 @@ class Config
     {
         $verion = $this->_environment;
         
-        return $verion['version'];
+        return $verion[self::PARAMETER_VERSION];
     }
     
     /**
@@ -163,7 +167,7 @@ class Config
     {
         $environment = $this->_environment;
         
-        return $environment['mode'];
+        return $environment[self::PARAMETER_ENVIRONMENT];
     }
     
     /**
@@ -232,6 +236,7 @@ class Config
     public static function currentDateYearMonthDay()
     {
         $currDate = date('Y-m-d');
+        
         return $currDate;
     }
  
@@ -248,6 +253,7 @@ class Config
                 $this->_settings['time_zone']
             )
         );
+        
         return $timeZone;
     }
 
@@ -263,6 +269,7 @@ class Config
         $future = $this->getDateTimeForZone()->add(
             new \DateInterval('P'.$days.'D')
         );
+        
         return $future;
     }
 
@@ -274,6 +281,7 @@ class Config
     private function getSettings()
     {
         $settings = $this->_settings;
+        
         return $settings;
     }
 }

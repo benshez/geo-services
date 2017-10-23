@@ -1,0 +1,13 @@
+{
+	"name": "geoservice",
+	"version": "0.0.0",
+	"description": "GeoService frontend web application",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/benshez/geo-services"
+	},
+	"license": "MIT",
+	"scripts": {
+		"build:docker": "docker build -t geoservice:latest ."
+	}
+}
