@@ -8,7 +8,7 @@ export class User {
 		private storage: StorageService
 	) { }
 
-	getStoredUser() {
-		this.storage.getItem(StorageKey.USER_DETAIL);
+	getStoredUser(): IUser {
+		return this.storage.getItem(StorageKey.USER_DETAIL);
 	}
 }

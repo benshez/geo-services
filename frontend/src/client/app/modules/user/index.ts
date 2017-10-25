@@ -11,3 +11,4 @@ export const USER_PROVIDERS: any[] = [
 export * from './components/login/component';
 export * from './components/login/interfaces/interfaces';
 export * from './components/login/models/models';
+export * from './components/login/interfaces/interfaces';

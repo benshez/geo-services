@@ -16,7 +16,7 @@ if (String('<%= BUILD_TYPE %>') === 'prod' || String('<%= TARGET_DESKTOP_BUILD %
   enableProdMode();
 }
 
-// NOTE: Commented lines come from parent (angular-seed)
+// NOTE: Commented lines come from parent (geoservice)
 // TODO: In future, may pivot from ng2-translate to parent seed implementation
 // Compile and launch the module with i18n providers
 // let TP = new TranslationProviders();

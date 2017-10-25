@@ -1,4 +1,4 @@
-// https://github.com/mgechev/angular-seed/pull/1681
+// https://github.com/mgechev/geoservice/pull/1681
 import * as gulp from 'gulp';
 import * as gulpLoadPlugins from 'gulp-load-plugins';
 

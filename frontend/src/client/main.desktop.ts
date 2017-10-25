@@ -40,8 +40,9 @@ app.on('ready', () => {
 	mainWindow = new BrowserWindow({ width: 900, height: 620 });
 
 	// Tell Electron where to load the entry point from
-	mainWindow.loadURL('file://' + __dirname + '/index.html');
-
+	//mainWindow.loadURL('file://' + __dirname + '/index.html');
+	mainWindow.loadURL(`file://${__dirname}/index.html`);
+	
 	// Clear out the main window when the app is closed
 	mainWindow.on('closed', () => {
 		mainWindow = null;
@@ -84,7 +85,7 @@ app.on('ready', () => {
 		}, {
 			label: `My Amazing Parent: Ben van Heerden's Angular Seed`,
 			click: () => {
-				shell.openExternal('https://github.com/mgechev/angular-seed');
+				shell.openExternal('https://github.com/mgechev/geoservice');
 			}
 		}, {
 			label: 'Angular 2',
