@@ -9,12 +9,12 @@ import { MultilingualModule } from '../i18n/index';
 import { SHARED_COMPONENTS, SHARED_PROVIDERS } from './index';
 
 const SHARED_MODULES: any[] = [
-    CommonModule,
-    HttpModule,
-    FormsModule,
-    ReactiveFormsModule,
-    RouterModule,
-    MultilingualModule
+	CommonModule,
+	HttpModule,
+	FormsModule,
+	ReactiveFormsModule,
+	RouterModule,
+	MultilingualModule
 ];
 
 /**
@@ -25,18 +25,18 @@ const SHARED_MODULES: any[] = [
  */
 
 @NgModule({
-    imports: [
-        ...SHARED_MODULES
-    ],
-    declarations: [
-        ...SHARED_COMPONENTS
-    ],
-    exports: [
-        ...SHARED_COMPONENTS,
-        ...SHARED_MODULES
-    ],
-    providers: [
-        ...SHARED_PROVIDERS
-    ]
+	imports: [
+		...SHARED_MODULES
+	],
+	declarations: [
+		...SHARED_COMPONENTS
+	],
+	exports: [
+		...SHARED_COMPONENTS,
+		...SHARED_MODULES
+	],
+	providers: [
+		...SHARED_PROVIDERS
+	]
 })
 export class SharedModule { }

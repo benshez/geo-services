@@ -5,11 +5,11 @@ import { TypeAheadComponent } from '../type-ahead/components/component';
 import { LoginComponent } from '../user/components/login/component';
 
 export const SHARED_COMPONENTS: any[] = [
-    NavbarComponent,
-    ToolbarComponent,
-    LoaderComponent,
-    TypeAheadComponent, 
-    LoginComponent
+	NavbarComponent,
+	ToolbarComponent,
+	LoaderComponent,
+	TypeAheadComponent,
+	LoginComponent
 ];
 
 export * from './components/navbar/component';
@@ -21,11 +21,13 @@ export * from '../user/components/login/component';
 import { LoaderService } from './components/loader/services/services';
 import { ApiService } from '../core/services/api/services';
 import { Locator } from '../map/services/service';
+import { UserGuard } from '../guards/user';
 
 export const SHARED_PROVIDERS: any[] = [
-    LoaderService,
-    ApiService,
-    Locator
+	LoaderService,
+	ApiService,
+	Locator,
+	UserGuard
 ];
 
 export * from './module';

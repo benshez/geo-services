@@ -39,16 +39,17 @@ export class LoginComponent implements OnInit {
 	}
 
 	login() {
-		this.apiOptions.cacheKey = Config.CACHE_KEYS.USER_KEY;
-		this.apiOptions.url = Config.API_END_POINTS.USER_LOGIN;
-		this.apiOptions.parameters = this.form.value;
-		this.apiOptions.concatApi = true;
+		// //this.apiOptions.cacheKey = Config.CACHE_KEYS.USER_KEY;
+		// this.apiOptions.url = Config.API_END_POINTS.USER_LOGIN;
+		// this.apiOptions.parameters = this.form.value;
+		// this.apiOptions.concatApi = true;
 
-		this.apiService.post(Config.API_END_POINTS.USER_LOGIN, this.form)
+		this.apiService.post(Config.API_END_POINTS.USER_LOGIN, JSON.stringify(this.form.value), { method: 'Post' })
 			.subscribe(
 			(json: any) => { this.user = json; },
 			(error: any) => this.errorMessage = <any>error,
 			() => {
+				debugger;
 				this.storage.setItem(StorageKey.USER_DETAIL, JSON.stringify(this.user));
 				this.router.navigate([this.returnUrl]);
 			});

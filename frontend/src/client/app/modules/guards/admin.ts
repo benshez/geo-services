@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate } from '@angular/router';
-import { IUser, User } from '../user/index';
+import { IUser } from '../user/index';
 import { Config } from '../core/index';
+import { StorageKey, StorageService } from '../core/index';
 
 @Injectable()
 export class AdminGuard implements CanActivate {
 
-	constructor(private router: Router, private user: User) { }
+	constructor(private router: Router, private storage: StorageService) { }
 
 	canActivate() {
-		let storedUser: IUser = this.user.getStoredUser();
+		let storedUser: IUser = JSON.parse(this.storage.getItem(StorageKey.USER_DETAIL));
 
 		if (storedUser) {
-			return storedUser.role === 1;
+			return storedUser.role === 22;
 		}
 
 		this.router.navigate([Config.ROUTE_ROUTES.LOGIN]);
