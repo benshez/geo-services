@@ -1,25 +1,24 @@
 import { Action } from '@ngrx/store';
+import { type } from '../../../../core/utils/type';
 
-import { type } from '../../../../../core/utils/type';
+export namespace RegistrationActions {
 
-export namespace Roles {
+	export const CATEGORY: string = 'RegistrationActions';
 
-	export const CATEGORY: string = 'Roles';
-
-	export interface IRolesActions {
+	export interface IRegistrationActions {
 		INIT: string;
 		INITIALIZED: string;
 		INIT_FAILED: string;
 		ADD: string;
-		ROLE_ADDED: string;
+		REGISTERED: string;
 	}
 
-	export const ActionTypes: IRolesActions = {
+	export const ActionTypes: IRegistrationActions = {
 		INIT: type(`${CATEGORY} Init`),
 		INITIALIZED: type(`${CATEGORY} Initialized`),
 		INIT_FAILED: type(`${CATEGORY} Init Failed`),
 		ADD: type(`${CATEGORY} Add`),
-		ROLE_ADDED: type(`${CATEGORY} Role Added`)
+		REGISTERED: type(`${CATEGORY} Registered`)
 	};
 
 	export class InitAction implements Action {
@@ -44,8 +43,8 @@ export namespace Roles {
 		constructor(public payload: string) { }
 	}
 
-	export class RoleAddedAction implements Action {
-		type = ActionTypes.ROLE_ADDED;
+	export class RegisteredAction implements Action {
+		type = ActionTypes.REGISTERED;
 
 		constructor(public payload: string) { }
 	}
@@ -55,6 +54,6 @@ export namespace Roles {
 		| InitializedAction
 		| InitFailedAction
 		| AddAction
-		| RoleAddedAction;
+		| RegisteredAction;
 
 }

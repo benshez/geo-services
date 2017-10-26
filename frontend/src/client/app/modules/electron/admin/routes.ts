@@ -1,10 +1,10 @@
+import { USER_ROUTES } from '../../user/routes';
 // app
-import { LoginRoutes } from '../modules/user/components/login/routes/routes';
-import { AboutRoutes } from './about/routes';
-import { HomeRoutes } from './home/routes';
+
+
 
 export const APP_ROUTES: Array<any> = [
-	...HomeRoutes,
-	...AboutRoutes,
-	...LoginRoutes
+	//...HomeRoutes,
+	//...AboutRoutes,
+	...USER_ROUTES
 ];

@@ -3,13 +3,15 @@ import { ToolbarComponent } from './components/toolbar/component';
 import { LoaderComponent } from './components/loader/component';
 import { TypeAheadComponent } from '../type-ahead/components/component';
 import { LoginComponent } from '../user/components/login/component';
+import { RegistrationComponent } from '../user/index';
 
 export const SHARED_COMPONENTS: any[] = [
 	NavbarComponent,
 	ToolbarComponent,
 	LoaderComponent,
 	TypeAheadComponent,
-	LoginComponent
+	LoginComponent,
+	RegistrationComponent
 ];
 
 export * from './components/navbar/component';

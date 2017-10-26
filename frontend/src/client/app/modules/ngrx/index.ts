@@ -10,6 +10,8 @@ import { Observable } from 'rxjs/Observable';
 import * as fromMultilingual from '../i18n/index';
 import * as fromSample from '../sample/index';
 import * as fromTypAhead from '../type-ahead/index';
+import * as fromRegistration from '../user/components/register/index';
+import { IRegistrationState } from '../user/components/register/index';
 
 // import { combineLatest } from 'rxjs/observable/combineLatest';
 /**
@@ -47,6 +49,7 @@ export interface IAppState {
 	i18n: fromMultilingual.IMultilingualState;
 	sample: fromSample.ISampleState;
 	typeAheadItems: fromTypAhead.IKeyValueDictionary;
+	registratrion: fromRegistration.IRegistrationState;
 }
 
 /**
@@ -59,6 +62,7 @@ export interface IAppState {
 const reducers = {
 	i18n: fromMultilingual.reducer,
 	sample: fromSample.reducer,
+	registration: fromRegistration.reducer
 	//typeAheadItems: fromTypAhead.reducer
 };
 
@@ -84,10 +88,14 @@ export function getNameListState(state$: Observable<IAppState>): Observable<from
 	return state$.select(s => s.sample);
 }
 
+export function getRegistrationState(state$: Observable<IAppState>): Observable<fromRegistration.IRegistrationState> {
+	return state$.select(s => s.sample);
+}
 // export function getTypeAheadListState(state$: Observable<IAppState>): Observable<fromTypAhead.IKeyValueDictionary> {
 //     return state$.select(s => s.typeAheadItems);
 // }
 
 export const getLang: any = compose(fromMultilingual.getLang, getMultilingualState);
 export const getNames: any = compose(fromSample.getNames, getNameListState);
+export const getRegistrations: any = compose(fromRegistration.getRegistrations, getRegistrationState);
 //export const getTypeAheadList: any = compose(fromTypAhead.getTypeAheadListState, getTypeAheadListState);

@@ -1,7 +1,7 @@
-﻿import { StorageKey, StorageService } from '../../../../core/index';
-import { IRoles } from '../../../index';
+﻿import { IRoles } from '../../../index';
+import { StorageKey, StorageService } from '../../../../../core/index';
 
-export class User {
+export class Roles {
 	private user: IRoles;
 
 	constructor(

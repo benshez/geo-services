@@ -1,8 +1,8 @@
 ﻿import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, ModuleWithProviders, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 
-import { MultilingualModule } from '../i18n/multilingual.module';
 import { ADMIN_COMPONENTS, ADMIN_PROVIDERS } from './index';
+import { MultilingualModule } from '../../i18n/multilingual.module';
 
 // angular
 export const ADMIN_IMPORTS: any[] = [
