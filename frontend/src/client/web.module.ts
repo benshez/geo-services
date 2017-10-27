@@ -39,10 +39,12 @@ import {
 import { CoreModule, Config } from './app/modules/core/index';
 import { AnalyticsModule } from './app/modules/analytics/index';
 import { MultilingualModule, Languages, translateLoaderFactory, MultilingualEffects } from './app/modules/i18n/index';
-import { SampleModule, SampleEffects } from './app/modules/sample/index';
+//import { SampleModule, SampleEffects } from './app/modules/sample/index';
 
 import { WebMapModule } from './app/modules/map/module';
 import { AppReducer } from './app/modules/ngrx/index';
+import { SharedModule } from './app/modules/shared/module';
+import { RegistrationEffects } from './app/modules/user/components/register/index';
 
 // config
 Config.PLATFORM_TARGET = Config.PLATFORMS.WEB;
@@ -102,11 +104,13 @@ if (String('<%= BUILD_TYPE %>') === 'dev') {
 			deps: [Http],
 			useFactory: (translateLoaderFactory)
 		}]),
-		SampleModule,
+		SharedModule,
+		//SampleModule,
 		// configure app state
 		StoreModule.provideStore(AppReducer),
 		EffectsModule.run(MultilingualEffects),
-		EffectsModule.run(SampleEffects),
+		EffectsModule.run(RegistrationEffects),
+		//EffectsModule.run(SampleEffects),
 		// dev environment only imports
 		DEV_IMPORTS,
 	],

@@ -10,15 +10,13 @@ export namespace RegistrationActions {
 		INITIALIZED: string;
 		INIT_FAILED: string;
 		ADD: string;
-		REGISTERED: string;
 	}
 
 	export const ActionTypes: IRegistrationActions = {
 		INIT: type(`${CATEGORY} Init`),
 		INITIALIZED: type(`${CATEGORY} Initialized`),
 		INIT_FAILED: type(`${CATEGORY} Init Failed`),
-		ADD: type(`${CATEGORY} Add`),
-		REGISTERED: type(`${CATEGORY} Registered`)
+		ADD: type(`${CATEGORY} Add`)
 	};
 
 	export class InitAction implements Action {
@@ -43,17 +41,10 @@ export namespace RegistrationActions {
 		constructor(public payload: string) { }
 	}
 
-	export class RegisteredAction implements Action {
-		type = ActionTypes.REGISTERED;
-
-		constructor(public payload: string) { }
-	}
-
 	export type Actions
 		= InitAction
 		| InitializedAction
 		| InitFailedAction
-		| AddAction
-		| RegisteredAction;
+		| AddAction;
 
 }

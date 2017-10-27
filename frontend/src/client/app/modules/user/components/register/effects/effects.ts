@@ -22,8 +22,8 @@ export class RegistrationEffects {
 		.map(action => {
 			let name = action.payload;
 			// analytics
-			this.registrationService.track(RegistrationActions.ActionTypes.REGISTERED, { label: name });
-			return new RegistrationActions.RegisteredAction(name);
+			this.registrationService.track(RegistrationActions.ActionTypes.ADD, { label: name });
+			return new RegistrationActions.AddAction(name);
 		});
 
 	constructor(

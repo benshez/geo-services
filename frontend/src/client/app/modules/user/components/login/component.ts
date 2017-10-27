@@ -54,4 +54,13 @@ export class LoginComponent implements OnInit {
 				this.router.navigate([this.returnUrl]);
 			});
 	}
+
+	navigate() {
+		// this.routerext.navigate(['/about'], {
+		// 	transition: {
+		// 		duration: 1000,
+		// 		name: 'slideTop',
+		// 	}
+		// });
+	}
 }

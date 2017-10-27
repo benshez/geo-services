@@ -11,7 +11,7 @@ export function reducer(
 				names: action.payload
 			});
 
-		case RegistrationActions.ActionTypes.REGISTERED:
+		case RegistrationActions.ActionTypes.ADD:
 			return (<any>Object).assign({}, state, {
 				names: [...state.names, action.payload]
 			});

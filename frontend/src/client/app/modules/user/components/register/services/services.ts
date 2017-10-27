@@ -17,7 +17,7 @@ export class RegistrationService extends Analytics {
 		this.category = RegistrationActions.CATEGORY;
 	}
 
-	getRoles(): Observable<Array<IRegistration>> {
+	getRoles(): Observable<Array<string>> {
 		return this.http.get(`${Config.IS_MOBILE_NATIVE() ? '/' : ''}assets/data.json`)
 			.map(res => res.json());
 	}

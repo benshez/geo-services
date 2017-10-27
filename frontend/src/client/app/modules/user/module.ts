@@ -23,6 +23,7 @@ export const USER_IMPORTS: any[] = [
 		CUSTOM_ELEMENTS_SCHEMA
 	],
 	exports: [
+		...USER_IMPORTS,
 		...USER_COMPONENTS
 	],
 	providers: [

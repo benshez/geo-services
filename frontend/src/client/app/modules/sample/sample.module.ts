@@ -15,26 +15,26 @@ import { MultilingualModule } from '../i18n/multilingual.module';
  */
 
 @NgModule({
-    imports: [
-        SharedModule,
-        MultilingualModule,
-    ],
-    providers: [
-        ...SAMPLE_PROVIDERS
-    ],
-    schemas: [
-        NO_ERRORS_SCHEMA,
-        CUSTOM_ELEMENTS_SCHEMA
-    ],
-    exports: [
-        SharedModule
-    ]
+	imports: [
+		SharedModule,
+		MultilingualModule,
+	],
+	providers: [
+		...SAMPLE_PROVIDERS
+	],
+	schemas: [
+		NO_ERRORS_SCHEMA,
+		CUSTOM_ELEMENTS_SCHEMA
+	],
+	exports: [
+		SharedModule
+	]
 })
 export class SampleModule {
 
-    constructor( @Optional() @SkipSelf() parentModule: SampleModule) {
-        if (parentModule) {
-            throw new Error('SampleModule already loaded; Import in root module only.');
-        }
-    }
+	constructor( @Optional() @SkipSelf() parentModule: SampleModule) {
+		if (parentModule) {
+			throw new Error('SampleModule already loaded; Import in root module only.');
+		}
+	}
 }
