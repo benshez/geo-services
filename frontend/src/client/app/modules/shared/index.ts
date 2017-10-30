@@ -24,14 +24,14 @@ import { LoaderService } from './components/loader/services/services';
 import { ApiService } from '../core/services/api/services';
 import { Locator } from '../map/services/service';
 import { UserGuard } from '../guards/user';
-import { RegistrationService } from '../user/components/register/index';
+import { UserService } from '../user/index';
 
 export const SHARED_PROVIDERS: any[] = [
 	LoaderService,
 	ApiService,
 	Locator,
 	UserGuard,
-	RegistrationService
+	UserService
 ];
 
 export * from './module';

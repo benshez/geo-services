@@ -1,5 +1,5 @@
-﻿import { Config } from '../../../../core/utils/config';
-import { RegistrationComponent } from '../component/component';
+﻿import { RegistrationComponent } from '../component';
+import { Config } from '../../../../core/utils/config';
 
 export const RegistrationRoutes: Array<any> = [
 	{

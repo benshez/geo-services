@@ -1,7 +1,7 @@
 // nativescript
 import {
-    NativeScriptRouterModule,
-    RouterExtensions as TNSRouterExtensions
+	NativeScriptRouterModule,
+	RouterExtensions as TNSRouterExtensions
 } from 'nativescript-angular/router';
 import { SegmentedBarItem } from 'tns-core-modules/ui/segmented-bar';
 
@@ -14,20 +14,20 @@ import { EffectsModule } from '@ngrx/effects';
 
 // app
 import {
-    WindowService,
-    StorageService,
-    ConsoleService,
-    RouterExtensions,
-    AppService
+	WindowService,
+	StorageService,
+	ConsoleService,
+	RouterExtensions,
+	AppService
 } from './app/modules/core/index';
 import { AppComponent } from './app/components/component';
 import { APP_ROUTES } from './app/components/routes';
 import { NS_LOCATION_ROUTES, NS_MAP_ROUTES } from './mobile/map/routes/mobile/routes';
 
 export const NS_ROUTES: Array<any> = [
-    ...APP_ROUTES,
-    ...NS_MAP_ROUTES,
-    ...NS_LOCATION_ROUTES
+	...APP_ROUTES,
+	...NS_MAP_ROUTES,
+	...NS_LOCATION_ROUTES
 ];
 
 // feature modules
@@ -59,46 +59,46 @@ import { Languages, LanguageViewHelper } from './app/modules/i18n/index';
 
 // helper for SegmentedBar view bindings in lang-switcher shared component
 export function segmentViewHelper(languages) {
-    let segmentItems = [];
-    for (let lang of languages) {
-        // {N} requires items to be SegmentedBarItem class
-        let item = new SegmentedBarItem();
-        item.title = lang.title;
-        (<any>item).code = lang.code;
-        segmentItems.push(item);
-    }
-    return segmentItems;
+	let segmentItems = [];
+	for (let lang of languages) {
+		// {N} requires items to be SegmentedBarItem class
+		let item = new SegmentedBarItem();
+		item.title = lang.title;
+		(<any>item).code = lang.code;
+		segmentItems.push(item);
+	}
+	return segmentItems;
 }
 
 @NgModule({
-    imports: [
-        CoreModule.forRoot([
-            { provide: WindowService, useClass: WindowNative },
-            { provide: StorageService, useClass: StorageNative },
-            { provide: ConsoleService, useFactory: (cons) },
-            { provide: LogTarget, multi: true, deps: [ConsoleService], useFactory: (consoleLogTarget) }
-        ]),
-        ComponentsModule,
-        NativeScriptRouterModule.forRoot(<any>NS_ROUTES),
-        StoreModule.provideStore(AppReducer),
-        EffectsModule.run(MultilingualEffects),
-        EffectsModule.run(SampleEffects)
-    ],
-    providers: [
-        NS_ANALYTICS_PROVIDERS,
-        { provide: RouterExtensions, useClass: TNSRouterExtensions },
-        { provide: AppService, useClass: NSAppService },
-        // i18n
-        { provide: Languages, useValue: Config.GET_SUPPORTED_LANGUAGES() },
-        { provide: LanguageViewHelper, deps: [Languages], useFactory: (segmentViewHelper) }
-    ],
-    declarations: [
-        
-    ],
-    schemas: [
-        NO_ERRORS_SCHEMA,
-        CUSTOM_ELEMENTS_SCHEMA
-    ],
-    bootstrap: [AppComponent]
+	imports: [
+		CoreModule.forRoot([
+			{ provide: WindowService, useClass: WindowNative },
+			{ provide: StorageService, useClass: StorageNative },
+			{ provide: ConsoleService, useFactory: (cons) },
+			{ provide: LogTarget, multi: true, deps: [ConsoleService], useFactory: (consoleLogTarget) }
+		]),
+		ComponentsModule,
+		NativeScriptRouterModule.forRoot(<any>NS_ROUTES),
+		StoreModule.provideStore(AppReducer),
+		EffectsModule.run(MultilingualEffects),
+		EffectsModule.run(SampleEffects)
+	],
+	providers: [
+		NS_ANALYTICS_PROVIDERS,
+		{ provide: RouterExtensions, useClass: TNSRouterExtensions },
+		{ provide: AppService, useClass: NSAppService },
+		// i18n
+		{ provide: Languages, useValue: Config.GET_SUPPORTED_LANGUAGES() },
+		{ provide: LanguageViewHelper, deps: [Languages], useFactory: (segmentViewHelper) }
+	],
+	declarations: [
+
+	],
+	schemas: [
+		NO_ERRORS_SCHEMA,
+		CUSTOM_ELEMENTS_SCHEMA
+	],
+	bootstrap: [AppComponent]
 })
 export class NativeModule { }

@@ -3,10 +3,12 @@ import { CommonModule } from '@angular/common';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { EffectsModule } from '@ngrx/effects';
 
 // modules
 import { MultilingualModule } from '../i18n/index';
 import { SHARED_COMPONENTS, SHARED_PROVIDERS } from './index';
+import { UserEffects } from '../user/effects/effects';
 
 const SHARED_MODULES: any[] = [
 	CommonModule,
@@ -26,7 +28,8 @@ const SHARED_MODULES: any[] = [
 
 @NgModule({
 	imports: [
-		...SHARED_MODULES
+		...SHARED_MODULES,
+		EffectsModule.run(UserEffects),
 	],
 	declarations: [
 		...SHARED_COMPONENTS
@@ -36,7 +39,7 @@ const SHARED_MODULES: any[] = [
 		...SHARED_MODULES
 	],
 	providers: [
-		...SHARED_PROVIDERS
+		//...SHARED_PROVIDERS
 	]
 })
 export class SharedModule { }

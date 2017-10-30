@@ -4,7 +4,7 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { Router, ActivatedRoute } from '@angular/router';
 
 // app
-import { User } from '../../index';
+import { UserModel } from '../../index';
 import { StorageService, StorageKey, Config, ApiServiceParametersOptions } from '../../../core/index';
 import { ApiService } from '../../../core/services/api/services';
 
@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
 
 	private model: any = {};
 	private errorMessage: string;
-	private user: User;
+	private user: UserModel;
 	private returnUrl: string;
 
 	constructor(public apiService: ApiService, private storage: StorageService, private fb: FormBuilder,

@@ -10,8 +10,8 @@ import { Observable } from 'rxjs/Observable';
 import * as fromMultilingual from '../i18n/index';
 import * as fromSample from '../sample/index';
 import * as fromTypAhead from '../type-ahead/index';
-import * as fromRegistration from '../user/components/register/index';
-import { IRegistrationState } from '../user/components/register/index';
+import * as fromUser from '../user/index';
+import { IUserState } from '../user/index';
 
 // import { combineLatest } from 'rxjs/observable/combineLatest';
 /**
@@ -47,9 +47,9 @@ import { IRegistrationState } from '../user/components/register/index';
  */
 export interface IAppState {
 	i18n: fromMultilingual.IMultilingualState;
-	sample: fromSample.ISampleState;
+	//sample: fromSample.ISampleState;
 	typeAheadItems: fromTypAhead.IKeyValueDictionary;
-	registratrion: fromRegistration.IRegistrationState;
+	user: fromUser.IUserState;
 }
 
 /**
@@ -61,8 +61,8 @@ export interface IAppState {
  */
 const reducers = {
 	i18n: fromMultilingual.reducer,
-	sample: fromSample.reducer,
-	registration: fromRegistration.reducer
+	//sample: fromSample.reducer,
+	user: fromUser.reducer
 	//typeAheadItems: fromTypAhead.reducer
 };
 
@@ -84,18 +84,18 @@ export function getMultilingualState(state$: Observable<IAppState>): Observable<
 	return state$.select(s => s.i18n);
 }
 
-export function getNameListState(state$: Observable<IAppState>): Observable<fromSample.ISampleState> {
-	return state$.select(s => s.sample);
-}
+// export function getNameListState(state$: Observable<IAppState>): Observable<fromSample.ISampleState> {
+// 	return state$.select(s => s.sample);
+// }
 
-export function getRegistrationState(state$: Observable<IAppState>): Observable<fromRegistration.IRegistrationState> {
-	return state$.select(s => s.sample);
+export function getUserState(state$: Observable<IAppState>): Observable<fromUser.IUserState> {
+	return state$.select(s => s.user);
 }
 // export function getTypeAheadListState(state$: Observable<IAppState>): Observable<fromTypAhead.IKeyValueDictionary> {
 //     return state$.select(s => s.typeAheadItems);
 // }
 
 export const getLang: any = compose(fromMultilingual.getLang, getMultilingualState);
-export const getNames: any = compose(fromSample.getNames, getNameListState);
-export const getRegistrations: any = compose(fromRegistration.getRegistrations, getRegistrationState);
+//export const getNames: any = compose(fromSample.getNames, getNameListState);
+export const getUser: any = compose(fromUser.getUsers, getUserState);
 //export const getTypeAheadList: any = compose(fromTypAhead.getTypeAheadListState, getTypeAheadListState);

@@ -3,12 +3,12 @@ import { Headers, Http, RequestMethod, RequestOptions, RequestOptionsArgs, Respo
 import * as _ from 'lodash';
 import { Observable } from 'rxjs/Rx';
 
-import { IUser } from '../../../../../../../src/client/app/modules/user/components/login/interfaces/interfaces';
 import { StorageKey, StorageService } from '../../../core/index';
 import { LoaderService } from '../../../shared/components/loader/services/services';
 import { Config } from '../../utils/index';
 import { LogService } from '../logging/index';
 import { ApiServiceOptions } from './models';
+import { IUser } from '../../../user/index';
 
 @Injectable()
 export class ApiService {
