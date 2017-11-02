@@ -1,6 +1,1 @@
 # GeoService
-
-### LICENCE
-
-MIT
-

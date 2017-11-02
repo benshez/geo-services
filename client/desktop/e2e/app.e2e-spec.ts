@@ -1,14 +1,14 @@
-import { AngularElectronPage } from './app.po';
-import { browser, element, by } from 'protractor';
+import { ElectronAngularBoilerplatePage } from './app.po';
 
-describe('angular-electron App', () => {
-  let page: AngularElectronPage;
+describe('electron-angular-boilerplate App', () => {
+  let page: ElectronAngularBoilerplatePage;
 
   beforeEach(() => {
-    page = new AngularElectronPage();
+    page = new ElectronAngularBoilerplatePage();
   });
 
-  it('should display message saying Yo!', () => {
-    expect(element(by.css('p')).getText()).toMatch('Yo!');
+  it('should display message saying app works', () => {
+    page.navigateTo();
+    expect(page.getParagraphText()).toEqual('app works!');
   });
 });
