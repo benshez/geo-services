@@ -1,5 +1,5 @@
 # GeoService Web Application
 
-# License
+## License
 
 [MIT](/LICENSE)
