@@ -1,7 +1,6 @@
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 
-
 export const SHARED_COMPONENTS: Array<any> = [
   HomeComponent,
   AboutComponent

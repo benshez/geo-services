@@ -6,9 +6,11 @@
     "url": "https://github.com/benshez/geo-services"
   },
   "author": "Ben van Heerden <BenvanHeerden>",
-  "contributors": [{
-    "name": "Sheryl van Heerden <SherylvanHeerden>"
-  }],
+  "contributors": [
+    {
+      "name": "Sheryl van Heerden <SherylvanHeerden>"
+    }
+  ],
   "private": true,
   "main": "lib/index.js",
   "scripts": {
@@ -41,7 +43,7 @@
     "angulartics2": "^3.2.0",
     "mapbox-gl": "^0.41.0",
     "core-js": "^2.4.1",
-    "rxjs": "^5.1.0",
+    "rxjs": "^5.5.2",
     "zone.js": "^0.8.4"
   },
   "devDependencies": {
@@ -80,7 +82,7 @@
     "rollup-plugin-uglify": "^1.0.1",
     "source-map-explorer": "^1.3.2",
     "tslint": "~4.5.0",
-    "typescript": "~2.2.0",
+    "typescript": "2.4.0",
     "ts-node": "~2.0.0",
     "angular2-template-loader": "^0.6.0",
     "awesome-typescript-loader": "^3.0.4",
