@@ -1,1 +1,1 @@
-# GeoService
+# GeoService Desktop Application

@@ -1,10 +1,11 @@
 import 'core-js/client/shim';
 import 'reflect-metadata';
 require('zone.js/dist/zone');
+import { environment } from 'geoservice-shared/environments/environment';
 
 import 'ts-helpers';
 
-if (process.env.ENV === 'build') {
+if (environment.production) {
   // Production
 
 } else {
