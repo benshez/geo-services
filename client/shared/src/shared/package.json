@@ -1,0 +1,16 @@
+{
+  "name": "geoservice-shared",
+  "version": "1.0.0",
+  "license": "MIT",
+  "repository": {
+    "url": "https://github.com/benshez/geo-services"
+  },
+  "author": "Ben van Heerden <BenvanHeerden>",
+  "contributors": [
+    {
+      "name": "Sheryl van Heerden <SherylvanHeerden>"
+    }
+  ],
+  "private": true,
+  "main": "lib/index.ts"
+}

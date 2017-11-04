@@ -6,12 +6,20 @@
     "url": "https://github.com/benshez/geo-services"
   },
   "author": "Ben van Heerden <BenvanHeerden>",
-  "contributors": [
-    {
-      "name": "Sheryl van Heerden <SherylvanHeerden>"
-    }
-  ],
+  "contributors": [{
+    "name": "Sheryl van Heerden <SherylvanHeerden>"
+  }],
   "private": true,
+  "main": "lib/index.js",
+  "scripts": {
+    "build:clean": "rimraf dist lib",
+    "build:ensure": "mkdir lib",
+    "build:js": "npm run build:ensure && babel -d lib/ src/ -s inline",
+    "build": "npm run build:clean && npm run build:js",
+    "watch:js": "npm run build:js -- -w",
+    "watch": "npm run build && npm run watch:js",
+    "postinstall": "npm run build"
+  },
   "dependencies": {
     "@angular/common": "~4.3.1",
     "@angular/compiler": "~4.3.1",

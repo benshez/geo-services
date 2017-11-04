@@ -6,11 +6,9 @@
     "url": "https://github.com/benshez/geo-services"
   },
   "author": "Ben van Heerden <BenvanHeerden>",
-  "contributors": [
-    {
-      "name": "Sheryl van Heerden <SherylvanHeerden>"
-    }
-  ],
+  "contributors": [{
+    "name": "Sheryl van Heerden <SherylvanHeerden>"
+  }],
   "productName": "GeoService Desktop",
   "description": "GeoService Desktop Application",
   "private": true,

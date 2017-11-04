@@ -1,20 +1,27 @@
+import { NgModule, ApplicationRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
+import { FormsModule } from '@angular/forms';
 
-import { AppComponent } from './app.component';
+import { APP_COMPONENTS, WEB_COMPONENTS, APP_ROUTES } from './index';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
   imports: [
     BrowserModule,
-    FormsModule,
-    HttpModule
+    RouterModule.forRoot(APP_ROUTES),
+    HttpModule,
+    FormsModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  declarations: [
+    WEB_COMPONENTS
+  ],
+  providers: [
+
+  ],
+  bootstrap: [APP_COMPONENTS]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(public appRef: ApplicationRef) { }
+}
+
