@@ -1,3 +1,5 @@
-# NativeScript Angular Animations Examples
+# GeoService NativeScript Application
 
-A NativeScript Angular applications showcasing the [New Wave of Animation Features in Angular](https://www.yearofmoo.com/2017/06/new-wave-of-animation-features.html). 
+## License
+
+[MIT](/LICENSE)
