@@ -32,7 +32,11 @@ const SHARED_MODULES: any[] = [
 		EffectsModule.run(UserEffects),
 	],
 	declarations: [
+<<<<<<< HEAD
 		SHARED_COMPONENTS
+=======
+		...SHARED_COMPONENTS
+>>>>>>> d8012793245969614402d045edeab3107a54c7ca
 	],
 	exports: [
 		...SHARED_COMPONENTS,
