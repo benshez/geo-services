@@ -12,6 +12,7 @@ export class StorageService implements IStorage {
 	}
 
 	getItem(key: StorageKey): any {
+		debugger;
 		const value = localStorage.getItem('' + key);
 		return value === null ? null : JSON.parse(value);
 	}

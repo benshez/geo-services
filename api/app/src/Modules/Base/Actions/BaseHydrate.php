@@ -52,7 +52,8 @@ class BaseHydrate extends BaseAction
             
             if ($annotation && method_exists($entity, $setter)) {
                 if (isset($args[$key])) {
-                    $entity->$setter($args[Inflector::tableize($annotation->name)]);
+                    //$entity->$setter($args[Inflector::tableize($annotation->name)]);
+                    $entity->$setter($args[$key]);
                 }
             }
         }

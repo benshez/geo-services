@@ -15,8 +15,8 @@ import { BuildType, ExtendPackages, InjectableDependency } from './seed.config.i
  * same name in "./projects". For further information take a
  * look at the documentation:
  *
- * 1) https://github.com/mgechev/angular-seed/tree/master/tools
- * 2) https://github.com/mgechev/angular-seed/wiki
+ * 1) https://github.com/mgechev/geoservice/tree/master/tools
+ * 2) https://github.com/mgechev/geoservice/wiki
  *
  *****************************************************************/
 
@@ -31,8 +31,8 @@ import { BuildType, ExtendPackages, InjectableDependency } from './seed.config.i
  * same name in "./projects". For further information take a
  * look at the documentation:
  *
- * 1) https://github.com/mgechev/angular-seed/tree/master/tools
- * 2) https://github.com/mgechev/angular-seed/wiki
+ * 1) https://github.com/mgechev/geoservice/tree/master/tools
+ * 2) https://github.com/mgechev/geoservice/wiki
  *
  *****************************************************************/
 
@@ -181,7 +181,7 @@ export class SeedConfig {
      * `index.html`.
      * @type {string}
      */
-    APP_TITLE = 'Welcome to angular-seed!';
+    APP_TITLE = 'Welcome to geoservice!';
 
     /**
      * Tracking ID.

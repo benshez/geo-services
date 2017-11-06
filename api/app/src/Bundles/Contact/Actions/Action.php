@@ -106,7 +106,7 @@ class Action extends BaseAction
      */
     public function contactToArray(Contact $args)
     {
-        return array(
+        $contact = array(
             'id' => $args->getId(),
             'entity' => $args->getEntity()->getId(),
             'role' => $args->getRole()->getId(),
@@ -128,5 +128,7 @@ class Action extends BaseAction
             'token_char' => $args->getTokenChar(),
             'token_expiry' => $args->getTokenExpiry(),
         );
+        
+        return $contact;
     }
 }

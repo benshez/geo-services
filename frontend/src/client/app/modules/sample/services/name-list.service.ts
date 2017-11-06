@@ -15,16 +15,16 @@ import { NameList } from '../actions/index';
 @Injectable()
 export class NameListService extends Analytics {
 
-    constructor(
-        public analytics: AnalyticsService,
-        private http: Http
-    ) {
-        super(analytics);
-        this.category = NameList.CATEGORY;
-    }
+	constructor(
+		public analytics: AnalyticsService,
+		private http: Http
+	) {
+		super(analytics);
+		this.category = NameList.CATEGORY;
+	}
 
-    getNames(): Observable<Array<string>> {
-        return this.http.get(`${Config.IS_MOBILE_NATIVE() ? '/' : ''}assets/data.json`)
-            .map(res => res.json());
-    }
+	getNames(): Observable<Array<string>> {
+		return this.http.get(`${Config.IS_MOBILE_NATIVE() ? '/' : ''}assets/data.json`)
+			.map(res => res.json());
+	}
 }

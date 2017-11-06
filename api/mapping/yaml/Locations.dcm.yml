@@ -26,16 +26,18 @@ Locations:
                 strategy: IDENTITY
     fields:
         ipFrom:
-            type: integer
+            type: string
             nullable: true
+            length: 18
             options:
-                unsigned: true
+                fixed: true
             column: ip_from
         ipTo:
-            type: integer
+            type: string
             nullable: true
+            length: 18
             options:
-                unsigned: true
+                fixed: true
             column: ip_to
         countryCode:
             type: string

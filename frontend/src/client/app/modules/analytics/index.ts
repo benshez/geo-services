@@ -1,7 +1,7 @@
 import { AnalyticsService } from './service';
 
 export const ANALYTICS_PROVIDERS: Array<any> = [
-    AnalyticsService
+	AnalyticsService
 ];
 
 export * from './service';

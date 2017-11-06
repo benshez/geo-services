@@ -35,7 +35,7 @@ class TokenAuthentication extends ZendAcl
         $this->roles = $roles->onGet(
             array(
                 'id' => null,
-                'offset' => 1
+                'offset' => 10
             )
         );
     }

@@ -52,13 +52,19 @@ class Save extends Action
         );
         
         $hydrate = new BaseHydrate($this->getContainer());
-        
-        $location = $hydrate->hydrate($location, $args);
-        
+
+        $location = $this->onBaseActionSave()->save(
+            $hydrate->hydrate($location, $args)
+        );
+
+        if (!$location) {
+            return false;
+        }
+
         if ($location->getId()) {
             $location = $this->onBaseActionGet()->get(
                 $this->getReference(self::REFERENCE),
-                [self::KEY => $location->getId()]
+                array(self::KEY => $location->getId())
             );
             return $location;
         }

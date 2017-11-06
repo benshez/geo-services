@@ -11,6 +11,9 @@ Contact:
         fk_contact_entity_id_entities_id_idx:
             columns:
                 - entity_id
+        idx_token_char:
+            columns:
+                - token_char
     uniqueConstraints:
         email_UNIQUE:
             columns:

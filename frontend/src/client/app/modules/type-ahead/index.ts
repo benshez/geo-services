@@ -1,7 +1,7 @@
 ﻿import { TypeAheadComponent } from './components/component';
 
 export const TYPE_AHEAD_COMPONENTS: any[] = [
-    TypeAheadComponent
+	TypeAheadComponent
 ];
 
 export const TYPE_AHEAD_PROVIDERS: any[] = [

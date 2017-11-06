@@ -3,12 +3,12 @@ import { Headers, Http, RequestMethod, RequestOptions, RequestOptionsArgs, Respo
 import * as _ from 'lodash';
 import { Observable } from 'rxjs/Rx';
 
-import { IUser } from '../../../../../../../src/client/app/modules/user/components/login/interfaces/interfaces';
 import { StorageKey, StorageService } from '../../../core/index';
 import { LoaderService } from '../../../shared/components/loader/services/services';
 import { Config } from '../../utils/index';
 import { LogService } from '../logging/index';
 import { ApiServiceOptions } from './models';
+import { IUser } from '../../../user/index';
 
 @Injectable()
 export class ApiService {
@@ -17,7 +17,8 @@ export class ApiService {
 	private user: IUser = this.storage.getItem(StorageKey.USER_DETAIL);
 
 	private headers: Headers = new Headers({
-		'Authorization': this.user.token_char
+		'Content-Type': 'application/json',
+		'Authorization': (this.user) ? JSON.parse(this.storage.getItem(StorageKey.USER_DETAIL)).token_char : null
 	});
 	private options: RequestOptions = new RequestOptions({
 		headers: this.headers,
@@ -74,6 +75,17 @@ export class ApiService {
 
 		//let api: string = (parameters.concatApi) ? Config.ENVIRONMENT().API.concat(parameters.url) : parameters.url;
 		//let api: string = (parameters.concatApi) ? 'http://localhost:8000/api/v1/'.concat(parameters.url) : parameters.url;
+		let token: IUser = JSON.parse(this.storage.getItem(StorageKey.USER_DETAIL));
+
+		let header: Headers = new Headers({
+			'Content-Type': 'application/json',
+			'Authorization': (token) ? token.token_char : null
+		});
+		let option: RequestOptions = new RequestOptions({
+			headers: header,
+			method: 'Get'
+		});
+
 		params = {};
 		if (params) {
 			const urlSearchParams: URLSearchParams = new URLSearchParams();
@@ -86,7 +98,7 @@ export class ApiService {
 		//this.logger.info(api);
 
 		return this.http
-			.get(`${this.api}/${endpoint}`, this.options.merge(options))
+			.get(`${this.api}/${endpoint}`, option.merge(options))
 			.catch(this.onCatch)
 			.finally(() => {
 				this.onEnd();

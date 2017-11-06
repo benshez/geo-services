@@ -31,11 +31,11 @@ class Add extends Action
     const EMAIL = 'email';
     
     /**
-     * Save Locations
+     * Save Location
      *
-     * @param array $args Locations.
+     * @param array $args Location.
      *
-     * @return Locations
+     * @return Location
      */
     public function onAdd(array $args)
     {
@@ -45,24 +45,41 @@ class Add extends Action
             $this->getValidator($validator),
             self::REFERENCE,
             'add',
-            $args
+            $args['location']
         )) {
             $messages = $this->getValidator($validator)->getMessagesAray();
             return $messages;
         }
 
-        $locations = new Locations();
+        $location = new Locations();
         
         $hydrate = new BaseHydrate($this->getContainer());
         
-        $locations = $hydrate->hydrate($locations, $args);
-        
-        if ($locations->getId()) {
-            $locations = $this->onBaseActionGet()->get(
-                $this->getReference(self::REFERENCE),
-                [self::KEY => $locations->getId()]
+        $user = $this->onBaseActionGet()->get(
+            $this->getReference('contact'),
+            array('id' => $args['user']['id'])
+        );
+
+        if ($user && $user->getEnabled()) {
+            $location->setUser($user);
+            
+            $location = $this->onBaseActionSave()->save(
+                $hydrate->hydrate($location, $args['location'])
             );
-            return $locations;
+        } else {
+            $location = false;
+        }
+
+        if (!$location) {
+            return false;
+        }
+
+        if ($location->getId()) {
+            $location = $this->onBaseActionGet()->get(
+                $this->getReference(self::REFERENCE),
+                array(self::KEY => $location->getId())
+            );
+            return $location;
         }
 
         return false;

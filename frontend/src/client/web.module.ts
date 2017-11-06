@@ -18,114 +18,115 @@ import { SHARED_ROUTES } from './app/modules/shared/routes';
 import { WEB_MAP_ROUTES, MAP_LOCATION_ROUTES } from './app/modules/map/routes/web/routes';
 
 export const WEB_ROUTES: Array<any> = [
-    ...SHARED_ROUTES,
-    ...WEB_MAP_ROUTES,
-    ...MAP_LOCATION_ROUTES
+	...SHARED_ROUTES,
+	...WEB_MAP_ROUTES,
+	...MAP_LOCATION_ROUTES
 ];
 
 // feature modules
 import {
-    WindowService,
-    StorageService,
-    ConsoleService,
-    createConsoleTarget,
-    provideConsoleTarget,
-    LogTarget,
-    LogLevel,
-    ConsoleTarget,
-    ApiServiceOptions,
-    ApiServiceParametersOptions
+	WindowService,
+	StorageService,
+	ConsoleService,
+	createConsoleTarget,
+	provideConsoleTarget,
+	LogTarget,
+	LogLevel,
+	ConsoleTarget,
+	ApiServiceOptions,
+	ApiServiceParametersOptions
 } from './app/modules/core/services/index';
 import { CoreModule, Config } from './app/modules/core/index';
 import { AnalyticsModule } from './app/modules/analytics/index';
 import { MultilingualModule, Languages, translateLoaderFactory, MultilingualEffects } from './app/modules/i18n/index';
-import { SampleModule, SampleEffects } from './app/modules/sample/index';
 
+//import { SampleModule, SampleEffects } from './app/modules/sample/index';
+
+import { SHARED_PROVIDERS } from './app/modules/shared/index';
 import { WebMapModule } from './app/modules/map/module';
 import { AppReducer } from './app/modules/ngrx/index';
+import { SharedModule } from './app/modules/shared/module';
 
 // config
 Config.PLATFORM_TARGET = Config.PLATFORMS.WEB;
 if (String('<%= BUILD_TYPE %>') === 'dev') {
-    // only output console logging in dev mode
-    Config.DEBUG.LEVEL_4 = true;
+	// only output console logging in dev mode
+	Config.DEBUG.LEVEL_4 = true;
 }
 
 let routerModule = RouterModule.forRoot(WEB_ROUTES);
 
 if (String('<%= TARGET_DESKTOP %>') === 'true') {
-    Config.PLATFORM_TARGET = Config.PLATFORMS.DESKTOP;
-    // desktop (electron) must use hash
-    routerModule = RouterModule.forRoot(WEB_ROUTES, { useHash: true });
+	Config.PLATFORM_TARGET = Config.PLATFORMS.DESKTOP;
+	// desktop (electron) must use hash
+	routerModule = RouterModule.forRoot(WEB_ROUTES, { useHash: true });
 }
 
 declare var window, console, localStorage;
 
 // For AoT compilation to work:
 export function win() {
-    return window;
+	return window;
 }
 export function storage() {
-    return localStorage;
+	return localStorage;
 }
 export function cons() {
-    return console;
+	return console;
 }
 export function consoleLogTarget(consoleService: ConsoleService) {
-    return new ConsoleTarget(consoleService, { minLogLevel: LogLevel.Debug });
+	return new ConsoleTarget(consoleService, { minLogLevel: LogLevel.Debug });
 }
 
 let DEV_IMPORTS: any[] = [];
 
 if (String('<%= BUILD_TYPE %>') === 'dev') {
-    DEV_IMPORTS = [
-        ...DEV_IMPORTS,
-        StoreDevtoolsModule.instrumentOnlyWithExtension()
-    ];
+	DEV_IMPORTS = [
+		...DEV_IMPORTS,
+		StoreDevtoolsModule.instrumentOnlyWithExtension()
+	];
 }
 
 @NgModule({
-    imports: [
-        BrowserModule,
-        CoreModule.forRoot([
-            { provide: WindowService, useFactory: (win) },
-            { provide: StorageService, useFactory: (storage) },
-            { provide: ConsoleService, useFactory: (cons) },
-            { provide: LogTarget, useFactory: (consoleLogTarget), deps: [ConsoleService], multi: true },
-            { provide: ApiServiceOptions },
-            { provide: ApiServiceParametersOptions }
-        ]),
-        routerModule,
-        AnalyticsModule,
-        MultilingualModule.forRoot([{
-            provide: TranslateLoader,
-            deps: [Http],
-            useFactory: (translateLoaderFactory)
-        }]),
-        SampleModule,
-        // configure app state
-        StoreModule.provideStore(AppReducer),
-        EffectsModule.run(MultilingualEffects),
-        EffectsModule.run(SampleEffects),
-        // dev environment only imports
-        DEV_IMPORTS,
-    ],
-    declarations: [
-        APP_COMPONENTS,
-        WEB_MAP_COMPONENTS
-    ],
-    providers: [
-        {
-            provide: APP_BASE_HREF,
-            useValue: '<%= APP_BASE %>'
-        },
-        // override with supported languages
-        {
-            provide: Languages,
-            useValue: Config.GET_SUPPORTED_LANGUAGES()
-        }
-    ],
-    bootstrap: [AppComponent]
+	imports: [
+		BrowserModule,
+		CoreModule.forRoot([
+			{ provide: WindowService, useFactory: (win) },
+			{ provide: StorageService, useFactory: (storage) },
+			{ provide: ConsoleService, useFactory: (cons) },
+			{ provide: LogTarget, useFactory: (consoleLogTarget), deps: [ConsoleService], multi: true },
+			{ provide: ApiServiceOptions },
+			{ provide: ApiServiceParametersOptions }
+		]),
+		routerModule,
+		AnalyticsModule,
+		MultilingualModule.forRoot([{
+			provide: TranslateLoader,
+			deps: [Http],
+			useFactory: (translateLoaderFactory)
+		}]),
+		SharedModule,
+		StoreModule.provideStore(AppReducer),
+		EffectsModule.run(MultilingualEffects),
+		DEV_IMPORTS,
+	],
+	declarations: [
+		APP_COMPONENTS,
+		WEB_MAP_COMPONENTS
+	],
+	providers: [
+		{
+			provide: APP_BASE_HREF,
+			useValue: '<%= APP_BASE %>'
+		},
+		// override with supported languages
+		{
+			provide: Languages,
+			useValue: Config.GET_SUPPORTED_LANGUAGES()
+		},
+		SHARED_PROVIDERS
+	],
+	bootstrap: [AppComponent]
 })
 
 export class WebModule { }

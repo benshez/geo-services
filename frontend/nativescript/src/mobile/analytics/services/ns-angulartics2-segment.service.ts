@@ -6,7 +6,7 @@ import { Angulartics2, Angulartics2Segment } from 'angulartics2';
 
 // TODO: This is a wip at the moment
 // Will implement native segment sdk soon
-// https://github.com/NathanWalker/nativescript-segment/issues/1
+// https://github.com/BenvanHeerden/nativescript-segment/issues/1
 
 @Injectable()
 export class NSAngulartics2Segment extends Angulartics2Segment {

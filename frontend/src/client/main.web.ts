@@ -13,16 +13,16 @@ import { WebModule } from './web.module';
 
 // example of how to use build variables to determine environment
 if (String('<%= BUILD_TYPE %>') === 'prod' || String('<%= TARGET_DESKTOP_BUILD %>') === 'true') {
-  enableProdMode();
+	enableProdMode();
 }
 
-// NOTE: Commented lines come from parent (angular-seed)
+// NOTE: Commented lines come from parent (geoservice)
 // TODO: In future, may pivot from ng2-translate to parent seed implementation
 // Compile and launch the module with i18n providers
 // let TP = new TranslationProviders();
 // TP.getTranslationFile().then((providers: any) => {
-  // const options: any = { providers };
-  platformBrowserDynamic().bootstrapModule(WebModule/*, options*/);
+// const options: any = { providers };
+platformBrowserDynamic().bootstrapModule(WebModule/*, options*/);
 // });
 
 // In order to start the Service Worker located at "/worker-basic.[min.]js"

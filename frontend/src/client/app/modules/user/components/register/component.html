@@ -1,0 +1,13 @@
+<h2>{{'REGISTER' | translate}}</h2>
+<form [formGroup]="form">
+	<input label="Username" type="text" formControlName="email" floating-label />
+
+	<input label="Password" type="password" formControlName="password" floating-label />
+
+	<p>
+		<button mdl-button (click)="login()" [disabled]="!form.valid" mdl-button-type="raised" mdl-ripple mdl-colored="primary">Login</button>
+	</p>
+
+	<div *ngIf="error" class="alert alert-danger">{{error}}</div>
+
+</form>

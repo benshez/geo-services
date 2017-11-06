@@ -16,11 +16,9 @@ require_once 'dependencies.php';
 // Register middleware
 require_once 'middleware.php';
 
-$version = $settings['settings']['version'];
-
-$routes = 'routes' . $version;
+$routes = $settings['settings']['routes']['routes'];
 
 // Register routes
-new \GeoService\Modules\Routes\Routes($app, $settings['settings'][$routes]);
+new \GeoService\Modules\Routes\Routes($app, $routes);
 
 $app->run();
