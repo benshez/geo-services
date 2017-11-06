@@ -48,8 +48,8 @@ module.exports = function makeWebpackConfig() {
      * Reference: http://webpack.github.io/docs/configuration.html#entry
      */
     config.entry = isTest ? {} : {
-      'polyfills': './src/polyfills.ts',
-      'vendor': './src/vendor.ts',
+      'polyfills': './src/public/assets/polyfills.ts',
+      'vendor': './src/public/assets/vendor.ts',
       'app': './src/main.ts' // our angular app
     };
   }
@@ -140,7 +140,7 @@ module.exports = function makeWebpackConfig() {
       // all css required in src/app files will be merged in js files
       {
         test: /\.(scss|sass)$/,
-        exclude: root('src', 'style'),
+        exclude: root('src', 'public/assets'),
         loader: 'raw-loader!postcss-loader!sass-loader'
       },
 

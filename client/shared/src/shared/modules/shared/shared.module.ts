@@ -3,13 +3,21 @@ import { CommonModule } from '@angular/common';
 import { HttpModule } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { CoreModule } from '../core/core.module';
+import {
+  WindowService,
+  StorageService,
+  ConsoleService,
+  ConsoleTarget,
+  LogLevel,
+  LogTarget
+} from '../core/services/index';
 
 // modules
 import {
   SHARED_COMPONENTS,
   SHARED_PROVIDERS
 } from './index';
-
 
 export const SHARED_MODULES: Array<any> = [
   CommonModule,
@@ -19,6 +27,21 @@ export const SHARED_MODULES: Array<any> = [
   RouterModule
 ];
 
+declare var window, console, localStorage;
+
+export function win() {
+  return window;
+}
+export function storage() {
+  return localStorage;
+}
+export function cons() {
+  return console;
+}
+export function consoleLogTarget(consoleService: ConsoleService) {
+  return new ConsoleTarget(consoleService, { minLogLevel: LogLevel.Debug });
+}
+
 /**
  * SharedModule
  * Only for shared components, directives and pipes
@@ -27,14 +50,21 @@ export const SHARED_MODULES: Array<any> = [
  */
 @NgModule({
   imports: [
+    CoreModule.forRoot([
+      { provide: WindowService, useFactory: (win) },
+      { provide: StorageService, useFactory: (storage) },
+      { provide: ConsoleService, useFactory: (cons) },
+      { provide: LogTarget, useFactory: (consoleLogTarget), deps: [ConsoleService], multi: true }
+    ]),
     ...SHARED_MODULES
   ],
   declarations: [
     ...SHARED_COMPONENTS
   ],
   exports: [
-    ...SHARED_COMPONENTS,
-    ...SHARED_MODULES
+    CoreModule,
+    ...SHARED_MODULES,
+    ...SHARED_COMPONENTS
   ],
   providers: [
     ...SHARED_PROVIDERS

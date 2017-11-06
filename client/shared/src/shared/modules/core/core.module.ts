@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 
 // module
-import { SharedModule } from '../shared/shared.module';
 import {
   CORE_DIRECTIVES,
   CORE_PROVIDERS
@@ -18,18 +17,15 @@ import {
  */
 @NgModule({
   imports: [
-    SharedModule
   ],
   declarations: [
     ...CORE_DIRECTIVES
   ],
   exports: [
-    SharedModule,
     ...CORE_DIRECTIVES
   ],
   providers: [
-    ...CORE_PROVIDERS,
-
+    ...CORE_PROVIDERS
   ]
 })
 export class CoreModule {

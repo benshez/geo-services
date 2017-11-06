@@ -6,9 +6,11 @@
 		"url": "https://github.com/benshez/geo-services"
 	},
 	"author": "Ben van Heerden <BenvanHeerden>",
-	"contributors": [{
-		"name": "Sheryl van Heerden <SherylvanHeerden>"
-	}],
+	"contributors": [
+		{
+			"name": "Sheryl van Heerden <SherylvanHeerden>"
+		}
+	],
 	"private": true,
 	"nativescript": {
 		"id": "org.nativescript.ng4animations",
@@ -18,6 +20,16 @@
 		"tns-ios": {
 			"version": "3.1.0"
 		}
+	},
+	"scripts": {
+		"ns-bundle": "ns-bundle",
+		"publish-ios-bundle": "npm run ns-bundle --ios --publish-app",
+		"generate-android-snapshot": "generate-android-snapshot --targetArchs arm,arm64,ia32 --install",
+		"postinstall": "npm link geoservice-shared",
+		"start-android-bundle": "npm run ns-bundle --android --run-app",
+		"start-ios-bundle": "npm run ns-bundle --ios --run-app",
+		"build-android-bundle": "npm run ns-bundle --android --build-app",
+		"build-ios-bundle": "npm run ns-bundle --ios --build-app"
 	},
 	"dependencies": {
 		"@angular/animations": "~4.3.1",
@@ -53,15 +65,5 @@
 		"webpack": "^3.8.1",
 		"webpack-bundle-analyzer": "^2.8.2",
 		"webpack-sources": "~1.0.1"
-	},
-	"scripts": {
-		"ns-bundle": "ns-bundle",
-		"publish-ios-bundle": "npm run ns-bundle --ios --publish-app",
-		"generate-android-snapshot": "generate-android-snapshot --targetArchs arm,arm64,ia32 --install",
-		"start-android-bundle": "npm run ns-bundle --android --run-app",
-		"start-ios-bundle": "npm run ns-bundle --ios --run-app",
-		"build-android-bundle": "npm run ns-bundle --android --build-app",
-		"build-ios-bundle": "npm run ns-bundle --ios --build-app",
-		"postinstall": "npm run webdriver-update && npm link geoservice-shared"
 	}
 }
