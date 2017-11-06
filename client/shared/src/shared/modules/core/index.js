@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var index_1 = require("./services/index");
+exports.CORE_PROVIDERS = [
+    index_1.WindowService,
+    index_1.StorageService,
+    index_1.ConsoleService,
+    index_1.LogService,
+    index_1.AppService,
+    index_1.RouterExtensions
+];
+exports.CORE_DIRECTIVES = [];
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLDBDQU8wQjtBQUViLFFBQUEsY0FBYyxHQUFlO0lBQ3hDLHFCQUFhO0lBQ2Isc0JBQWM7SUFDZCxzQkFBYztJQUNkLGtCQUFVO0lBQ1Ysa0JBQVU7SUFDVix3QkFBZ0I7Q0FDakIsQ0FBQztBQUVXLFFBQUEsZUFBZSxHQUFlLEVBQUUsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7XHJcbiAgV2luZG93U2VydmljZSxcclxuICBTdG9yYWdlU2VydmljZSxcclxuICBDb25zb2xlU2VydmljZSxcclxuICBMb2dTZXJ2aWNlLFxyXG4gIEFwcFNlcnZpY2UsXHJcbiAgUm91dGVyRXh0ZW5zaW9uc1xyXG59IGZyb20gJy4vc2VydmljZXMvaW5kZXgnO1xyXG5cclxuZXhwb3J0IGNvbnN0IENPUkVfUFJPVklERVJTOiBBcnJheTxhbnk+ID0gW1xyXG4gIFdpbmRvd1NlcnZpY2UsXHJcbiAgU3RvcmFnZVNlcnZpY2UsXHJcbiAgQ29uc29sZVNlcnZpY2UsXHJcbiAgTG9nU2VydmljZSxcclxuICBBcHBTZXJ2aWNlLFxyXG4gIFJvdXRlckV4dGVuc2lvbnNcclxuXTtcclxuXHJcbmV4cG9ydCBjb25zdCBDT1JFX0RJUkVDVElWRVM6IEFycmF5PGFueT4gPSBbXTtcclxuIl19

@@ -20,14 +20,14 @@ var config = {
 
   // our angular app
   entry: {
-    'polyfills': './src/public/assets/polyfills.ts',
-    'vendor': './src/public/assets/vendor.ts',
-    'app': './src/main.ts',
+    'polyfills': './app/public/assets/polyfills.ts',
+    'vendor': './app/public/assets/vendor.ts',
+    'app': './app/main.ts',
   },
 
   // Config for our build files
   output: {
-    path: helpers.root('src/app/dist/public/assets'),
+    path: helpers.root('app/dist/public/assets'),
     filename: '[name].js',
     sourceMapFilename: '[name].map',
     chunkFilename: '[id].chunk.js'
@@ -47,7 +47,7 @@ var config = {
     symlinks: false,
 
     // An array of directory names to be resolved to the current directory
-    modules: [helpers.root('src'), 'node_modules'],
+    modules: [helpers.root('app'), 'node_modules'],
 
   },
   /*
@@ -117,11 +117,11 @@ var config = {
     //
     // See: https://www.npmjs.com/package/copy-webpack-plugin
     new CopyWebpackPlugin([{
-      from: 'src/public/index.html',
+      from: 'app/public/index.html',
       to: '../'
     }]),
     new CopyWebpackPlugin([{
-      from: 'src/public/assets/favicon.ico',
+      from: 'app/public/assets/_favicon.ico',
       to: '.'
     }]),
     /**
@@ -141,7 +141,7 @@ var config = {
         tslint: {
           emitErrors: false,
           failOnHint: false,
-          resourcePath: 'src'
+          resourcePath: 'app'
         },
       }
     }),

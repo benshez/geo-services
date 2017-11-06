@@ -22,11 +22,11 @@ const createWindow = () => {
   mainWindow = new BrowserWindow({
     width: 1200,
     height: 900,
-    icon: __dirname + '/src/app/dist/assets/favicon.ico'
+    icon: __dirname + '/app/dist/assets/_favicon.ico'
   });
 
   // Tell Electron where to load the entry point from
-  mainWindow.loadURL('file://' + __dirname + '/src/app/dist/public/index.html');
+  mainWindow.loadURL('file://' + __dirname + '/app/dist/public/index.html');
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
