@@ -10,19 +10,19 @@ export const ActionTypes: I18NActions = {
 };
 
 export class ChangeAction implements Action {
-  type = ActionTypes.CHANGE;
+  readonly type = ActionTypes.CHANGE;
 
   constructor(public payload: string) { }
 }
 
 export class LangChangedAction implements Action {
-  type = ActionTypes.LANG_CHANGED;
+  readonly type = ActionTypes.LANG_CHANGED;
 
   constructor(public payload: string) { }
 }
 
 export class LangUnsupportedAction implements Action {
-  type = ActionTypes.LANG_UNSUPPORTED;
+  readonly type = ActionTypes.LANG_UNSUPPORTED;
 
   constructor(public payload: string) { }
 }

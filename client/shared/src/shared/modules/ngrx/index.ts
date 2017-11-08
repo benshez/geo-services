@@ -1,32 +1,31 @@
-import '@ngrx/core/add/operator/select';
-import { compose } from '@ngrx/core/compose';
 import {
+  compose,
   combineReducers,
   ActionReducer
 } from '@ngrx/store';
-import { storeFreeze } from 'ngrx-store-freeze';
+// import { storeFreeze } from 'ngrx-store-freeze';
 import { Observable } from 'rxjs/Observable';
-import { environment } from '../../environments/environment';
+// import { environment } from '../../environments/environment';
 import {
-  IMultilingualState,
+  I18NState,
   IAppState
-} from '../core/interfaces/index';
-import { REDUCERS } from '../core/reducers/index';
-import { STATES } from '../core/states/index';
+} from '../i18n/interfaces/index';
+import { REDUCERS } from '../i18n/reducers/index';
+import { STATES } from '../i18n/states/index';
 
-const developmentReducer: ActionReducer<IAppState> = compose({ storeFreeze }, combineReducers)(REDUCERS);
+// const developmentReducer: ActionReducer<IAppState> = compose({ storeFreeze }, combineReducers)(REDUCERS);
 const productionReducer: ActionReducer<IAppState> = combineReducers(REDUCERS);
 
 export function AppReducer(state: any, action: any) {
-  if (!environment.production) {
-    return developmentReducer(state, action);
-  } else {
-    return productionReducer(state, action);
-  }
+  // if (!environment.production) {
+  //   return developmentReducer(state, action);
+  // } else {
+  return productionReducer(state, action);
+  // }
 }
 
-export function getMultilingualState(state$: Observable<IAppState>): Observable<IMultilingualState> {
-  return state$.select(s => s.i18n);
+export function getI18NState(state$: Observable<IAppState>): Observable<I18NState> {
+  return state$.lift(s => s.i18n);
 }
 
-export const getLang: any = compose(STATES.getLang, getMultilingualState);
+export const getLang: any = compose(STATES.getLang, getI18NState);

@@ -12,5 +12,8 @@
     }
   ],
   "private": true,
-  "main": "lib/index.ts"
+  "main": "lib/index.ts",
+  "scripts": {
+    "create:link": "npm link"
+  }
 }

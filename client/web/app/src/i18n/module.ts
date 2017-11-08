@@ -9,13 +9,17 @@ import {
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 import {
   TranslateModule,
   TranslateLoader
 } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { I18NComponent } from './component';
-import { MULTILANG_PROVIDERS } from 'geoservice-shared/modules/i18n/services/index';
+import { Languages, MULTILANG_PROVIDERS } from 'geoservice-shared/modules/i18n/services/index';
+import { AppReducer } from 'geoservice-shared/modules/ngrx/index';
+import { Config } from 'geoservice-shared/modules/core/utilities/index';
 
 export function translateLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, `assets/i18n/`, '.json');
@@ -32,6 +36,8 @@ const loader = {
     CommonModule,
     HttpClientModule,
     FormsModule,
+    StoreModule.forRoot(AppReducer),
+    EffectsModule.forRoot([]),
     TranslateModule.forRoot({
       loader
     })
@@ -41,6 +47,10 @@ const loader = {
   ],
   providers: [
     ...MULTILANG_PROVIDERS,
+    {
+      provide: Languages,
+      useValue: Config.GET_SUPPORTED_LANGUAGES()
+    },
   ],
   exports: [
     I18NComponent,
