@@ -14,6 +14,7 @@ export const WEB_COMPONENTS: Array<any> = [
 ];
 
 import { APP_ROUTING } from './app.routes';
+import { Store } from '@ngrx/store';
 
 export const APP_ROUTES: Array<any> = [
   ...SHARED_ROUTES,
@@ -26,6 +27,7 @@ export const APP_MODULES: Array<any> = [
 
 export const APP_PROVIDERS: Array<any> = [
   ...SHARED_PROVIDERS,
+  Store
 ];
 
 export * from './app.component';

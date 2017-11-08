@@ -18,7 +18,7 @@
 			"version": "3.3.0"
 		},
 		"tns-ios": {
-			"version": "3.1.0"
+			"version": "3.3.0"
 		}
 	},
 	"scripts": {
@@ -31,6 +31,8 @@
 		"start-ios-bundle": "npm run ns-bundle --ios --run-app",
 		"build-android-bundle": "npm run ns-bundle --android --build-app",
 		"build-ios-bundle": "npm run ns-bundle --ios --build-app",
+		"watch": "webpack --watch --progress --profile",
+		"run-android": "concurrently --kill-others && npm run watch && tns run android --emulator",
 		"postinstall": "npm link geoservice-shared"
 	},
 	"dependencies": {
