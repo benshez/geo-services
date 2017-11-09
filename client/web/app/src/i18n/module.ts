@@ -18,28 +18,26 @@ import {
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { I18NComponent } from './component';
 import { Languages, MULTILANG_PROVIDERS } from 'geoservice-shared/modules/i18n/services/index';
-import { AppReducer } from 'geoservice-shared/modules/ngrx/index';
+import { reducers, metaReducers } from 'geoservice-shared/modules/ngrx/index';
 import { Config } from 'geoservice-shared/modules/core/utilities/index';
 
-export function translateLoaderFactory(http: HttpClient) {
+export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, `assets/i18n/`, '.json');
 }
-
-const loader = {
-  provide: TranslateLoader,
-  useFactory: translateLoaderFactory,
-  deps: [HttpClient]
-};
 
 @NgModule({
   imports: [
     CommonModule,
     HttpClientModule,
     FormsModule,
-    StoreModule.forRoot(AppReducer),
+    StoreModule.forRoot(reducers, { metaReducers }),
     EffectsModule.forRoot([]),
     TranslateModule.forRoot({
-      loader
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
     })
   ],
   declarations: [

@@ -5,10 +5,9 @@ import {
 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import {
-  IAppState,
   ILang
 } from 'geoservice-shared/modules/i18n/interfaces/index';
-import * as multilingual from 'geoservice-shared/modules/i18n/actions/index';
+import * as fromI18n from 'geoservice-shared/modules/i18n/index';
 import { LogService } from 'geoservice-shared/modules/core/services/index';
 import { Languages } from 'geoservice-shared/modules/i18n/services/index';
 @Component({
@@ -22,7 +21,7 @@ export class I18NComponent implements OnInit {
   public supportedLanguages: Array<ILang>;
 
   constructor(
-    private store: Store<IAppState>,
+    private store: Store<fromI18n.I18NState>,
     private log: LogService,
     @Inject(Languages) private languages
   ) {
@@ -34,7 +33,8 @@ export class I18NComponent implements OnInit {
   changeLang(e: any) {
     let lang = e.target.value;
     this.log.debug(`Language change: ${lang}`);
-    this.store.dispatch(new multilingual.ChangeAction(lang));
+
+    this.store.dispatch(new fromI18n.LangChangedAction(lang));
   }
 
   ngOnInit() {
