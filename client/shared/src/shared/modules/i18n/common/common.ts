@@ -1,1 +1,1 @@
-export const CATEGORY = 'Multilingual';
+export const CATEGORY = 'Language';

@@ -10,9 +10,8 @@ import {
 } from '../../analytics/index';
 import { ILang } from '../interfaces/index';
 import { WindowService } from '../../core/services/window/window.service';
-import { IAppState } from '../interfaces/index';
+import { IAppState, I18NState } from '../interfaces/index';
 import { CATEGORY } from '../common/index';
-import { I18NState } from '../interfaces/index';
 import { initialState } from '../states/index';
 import { ChangeAction } from '../actions/index';
 
@@ -33,7 +32,7 @@ export class I18NService extends Analytics {
     private store: Store<IAppState>
   ) {
     super(analytics);
-
+    debugger;
     this.category = CATEGORY;
 
     translate.setDefaultLang(initialState.lang);
