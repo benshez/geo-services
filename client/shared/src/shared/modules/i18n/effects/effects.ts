@@ -23,12 +23,11 @@ import * as actions from '../actions/index';
 
 @Injectable()
 export class I18NEffects {
-
+  debugger;
   @Effect() change$: Observable<Action> = this.actions$
     .ofType<actions.ChangeAction>(actions.ActionTypes.CHANGE)
     .map(action => {
       let lang = action.payload;
-      debugger;
       if (includes(map(this.languages, 'code'), lang)) {
         let langChangedAction = new actions.LangChangedAction(lang);
         this.service.track(langChangedAction.type, { label: langChangedAction.payload });
@@ -42,5 +41,5 @@ export class I18NEffects {
     private actions$: Actions,
     private service: I18NService,
     @Inject(Languages) private languages
-  ) { debugger; }
+  ) { }
 }

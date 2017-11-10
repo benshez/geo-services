@@ -20,6 +20,7 @@ import { I18NComponent } from './component';
 import { Languages, MULTILANG_PROVIDERS } from 'geoservice-shared/modules/i18n/services/index';
 import { reducers, metaReducers } from 'geoservice-shared/modules/ngrx/index';
 import { Config } from 'geoservice-shared/modules/core/utilities/index';
+import { I18NEffects } from 'geoservice-shared/modules/i18n/index';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, `assets/i18n/`, '.json');
@@ -38,7 +39,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    })
+    }),
+    EffectsModule.forFeature([I18NEffects]),
   ],
   declarations: [
     I18NComponent

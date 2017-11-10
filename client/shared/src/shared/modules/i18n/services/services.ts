@@ -32,7 +32,7 @@ export class I18NService extends Analytics {
     private store: Store<IAppState>
   ) {
     super(analytics);
-    debugger;
+
     this.category = CATEGORY;
 
     translate.setDefaultLang(initialState.lang);

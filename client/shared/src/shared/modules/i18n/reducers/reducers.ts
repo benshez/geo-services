@@ -8,9 +8,10 @@ export function reducer(
 ): I18NState {
   switch (action.type) {
     case ActionTypes.LANG_CHANGED:
+      const query = action.payload;
       if (state.lang !== action.payload) {
         return (<any>Object).assign({}, state, {
-          lang: action.payload
+          lang: query
         });
       }
       return state;
