@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { SharedModule } from 'geoservice-shared/modules/shared/shared.module';
 import { AnalyticsModule } from 'geoservice-shared/modules/analytics/analytics.module';
 import { Config } from 'geoservice-shared/modules/core/utilities/index';
+import { I18nModule } from './i18n/module';
 import {
   APP_COMPONENTS,
   WEB_COMPONENTS,
@@ -23,7 +24,8 @@ Config.DEBUG.LEVEL_4 = true;
     HttpModule,
     FormsModule,
     SharedModule,
-    AnalyticsModule
+    AnalyticsModule,
+    I18nModule
   ],
   declarations: [
     WEB_COMPONENTS

@@ -118,28 +118,22 @@ export class Config {
     }
   }
 
-  // supported languages
   public static GET_SUPPORTED_LANGUAGES() {
     return [
       { code: 'en', title: 'English' },
-      { code: 'es', title: 'Spanish' },
       { code: 'fr', title: 'French' },
-      { code: 'ru', title: 'Russian' },
-      { code: 'bg', title: 'Bulgarian' }
     ];
   }
 
   public static IS_DEBUG_MODE(): boolean {
     for (let key in Config.DEBUG) {
       if (Config.DEBUG[key]) {
-        // if any level is on, debug mode is on
         return true;
       }
     }
     return false;
   }
 
-  // reset debug defaults
   public static RESET() {
     for (let key in Config.DEBUG) {
       if (Config.DEBUG[key]) {

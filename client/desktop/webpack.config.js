@@ -124,6 +124,10 @@ var config = {
       from: 'app/public/assets/_favicon.ico',
       to: '.'
     }]),
+    new CopyWebpackPlugin([{
+      from: 'app/public/assets/i18n',
+      to: './i18n'
+    }]),
     /**
      * Plugin LoaderOptionsPlugin (experimental)
      *
