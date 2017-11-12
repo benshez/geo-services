@@ -6,6 +6,5 @@ export const initialState: I18NState = {
 };
 
 export function getLang(state$: Observable<I18NState>) {
-  debugger;
   return state$.lift(state => state.lang);
 }
