@@ -1,22 +1,23 @@
 <?php
-/**
- * BaseGet File Doc Comment
+
+/*
+ * This file is part of the GeoService API.
  *
- * PHP Version 7.0.10
+ * PHP Version 7.1.9
  *
- * @category  BaseSave
+ * @category
  * @package   GeoService
  * @author    Ben van Heerden <benshez1@gmail.com>
  * @copyright 2017-2018 GeoService
  * @license   http://www.gnu.org/copyleft/gpl.html GNU General Public License
  * @link      https://github.com/benshez/geo-services
+ *
  */
 
 namespace GeoService\Bundles\Contact\Actions;
 
-use GeoService\Modules\Config\Config;
-use GeoService\Bundles\Contact\Actions\Action;
 use GeoService\Bundles\Contact\Validation\Validation;
+use GeoService\Modules\Config\Config;
 
 class Get extends Action
 {
@@ -35,12 +36,11 @@ class Get extends Action
     const ABN = 'abn';
     const USER = 'user';
     const HASH = 'hash';
-    
+
     /**
-     * Authenticate User
+     * Authenticate User.
      *
      * @param string $email    User Name.
-     *
      * @param string $password User Password.
      *
      * @return User
@@ -53,24 +53,26 @@ class Get extends Action
             $this->getValidator($validator),
             self::REFERENCE,
             self::AUTHENTICATE,
-            array(self::EMAIL => $email, self::PASSWORD => $password)
+            [self::EMAIL => $email, self::PASSWORD => $password]
         )) {
             $message = $this->getValidator($validator)->getMessagesAray();
+
             return $message;
         }
 
         $contact = $this->onBaseActionGet()->get(
             $this->getReference(self::REFERENCE),
-            array(self::EMAIL => $email)
+            [self::EMAIL => $email]
         );
-        
+
         if ($contact) {
             $tokenGenerator = new \Doctrine\ORM\Id\UuidGenerator();
             $tokenChar = $tokenGenerator->generate(
-                $this->getEntityManager(), $contact
+                $this->getEntityManager(),
+                $contact
             );
             $contact->setTokenChar($tokenChar);
-            
+
             $contact = $this->contactToArray(
                 $this->onBaseActionSave()->save($contact)
             );
@@ -80,9 +82,9 @@ class Get extends Action
 
         return false;
     }
-        
+
     /**
-     * Get Active User Role By Token
+     * Get Active User Role By Token.
      *
      * @param string $token Token Genrated When User Logs In.
      *
@@ -92,21 +94,21 @@ class Get extends Action
     {
         $user = $this->onBaseActionGet()->get(
             $this->getReference(self::REFERENCE),
-            array(self::TOKEN => $token)
+            [self::TOKEN => $token]
         );
-        
+
         if (!$user ||
             $user->getTokenExpiry() > Config::currentDateYearMonthDay()
             ) {
             return false;
         }
-        
+
         if ($user->getLocked() || !$user->getEnabled()) {
             return false;
         }
-        
+
         $role = $user->getRole()->getRole();
-        
+
         return $role;
     }
 }

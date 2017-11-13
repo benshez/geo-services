@@ -48,7 +48,10 @@
 	"require-dev": {
 		"doctrine/migrations": "^1.4",
 		"phpunit/phpunit": "^5.4",
-		"doctrine/data-fixtures": "^1.2"
+		"doctrine/data-fixtures": "^1.2",
+		"squizlabs/php_codesniffer": "^3.1.1",
+		"doctrine/coding-standard": "^1.0.0",
+		"friendsofphp/php-cs-fixer": "^2.8.1"
 	},
 	"scripts": {
 		"generate-service": "GeoService\\ComposerScript\\Generator::generateService",

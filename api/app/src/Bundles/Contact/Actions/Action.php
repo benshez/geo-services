@@ -22,7 +22,7 @@ use GeoService\Bundles\Contact\Validation\Validation;
 
 class Action extends BaseAction
 {
-    const REFERENCE = 'contact';
+    const REFERENCE      = 'contact';
     const EXISTS_MESSAGE = 'validation:add:message:UserExists';
     
     /**

@@ -24,11 +24,11 @@ use GeoService\Bundles\Contact\Validation\Validation;
 class Add extends Action
 {
     const REFERENCE_OBJECT = 'name';
-    const REFERENCE = 'contact';
-    const KEY = 'id';
-    const PASSWORD = 'password';
-    const ABN = 'abn';
-    const EMAIL = 'email';
+    const REFERENCE        = 'contact';
+    const KEY              = 'id';
+    const PASSWORD         = 'password';
+    const ABN              = 'abn';
+    const EMAIL            = 'email';
     
     /**
      * Save Contact
@@ -54,7 +54,7 @@ class Add extends Action
         $contact = new Contact();
 
         if (isset($args[self::PASSWORD])) {
-            $bcrypt = new Bcrypt();
+            $bcrypt   = new Bcrypt();
             $password = $bcrypt->create($args[self::PASSWORD]);
             $args[self::PASSWORD] = $password;
         }

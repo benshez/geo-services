@@ -20,9 +20,9 @@ use GeoService\Bundles\Contact\Validation\Validation;
 
 class Delete extends Action
 {
-    const REFERENCE = 'contact';
+    const REFERENCE        = 'contact';
     const REFERENCE_OBJECT = 'name';
-    const KEY = 'id';
+    const KEY              = 'id';
 
     /**
      * Delete Industries
