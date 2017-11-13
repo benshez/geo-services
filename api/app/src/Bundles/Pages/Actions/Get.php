@@ -22,4 +22,22 @@ class Get extends Action
 {
     const REFERENCE = 'pages';
     const REFERENCE_OBJECT = 'name';
+
+    /**
+     * Get Pages
+     *
+     * @param array $args Pages.
+     *
+     * @return Pages
+     */
+    public function onGet(array $args)
+    {
+
+        $pages = $this->onBaseActionGet()->get(
+            $this->getReference(self::REFERENCE),
+            array('enabled' => true)
+        );
+        
+        return ($pages);        
+    }
 }

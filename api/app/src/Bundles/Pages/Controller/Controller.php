@@ -7,4 +7,6 @@ use GeoService\Bundles\Pages\Interfaces\IPagesController;
 
 class Controller extends BaseController implements IPagesController
 {
+	const REFERENCE_OBJECT = 'name';
+	const REFERENCE = 'pages';
 }

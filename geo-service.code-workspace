@@ -34,8 +34,8 @@
 		// Enable/disable built-in PHP validation.
 		"php.validate.enable": true,
 		// Points to the PHP executable.
-		"php.executablePath": "C:\\wamp64\\bin\\php\\php7.0.10\\php.exe",
-		"php.validate.executablePath": "C:\\wamp64\\bin\\php\\php7.0.10\\php.exe",
+		"php.executablePath": "C:\\wamp64\\bin\\php\\php7.1.9\\php.exe",
+		"php.validate.executablePath": "C:\\wamp64\\bin\\php\\php7.1.9\\php.exe",
 		// Whether the linter is run on save or on type.
 		"php.validate.run": "onType",
 		"phpcs.enable": true,
@@ -48,6 +48,7 @@
 		"terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
 		"terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
 		"terminal.explorerKind": "integrated",
-		"editor.formatOnSave": true
+		"editor.formatOnSave": true,
+		"workbench.editor.labelFormat": "short"
 	}
 }

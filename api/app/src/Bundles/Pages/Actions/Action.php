@@ -20,6 +20,25 @@ use GeoService\Bundles\Pages\Validation\Validation;
 
 class Action extends BaseAction
 {
+
+    /**
+     * Get Pages
+     *
+     * @param array $args Pages.
+     *
+     * @return Pages
+     */
+    public function onGet(array $args)
+    {
+        $get = new \GeoService\Bundles\Pages\Actions\Get(
+            $this->getContainer()
+        );
+        
+        $pages = $get->onGet($args);
+
+        return $pages;
+    }
+         
     /**
      * Save Pages
      *
