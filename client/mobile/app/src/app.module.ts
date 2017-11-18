@@ -1,11 +1,21 @@
-import { NgModule, ApplicationRef } from '@angular/core';
+import {
+	NgModule,
+	ApplicationRef,
+	CUSTOM_ELEMENTS_SCHEMA,
+	NO_ERRORS_SCHEMA
+} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
+import { NativeScriptModule } from 'nativescript-angular/nativescript.module';
+import { NativeScriptFormsModule } from 'nativescript-angular/forms';
+import { NativeScriptHttpModule } from 'nativescript-angular/http';
+import { NativeScriptRouterModule } from 'nativescript-angular/router';
 import { CoreModule } from 'geoservice-shared/modules/core/core.module';
 import { AnalyticsModule } from 'geoservice-shared/modules/analytics/analytics.module';
 import { Config } from 'geoservice-shared/modules/core/utilities/index';
+
 import {
 	WindowService,
 	StorageService,
@@ -17,6 +27,7 @@ import {
 
 import {
 	APP_COMPONENTS,
+	NATIVE_COMPONENTS,
 	APP_ROUTES,
 	APP_PROVIDERS
 } from './index';
@@ -36,9 +47,8 @@ export function consoleLogTarget(consoleService: ConsoleService) {
 	return new ConsoleTarget(consoleService, { minLogLevel: LogLevel.Debug });
 }
 
-Config.PLATFORM_TARGET = Config.PLATFORMS.WEB;
+Config.PLATFORM_TARGET = Config.PLATFORMS.MOBILE_NATIVE;
 Config.DEBUG.LEVEL_4 = true;
-
 @NgModule({
 	imports: [
 		BrowserModule,
@@ -51,10 +61,14 @@ Config.DEBUG.LEVEL_4 = true;
 			{ provide: ConsoleService, useFactory: (cons) },
 			{ provide: LogTarget, useFactory: (consoleLogTarget), deps: [ConsoleService], multi: true }
 		]),
-		AnalyticsModule
+		AnalyticsModule,
+		NativeScriptModule,
+		NativeScriptFormsModule,
+		NativeScriptHttpModule,
+		NativeScriptRouterModule
 	],
 	declarations: [
-
+		NATIVE_COMPONENTS
 	],
 	providers: [
 		APP_PROVIDERS

@@ -1,17 +1,16 @@
 <?php
 
-/*
+/**
  * This file is part of the GeoService API.
  *
  * PHP Version 7.1.9
  *
- * @category
+ * @category  GeoService
  * @package   GeoService
  * @author    Ben van Heerden <benshez1@gmail.com>
  * @copyright 2017-2018 GeoService
  * @license   http://www.gnu.org/copyleft/gpl.html GNU General Public License
  * @link      https://github.com/benshez/geo-services
- *
  */
 
 namespace GeoService\Bundles\Contact\Actions;

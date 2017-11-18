@@ -29,10 +29,10 @@ module.exports = env => {
 		bundle: `./${nsWebpack.getEntryModule()}`,
 
 		// Vendor entry with third-party libraries
-		vendor: `./public/assets/vendor`,
+		vendor: `./vendor`,
 
 		// Entry for stylesheet with global application styles
-		[mainSheet]: `./public/assets/${mainSheet}`,
+		[mainSheet]: `./${mainSheet}`,
 	};
 
 	const rules = getRules();
@@ -40,7 +40,7 @@ module.exports = env => {
 	const extensions = getExtensions(platform);
 
 	const config = {
-		context: resolve("./app/src"),
+		context: resolve("./app"),
 		target: nativescriptTarget,
 		entry,
 		output: {
@@ -59,7 +59,7 @@ module.exports = env => {
 			],
 
 			alias: {
-				'~': resolve("./app/src")
+				'~': resolve("./app")
 			},
 		},
 		node: {

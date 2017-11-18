@@ -1,10 +1,11 @@
 <?php
+
 /**
- * Save File Doc Comment
+ * This file is part of the GeoService API.
  *
- * PHP Version 7.0.10
+ * PHP Version 7.1.9
  *
- * @category  Save
+ * @category  GeoService
  * @package   GeoService
  * @author    Ben van Heerden <benshez1@gmail.com>
  * @copyright 2017-2018 GeoService
@@ -14,11 +15,9 @@
 
 namespace GeoService\Bundles\Contact\Actions;
 
-use Zend\Crypt\Password\Bcrypt;
-use GeoService\Modules\Config\Config;
-use GeoService\Bundles\Contact\Actions\Action;
 use GeoService\Bundles\Contact\Validation\Validation;
 use GeoService\Modules\Base\Actions\BaseHydrate;
+use Zend\Crypt\Password\Bcrypt;
 
 class Save extends Action
 {
@@ -27,9 +26,9 @@ class Save extends Action
     const PASSWORD = 'password';
     const ABN = 'abn';
     const EMAIL = 'email';
-    
+
     /**
-     * Save User
+     * Save User.
      *
      * @param array $args User Password.
      *
@@ -46,9 +45,10 @@ class Save extends Action
             $args
         )) {
             $messages = $this->getValidator($validator)->getMessagesAray();
+
             return $messages;
         }
-        
+
         $contact = $this->onBaseActionGet()->get(
             $this->getReference(self::REFERENCE),
             [self::KEY => $args[self::KEY]]
@@ -62,7 +62,7 @@ class Save extends Action
             }
 
             $hydrate = new BaseHydrate($this->getContainer());
-            
+
             $contact = $hydrate->hydrate($contact, $args);
 
             $contact = $this->onBaseActionSave()->save($contact);
@@ -81,13 +81,11 @@ class Save extends Action
 
         return false;
     }
-    
+
     /**
-     * Update User Login Attemps
+     * Update User Login Attemps.
      *
      * @param array $args User Password.
-     *
-     * @return void
      */
     public function onUpdateLoginAttempts(array $args)
     {

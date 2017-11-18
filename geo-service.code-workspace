@@ -37,30 +37,20 @@
 		"php.executablePath": "C:\\wamp64\\bin\\php\\php7.1.9\\php.exe",
 		"php.validate.executablePath": "C:\\wamp64\\bin\\php\\php7.1.9\\php.exe",
 		// Whether the linter is run on save or on type.
-		"php.validate.run": "onSave",
-		"phpcs.enable": true,
-		"phpcs.standard": "GeoService",
 		"editor.tabSize": 2,
 		"editor.insertSpaces": false,
 		"editor.detectIndentation": true,
 		"editor.fontSize": 13,
 		"markdown.preview.fontSize": 13,
 		"terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
-		"terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
 		"terminal.explorerKind": "integrated",
 		"editor.formatOnSave": true,
 		"workbench.editor.labelFormat": "short",
 		"editor.formatOnType": true,
 		"files.eol": "\n",
 		"php-cs-fixer.executablePath": "php-cs-fixer",
-		"php-cs-fixer.executablePathWindows": "D:\\geo-services\\api\\.vscode\\php-cs-fixer.bat", //eg: php-cs-fixer.bat
+		"php-cs-fixer.executablePathWindows": "D:\\geo-services\\api\\vendor\\bin\\php-cs-fixer.bat", //eg: php-cs-fixer.bat
 		"php-cs-fixer.onsave": true,
-		"php-cs-fixer.rules": "@GeoService",
-		"php-cs-fixer.config": "D:\\geo-services\\api\\.vscode\\.php_cs",
-		"php-cs-fixer.autoFixByBracket": true,
-		"php-cs-fixer.autoFixBySemicolon": true,
-		"php-cs-fixer.formatHtml": false,
-		"php-cs-fixer.documentFormattingProvider": true,
-		"php-cs-fixer.allowRisky": false
+		"php-cs-fixer.config": ".php_cs"
 	}
 }

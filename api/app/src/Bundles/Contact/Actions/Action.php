@@ -1,10 +1,11 @@
 <?php
+
 /**
- * BaseGet File Doc Comment
+ * This file is part of the GeoService API.
  *
- * PHP Version 7.0.10
+ * PHP Version 7.1.9
  *
- * @category  BaseSave
+ * @category  GeoService
  * @package   GeoService
  * @author    Ben van Heerden <benshez1@gmail.com>
  * @copyright 2017-2018 GeoService
@@ -14,22 +15,19 @@
 
 namespace GeoService\Bundles\Contact\Actions;
 
-use GeoService\Modules\Config\Config;
 use GeoService\Bundles\Contact\Entity\Contact;
-use GeoService\Modules\Base\Actions\BaseAction;
-use GeoService\Modules\Base\Interfaces\IBaseAction;
 use GeoService\Bundles\Contact\Validation\Validation;
+use GeoService\Modules\Base\Actions\BaseAction;
 
 class Action extends BaseAction
 {
-    const REFERENCE      = 'contact';
+    const REFERENCE = 'contact';
     const EXISTS_MESSAGE = 'validation:add:message:UserExists';
-    
+
     /**
-     * Authenticate User
+     * Authenticate User.
      *
      * @param string $email    User Name.
-     *
      * @param string $password User Password.
      *
      * @return User
@@ -39,12 +37,13 @@ class Action extends BaseAction
         $user = new \GeoService\Bundles\Contact\Actions\Get(
             $this->getContainer()
         );
-        $authenticated =  $user->authenticate($email, $password);
+        $authenticated = $user->authenticate($email, $password);
+
         return $authenticated;
     }
-    
+
     /**
-     * Save User
+     * Save User.
      *
      * @param array $args User Password.
      *
@@ -55,14 +54,14 @@ class Action extends BaseAction
         $save = new \GeoService\Bundles\Contact\Actions\Save(
             $this->getContainer()
         );
-        
+
         $contact = $save->onUpdate($args);
 
         return $contact;
     }
-    
+
     /**
-     * Add User
+     * Add User.
      *
      * @param array $args User.
      *
@@ -73,14 +72,14 @@ class Action extends BaseAction
         $add = new \GeoService\Bundles\Contact\Actions\Add(
             $this->getContainer()
         );
-        
+
         $contact = $add->onAdd($args);
 
         return $contact;
     }
-    
+
     /**
-     * Delete User
+     * Delete User.
      *
      * @param array $args User ID.
      *
@@ -91,14 +90,14 @@ class Action extends BaseAction
         $delete = new \GeoService\Bundles\Contact\Actions\Delete(
             $this->getContainer()
         );
-        
+
         $contact = $delete->onDelete($args);
 
         return $contact;
     }
-        
+
     /**
-     * Contact To Array
+     * Contact To Array.
      *
      * @param Contact $args Contact.
      *
@@ -106,29 +105,29 @@ class Action extends BaseAction
      */
     public function contactToArray(Contact $args)
     {
-        $contact = array(
+        $contact = [
             'id' => $args->getId(),
             'entity' => $args->getEntity()->getId(),
             'role' => $args->getRole()->getId(),
             'enabled' => $args->getEnabled(),
             'locked' => $args->getLocked(),
-            'username'=> $args->getUsername(),
-            'usersurname'=> $args->getUsersurname(),
-            'address'=> $args->getAddress(),
-            'city'=> $args->getCity(),
-            'state'=> $args->getState(),
-            'post_code'=> $args->getPostCode(),
-            'phone'=> $args->getPhone(),
-            'email'=> $args->getEmail(),
-            'website'=> $args->getWebsite(),
-            'facebook'=> $args->getFacebook(),
-            'twitter'=> $args->getTwitter(),
-            'logo'=> $args->getLogo(),
-            'abn'=> $args->getEntity()->getIdentifier(),
+            'username' => $args->getUsername(),
+            'usersurname' => $args->getUsersurname(),
+            'address' => $args->getAddress(),
+            'city' => $args->getCity(),
+            'state' => $args->getState(),
+            'post_code' => $args->getPostCode(),
+            'phone' => $args->getPhone(),
+            'email' => $args->getEmail(),
+            'website' => $args->getWebsite(),
+            'facebook' => $args->getFacebook(),
+            'twitter' => $args->getTwitter(),
+            'logo' => $args->getLogo(),
+            'abn' => $args->getEntity()->getIdentifier(),
             'token_char' => $args->getTokenChar(),
             'token_expiry' => $args->getTokenExpiry(),
-        );
-        
+        ];
+
         return $contact;
     }
 }

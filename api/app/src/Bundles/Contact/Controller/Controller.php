@@ -1,40 +1,42 @@
 <?php
+
 /**
- * Save File Doc Comment
+ * This file is part of the GeoService API.
  *
- * PHP Version 7.0.10
+ * PHP Version 7.1.9
  *
- * @category  Save
+ * @category  GeoService
  * @package   GeoService
  * @author    Ben van Heerden <benshez1@gmail.com>
  * @copyright 2017-2018 GeoService
  * @license   http://www.gnu.org/copyleft/gpl.html GNU General Public License
  * @link      https://github.com/benshez/geo-services
  */
+
 namespace GeoService\Bundles\Contact\Controller;
 
+use GeoService\Bundles\Contact\Interfaces\IContactController;
+use GeoService\Modules\Base\Controller\BaseController;
+use GeoService\Modules\Base\Options\BaseOptions;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use GeoService\Modules\Base\Options\BaseOptions;
-use GeoService\Modules\Base\Controller\BaseController;
-use GeoService\Bundles\Contact\Interfaces\IContactController;
 
 class Controller extends BaseController implements IContactController
 {
-    private $_options = array(
+    private $_options = [
         'part' => 'messages',
         'class' => 'contact',
-        'extention' => 'validation:authenticate:message:UserNotFound'
-    );
-    
+        'extention' => 'validation:authenticate:message:UserNotFound',
+    ];
+
     /**
-     * Authenticate Contact
+     * Authenticate Contact.
      *
-     * @param RequestInterface  $request  Request.
+     * @param RequestInterface $request Request.
      *
      * @param ResponseInterface $response Response.
      *
-     * @param array             $args     Arguments.
+     * @param array $args Arguments.
      *
      * @return boolean
      */
@@ -52,11 +54,11 @@ class Controller extends BaseController implements IContactController
             ),
             new BaseOptions($this->_options)
         );
-        
+
         if ($fetched) {
             return $fetched;
         }
-        
+
         return false;
     }
 }

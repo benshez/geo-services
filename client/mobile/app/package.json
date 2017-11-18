@@ -1,5 +1,6 @@
 {
 	"name": "geoservice",
 	"version": "1.0.0",
-	"license": "MIT"
+	"license": "MIT",
+	"main": "main.ts"
 }

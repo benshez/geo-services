@@ -1,10 +1,11 @@
 <?php
+
 /**
- * Delete File Doc Comment
+ * This file is part of the GeoService API.
  *
- * PHP Version 7.0.10
+ * PHP Version 7.1.9
  *
- * @category  BaseSave
+ * @category  GeoService
  * @package   GeoService
  * @author    Ben van Heerden <benshez1@gmail.com>
  * @copyright 2017-2018 GeoService
@@ -14,18 +15,16 @@
 
 namespace GeoService\Bundles\Contact\Actions;
 
-use GeoService\Modules\Config\Config;
-use GeoService\Bundles\Contact\Actions\Action;
 use GeoService\Bundles\Contact\Validation\Validation;
 
 class Delete extends Action
 {
-    const REFERENCE        = 'contact';
+    const REFERENCE = 'contact';
     const REFERENCE_OBJECT = 'name';
-    const KEY              = 'id';
+    const KEY = 'id';
 
     /**
-     * Delete Industries
+     * Delete Industries.
      *
      * @param array $args Industry.
      *
@@ -42,14 +41,15 @@ class Delete extends Action
             $args
         )) {
             $messages = $this->getValidator($validator)->getMessagesAray();
+
             return $messages;
         }
-        
+
         $contact = $this->onBaseActionGet()->get(
             $this->getReference(self::REFERENCE),
             [self::KEY => $args]
         );
-  
+
         if (!$contact) {
             return false;
         }
@@ -59,7 +59,7 @@ class Delete extends Action
         } else {
             $this->onBaseActionSave()->disable($contact);
         }
-        
+
         return false;
     }
 }

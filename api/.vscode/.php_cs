@@ -5,7 +5,7 @@ This file is part of the GeoService API.
 
 PHP Version 7.1.9
 
-@category  
+@category  GeoService
 @package   GeoService
 @author    Ben van Heerden <benshez1@gmail.com>
 @copyright 2017-2018 GeoService
@@ -21,13 +21,20 @@ $config = PhpCsFixer\Config::create()
         '@PHPUnit60Migration:risky' => true,
         '@Symfony' => true,
         '@Symfony:risky' => true,
+        'no_empty_comment' => true,
+        'no_empty_phpdoc' => true,
+        'no_trailing_whitespace' => true,
+        'space_after_semicolon' => true,
+        'no_trailing_whitespace_in_comment' => true,
         'align_multiline_comment' => true,
         'array_syntax' => ['syntax' => 'short'],
         'blank_line_before_statement' => true,
         'combine_consecutive_issets' => true,
         'combine_consecutive_unsets' => true,
         'compact_nullable_typehint' => true,
-        'header_comment' => ['header' => $header],
+        'header_comment' => ['header' => $header, 'commentType' => 'PHPDoc', 'location' => 'after_open'],
+        'phpdoc_to_comment' => true,
+        'phpdoc_separation' => false,
         'heredoc_to_nowdoc' => true,
         'list_syntax' => ['syntax' => 'long'],
         'method_argument_space' => ['ensure_fully_multiline' => true],
