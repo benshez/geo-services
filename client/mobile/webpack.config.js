@@ -16,7 +16,7 @@ const {
 	AotPlugin
 } = require("@ngtools/webpack");
 
-const mainSheet = `app.css`;
+const mainSheet = `./src/app.css`;
 
 module.exports = env => {
 	const platform = getPlatform(env);

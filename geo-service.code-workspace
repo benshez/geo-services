@@ -1,5 +1,6 @@
 {
-	"folders": [{
+	"folders": [
+		{
 			"path": "api"
 		},
 		{
@@ -7,6 +8,9 @@
 		},
 		{
 			"path": "client"
+		},
+		{
+			"path": "applications"
 		}
 	],
 	"settings": {

@@ -6,11 +6,9 @@
     "url": "https://github.com/benshez/geo-services"
   },
   "author": "Ben van Heerden <BenvanHeerden>",
-  "contributors": [
-    {
-      "name": "Sheryl van Heerden <SherylvanHeerden>"
-    }
-  ],
+  "contributors": [{
+    "name": "Sheryl van Heerden <SherylvanHeerden>"
+  }],
   "private": true,
   "main": "lib/index.js",
   "scripts": {
@@ -23,15 +21,15 @@
     "postinstall": "npm run build"
   },
   "dependencies": {
-    "@angular/common": "~4.3.1",
-    "@angular/compiler": "~4.3.1",
-    "@angular/core": "~4.3.1",
-    "@angular/forms": "~4.3.1",
-    "@angular/http": "~4.3.1",
-    "@angular/platform-browser": "~4.3.1",
-    "@angular/platform-browser-dynamic": "~4.3.1",
-    "@angular/router": "~4.3.1",
-    "@angular/tsc-wrapped": "~4.3.1",
+    "@angular/common": "^4.4.1",
+    "@angular/compiler": "^4.4.1",
+    "@angular/core": "^4.4.1",
+    "@angular/forms": "^4.4.1",
+    "@angular/http": "^4.4.1",
+    "@angular/platform-browser": "^4.4.1",
+    "@angular/platform-browser-dynamic": "^4.4.1",
+    "@angular/router": "^4.4.1",
+    "@angular/tsc-wrapped": "^4.4.1",
     "angular-in-memory-web-api": "~0.4.0",
     "@mapbox/mapbox-gl-geocoder": "^2.1.2",
     "@ngrx/core": "^1.2.0",
@@ -50,7 +48,7 @@
   },
   "devDependencies": {
     "@angular/cli": "^1.2.7",
-    "@angular/compiler-cli": "~4.3.1",
+    "@angular/compiler-cli": "^4.4.1",
     "@types/jasmine": "2.5.36",
     "@types/node": "^6.0.45",
     "@types/angular": "^1.5.16",

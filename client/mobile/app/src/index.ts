@@ -8,10 +8,10 @@ export const NATIVE_COMPONENTS: Array<any> = [
 	AppComponent
 ];
 
-import { APP_ROUTING } from './app.routes';
+import { NATIVE_ROUTING } from './app.routes';
 
-export const APP_ROUTES: Array<any> = [
-	...APP_ROUTING
+export const NATIVE_ROUTES: Array<any> = [
+	...NATIVE_ROUTING
 ];
 
 export const APP_MODULES: Array<any> = [

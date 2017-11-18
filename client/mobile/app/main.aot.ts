@@ -1,5 +1,5 @@
-import { platformNativeScript } from "nativescript-angular/platform-static";
+import { platformNativeScript } from 'nativescript-angular/platform-static';
 
-import { AppModuleNgFactory } from "./src/app.module.ngfactory";
+import { AppModuleNgFactory } from './src/app.module.ngfactory';
 
 platformNativeScript().bootstrapModuleFactory(AppModuleNgFactory);

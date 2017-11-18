@@ -1,27 +1,51 @@
 {
-	"compilerOptions": {
-		"module": "commonjs",
-		"target": "es5",
-		"experimentalDecorators": true,
-		"emitDecoratorMetadata": true,
-		"noEmitHelpers": true,
-		"noEmitOnError": true,
-		"lib": [
-			"es6",
-			"dom",
-			"es2015.iterable"
-		],
-		"baseUrl": ".",
-		"paths": {
-			"*": [
-				"./node_modules/tns-core-modules/*",
-				"./node_modules/*"
-			]
-		}
-	},
-	"exclude": [
-		"node_modules",
-		"platforms",
-		"**/*.aot.ts"
-	]
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es5",
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "noEmitHelpers": true,
+        "noEmitOnError": true,
+        "lib": [
+            "es6",
+            "dom",
+            "es2015.iterable"
+        ],
+        "baseUrl": ".",
+        "paths": {
+            "@angular/common": [
+                "./node_modules/@angular/common"
+            ],
+            "@angular/,compiler": [
+                "./node_modules/@angular/compiler"
+            ],
+            "@angular/core": [
+                "./node_modules/@angular/core"
+            ],
+            "@angular/forms": [
+                "./node_modules/@angular/forms"
+            ],
+            "@angular/platform-browser": [
+                "./node_modules/@angular/platform-browser"
+            ],
+            "@angular/platform-browser-dynamic": [
+                "./node_modules/@angular/platform-browser-dynamic"
+            ],
+            "@angular/router": [
+                "./node_modules/@angular/router"
+            ],
+            "@angular/http": [
+                "./node_modules/@angular/http"
+            ],
+            "*": [
+                "./node_modules/tns-core-modules/*",
+                "./node_modules/*"
+            ]
+        }
+    },
+    "exclude": [
+        "node_modules",
+        "platforms",
+        "**/*.aot.ts"
+    ]
 }
