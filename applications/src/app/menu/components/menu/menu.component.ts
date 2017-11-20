@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 // app
-import { MenuItem } from '../../interfaces/MenuItem';
+import { IMenuItem } from '../../../common/interfaces/index';
 
 @Component({
     moduleId: module.id,
@@ -10,6 +10,6 @@ import { MenuItem } from '../../interfaces/MenuItem';
 })
 export class MenuComponent {
 
-    @Input() items: MenuItem[];
+    @Input() items: Array<IMenuItem>;
 
 }

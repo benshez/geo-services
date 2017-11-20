@@ -1,12 +1,10 @@
-// angular
 import { NgModule } from '@angular/core';
 import { NativeScriptRouterModule } from 'nativescript-angular';
-// app
-import { AppRoutes } from './app.routes';
+import { APP_ROUTING } from './app.routes';
 
 @NgModule({
     imports: [
-        NativeScriptRouterModule.forRoot(<any>AppRoutes),
+        NativeScriptRouterModule.forRoot(<any>APP_ROUTING),
     ],
     exports: [NativeScriptRouterModule]
 })

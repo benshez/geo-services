@@ -19,4 +19,3 @@ export const COMPONENT_EXPORTS: any[] = [
     MenuComponent
 ];
 
-export * from './interfaces/MenuItem';

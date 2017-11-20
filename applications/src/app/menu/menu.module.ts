@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-// app
-import { SHARED_MODULES, COMPONENT_DECLARATIONS, COMPONENT_EXPORTS } from './menu.common';
+import {
+  SHARED_MODULES,
+  COMPONENT_DECLARATIONS,
+  COMPONENT_EXPORTS
+} from './index';
 
 @NgModule({
     imports: [
