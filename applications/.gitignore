@@ -48,3 +48,6 @@ Thumbs.db
 
 # Secrets
 nginx/keys
+
+# Electron
+/packages
