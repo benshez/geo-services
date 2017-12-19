@@ -4,13 +4,13 @@
 			"path": "api"
 		},
 		{
-			"path": "frontend"
-		},
-		{
 			"path": "client"
 		},
 		{
 			"path": "applications"
+		},
+		{
+			"path": "frontend"
 		}
 	],
 	"settings": {

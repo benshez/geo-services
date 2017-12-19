@@ -1,0 +1,12 @@
+@import '../../../../styles/definitions';
+.geo-service-card.geo-service-card--accents-list {
+  .mdl-card__title {
+    border-bottom: 0 none;
+  }
+  .mdl-list__item-secondary-action i {
+    display: none;
+  }
+  .geo-service-card__link--active i {
+    display: block;
+  }
+}

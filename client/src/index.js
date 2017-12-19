@@ -1,18 +1,16 @@
-'use strict';
+import React from "react";
+import { render } from "react-dom";
+import { Provider } from "react-redux";
 
-import App from './common/components/App';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Router, Route, hashHistory } from 'react-router';
+import { store, configureFakeBackend } from "./common/_helpers";
+import { App } from "./common/_components/AppRender";
 
-// CSS
-require('normalize.css');
-require('./styles/main.css');
+// setup fake backend
+configureFakeBackend();
 
-var content = document.getElementById('content');
-
-ReactDOM.render((
-  <Router history={hashHistory}>
-    <Route path="/" component={App} />
-  </Router>
-), content);
+render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById("content")
+);

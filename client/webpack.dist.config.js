@@ -4,19 +4,19 @@
  * This file is set up for serving the distribution version. It will be compiled to dist/ by default
  */
 
-'use strict';
+"use strict";
 
-var webpack = require('webpack');
+var webpack = require("webpack");
 
 module.exports = {
   output: {
-    publicPath: '/assets/',
-    path: 'dist/assets/',
-    filename: 'main.js'
+    publicPath: "/assets/",
+    path: "dist/assets/",
+    filename: "main.js"
   },
   debug: false,
   devtool: false,
-  entry: './src/index.js',
+  entry: "./src/index.js",
   stats: {
     colors: true,
     reasons: false
@@ -28,19 +28,25 @@ module.exports = {
     new webpack.optimize.AggressiveMergingPlugin()
   ],
   module: {
-    loaders: [{
-      test: /\.js$/,
-      exclude: /node_modules/,
-      loader: 'babel-loader'
-    }, {
-      test: /\.css$/,
-      loader: 'style-loader!css-loader'
-    }, {
-      test: /\.sass/,
-      loader: 'style-loader!css-loader!sass-loader?outputStyle=expanded&indentedSyntax'
-    }, {
-      test: /\.(png|jpg)$/,
-      loader: 'url-loader?limit=8192'
-    }]
+    loaders: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: "babel-loader"
+      },
+      {
+        test: /\.css$/,
+        loader: "style-loader!css-loader"
+      },
+      {
+        test: /\.sass/,
+        loader:
+          "style-loader!css-loader!sass-loader?outputStyle=expanded&indentedSyntax"
+      },
+      {
+        test: /\.(png|jpg)$/,
+        loader: "url-loader?limit=8192"
+      }
+    ]
   }
 };

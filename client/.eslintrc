@@ -1,8 +1,8 @@
 {
   "extends": "eslint:recommended",
   "rules": {
-    "indent": [2, 2, {"SwitchCase": 1}],
-    "quotes": [2, "single"],
+    "indent": [2, 2, { "SwitchCase": 1 }],
+    "quotes": [2, "double"],
     "linebreak-style": [2, "unix"],
     "semi": [2, "always"],
     "no-console": 0,
@@ -21,8 +21,6 @@
     },
     "sourceType": "module"
   },
-  "plugins": [
-    "react"
-  ],
+  "plugins": ["react"],
   "globals": {}
 }
