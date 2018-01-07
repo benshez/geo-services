@@ -1,9 +1,0 @@
-{
-	"android": {
-		"v8Flags": "--expose_gc"
-	},
-	"name": "geoservice",
-	"version": "1.0.0",
-	"license": "MIT",
-	"main": "main.ts"
-}

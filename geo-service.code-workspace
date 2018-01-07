@@ -4,12 +4,6 @@
 			"path": "api"
 		},
 		{
-			"path": "client"
-		},
-		{
-			"path": "applications"
-		},
-		{
 			"path": "frontend"
 		}
 	],

@@ -1,4 +1,0 @@
-{
-	"extends": "./tools/config/seed.tslint.json",
-	"rules": {}
-}
