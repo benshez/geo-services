@@ -1,20 +1,13 @@
-import React, { Component } from 'react';
-import { StyleSheet, ListView, Text } from 'react-native';
+import React from 'react';
+import { StyleSheet, View, Text } from 'react-native';
+import { Link } from 'react-router-dom';
 import Routing, { Router } from '../../utilities/routing/index';
 
 import './Menu.css';
-const Route = Routing.Route;
-class Menu extends React.Component {
-  constructor() {
-    super();
-    const ds = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2
-    });
-    this.state = {
-      dataSource: ds.cloneWithRows(['row 1', 'row 2'])
-    };
-  }
 
+const Route = Routing.Route;
+
+class Menu extends React.Component {
   render() {
     var visibility = 'hide';
 
@@ -29,17 +22,16 @@ class Menu extends React.Component {
         className={visibility}
         onPress={this.props.handleMouseDown}
       >
-        <ListView
-          style={styles.ListView}
-          dataSource={this.state.dataSource}
-          renderRow={rowData => (
-            <Router>
-              <Route path="/">
-                <Text>{rowData}</Text>
-              </Route>
-            </Router>
-          )}
-        />
+        <Router>
+          <View>
+            <Link to="/" replace={true}>
+              Home
+            </Link>
+            <Link to="/about" replace={true}>
+              About
+            </Link>
+          </View>
+        </Router>
       </Text>
     );
   }

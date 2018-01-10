@@ -7,7 +7,6 @@ import Menu from './Menu';
 import createAppStore from '../../utilities/storage/store';
 
 const { store } = createAppStore();
-
 class MenuContainer extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -49,4 +48,6 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(MenuContainer);
+export default connect(mapStateToProps, null, null, { pure: false })(
+  MenuContainer
+);

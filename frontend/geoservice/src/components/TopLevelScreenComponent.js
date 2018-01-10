@@ -1,8 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 
-// This is a dumb component that is common for native and web
-
 class TopLevelScreenComponent extends React.Component {
   constructor(props, context) {
     super(props, context);
