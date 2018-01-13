@@ -1,13 +1,30 @@
 {
-	"name": "geoservice",
-	"version": "0.0.0",
-	"description": "GeoService frontend web application",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/benshez/geo-services"
-	},
-	"license": "MIT",
-	"scripts": {
-		"build:docker": "docker build -t geoservice:latest ."
-	}
+  "name": "geoservice",
+  "version": "0.0.0",
+  "description": "GeoService frontend web application",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/benshez/geo-services"
+  },
+  "license": "MIT",
+  "scripts": {
+    "build:docker": "docker build -t geoservice:latest .",
+    "commit": "commit-wizard"
+  },
+  "dependencies": {
+    "pre-git": "^3.17.0"
+  },
+  "config": {
+    "pre-git": {
+      "commit-msg": "simple",
+      "pre-commit": [],
+      "pre-push": [],
+      "post-commit": [],
+      "post-checkout": [],
+      "post-merge": []
+    }
+  },
+  "release": {
+    "analyzeCommits": "simple-commit-message"
+  }
 }

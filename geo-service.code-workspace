@@ -49,6 +49,9 @@
 		"php-cs-fixer.executablePath": "php-cs-fixer",
 		"php-cs-fixer.executablePathWindows": "D:\\geo-services\\api\\vendor\\bin\\php-cs-fixer.bat", //eg: php-cs-fixer.bat
 		"php-cs-fixer.onsave": true,
-		"php-cs-fixer.config": ".php_cs"
+		"php-cs-fixer.config": ".php_cs",
+		"javascript.validate.enable": false,
+		"flow.useNPMPackagedFlow": true,
+		"flow.pathToFlow": "${workspaceRoot}/node_modules/.bin/flow"
 	}
 }
