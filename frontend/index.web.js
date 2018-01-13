@@ -1,37 +1,29 @@
-// @flow
 import 'babel-polyfill';
 import React from 'react';
-
 import { AppRegistry } from 'react-native';
-
-import Navigation from './src/navigation';
-
+import App from './src/App';
 import { AppContainer } from 'react-hot-loader';
 
 const renderApp = () => (
   <AppContainer>
-    <Navigation />
+    <App />
   </AppContainer>
 );
 
-AppRegistry.registerComponent('ReactNativeWebBoilerplate', () => renderApp);
+AppRegistry.registerComponent('GeoServices', () => renderApp);
 
 if (module.hot) {
-  // $FlowFixMe
   module.hot.accept();
 
   const renderHotApp = () => (
     <AppContainer>
-      <Navigation />
+      <App />
     </AppContainer>
   );
 
-  AppRegistry.registerComponent(
-    'ReactNativeWebBoilerplate',
-    () => renderHotApp
-  );
+  AppRegistry.registerComponent('GeoServices', () => renderHotApp);
 }
 
-AppRegistry.runApplication('ReactNativeWebBoilerplate', {
+AppRegistry.runApplication('GeoServices', {
   rootTag: document.getElementById('root')
 });

@@ -1,12 +1,13 @@
 {
-  "name": "react-native-electron-boilerplate",
-  "description": "react-native-electron boilerplate",
-  "version": "0.1.0",
+  "name": "geoservices",
+  "version": "0.0.1",
+  "description": "GeoServices",
   "main": "main.js",
   "license": "MIT",
   "author": "alejandro garcia <agrcrobles@gmail.com>",
   "scripts": {
-    "start": "NODE_ENV=development electron -r babel-register . --enable-logging"
+    "start":
+      "set NODE_ENV=development && electron -r babel-register . --enable-logging"
   },
   "dependencies": {
     "babel-register": "^6.24.0"
