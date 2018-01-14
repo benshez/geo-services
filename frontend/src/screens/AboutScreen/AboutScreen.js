@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView, Animated } from 'react-native';
+import { View, ScrollView, Animated, Text } from 'react-native';
 import { FadeAnimation } from '../../common/_interfaces/index';
 import { Routes } from '../../common/_routes/index';
 import { Banner, Item } from '../../common/_components/index';
@@ -23,7 +23,7 @@ export default class AboutScreen extends React.Component {
   render() {
     return (
       <ScrollView>
-        <Banner title="About" />
+        <Banner title="About" navigation={this.props.navigation} />
         <View style={Styles.container}>
           {Object.keys(Routes).map((routeName: string) => (
             <View key={routeName} style={Styles.squareContainer}>

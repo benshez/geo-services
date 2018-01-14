@@ -10,6 +10,12 @@ export class Banner extends React.Component {
   render() {
     return (
       <View style={Styles.banner}>
+        <Text
+          style={Styles.menu}
+          onPress={() => this.props.navigation.navigate('DrawerOpen')}
+        >
+          Menu
+        </Text>
         <Text style={Styles.title}>GeoService {this.props.title}</Text>
       </View>
     );

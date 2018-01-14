@@ -1,24 +1,41 @@
 import React from 'react';
-import { Text } from 'react-native';
-import { StackNavigator } from 'react-navigation';
+import { Text, Dimensions, Platform } from 'react-native';
+import { StackNavigator, DrawerNavigator } from 'react-navigation';
+import DrawerMenu from '../../_components/DrawerMenu/DrawerMenu';
 import HomeScreen from '../../../screens/HomeScreen/HomeScreen';
+import AboutScreen from '../../../screens/AboutScreen/AboutScreen';
+import MapScreen from '../../../screens/MapScreen/MapScreen';
 import { Routes } from '../../_routes/index';
 
-export const AppNavigator = StackNavigator(
+const { width, height } = Dimensions.get('screen');
+
+export const MainScreenNavigator = StackNavigator(
   {
-    DrawerStack: { screen: Routes },
+    ...Routes
+  },
+  {
+    headerMode: 'none',
+    contentComponent: DrawerMenu,
+    drawerWidth: Math.min(height, width) * 1.779
+  }
+);
+
+export const AppNavigator = DrawerNavigator(
+  {
+    Main: {
+      screen: MainScreenNavigator
+    },
     Index: {
       screen: HomeScreen
     }
   },
   {
-    initialRouteName: 'Index',
-    navigationOptions: ({ navigation }) => ({
-      headerStyle: { backgroundColor: 'green' },
-      title: 'Logged In to your app!',
-      headerLeft: (
-        <Text onPress={() => navigation.navigate('DrawerOpen')}>Menu</Text>
-      )
-    })
+    headerMode: 'none',
+    contentComponent: DrawerMenu,
+    drawerWidth:
+      Platform.OS === 'web'
+        ? Math.min(height, width) * 1.779
+        : Math.min(height, width) * 0.8,
+    initialRouteName: 'Index'
   }
 );

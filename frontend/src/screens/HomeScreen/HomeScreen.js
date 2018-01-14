@@ -23,7 +23,7 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <ScrollView>
-        <Banner title="Home" />
+        <Banner title="Home" navigation={this.props.navigation} />
         <View style={Styles.container}>
           {Object.keys(Routes).map((routeName: string) => (
             <View key={routeName} style={Styles.squareContainer}>

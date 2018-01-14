@@ -23,7 +23,7 @@ export default class SignupScreen extends React.Component {
   render() {
     return (
       <ScrollView>
-        <Banner title="Signup" />
+        <Banner title="Signup" navigation={this.props.navigation} />
         <View style={Styles.container}>
           {Object.keys(Routes).map((routeName: string) => (
             <View key={routeName} style={Styles.squareContainer}>

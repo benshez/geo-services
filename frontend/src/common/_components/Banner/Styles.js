@@ -8,6 +8,12 @@ export const Styles = StyleSheet.create({
     padding: 16,
     marginTop: Platform.OS === 'ios' ? 20 : 0
   },
+  menu: {
+    left: '1rem',
+    position: 'absolute',
+    top: '1.5rem',
+    color: '#fff'
+  },
   image: {
     width: 36,
     height: 36,

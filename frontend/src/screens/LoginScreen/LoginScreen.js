@@ -23,16 +23,12 @@ export default class LoginScreen extends React.Component {
   render() {
     return (
       <ScrollView>
-        <Banner title="Login" />
+        <Banner title="Login" navigation={this.props.navigation} />
         <View style={Styles.container}>
           {Object.keys(Routes).map((routeName: string) => (
             <View key={routeName} style={Styles.squareContainer}>
               <Animated.View style={{ opacity: this.state.fadeAnim }}>
-                <Item
-                  routeName={routeName}
-                  routes={Routes}
-                  navigation={this.props.navigation}
-                />
+                <Text>Login</Text>
               </Animated.View>
             </View>
           ))}

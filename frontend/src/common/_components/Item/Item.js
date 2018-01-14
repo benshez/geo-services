@@ -31,7 +31,7 @@ import { Styles } from './Styles';
 export const Item = ({ navigation, routes, routeName }) => (
   <View>
     <Button
-      title={routeName}
+      title={routes[routeName].title}
       style={Styles.square}
       onPress={() => {
         const { path, params, screen } = routes[routeName];
