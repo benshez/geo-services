@@ -9,9 +9,9 @@ export const Styles = StyleSheet.create({
     marginTop: Platform.OS === 'ios' ? 20 : 0
   },
   menu: {
-    left: '1rem',
+    left: 8,
     position: 'absolute',
-    top: '1.5rem',
+    margin: 8,
     color: '#fff'
   },
   image: {

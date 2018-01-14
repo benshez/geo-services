@@ -16,5 +16,8 @@ export const Styles = StyleSheet.create({
     alignItems: 'center',
     flexBasis: '50%',
     padding: 30
+  },
+  map: {
+    ...StyleSheet.absoluteFillObject
   }
 });
