@@ -7,3 +7,6 @@ node-debug.log
 
 # builds
 bundle.js
+
+# config
+src/common/_config/*.js
