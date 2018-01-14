@@ -44,18 +44,11 @@ api/node_modules/
 .idea
 *.iml
 .vscode/angulardoc.json
-Visual Studio 2015
 .idea/
 bin
 obj/
 frontend/bin/
 frontend/obj/
-*.user
-.vs/
-*.csproj
-*.config
-*.api.phpproj.user
-*.sln
 
 #Frontend Files
 frontend/dist
@@ -64,23 +57,8 @@ frontend/lib
 frontend/test
 frontend/tmp
 frontend/.tmp
-frontend/src/**/*.js
 frontend/src/**/*.js.map
-frontend/**/*.ngfactory.js
-frontend/**/*.ngfactory.ts
-frontend/nativescript/app
-frontend/nativescript/hooks
-frontend/nativescript/node_modules
-frontend/nativescript/platforms
-frontend/nativescript/src/app
-frontend/nativescript/src/**/*.js
-frontend/nativescript/src/**/*.js.map
-frontend/nativescript/*.d.ts
-!nativescript/src/references.d.ts
-frontend/desktop
-frontend/gulpfile.js
-frontend/gulpfile.js.map
-!src/client/app/modules/test
+
 
 #VSCode Chrome Debugger Extension (launch.json configuration)
 ChromeDebugger-UserData
