@@ -1,6 +1,10 @@
 [
     {
-        "merged": "/home/zetta/react-native-web-boilerplate/android/app/build/intermediates/res/merged/debug/mipmap-hdpi/ic_launcher.png",
-        "source": "/home/zetta/react-native-web-boilerplate/android/app/src/main/res/mipmap-hdpi/ic_launcher.png"
+        "merged": "D:\\home\\zetta\\react-native-web-boilerplate\\android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\ic_launcher.png",
+        "source": "D:\\home\\zetta\\react-native-web-boilerplate\\android\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\geo-services\\frontend\\android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\ic_launcher.png",
+        "source": "D:\\geo-services\\frontend\\android\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.png"
     }
 ]

@@ -1,6 +1,10 @@
 [
     {
-        "merged": "/home/zetta/react-native-web-boilerplate/android/app/build/intermediates/res/merged/debug/xml/preferences.xml",
-        "source": "/home/zetta/react-native-web-boilerplate/android/app/build/intermediates/exploded-aar/com.facebook.react/react-native/0.45.1/res/xml/preferences.xml"
+        "merged": "D:\\home\\zetta\\react-native-web-boilerplate\\android\\app\\build\\intermediates\\res\\merged\\debug\\xml\\preferences.xml",
+        "source": "D:\\home\\zetta\\react-native-web-boilerplate\\android\\app\\build\\intermediates\\exploded-aar\\com.facebook.react\\react-native\\0.45.1\\res\\xml\\preferences.xml"
+    },
+    {
+        "merged": "D:\\geo-services\\frontend\\android\\app\\build\\intermediates\\res\\merged\\debug\\xml\\preferences.xml",
+        "source": "D:\\geo-services\\frontend\\android\\app\\build\\intermediates\\exploded-aar\\com.facebook.react\\react-native\\0.52.0\\res\\xml\\preferences.xml"
     }
 ]

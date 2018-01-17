@@ -6,6 +6,10 @@ import { Routes } from '../../common/_routes/index';
 import { Banner, Item } from '../../common/_components/index';
 import { Styles } from './Styles';
 import { MapBoxConstants } from '../../common/_config/index';
+import {
+  currentPositionService,
+  PromisedLocation
+} from '../../common/_services/index';
 
 export default class MapScreen extends React.Component {
   constructor(props) {
@@ -17,11 +21,29 @@ export default class MapScreen extends React.Component {
         latitude: 0
       }
     };
-    this.getCurrentPosition();
+    //currentPositionService.getCurrentPosition();
+    //this.getCurrentPosition();
   }
 
   componentDidMount() {
     this.getCurrentPosition();
+    var options = {
+      enableHighAccuracy: true,
+      timeout: 10000,
+      maximumAge: 60000
+    };
+    // var locator = new PromisedLocation(options);
+    // locator
+    //   .then(function(position) {
+    //     debugger;
+    //     console.log(position.coords);
+    //   })
+    //   .catch(function(err) {
+    //     console.error('Position Error ', err.toString());
+    //   });
+
+    // let pos = currentPositionService.getCurrentPosition();
+    // debugger;
     this.watchID = navigator.geolocation.watchPosition(position => {
       let region = {
         latitude: position.coords.latitude,
@@ -39,7 +61,7 @@ export default class MapScreen extends React.Component {
   }
 
   componentWillUnmount() {
-    navigator.geolocation.clearWatch(this.watchID);
+    currentPositionService.clearWatch(this.watchID);
   }
 
   onRegionChange(region, lastLat, lastLong) {
@@ -77,16 +99,18 @@ export default class MapScreen extends React.Component {
     const Map = ReactMapboxGl({
       accessToken: MapBoxConstants.MAPBOX_ACCESS_TOKEN
     });
-    debugger;
     return (
       <ScrollView>
         <Banner title="Map" navigation={this.props.navigation} />
         <View style={Styles.container}>
           <Animated.View style={{ opacity: this.state.fadeAnim }}>
-            <Text>{this.state.position.latitude}</Text>
-            <Text>{this.state.position.longitude}</Text>
             <Map
-              style="mapbox://styles/mapbox/streets-v9"
+              style={MapBoxConstants.MAPBOX_MAP_STYLES.DARK}
+              center={[
+                this.state.position.longitude,
+                this.state.position.latitude
+              ]}
+              zoom={[14]}
               containerStyle={{
                 height: '100vh',
                 width: '100vw'
