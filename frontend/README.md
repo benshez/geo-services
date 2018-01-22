@@ -1,5 +1,1 @@
-# GeoService!
-
-## LICENSE
-
-MIT
+# GeoService Frontend
