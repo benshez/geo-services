@@ -22,13 +22,13 @@ export function HttpLoaderFactory(http: HttpClient) {
     imports: [
         BrowserAnimationsModule,
         HttpClientModule,
-        TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useFactory: createTranslateLoader,
-                deps: [HttpClient]
-            }
-        }),
+        // TranslateModule.forRoot({
+        //     loader: {
+        //         provide: TranslateLoader,
+        //         useFactory: createTranslateLoader,
+        //         deps: [HttpClient]
+        //     }
+        // }),
         ...SHARED_MODULES
     ],
     providers: [],

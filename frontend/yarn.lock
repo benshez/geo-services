@@ -154,6 +154,14 @@
   dependencies:
     tslib "^1.7.1"
 
+"@ngrx/effects@^5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/effects/-/effects-5.0.0.tgz#8c815e26dcfdd87e3da03ad90f13b97f5df88b73"
+
+"@ngrx/store@^5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/store/-/store-5.0.0.tgz#483a955ea99a63ee083675ce0596d505e5501747"
+
 "@ngtools/json-schema@1.1.0", "@ngtools/json-schema@^1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@ngtools/json-schema/-/json-schema-1.1.0.tgz#c3a0c544d62392acc2813a42c8a0dc6f58f86922"
@@ -291,6 +299,12 @@ alphanum-sort@^1.0.1, alphanum-sort@^1.0.2:
 amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
+
+angulartics2@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/angulartics2/-/angulartics2-5.0.0.tgz#ceafcd14bb743637e9543fc6daf8808447735b19"
+  dependencies:
+    tslib "^1.7.1"
 
 ansi-html@0.0.7:
   version "0.0.7"
@@ -1575,6 +1589,10 @@ deep-equal@^1.0.1:
 deep-extend@~0.4.0:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/deep-extend/-/deep-extend-0.4.2.tgz#48b699c27e334bf89f10892be432f6e4c7d34a7f"
+
+deep-freeze-strict@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/deep-freeze-strict/-/deep-freeze-strict-1.1.1.tgz#77d0583ca24a69be4bbd9ac2fae415d55523e5b0"
 
 default-require-extensions@^1.0.0:
   version "1.0.0"
@@ -3958,6 +3976,12 @@ ncname@1.0.x:
 negotiator@0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
+
+ngrx-store-freeze@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/ngrx-store-freeze/-/ngrx-store-freeze-0.2.0.tgz#74c231947bbe1938af722f6a72624dc69788d39f"
+  dependencies:
+    deep-freeze-strict "^1.1.1"
 
 no-case@^2.2.0:
   version "2.3.2"
