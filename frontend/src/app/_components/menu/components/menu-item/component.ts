@@ -1,12 +1,13 @@
 import { Component, Input } from '@angular/core';
-import { MenuItem } from '../../interfaces/MenuItem';
+// app
+import { IMenuItem } from '../../../../_interfaces';
 
 @Component({
     moduleId: module.id,
-    selector: 'geoservices-menu',
+    selector: 'geoservices-menu-item',
     templateUrl: './component.html',
     styleUrls: ['./component.scss']
 })
-export class MenuComponent {
-    @Input() items: MenuItem[];
+export class MenuItemComponent {
+    @Input() item: IMenuItem;
 }

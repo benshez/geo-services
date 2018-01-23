@@ -3,13 +3,13 @@ import { RouterModule } from '@angular/router';
 // app
 import {
     SHARED_MODULES,
-    COMPONENT_DECLARATIONS,
-    COMPONENT_EXPORTS
+    MENU_COMPONENT_DECLARATIONS,
+    MENU_COMPONENT_EXPORTS
 } from './common';
 
 @NgModule({
     imports: [RouterModule, ...SHARED_MODULES],
-    declarations: [...COMPONENT_DECLARATIONS],
-    exports: [...COMPONENT_EXPORTS]
+    declarations: [...MENU_COMPONENT_DECLARATIONS],
+    exports: [...MENU_COMPONENT_EXPORTS]
 })
-export class MenuModule {}
+export class MenuModule { }

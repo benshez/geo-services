@@ -1,10 +1,10 @@
 import { NgModule, Optional, SkipSelf, NO_ERRORS_SCHEMA } from '@angular/core';
-import { HomeComponent } from './components/home/component';
-import { SHARED_MODULES } from './common';
+import { SHARED_MODULES, HOME_COMPONENT_DECLARATIONS } from './common';
 
 @NgModule({
     imports: [...SHARED_MODULES],
-    declarations: [HomeComponent]
+    declarations: [...HOME_COMPONENT_DECLARATIONS],
+    schemas: [NO_ERRORS_SCHEMA]
 })
 export class HomeModule {
     constructor(

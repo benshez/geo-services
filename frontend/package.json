@@ -1,6 +1,7 @@
 {
     "name": "goservices",
     "version": "1.0.0",
+    "repository": "https://github.com/benshez/geo-services",
     "scripts": {
         "postinstall": "node symlink.js",
         "ng": "ng",
