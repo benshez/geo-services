@@ -34,7 +34,13 @@ export class I18NService extends Analytics {
 
         translate.setDefaultLang(initialState.lang);
 
-        const userLang = this.win.navigator.language.split('-')[0];
+        // navigator.languages
+        // ? navigator.languages[0]
+        //     : (navigator.language || navigator.userLanguage)
+
+        const userLang = this.win.navigator.language
+            ? this.win.navigator.language.split('-')[0]
+            : 'en';
 
         this.store.select(s => s.i18n).subscribe((state: I18NState) => {
             this.translate.use(state.lang);

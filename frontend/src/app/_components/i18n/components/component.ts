@@ -8,7 +8,8 @@ import * as fromI18n from '../../i18n';
 @Component({
     moduleId: module.id.toString(),
     selector: 'geoservice-i18n',
-    templateUrl: 'component.html'
+    templateUrl: 'component.html',
+    providers: [LogService]
 })
 export class I18NComponent implements OnInit {
     public lang: string;
