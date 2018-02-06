@@ -5,31 +5,31 @@ import { Router } from '@angular/router';
 
 @Component({
     moduleId: module.id,
-    selector: 'main-menu',
-    templateUrl: './main-menu.component.html',
+    selector: 'geoservices-main-menu',
+    templateUrl: './component.html',
     animations: [trigger(
         'toggleNav',
         [
-            state( 'collapsed, void', style({transform: 'translateX(-100%)'}) ),
-            state( 'expanded', style({transform: 'translateX(0)'}) ),
-            transition( 'collapsed <=> expanded',
+            state('collapsed, void', style({ transform: 'translateX(-100%)' })),
+            state('expanded', style({ transform: 'translateX(0)' })),
+            transition('collapsed <=> expanded',
                 [
-                    animate( 200 ),
-                    animate( 200 )
+                    animate(200),
+                    animate(200)
                 ]
             )
         ]
     )],
     encapsulation: ViewEncapsulation.None,
     styleUrls: [
-       './../app.style.css'
+        '../../app.style.css'
     ],
 })
 export class MainMenuComponent {
     private year = new Date().getFullYear();
     public navState: string;
     constructor(private router: Router) {
-        if ( window.innerWidth < 768 ) {
+        if (window.innerWidth < 768) {
             this.navState = 'collapsed';
         } else {
             this.navState = 'expanded';
@@ -46,7 +46,7 @@ export class MainMenuComponent {
 
     @HostListener('window:resize', ['$event'])
     onResize(event) {
-        if ( event.target.innerWidth < 768 ) {
+        if (event.target.innerWidth < 768) {
             this.navState = 'collapsed';
         } else {
             this.navState = 'expanded';
@@ -58,7 +58,7 @@ export class MainMenuComponent {
     }
 
     public toggleNav() {
-        if ( this.navState === 'expanded' ) {
+        if (this.navState === 'expanded') {
             this.navState = 'collapsed';
         } else {
             this.navState = 'expanded';

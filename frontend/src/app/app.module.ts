@@ -17,16 +17,14 @@ import { ButtonsModule } from '@progress/kendo-angular-buttons';
 import { LayoutModule } from '@progress/kendo-angular-layout';
 
 // Components
-import { MainMenuComponent } from './main-menu/main-menu.component';
-import { SigninComponent } from './signin/signin.component';
+import { COMPONENT_DECLARATIONS } from './_components';
 
 Config.PLATFORM_TARGET = Config.PLATFORMS.WEB;
 
 @NgModule({
     declarations: [
         AppComponent,
-        MainMenuComponent,
-        SigninComponent,
+        COMPONENT_DECLARATIONS
     ],
     imports: [
         BrowserModule,
@@ -37,6 +35,6 @@ Config.PLATFORM_TARGET = Config.PLATFORMS.WEB;
     providers: [
         ...SHARED_PROVIDERS
     ],
-    bootstrap: [ AppComponent ]
+    bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

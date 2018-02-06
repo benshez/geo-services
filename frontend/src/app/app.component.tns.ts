@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     moduleId: module.id,
-    selector: 'maestro-app',
+    selector: 'geoservices-app',
     templateUrl: './app.component.html'
 })
 

@@ -1,11 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import marked from 'marked';
 
 @Component({
     selector: 'markdown',
     template: '<div [innerHTML]="convertedData"></div>'
 })
-export class MarkdownComponent {
+export class MarkdownComponent implements OnChanges {
     @Input('data') public data: string;
     public convertedData: string;
 

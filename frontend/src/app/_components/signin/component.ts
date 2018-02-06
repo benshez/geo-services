@@ -5,12 +5,12 @@ import { Router } from '@angular/router';
 
 @Component({
     moduleId: module.id,
-    selector: 'signin',
+    selector: 'geoservices-signin',
     encapsulation: ViewEncapsulation.None,
-    templateUrl: './signin.template.html'
+    templateUrl: './template.html'
 })
 export class SigninComponent {
-    constructor(private router: Router) {}
+    constructor(private router: Router) { }
     public email = 'ggkrustev';
     public password = 'passw0rd';
 

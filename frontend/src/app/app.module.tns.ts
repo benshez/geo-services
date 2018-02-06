@@ -8,7 +8,7 @@ import { Config } from './common/index';
 import { AppComponent } from './app.component';
 import { SHARED_MODULES, SHARED_PROVIDERS } from './app.common';
 
-import { SigninComponent } from './signin/signin.component';
+import { SIGNIN_COMPONENT_DECLARATIONS } from './_components/signin';
 
 Config.PLATFORM_TARGET = Config.PLATFORMS.MOBILE_NATIVE;
 
@@ -23,7 +23,7 @@ Config.PLATFORM_TARGET = Config.PLATFORMS.MOBILE_NATIVE;
     ],
     declarations: [
         AppComponent,
-        SigninComponent,
+        SIGNIN_COMPONENT_DECLARATIONS,
     ],
     providers: [
         ...SHARED_PROVIDERS,
