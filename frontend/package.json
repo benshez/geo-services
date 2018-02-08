@@ -8,13 +8,11 @@
         "ng": "ng",
         "start": "ng serve --proxy-config proxy.conf.json",
         "build": "ng build",
-        "deploy":
-            "ng build --prod --base-href https://telerik.github.io/ng2-dashboard/ && ./node_modules/.bin/angular-cli-ghpages",
+        "deploy": "ng build --prod --base-href https://telerik.github.io/ng2-dashboard/ && ./node_modules/.bin/angular-cli-ghpages",
         "test": "ng test",
         "lint": "ng lint",
         "e2e": "ng e2e",
-        "build.docker":
-            "ng build --prod --aot && docker-compose build && docker-compose up"
+        "build.docker": "ng build --prod --aot && docker-compose build && docker-compose up"
     },
     "private": true,
     "dependencies": {
@@ -43,8 +41,8 @@
         "@progress/kendo-theme-bootstrap": "^2.8.0",
         "@progress/kendo-theme-default": "^2.40.2",
         "@angularclass/hmr": "^2.1.3",
-        "bootstrap":
-            "git://github.com/twbs/bootstrap.git#95f37e4c402df37db16781995ffa1592032df9c8",
+        "@ngrx/store": "^5.0.0",
+        "bootstrap": "git://github.com/twbs/bootstrap.git#95f37e4c402df37db16781995ffa1592032df9c8",
         "core-js": "^2.4.1",
         "hammerjs": "^2.0.8",
         "jquery": "^3.2.1",

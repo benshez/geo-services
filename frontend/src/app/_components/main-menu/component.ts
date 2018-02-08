@@ -28,6 +28,7 @@ import { Router } from '@angular/router';
 export class MainMenuComponent {
     private year = new Date().getFullYear();
     public navState: string;
+
     constructor(private router: Router) {
         if (window.innerWidth < 768) {
             this.navState = 'collapsed';

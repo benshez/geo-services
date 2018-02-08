@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 
 // app
-import { Config } from './common/index';
+import { Config } from './_common/utils';
 import { AppComponent } from './app.component';
 import { SHARED_MODULES, SHARED_PROVIDERS } from './app.common';
 

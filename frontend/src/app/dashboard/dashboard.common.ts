@@ -1,6 +1,6 @@
 // app
 import { SharedModule } from '../shared';
-import { RouterModule } from '../common';
+import { RouterModule } from '../_common/router';
 import { DashboardRoutes } from './dashboard.routes';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
@@ -10,15 +10,15 @@ import { IssueTypesComponent } from './charts/issue-types.component';
 import { StatisticsComponent } from './charts/statistics.component';
 
 export const SHARED_MODULES: any[] = [
-  SharedModule,
-  RouterModule.forChild(<any>DashboardRoutes)
+    SharedModule,
+    RouterModule.forChild(<any>DashboardRoutes)
 ];
 
 export const COMPONENT_DECLARATIONS: any[] = [
-  DashboardComponent,
+    DashboardComponent,
 
-  ActiveIssuesComponent,
-  TypesDistributionComponent,
-  IssueTypesComponent,
-  StatisticsComponent
+    ActiveIssuesComponent,
+    TypesDistributionComponent,
+    IssueTypesComponent,
+    StatisticsComponent
 ];
