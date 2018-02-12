@@ -1,4 +1,3 @@
-// app
 import { SharedModule } from '../shared';
 import { RouterModule } from '../_common/router';
 import { DashboardRoutes } from './dashboard.routes';

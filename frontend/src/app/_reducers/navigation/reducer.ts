@@ -1,10 +1,7 @@
-import {
-    InitialState,
-    LayoutActions,
-    LayoutActionTypes,
-    INavigationAction,
-    INavigationState
-} from '../../_components/main-menu/common';
+
+import { INavigationAction, INavigationState } from '../../_interfaces/navigation/INavigation';
+import { LayoutActionTypes, LayoutActions } from '../../_actions/navigation';
+import { InitialState } from '../../_states/navigation';
 
 export function reducer(
     state: INavigationState = InitialState,
@@ -12,14 +9,11 @@ export function reducer(
 ): INavigationState {
     switch (action.type) {
         case LayoutActionTypes.CLOSE_LEFT_SIDENAV:
-            const query = action.payload;
-            if (state.LeftSidebarOpened !== action.payload) {
-                return (<any>Object).assign({}, state, {
-                    LeftSidebarOpened: query
-                });
-            }
-            return state;
+            return Object.assign({}, state, { LeftSidebarOpened: false });
+        case LayoutActionTypes.OPEN_LEFT_SIDENAV:
+            return Object.assign({}, state, { LeftSidebarOpened: true });
         default:
+            debugger
             return state;
     }
 }

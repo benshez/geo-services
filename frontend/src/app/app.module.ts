@@ -16,11 +16,20 @@ import { InputsModule } from '@progress/kendo-angular-inputs';
 import { ButtonsModule } from '@progress/kendo-angular-buttons';
 import { LayoutModule } from '@progress/kendo-angular-layout';
 
+/*
+ *
+ */
+import { Store, StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+
 // Components
 import { COMPONENT_DECLARATIONS } from './_components';
 
 Config.PLATFORM_TARGET = Config.PLATFORMS.WEB;
 
+/*
+ */
+import { reducers, metaReducers } from './_reducers';
 @NgModule({
     declarations: [
         AppComponent,
@@ -30,7 +39,9 @@ Config.PLATFORM_TARGET = Config.PLATFORMS.WEB;
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
-        ...SHARED_MODULES
+        ...SHARED_MODULES,
+        StoreModule.forRoot(reducers, { metaReducers }),
+        EffectsModule.forRoot([]),
     ],
     providers: [
         ...SHARED_PROVIDERS

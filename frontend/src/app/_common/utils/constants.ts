@@ -1,1 +1,1 @@
-export const NAVIGATION_LAYOUT = 'Layout';
+export const NAVIGATION_LAYOUT = 'MenuLayout';

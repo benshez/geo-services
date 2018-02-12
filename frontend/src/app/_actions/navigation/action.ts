@@ -9,11 +9,11 @@ export const LayoutActionTypes: INavigationAction = {
 
 export class OpenLeftSideNavigationAction implements Action {
     readonly type = LayoutActionTypes.OPEN_LEFT_SIDENAV;
-    constructor(public payload: boolean) { }
+    constructor(public payload: boolean) { debugger }
 }
 export class CloseLeftSideNavigationAction implements Action {
     readonly type = LayoutActionTypes.CLOSE_LEFT_SIDENAV;
-    constructor(public payload: boolean) { }
+    constructor(public payload: boolean) { debugger }
 }
 
 export type LayoutActions = CloseLeftSideNavigationAction | OpenLeftSideNavigationAction;
