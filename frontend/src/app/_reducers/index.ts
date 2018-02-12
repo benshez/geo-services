@@ -14,11 +14,11 @@ import * as fromMenu from '../_components/main-menu/common';
 import { NAVIGATION_LAYOUT } from '../_common/utils';
 
 export interface State {
-    menu: fromMenu.INavigationState;
+    NAVIGATION_LAYOUT: fromMenu.INavigationState;
 }
 
 export const reducers: ActionReducerMap<State> = {
-    menu: fromMenu.reducer
+    NAVIGATION_LAYOUT: fromMenu.reducer
 };
 
 export function logger(reducer: ActionReducer<State>): ActionReducer<State> {
@@ -34,7 +34,7 @@ export const metaReducers: MetaReducer<State>[] = !environment.production
     ? [logger, storeFreeze]
     : [];
 
-export const GetMenuState = createFeatureSelector<fromMenu.INavigationState>('menu');
+export const GetMenuState = createFeatureSelector<fromMenu.INavigationState>(NAVIGATION_LAYOUT);
 
 export const GetLeftSideNavigationState = createSelector(
     GetMenuState,
